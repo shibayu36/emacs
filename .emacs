@@ -199,7 +199,6 @@ default-frame-alist))
 
 
 
-
 ;;auto-install設定
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/elisp/")

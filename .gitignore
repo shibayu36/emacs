@@ -1,0 +1,5 @@
+.emacs.d/.autosave/
+.emacs.d/.backup/
+.emacs.d/auto-save-list/
+*~
+.#*

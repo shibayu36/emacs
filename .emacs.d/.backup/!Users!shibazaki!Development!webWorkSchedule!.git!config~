@@ -1,9 +1,0 @@
-[core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = false
-	logallrefupdates = true
-	ignorecase = true
-[remote "origin"]
-	url = ssh://root@192.168.1.75/var/git/webWorkSchedule.git
-	fetch = +refs/heads/*:refs/remotes/origin/*

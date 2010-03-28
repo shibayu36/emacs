@@ -11,6 +11,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/html/")
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
+        (expand-file-name "~/.emacs.d/elisp/mode/php-mode/")
         )
        load-path))
 

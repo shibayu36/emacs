@@ -16,3 +16,5 @@
             (setq abbrev-mode nil)))
 ;;abbrev-complete設定
 (load "abbrev-complete")
+;;dabbrevにおけるハイライト設定
+(require 'dabbrev-highlight)

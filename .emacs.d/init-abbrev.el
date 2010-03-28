@@ -14,4 +14,5 @@
 (add-hook 'pre-command-hook
           (lambda ()
             (setq abbrev-mode nil)))
-
+;;abbrev-complete設定
+(load "abbrev-complete")

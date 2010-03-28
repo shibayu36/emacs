@@ -1,0 +1,153 @@
+Changes in version 3.0.2.0
+
+	Patched asp/php matching in font lock. It doesn't (hopefully)
+	break the stack anymore.
+
+Changes in version 3.0.2.1
+
+	Fixed folding.el tags.  
+
+	Fixed general tag matching regexp.
+
+Changes in version 3.0.2.2
+
+	Added a defcustom for a symbol meant to tell Emacs that it has to
+	consider asp/php/jsp blocks beginning in column 1
+
+	Added messages in the minibuffer while matching PHP/JSP/PHP blocks
+
+	Added support for JSP (ALPHA)
+
+	Added a defcustom for a symbol meant to tell Emacs that the page
+	contains JSP and not ASP
+
+Changes in version 3.0.3.0
+
+	Experimental code to generate new faces under xemacs
+
+Changes in version 3.0.3.2
+
+	Fixed handling of the defcustom symbol meant to tell Emacs that
+	the page contains JSP and not ASP
+
+Changes in version 3.0.3.3
+
+	Fixed regexp matching scripts in  html-helper-match-asp-php
+
+	Fixed vesion number :)
+
+Changes in version 3.0.3.4
+
+	Inserted (require 'font-lock)
+
+Changes in version 3.0.3.5
+
+	Changed default value for html-helper-mode-uses-visual-basic: the
+	default distribution does not offer visual-basic-mode.
+
+	Changed comment matching. Used a function instead of a regexp. 
+	Comments are used to hide script code from browsers that can't 
+	handle them, and long comments can overflow the regexp stack.
+
+	Geeeeeeeeeeeee, now it works even better than sgml/html mode :)
+
+Changes in version 3.0.3.5bravo
+
+	Peter Neergaard <turtle@bu.edu> suggests a correction that's 
+	damn right on such regexpe like  \(<%=\s*\) \(<%=\w*\) 
+
+Changes in version 3.0.3.5charlie
+
+	Peter Neergaard <turtle@bu.edu> suggests a mode to overcome
+	differences between Emacsen when dealing with font-lock faces
+
+
+Changes in version 3.0.4
+
+	Perepeee, it seems finally fixed! The mode-forth-and-back-kluge
+	hack now works.  There's ta new alist with all the html-helper-mode 
+	using buffer and the flavour they use ("HTML" "JSP" "PHP" "ASP").
+	base-html-helper-mode puts each buffer in the list, an hook added
+	to buffer-kill-hook removes it from the list.   
+	Now html-script-release-region uses this list to setup the mode,
+	the broken mechanism with the buffer-local variable is gone.
+
+Changes in version 3.0.4bravo :
+ 
+	Changed the way html-helper-mode-uses-JDE is set in the mode
+	source, so that it automatically detects JDE.
+	Added (require 'psgml-html) for XEmacs users (kind suggestion by
+	XEmacs developer martin@xemacs.org)
+
+	Changed ASP and comment blocks fontifying message
+
+	Changes moved to this file (mode source was over 2000 lines).
+
+	Changed highlighting, all the tags now are fontifyed the same
+	way
+
+		<entity attribute=value attribute="value">
+	        ^~~~~~~ ^^^^^^^^^       ^^^^^^^^^ '''''''^
+
+	Legenda
+		^		font-lock-function-name-face
+		~		html-tag-face
+		^		font-lock-variable-name-face
+		'		font-lock-string-face
+
+	regexp for matching tags are simpler and there are
+	more function to find the elements to color.
+
+	Message during "repaint" are less heavy, no more point
+	strips, but a little line spinning.
+
+Changes in version 3.0.4charlie:
+
+	Reworked indenting engine. Now indentation is uniform (2 character
+	default). It recognizes  indentation sensible tags with attributes
+	and  needs that they  tags stay  on separate  lines (C  mode needs
+	curly braces on separate lines too, so this is acceptable :) )
+
+Changes in version 3.0.4delta:
+
+	Bug fix : html-helper-release-setup did use C-f12 instead of f4,
+	now I set it to  html-script-toggle-key. Corrected modes docstring
+
+Changes in version 3.0.4echo:
+
+	Bug fix : Indenting engine was flawed by repeated code hidden in
+	folding. Many thanks to Karel Sprenger, author of the fix.
+
+Changes in version 3.0.4fox-trot:
+
+	Bug fix: version number in 3.0.4echo was foobar.
+
+	Bug fix: Jack Vinson supplies this code to handle the case when
+	browse-url-browser-function is a list and not a function (it can be
+	a list, says its documentation)
+
+Changes in version 3.0.4golf:
+
+	Bug fix: string-bytes doesn't exist in XEmacs
+
+Changes in version 3.0.4hotel
+
+	Bug fix: comment-region now works (comment-end must contain a
+	simple string)
+
+	Bug fix: fontifying messages don't overrun *Messages* anymore
+
+Changes in version 3.0.4india
+
+	Bug fix (XEmacs specific): hopefully Graham Gough found the way
+	to fix face problems with XEmacs.
+
+	Changed html-helper-insert-or-wipe so that it insert empty tag
+	attributes if html-helper-mode-insert-attributes-always is non nil
+
+	string-bytes re-entered the game due a file loss and restore :(
+	
+Changes in version 3.0.4Jolly
+
+	Bug fix : html-helper-buffers doesnt' bloat anymore.
+	

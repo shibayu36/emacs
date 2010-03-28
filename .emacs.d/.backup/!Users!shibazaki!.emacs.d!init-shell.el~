@@ -1,0 +1,4 @@
+;;パスワードの非表示
+(add-hook 'comint-output-filter-functions
+          'comint-watch-for-password-prompt)
+

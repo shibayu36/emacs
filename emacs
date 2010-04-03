@@ -9,6 +9,7 @@
         (expand-file-name "~/.emacs.d/elisp/")
         (expand-file-name "~/.emacs.d/elisp/anything/")
         (expand-file-name "~/.emacs.d/elisp/abbrev/")
+        (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/mode/html/")
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
@@ -16,6 +17,12 @@
         (expand-file-name "~/.emacs.d/elisp/mode/python-mode/")
         )
        load-path))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;バイトコンパイル設定;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;キーの設定;;;;;;;;;;;;;;;;
@@ -232,3 +239,6 @@ default-frame-alist))
 
 ;;abbrev設定
 (load "init-abbrev")
+
+;;pymacsの設定
+(load "init-pymacs")

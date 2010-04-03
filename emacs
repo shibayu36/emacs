@@ -13,6 +13,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
         (expand-file-name "~/.emacs.d/elisp/mode/php-mode/")
+        (expand-file-name "~/.emacs.d/elisp/mode/python-mode/")
         )
        load-path))
 

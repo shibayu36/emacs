@@ -44,9 +44,9 @@
 (autoload 'python-mode "python-mode" "Major mode for editing Python programs" t)
 (autoload 'py-shell "python-mode" "Python shell" t)
 (setq auto-mode-alist (cons '("\\.py\\'" . python-mode) auto-mode-alist))
-;; (add-hook 'python-mode-hook
-;;           (function (lambda ()
-;;                       (setq indent-tabs-mode nil))))
+(add-hook 'python-mode-hook
+          (function (lambda ()
+                      (setq indent-tabs-mode nil))))
 (add-hook 'python-mode-hook '(lambda ()
                                (require 'pycomplete)
                                ))

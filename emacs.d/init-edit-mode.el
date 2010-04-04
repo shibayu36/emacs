@@ -41,17 +41,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;pythonモード設定;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;メジャーモードの自動起動設定
 (autoload 'python-mode "python-mode" "Major mode for editing Python programs" t)
 (autoload 'py-shell "python-mode" "Python shell" t)
 (setq auto-mode-alist (cons '("\\.py\\'" . python-mode) auto-mode-alist))
+(setq interpreter-mode-alist (cons '("python" . python-mode)
+                                   interpreter-mode-alist))
+;;インデントをスペースに
 (add-hook 'python-mode-hook
           (function (lambda ()
                       (setq indent-tabs-mode nil))))
-(add-hook 'python-mode-hook '(lambda ()
-                               (require 'pycomplete)
-                               ))
+;;pycompleteの有効化
+;;なぜかうまくいかない
+;; (add-hook 'python-mode-hook '(lambda ()
+;;                                (require 'pycomplete)
+;;                                ))
 
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
-
-
+;;pysmellの有効化
+;;うまくいかない
+;; (require 'pysmell)
+;; (add-hook 'python-mode-hook (lambda () (pysmell-mode 1)))

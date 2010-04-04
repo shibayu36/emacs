@@ -245,3 +245,7 @@ default-frame-alist))
 
 ;;pymacsの設定
 (load "init-pymacs")
+
+;;; 定義した基本的な関数群
+(if (file-exists-p "~/.emacs.d/my-funcs.el")
+    (load "my-funcs.el"))

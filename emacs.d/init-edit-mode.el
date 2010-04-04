@@ -51,6 +51,11 @@
 (add-hook 'python-mode-hook
           (function (lambda ()
                       (setq indent-tabs-mode nil))))
+
+;;ipython設定
+;;(setq ipython-command "/usr/local/bin/ipython")
+;;(require 'ipython)
+             
 ;;pycompleteの有効化
 ;;なぜかうまくいかない
 ;; (add-hook 'python-mode-hook '(lambda ()

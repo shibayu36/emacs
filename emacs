@@ -98,6 +98,9 @@
 default-frame-alist))
 
 
+;;yes-noの選択肢をy-nにする
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;;; Autosaveファイルの場所指定
 ;;(setq auto-save-list-file-prefix (expand-file-name "~/.emacs.d/.autosave/"))
 ;;オートセーブファイルを作らない

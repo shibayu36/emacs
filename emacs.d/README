@@ -1,0 +1,9 @@
+このファイルにはemacsを複製する際に、必要な設定を書いておきます。
+
+
+1.pymacs
+pymacsが入っているため、pymacsをダウンロードして、インストールする必要がある。
+
+2.pysmell
+pysmellが入っているため、pysmellを入れてインストールする必要がある。
+http://d.hatena.ne.jp/moch-lite/20090419/p1

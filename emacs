@@ -15,6 +15,8 @@
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
         (expand-file-name "~/.emacs.d/elisp/mode/php-mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/python-mode/")
+        (expand-file-name "~/.emacs.d/elisp/mode/perl/")
+        (expand-file-name "~/.emacs.d/elisp/mode/psgml/")
         )
        load-path))
 
@@ -237,9 +239,6 @@ default-frame-alist))
 ;;shellモード設定
 (load "init-shell")
 
-;;編集モードの設定
-(load "init-edit-mode")
-
 ;;abbrev設定
 (load "init-abbrev")
 
@@ -249,3 +248,10 @@ default-frame-alist))
 ;;; 定義した基本的な関数群
 (if (file-exists-p "~/.emacs.d/my-funcs.el")
     (load "my-funcs.el"))
+
+;;flymakeの設定
+(load "init-flymake.el")
+
+;;編集モードの設定
+(load "init-edit-mode")
+

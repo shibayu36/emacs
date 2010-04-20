@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title>XHTML 1.1 - The XHTML 1.1 Document Type</title>
+<link rel="prev" type="text/html" href="conformance.html" />
+<link rel="next" type="text/html" href="changes.html" />
+<link rel="stylesheet" type="text/css" media="screen" href="xhtml.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="W3C-REC.css" /><?xml-stylesheet href="xhtml.css" type="text/css" media="screen" ?><?xml-stylesheet
+href="W3C-REC.css" type="text/css" media="screen" ?>
+</head>
+<body>
+<div class="navbar">[<a href="conformance.html">previous</a>] &#160; [<a href="changes.html">next</a>] &#160; [<a href="Overview.html#toc">table of contents</a>] 
+
+<hr />
+</div>
+
+<h1><a id="s_doctype">3.</a> The XHTML 1.1 Document Type</h1>
+
+<p>This section is <em>normative</em>.</p>
+
+<p>The XHTML 1.1 document type is a fully functional document type with rich semantics. It is not, however, as varied in functionality as the XHTML 1.0 Transitional or Frameset document types. These
+document types defined many presentational components that are better handled through style sheets or other similar mechanisms. Moreover, since the XHTML 1.1 document type is based exclusively upon
+the facilities defined in the XHTML modules [<a href="references.html#ref_xhtml_modularization">XHTMLMOD</a>], it does not contain any of the deprecated functionality of XHTML 1.0 nor of HTML 4.
+Despite these exceptions, or perhaps because of them, the XHTML 1.1 document type is a solid basis for future document types that are targeted at varied user agent environments.</p>
+
+<p>The XHTML 1.1 document type is made up of the following XHTML modules. The elements, attributes, and minimal content models associated with these modules are defined in "Modularization of XHTML"
+[<a href="references.html#ref_xhtml_modularization">XHTMLMOD</a>]). The elements are listed here for information purposes, but the definitions in "Modularization of XHTML" should be considered
+definitive. In the on-line version of this document, the module names in the list below link into the definitions of the modules within the current version of "Modularization of XHTML".</p>
+
+<dl>
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_structuremodule">Structure Module</a>*</dt>
+
+<dd><code>body, head, html, title</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_textmodule">Text Module</a>*</dt>
+
+<dd><code>abbr, acronym, address, blockquote, br, cite, code, dfn, div, em, h1, h2, h3, h4, h5, h6, kbd, p, pre, q, samp, span, strong, var</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_hypertextmodule">Hypertext Module</a>*</dt>
+
+<dd><code>a</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_listmodule">List Module</a>*</dt>
+
+<dd><code>dl, dt, dd, ol, ul, li</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_objectmodule">Object Module</a></dt>
+
+<dd><code>object, param</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_presentationmodule">Presentation Module</a></dt>
+
+<dd><code>b, big, hr, i, small, sub, sup, tt</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_editmodule">Edit Module</a></dt>
+
+<dd><code>del, ins</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_bdomodule">Bidirectional Text Module</a></dt>
+
+<dd><code>bdo</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_extformsmodule">Forms Module</a></dt>
+
+<dd><code>button, fieldset, form, input, label, legend, select, optgroup, option, textarea</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_tablemodule">Table Module</a></dt>
+
+<dd><code>caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_imagemodule">Image Module</a></dt>
+
+<dd><code>img</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_imapmodule">Client-side Image Map Module</a></dt>
+
+<dd><code>area, map</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_servermapmodule">Server-side Image Map Module</a></dt>
+
+<dd>Attribute <code>ismap</code> on <code>img</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_intrinsiceventsmodule">Intrinsic Events Module</a></dt>
+
+<dd>Events attributes</dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_metamodule">Metainformation Module</a></dt>
+
+<dd><code>meta</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_scriptmodule">Scripting Module</a></dt>
+
+<dd><code>noscript, script</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_stylemodule">Stylesheet Module</a></dt>
+
+<dd><code>style</code> element</dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_styleattributemodule">Style Attribute Module</a> <em>Deprecated</em></dt>
+
+<dd><code>style</code> attribute</dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_linkmodule">Link Module</a></dt>
+
+<dd><code>link</code></dd>
+
+<dt><a href="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_basemodule">Base Module</a></dt>
+
+<dd><code>base</code></dd>
+</dl>
+
+<p>XHTML also uses the Ruby Annotation module as defined in [<a href="references.html#ref_ruby">RUBY</a>]:</p>
+
+<dl>
+<dt>Ruby Annotation Module</dt>
+
+<dd><code>ruby, rbc, rtc, rb, rt, rp</code></dd>
+</dl>
+
+<p>There are no additional definitions required by this document type. An implementation of this document type as an XML DTD is defined in <a href="xhtml11_dtd.html#a_xhtml11_dtd">Appendix C</a>.</p>
+
+<hr />
+<div class="navbar">[<a href="conformance.html">previous</a>] &#160; [<a href="changes.html">next</a>] &#160; [<a href="Overview.html#toc">table of contents</a>]</div>
+</body>
+</html>
+

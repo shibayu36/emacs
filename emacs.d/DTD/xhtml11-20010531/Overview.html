@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title>XHTML 1.1 - Module-based XHTML</title>
+<link rel="stylesheet" type="text/css" media="screen" href="xhtml.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="W3C-REC.css" /><?xml-stylesheet href="xhtml.css" type="text/css" media="screen" ?><?xml-stylesheet
+href="W3C-REC.css" type="text/css" media="screen" ?>
+<link rel="next" type="text/html" href="introduction.html" />
+</head>
+<body>
+<div class="navbar">[<a href="introduction.html">next</a>]&#160;[<a href="#toc">table of contents</a>] 
+
+<hr />
+</div>
+
+<div class="head"><a href="http://www.w3.org/"><img height="48" width="72" src="w3c_home.gif" alt="W3C" /></a> 
+
+<h1><a id="title"></a> XHTML<sup>&#8482;</sup> 1.1 - Module-based XHTML</h1>
+
+<h2><a id="subtitle"></a> W3C Recommendation 31 May 2001</h2>
+
+<dl>
+<dt>This version:</dt>
+
+<dd><a href="http://www.w3.org/TR/2001/REC-xhtml11-20010531">http://www.w3.org/TR/2001/REC-xhtml11-20010531</a><br />
+(<a href="xhtml11.html">Single file version</a>, <a href="xhtml11.ps">PostScript version</a>, <a href="xhtml11.pdf">PDF version</a>, <a href="xhtml11.zip">ZIP archive</a>, or <a href="xhtml11.tgz">
+Gzip'd TAR archive</a>)</dd>
+
+<dt>Latest version:</dt>
+
+<dd><a href="http://www.w3.org/TR/xhtml11">http://www.w3.org/TR/xhtml11</a></dd>
+
+<dt>Previous version:</dt>
+
+<dd><a href="http://www.w3.org/TR/2001/PR-xhtml11-20010406">http://www.w3.org/TR/2001/PR-xhtml11-20010406</a></dd>
+
+<!-- No diff marked version in a Recommendation
+<dt>Diff-marked version:</dt>
+
+<dd><a
+href="xhtml11-diff.html">xhtml11-diff.html</a></dd>
+-->
+<dt>Editors:</dt>
+
+<dd><a href="mailto:murray.altheim@sun.com">Murray Altheim</a>, <a href="http://www.sun.com">Sun Microsystems</a><br />
+<a href="mailto:s.mccarron@opengroup.org">Shane McCarron</a>, <a href="http://www.aptest.com">Applied Testing and Technology</a></dd>
+</dl>
+
+<p class="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice-20000612#Copyright">Copyright</a> &#169;2001 <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">
+W3C</abbr></a><sup>&#174;</sup> (<a href="http://www.lcs.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="http://www.inria.fr/"><abbr xml:lang="fr" title= 
+"Institut National de Recherche en Informatique et Automatique">INRIA</abbr></a>, <a href="http://www.keio.ac.jp/">Keio</a>), All Rights Reserved. W3C <a href= 
+"http://www.w3.org/Consortium/Legal/ipr-notice-20000612#Legal_Disclaimer">liability</a>, <a href="http://www.w3.org/Consortium/Legal/ipr-notice-20000612#W3C_Trademarks">trademark</a>, <a href= 
+"http://www.w3.org/Consortium/Legal/copyright-documents-19990405">document use</a> and <a href="http://www.w3.org/Consortium/Legal/copyright-software-19980720">software licensing</a> rules apply.</p>
+
+<hr />
+</div>
+
+<h2><a id="abstract"></a> Abstract</h2>
+
+<p>This Recommendation defines a new XHTML document type that is based upon the module framework and modules defined in Modularization of XHTML [<a href=
+"references.html#ref_xhtml_modularization">XHTMLMOD</a>]. The purpose of this document type is to serve as the basis for future extended XHTML 'family' document types, and to provide a consistent,
+forward-looking document type cleanly separated from the deprecated, legacy functionality of HTML 4 [<a href="references.html#ref_html4">HTML4</a>] that was brought forward into the XHTML 1.0 [<a
+href="references.html#ref_xhtml1">XHTML1</a>] document types. This document type is essentially a reformulation of XHTML 1.0 Strict using XHTML Modules. This means that many facilities available in
+other XHTML Family document types (e.g., XHTML Frames) are not available in this document type. These other facilities are available through modules defined in Modularization of XHTML, and document
+authors are free to define document types based upon XHTML 1.1 that use these facilities (see [<a href="references.html#ref_xhtml_modularization">XHTMLMOD</a>] for information on creating new
+document types).</p>
+
+<h2><a id="status"></a> Status of this document</h2>
+
+<p><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. The latest status of this document series is maintained at the
+W3C.</em></p>
+
+<p>This document has been reviewed by W3C Members and other interested parties and has been endorsed by the Director as a W3C Recommendation. It is a stable document and may be used as reference
+material or cited as a normative reference from another document. W3C's role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This
+enhances the functionality and interoperability of the Web.</p>
+
+<p>This document has been produced by the <a href="http://www.w3.org/MarkUp/Group/">W3C HTML Working Group</a> (<em><a href="http://cgi.w3.org/MemberAccess/AccessRequest">members only</a></em>) as
+part of the <a href="http://www.w3.org/MarkUp/">W3C HTML Activity</a>. The goals of the HTML Working Group are discussed in the <a href="http://www.w3.org/MarkUp/2000/Charter">HTML Working Group
+charter</a>. The W3C staff contact for work on HTML is <a href="mailto:mimasa@w3.org">Masayasu Ishikawa</a>.</p>
+
+<p>Public discussion of HTML takes place on <a href="mailto:www-html@w3.org">www-html@w3.org</a> (<a href="http://lists.w3.org/Archives/Public/www-html/">archive</a>). To subscribe send an email to
+<a href="mailto:www-html-request@w3.org">www-html-request@w3.org</a> with the word <em>subscribe</em> in the subject line.</p>
+
+<p>Please report errors in this document to <a href="mailto:www-html-editor@w3.org">www-html-editor@w3.org</a> (<a href="http://lists.w3.org/Archives/Public/www-html-editor/">archive</a>). The list
+of <a href="http://www.w3.org/2001/05/REC-xhtml11-20010531-errata">known errors</a> in this specification is available at http://www.w3.org/2001/05/REC-xhtml11-20010531-errata.</p>
+
+<p>The English version of this specification is the only normative version. Information about <a href="http://www.w3.org/MarkUp/translations">translations of this document</a> is available at
+http://www.w3.org/MarkUp/translations.</p>
+
+<p>A list of current W3C Recommendations and other technical documents can be found at <a href="http://www.w3.org/TR">http://www.w3.org/TR</a>.</p>
+
+<h1><a id="toc"></a> Quick Table of Contents</h1>
+
+<div class="toc">
+<ul class='toc'>
+<li class='tocline'>1. <a href="introduction.html#s_intro" class="tocxref">Introduction</a></li>
+
+<li class='tocline'>2. <a href="conformance.html#s_conform" class="tocxref">Conformance Definition</a></li>
+
+<li class='tocline'>3. <a href="doctype.html#s_doctype" class="tocxref">The XHTML 1.1 Document Type</a></li>
+
+<li class='tocline'>A. <a href="changes.html#a_changes" class="tocxref">Changes from XHTML 1.0 Strict</a></li>
+
+<li class='tocline'>B. <a href="references.html#a_refs" class="tocxref">References</a></li>
+
+<li class='tocline'>C. <a href="xhtml11_dtd.html#a_xhtml11_dtd" class="tocxref">XHTML 1.1 Document Type Definition</a></li>
+
+<li class='tocline'>D. <a href="acknowledgements.html#a_acks" class="tocxref">Acknowledgements</a></li>
+</ul>
+</div>
+
+<h1><a id="contents"></a> Full Table of Contents</h1>
+
+<div class="toc">
+<ul class='toc'>
+<li class='tocline'>1. <a href="introduction.html#s_intro" class="tocxref">Introduction</a></li>
+
+<li class='tocline'>2. <a href="conformance.html#s_conform" class="tocxref">Conformance Definition</a> 
+
+<ul class="toc">
+<li class='tocline'>2.1. <a href="conformance.html#doccont" class="tocxref">Document Conformance</a> 
+
+<ul class="toc">
+<li class='tocline'>2.1.1. <a href="conformance.html#strict" class="tocxref">Strictly Conforming Documents</a></li>
+</ul>
+</li>
+
+<li class='tocline'>2.2. <a href="conformance.html#uaconf" class="tocxref">User Agent Conformance</a></li>
+</ul>
+</li>
+
+<li class='tocline'>3. <a href="doctype.html#s_doctype" class="tocxref">The XHTML 1.1 Document Type</a></li>
+
+<li class='tocline'>A. <a href="changes.html#a_changes" class="tocxref">Changes from XHTML 1.0 Strict</a></li>
+
+<li class='tocline'>B. <a href="references.html#a_refs" class="tocxref">References</a> 
+
+<ul class="toc">
+<li class='tocline'>B.1. <a href="references.html#a_normrefs" class="tocxref">Normative References</a></li>
+
+<li class='tocline'>B.2. <a href="references.html#a_inforefs" class="tocxref">Informative References</a></li>
+</ul>
+</li>
+
+<li class='tocline'>C. <a href="xhtml11_dtd.html#a_xhtml11_dtd" class="tocxref">XHTML 1.1 Document Type Definition</a> 
+
+<ul class="toc">
+<li class='tocline'>C.1. <a href="xhtml11_dtd.html#a_xhtml11_catalog" class="tocxref">SGML Open Catalog Entry for XHTML 1.1</a></li>
+
+<li class='tocline'>C.2. <a href="xhtml11_dtd.html#a_xhtml11_driver" class="tocxref">XHTML 1.1 Driver</a></li>
+
+<li class='tocline'>C.3. <a href="xhtml11_dtd.html#a_xhtml11_customization" class="tocxref">XHTML 1.1 Customizations</a></li>
+</ul>
+</li>
+
+<li class='tocline'>D. <a href="acknowledgements.html#a_acks" class="tocxref">Acknowledgements</a></li>
+</ul>
+</div>
+
+<hr />
+<div class="navbar">[<a href="introduction.html">next</a>]&#160;[<a href="#toc">table of contents</a>]</div>
+</body>
+</html>
+

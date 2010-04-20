@@ -1,3 +1,3 @@
 ;; -*- mode: emacs-lisp -*-
 ;; History entries used for anything adaptive display.
-(setq anything-c-adaptive-history (quote ((command ("help-mode" ("help" . 1)) ("find-grep-dired" ("grep" . 6) ("grep-" . 1)) ("kill-comment" ("comment" . 1)) ("comment-region" ("commen" . 1) ("comment" . 2)) ("dired" ("dired" . 3)) ("recentf-open-files" ("recentf" . 1) ("rece" . 1))))))
+(setq anything-c-adaptive-history (quote ((command ("find-grep-dired" ("grep" . 10) ("find-gre" . 2) ("grep-" . 1)) ("help-mode" ("help" . 1)) ("kill-comment" ("comment" . 1)) ("comment-region" ("commen" . 1) ("comment" . 2)) ("dired" ("dired" . 3)) ("recentf-open-files" ("recentf" . 1) ("rece" . 1))))))

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title>XHTML 1.1 - Conformance Definition</title>
+<link rel="prev" type="text/html" href="introduction.html" />
+<link rel="next" type="text/html" href="doctype.html" />
+<link rel="stylesheet" type="text/css" media="screen" href="xhtml.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="W3C-REC.css" /><?xml-stylesheet href="xhtml.css" type="text/css" media="screen" ?><?xml-stylesheet
+href="W3C-REC.css" type="text/css" media="screen" ?>
+</head>
+<body>
+<div class="navbar">[<a href="introduction.html">previous</a>] &#160; [<a href="doctype.html">next</a>] &#160; [<a href="Overview.html#toc">table of contents</a>] 
+
+<hr />
+</div>
+
+<h1><a id="s_conform">2.</a> Conformance Definition</h1>
+
+<div class='subtoc'>
+<p><strong>Contents</strong></p>
+
+<ul class='toc'>
+<li class='tocline'>2.1. <a href="#doccont" class="tocxref">Document Conformance</a> 
+
+<ul class="toc">
+<li class='tocline'>2.1.1. <a href="#strict" class="tocxref">Strictly Conforming Documents</a></li>
+</ul>
+</li>
+
+<li class='tocline'>2.2. <a href="#uaconf" class="tocxref">User Agent Conformance</a></li>
+</ul>
+</div>
+
+<p>This section is <em>normative</em>.</p>
+
+<p>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href= 
+"references.html#ref_RFC2119">[RFC2119]</a>.</p>
+
+<h2><a id="doccont">2.1.</a> Document Conformance</h2>
+
+<p>This version of XHTML provides a definition of strictly conforming XHTML documents, which are restricted to elements and attributes from the XHTML namespace.</p>
+
+<h3><a id="strict">2.1.1.</a> Strictly Conforming Documents</h3>
+
+<p>A strictly conforming XHTML 1.1 document is a document that requires only the facilities described as mandatory in this specification. Such a document must meet all the following criteria:</p>
+
+<ol>
+<li>
+<p>The document must conform to the constraints expressed in <a href="xhtml11_dtd.html#a_xhtml11_dtd">Appendix&#160;C</a>.</p>
+</li>
+
+<li>
+<p>The root element of the document must be <code>&lt;html&gt;</code>.</p>
+</li>
+
+<li>
+<p>The root element of the document must designate the XHTML namespace using the <code>xmlns</code> attribute <a href="references.html#ref_xmlns">[XMLNAMES]</a>. The namespace designator for XHTML is
+"<code>http://www.w3.org/1999/xhtml</code>".</p>
+</li>
+
+<li>
+<p>There must be a DOCTYPE declaration in the document prior to the root element. If present, the public identifier included in the DOCTYPE declaration must reference the DTD found in <a href= 
+"xhtml11_dtd.html#a_xhtml11_dtd">Appendix&#160;C</a> using its Formal Public Identifier. The system identifier may be modified appropriately.</p>
+
+<pre>
+&lt;!DOCTYPE
+ html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+</pre>
+</li>
+</ol>
+
+<p>Here is an example of an XHTML 1.1 document.</p>
+
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" &gt;
+  &lt;head&gt;
+    &lt;title&gt;Virtual Library&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Moved to &lt;a href="http://vlib.org/"&gt;vlib.org&lt;/a&gt;.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+
+<p>Note that in this example, the XML declaration is included. An XML declaration like the one above is not required in all XML documents. XHTML document authors are strongly encouraged to use XML
+declarations in all their documents. Such a declaration is required when the character encoding of the document is other than the default UTF-8 or UTF-16.</p>
+
+<h2><a id="uaconf">2.2.</a> User Agent Conformance</h2>
+
+<p>A conforming user agent must meet all user agent conformance requirements defined in [<a href="references.html#ref_xhtml_modularization">XHTMLMOD</a>].</p>
+
+<hr />
+<div class="navbar">[<a href="introduction.html">previous</a>] &#160; [<a href="doctype.html">next</a>] &#160; [<a href="Overview.html#toc">table of contents</a>]</div>
+</body>
+</html>
+

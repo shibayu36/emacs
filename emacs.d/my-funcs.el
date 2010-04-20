@@ -24,3 +24,17 @@
            (if (not (null (cdr file-list)))
                (byte-compile-directory-r (cdr file-list))))))
   (byte-compile-directories (replace-regexp-in-string "/$" "" default-directory)))
+
+
+
+;;perlインデント整形ツール
+(defun perltidy-region ()
+  "Run perltidy on the current region."
+  (interactive)
+  (save-excursion
+    (shell-command-on-region (point) (mark) "perltidy -q" nil t)))
+(defun perltidy-defun ()
+  "Run perltidy on the current defun."
+  (interactive)
+  (save-excursion (mark-defun)
+                  (perltidy-region)))

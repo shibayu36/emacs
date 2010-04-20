@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy, see www.w3.org" />
+<title>XHTML 1.1 - XHTML 1.1 Document Type Definition</title>
+<link rel="prev" type="text/html" href="references.html" />
+<link rel="next" type="text/html" href="acknowledgements.html" />
+<link rel="stylesheet" type="text/css" media="screen" href="xhtml.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="W3C-REC.css" /><?xml-stylesheet href="xhtml.css" type="text/css" media="screen" ?><?xml-stylesheet
+href="W3C-REC.css" type="text/css" media="screen" ?>
+</head>
+<body>
+<div class="navbar">[<a href="references.html">previous</a>] &#160; [<a href="acknowledgements.html">next</a>] &#160; [<a href="Overview.html#toc">table of contents</a>] 
+
+<hr />
+</div>
+
+<h1><a id="a_xhtml11_dtd">C.</a> XHTML 1.1 Document Type Definition</h1>
+
+<div class='subtoc'>
+<p><strong>Contents</strong></p>
+
+<ul class='toc'>
+<li class='tocline'>C.1. <a href="#a_xhtml11_catalog" class="tocxref">SGML Open Catalog Entry for XHTML 1.1</a></li>
+
+<li class='tocline'>C.2. <a href="#a_xhtml11_driver" class="tocxref">XHTML 1.1 Driver</a></li>
+
+<li class='tocline'>C.3. <a href="#a_xhtml11_customization" class="tocxref">XHTML 1.1 Customizations</a></li>
+</ul>
+</div>
+
+<p>This appendix is <em>normative</em>.</p>
+
+<h2><a id="a_xhtml11_catalog">C.1.</a> SGML Open Catalog Entry for XHTML 1.1</h2>
+
+<p>This section contains the SGML Open Catalog-format definition [<a href="references.html#ref_catalog">CATALOG</a>] of the XHTML 1.1 FPI.</p>
+
+<pre class="dtd">
+-- .......................................................................... --
+-- File catalog  ............................................................ --
+
+--  XHTML 1.1 Catalog Data File
+
+    Revision:  @(#)xhtml11.cat 1.9 2001/04/04 SMI
+
+    See "Entity Management", SGML Open Technical Resolution 9401 for detailed
+    information on supplying and using catalog data. This document is available
+    from OASIS at URL:
+
+        &lt;http://www.oasis-open.org/html/tr9401.html&gt;
+--
+
+-- .......................................................................... --
+-- SGML declaration associated with XHTML  .................................. --
+
+OVERRIDE YES
+
+SGMLDECL "xml1.dcl"
+
+-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: --
+
+-- XHTML 1.1 DTD modular driver file  ....................................... --
+-- note that this uses the local, flattened version of the DTD. If you want
+   your catalog to use the master version of the XHTML Modules, change the 
+   entry to reference xhtml11.dtd instead of xhtml11-flat.dtd
+--
+
+PUBLIC "-//W3C//DTD XHTML 1.1//EN"                                "xhtml11-flat.dtd"
+
+-- XHTML 1.1 framework modules .............................................. --
+
+PUBLIC "-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN"        "xhtml11-model-1.mod"
+
+-- End of catalog data  ..................................................... --
+-- .......................................................................... --
+
+
+</pre>
+
+<h2><a id="a_xhtml11_driver">C.2.</a> XHTML 1.1 Driver</h2>
+
+<p>This section contains the driver for the XHTML 1.1 document type implementation as an XML DTD. It relies upon XHTML module implementations defined in [<a href= 
+"references.html#ref_xhtml_modularization">XHTMLMOD</a>] and in [<a href="references.html#ref_ruby">RUBY</a>].</p>
+
+<pre class="dtd">
+&lt;!-- ....................................................................... --&gt;
+&lt;!-- XHTML 1.1 DTD  ........................................................ --&gt;
+&lt;!-- file: xhtml11.dtd
+--&gt;
+
+&lt;!-- XHTML 1.1 DTD
+
+     This is XHTML, a reformulation of HTML as a modular XML application.
+
+     The Extensible HyperText Markup Language (XHTML)
+     Copyright 1998-2001 World Wide Web Consortium
+        (Massachusetts Institute of Technology, Institut National de
+         Recherche en Informatique et en Automatique, Keio University).
+         All Rights Reserved.
+
+     Permission to use, copy, modify and distribute the XHTML DTD and its 
+     accompanying documentation for any purpose and without fee is hereby 
+     granted in perpetuity, provided that the above copyright notice and 
+     this paragraph appear in all copies.  The copyright holders make no 
+     representation about the suitability of the DTD for any purpose.
+
+     It is provided "as is" without expressed or implied warranty.
+
+        Author:     Murray M. Altheim &lt;altheim@eng.sun.com&gt;
+        Revision:   $Id: xhtml11.dtd,v 1.21 2001/05/29 16:37:01 ahby Exp $
+
+--&gt;
+&lt;!-- This is the driver file for version 1.1 of the XHTML DTD.
+
+     Please use this formal public identifier to identify it:
+
+         "-//W3C//DTD XHTML 1.1//EN"
+--&gt;
+&lt;!ENTITY <span class="entity">% XHTML.version</span>  "-//W3C//DTD XHTML 1.1//EN" &gt;
+
+&lt;!-- Use this URI to identify the default namespace:
+
+         "http://www.w3.org/1999/xhtml"
+
+     See the Qualified Names module for information
+     on the use of namespace prefixes in the DTD.
+--&gt;
+&lt;!ENTITY <span class="entity">% NS.prefixed</span> "IGNORE" &gt;
+&lt;!ENTITY <span class="entity">% XHTML.prefix</span> "" &gt;
+
+&lt;!-- Reserved for use with the XLink namespace:
+--&gt;
+&lt;!ENTITY <span class="entity">% XLINK.xmlns</span> "" &gt;
+&lt;!ENTITY <span class="entity">% XLINK.xmlns.attrib</span> "" &gt;
+
+&lt;!-- For example, if you are using XHTML 1.1 directly, use the FPI
+     in the DOCTYPE declaration, with the xmlns attribute on the
+     document element to identify the default namespace:
+
+       &lt;?xml version="1.0"?&gt;
+       &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "xhtml11.dtd"&gt;
+       &lt;html xmlns="http://www.w3.org/1999/xhtml"
+             xml:lang="en"&gt;
+       ...
+       &lt;/html&gt;
+
+     Revisions:
+     (none)
+--&gt;
+
+&lt;!-- reserved for future use with document profiles --&gt;
+&lt;!ENTITY <span class="entity">% XHTML.profile</span>  "" &gt;
+
+&lt;!-- Bidirectional Text features
+     This feature-test entity is used to declare elements
+     and attributes used for bidirectional text support.
+--&gt;
+&lt;!ENTITY <span class="entity">% XHTML.bidi</span>  "INCLUDE" &gt;
+
+&lt;?doc type="doctype" role="title" { XHTML 1.1 } ?&gt;
+
+&lt;!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: --&gt;
+
+&lt;!-- Pre-Framework Redeclaration placeholder  .................... --&gt;
+&lt;!-- this serves as a location to insert markup declarations
+     into the DTD prior to the framework declarations.
+--&gt;
+&lt;!ENTITY <span class="entity">% xhtml-prefw-redecl.module</span> "IGNORE" &gt;
+&lt;![%xhtml-prefw-redecl.module;[
+%xhtml-prefw-redecl.mod;
+&lt;!-- end of xhtml-prefw-redecl.module --&gt;]]&gt;
+
+&lt;!ENTITY <span class="entity">% xhtml-events.module</span> "INCLUDE" &gt;
+
+&lt;!-- Inline Style Module  ........................................ --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-inlstyle.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-inlstyle.module;[
+&lt;!ENTITY <span class="entity">% xhtml-inlstyle.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Inline Style 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-inlstyle-1.mod" &gt;
+%xhtml-inlstyle.mod;]]&gt;
+
+&lt;!-- declare Document Model module instantiated in framework
+--&gt;
+&lt;!ENTITY <span class="entity">% xhtml-model.mod</span>
+     PUBLIC "-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN"
+            "xhtml11-model-1.mod" &gt;
+
+&lt;!-- Modular Framework Module (required) ......................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-framework.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-framework.module;[
+&lt;!ENTITY <span class="entity">% xhtml-framework.mod</span>
+     PUBLIC "-//W3C//ENTITIES XHTML Modular Framework 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-framework-1.mod" &gt;
+%xhtml-framework.mod;]]&gt;
+
+&lt;!-- Post-Framework Redeclaration placeholder  ................... --&gt;
+&lt;!-- this serves as a location to insert markup declarations
+     into the DTD following the framework declarations.
+--&gt;
+&lt;!ENTITY <span class="entity">% xhtml-postfw-redecl.module</span> "IGNORE" &gt;
+&lt;![%xhtml-postfw-redecl.module;[
+%xhtml-postfw-redecl.mod;
+&lt;!-- end of xhtml-postfw-redecl.module --&gt;]]&gt;
+
+&lt;!-- Text Module (Required)  ..................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-text.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-text.module;[
+&lt;!ENTITY <span class="entity">% xhtml-text.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Text 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-text-1.mod" &gt;
+%xhtml-text.mod;]]&gt;
+
+&lt;!-- Hypertext Module (required) ................................. --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-hypertext.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-hypertext.module;[
+&lt;!ENTITY <span class="entity">% xhtml-hypertext.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Hypertext 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-hypertext-1.mod" &gt;
+%xhtml-hypertext.mod;]]&gt;
+
+&lt;!-- Lists Module (required)  .................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-list.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-list.module;[
+&lt;!ENTITY <span class="entity">% xhtml-list.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Lists 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-list-1.mod" &gt;
+%xhtml-list.mod;]]&gt;
+
+&lt;!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: --&gt;
+
+&lt;!-- Edit Module  ................................................ --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-edit.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-edit.module;[
+&lt;!ENTITY <span class="entity">% xhtml-edit.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Editing Elements 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-edit-1.mod" &gt;
+%xhtml-edit.mod;]]&gt;
+
+&lt;!-- BIDI Override Module  ....................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-bdo.module</span> "%XHTML.bidi;" &gt;
+&lt;![%xhtml-bdo.module;[
+&lt;!ENTITY <span class="entity">% xhtml-bdo.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML BIDI Override Element 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-bdo-1.mod" &gt;
+%xhtml-bdo.mod;]]&gt;
+
+&lt;!-- Ruby Module  ................................................ --&gt;
+&lt;!ENTITY <span class="entity">% Ruby.common.attlists</span> "INCLUDE" &gt;
+&lt;!ENTITY <span class="entity">% Ruby.common.attrib</span> "%Common.attrib;" &gt;
+&lt;!ENTITY <span class="entity">% xhtml-ruby.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-ruby.module;[
+&lt;!ENTITY <span class="entity">% xhtml-ruby.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Ruby 1.0//EN"
+            "http://www.w3.org/TR/ruby/xhtml-ruby-1.mod" &gt;
+%xhtml-ruby.mod;]]&gt;
+
+&lt;!-- Presentation Module  ........................................ --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-pres.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-pres.module;[
+&lt;!ENTITY <span class="entity">% xhtml-pres.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Presentation 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-pres-1.mod" &gt;
+%xhtml-pres.mod;]]&gt;
+
+&lt;!-- Link Element Module  ........................................ --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-link.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-link.module;[
+&lt;!ENTITY <span class="entity">% xhtml-link.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Link Element 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-link-1.mod" &gt;
+%xhtml-link.mod;]]&gt;
+
+&lt;!-- Document Metainformation Module  ............................ --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-meta.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-meta.module;[
+&lt;!ENTITY <span class="entity">% xhtml-meta.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Metainformation 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-meta-1.mod" &gt;
+%xhtml-meta.mod;]]&gt;
+
+&lt;!-- Base Element Module  ........................................ --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-base.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-base.module;[
+&lt;!ENTITY <span class="entity">% xhtml-base.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Base Element 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-base-1.mod" &gt;
+%xhtml-base.mod;]]&gt;
+
+&lt;!-- Scripting Module  ........................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-script.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-script.module;[
+&lt;!ENTITY <span class="entity">% xhtml-script.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Scripting 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-script-1.mod" &gt;
+%xhtml-script.mod;]]&gt;
+
+&lt;!-- Style Sheets Module  ......................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-style.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-style.module;[
+&lt;!ENTITY <span class="entity">% xhtml-style.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Style Sheets 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-style-1.mod" &gt;
+%xhtml-style.mod;]]&gt;
+
+&lt;!-- Image Module  ............................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-image.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-image.module;[
+&lt;!ENTITY <span class="entity">% xhtml-image.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Images 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-image-1.mod" &gt;
+%xhtml-image.mod;]]&gt;
+
+&lt;!-- Client-side Image Map Module  ............................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-csismap.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-csismap.module;[
+&lt;!ENTITY <span class="entity">% xhtml-csismap.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Client-side Image Maps 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-csismap-1.mod" &gt;
+%xhtml-csismap.mod;]]&gt;
+
+&lt;!-- Server-side Image Map Module  ............................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-ssismap.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-ssismap.module;[
+&lt;!ENTITY <span class="entity">% xhtml-ssismap.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Server-side Image Maps 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-ssismap-1.mod" &gt;
+%xhtml-ssismap.mod;]]&gt;
+
+&lt;!-- Param Element Module  ....................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-param.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-param.module;[
+&lt;!ENTITY <span class="entity">% xhtml-param.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Param Element 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-param-1.mod" &gt;
+%xhtml-param.mod;]]&gt;
+
+&lt;!-- Embedded Object Module  ..................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-object.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-object.module;[
+&lt;!ENTITY <span class="entity">% xhtml-object.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Embedded Object 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-object-1.mod" &gt;
+%xhtml-object.mod;]]&gt;
+
+&lt;!-- Tables Module ............................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-table.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-table.module;[
+&lt;!ENTITY <span class="entity">% xhtml-table.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Tables 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-table-1.mod" &gt;
+%xhtml-table.mod;]]&gt;
+
+&lt;!-- Forms Module  ............................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-form.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-form.module;[
+&lt;!ENTITY <span class="entity">% xhtml-form.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Forms 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-form-1.mod" &gt;
+%xhtml-form.mod;]]&gt;
+
+&lt;!-- Legacy Markup ............................................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-legacy.module</span> "IGNORE" &gt;
+&lt;![%xhtml-legacy.module;[
+&lt;!ENTITY <span class="entity">% xhtml-legacy.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Legacy Markup 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-legacy-1.mod" &gt;
+%xhtml-legacy.mod;]]&gt;
+
+&lt;!-- Document Structure Module (required)  ....................... --&gt;
+&lt;!ENTITY <span class="entity">% xhtml-struct.module</span> "INCLUDE" &gt;
+&lt;![%xhtml-struct.module;[
+&lt;!ENTITY <span class="entity">% xhtml-struct.mod</span>
+     PUBLIC "-//W3C//ELEMENTS XHTML Document Structure 1.0//EN"
+            "http://www.w3.org/TR/xhtml-modularization/DTD/xhtml-struct-1.mod" &gt;
+%xhtml-struct.mod;]]&gt;
+
+&lt;!-- end of XHTML 1.1 DTD  ................................................. --&gt;
+&lt;!-- ....................................................................... --&gt;
+
+</pre>
+
+<h2><a id="a_xhtml11_customization">C.3.</a> XHTML 1.1 Customizations</h2>
+
+<p>An XHTML Family Document Type (such as XHTML 1.1) must define the content model that it uses. This is done through a separate content model module that is instantiated by the XHTML Modular
+Framework. The content model module and the XHTML 1.1 Driver (above) work together to customize the module implementations to the document type's specific requirements. The content model module for
+XHTML 1.1 is defined below:</p>
+
+<pre class="dtd">
+&lt;!-- ....................................................................... --&gt;
+&lt;!-- XHTML 1.1 Document Model Module  ...................................... --&gt;
+&lt;!-- file: xhtml11-model-1.mod
+
+     This is XHTML 1.1, a reformulation of HTML as a modular XML application.
+     Copyright 1998-2001 W3C (MIT, INRIA, Keio), All Rights Reserved.
+     Revision: $Id: xhtml11-model-1.mod,v 1.13 2001/05/29 16:37:01 ahby Exp $ SMI
+
+     This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+
+       PUBLIC "-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN"
+       SYSTEM "http://www.w3.org/TR/xhtml11/DTD/xhtml11-model-1.mod"
+
+     Revisions:
+     (none)
+     ....................................................................... --&gt;
+
+&lt;!-- XHTML 1.1 Document Model
+
+     This module describes the groupings of elements that make up
+     common content models for XHTML elements.
+
+     XHTML has three basic content models:
+
+         %Inline.mix;  character-level elements
+         %Block.mix;   block-like elements, eg., paragraphs and lists
+         %Flow.mix;    any block or inline elements
+
+     Any parameter entities declared in this module may be used
+     to create element content models, but the above three are
+     considered 'global' (insofar as that term applies here).
+
+     The reserved word '#PCDATA' (indicating a text string) is now
+     included explicitly with each element declaration that is
+     declared as mixed content, as XML requires that this token
+     occur first in a content model specification.
+--&gt;
+&lt;!-- Extending the Model
+
+     While in some cases this module may need to be rewritten to
+     accommodate changes to the document model, minor extensions
+     may be accomplished by redeclaring any of the three *.extra;
+     parameter entities to contain extension element types as follows:
+
+         %Misc.extra;    whose parent may be any block or
+                         inline element.
+
+         %Inline.extra;  whose parent may be any inline element.
+
+         %Block.extra;   whose parent may be any block element.
+
+     If used, these parameter entities must be an OR-separated
+     list beginning with an OR separator ("|"), eg., "| a | b | c"
+
+     All block and inline *.class parameter entities not part
+     of the *struct.class classes begin with "| " to allow for
+     exclusion from mixes.
+--&gt;
+
+&lt;!-- ..............  Optional Elements in head  .................. --&gt;
+
+&lt;!ENTITY <span class="entity">% HeadOpts.mix</span>
+     "( %script.qname; | %style.qname; | %meta.qname;
+      | %link.qname; | %object.qname; )*"
+&gt;
+
+&lt;!-- .................  Miscellaneous Elements  .................. --&gt;
+
+&lt;!-- ins and del are used to denote editing changes
+--&gt;
+&lt;!ENTITY <span class="entity">% Edit.class</span> "| %ins.qname; | %del.qname;" &gt;
+
+&lt;!-- script and noscript are used to contain scripts
+     and alternative content
+--&gt;
+&lt;!ENTITY <span class="entity">% Script.class</span> "| %script.qname; | %noscript.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% Misc.extra</span> "" &gt;
+
+&lt;!-- These elements are neither block nor inline, and can
+     essentially be used anywhere in the document body.
+--&gt;
+&lt;!ENTITY <span class="entity">% Misc.class</span>
+     "%Edit.class;
+      %Script.class;
+      %Misc.extra;"
+&gt;
+
+&lt;!-- ....................  Inline Elements  ...................... --&gt;
+
+&lt;!ENTITY <span class="entity">% InlStruct.class</span> "%br.qname; | %span.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% InlPhras.class</span>
+     "| %em.qname; | %strong.qname; | %dfn.qname; | %code.qname;
+      | %samp.qname; | %kbd.qname; | %var.qname; | %cite.qname;
+      | %abbr.qname; | %acronym.qname; | %q.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% InlPres.class</span>
+     "| %tt.qname; | %i.qname; | %b.qname; | %big.qname;
+      | %small.qname; | %sub.qname; | %sup.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% I18n.class</span> "| %bdo.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% Anchor.class</span> "| %a.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% InlSpecial.class</span>
+     "| %img.qname; | %map.qname;
+      | %object.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% InlForm.class</span>
+     "| %input.qname; | %select.qname; | %textarea.qname;
+      | %label.qname; | %button.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% Inline.extra</span> "" &gt;
+
+&lt;!ENTITY <span class="entity">% Ruby.class</span> "| %ruby.qname;" &gt;
+
+&lt;!-- %Inline.class; includes all inline elements,
+     used as a component in mixes
+--&gt;
+&lt;!ENTITY <span class="entity">% Inline.class</span>
+     "%InlStruct.class;
+      %InlPhras.class;
+      %InlPres.class;
+      %I18n.class;
+      %Anchor.class;
+      %InlSpecial.class;
+      %InlForm.class;
+      %Ruby.class;
+      %Inline.extra;"
+&gt;
+
+&lt;!-- %InlNoRuby.class; includes all inline elements
+     except ruby, used as a component in mixes
+--&gt;
+&lt;!ENTITY <span class="entity">% InlNoRuby.class</span>
+     "%InlStruct.class;
+      %InlPhras.class;
+      %InlPres.class;
+      %I18n.class;
+      %Anchor.class;
+      %InlSpecial.class;
+      %InlForm.class;
+      %Inline.extra;"
+&gt;
+
+&lt;!-- %NoRuby.content; includes all inlines except ruby
+--&gt;
+&lt;!ENTITY <span class="entity">% NoRuby.content</span>
+     "( #PCDATA
+      | %InlNoRuby.class;
+      %Misc.class; )*"
+&gt;
+
+&lt;!-- %InlNoAnchor.class; includes all non-anchor inlines,
+     used as a component in mixes
+--&gt;
+&lt;!ENTITY <span class="entity">% InlNoAnchor.class</span>
+     "%InlStruct.class;
+      %InlPhras.class;
+      %InlPres.class;
+      %I18n.class;
+      %InlSpecial.class;
+      %InlForm.class;
+      %Ruby.class;
+      %Inline.extra;"
+&gt;
+
+&lt;!-- %InlNoAnchor.mix; includes all non-anchor inlines
+--&gt;
+&lt;!ENTITY <span class="entity">% InlNoAnchor.mix</span>
+     "%InlNoAnchor.class;
+      %Misc.class;"
+&gt;
+
+&lt;!-- %Inline.mix; includes all inline elements, including %Misc.class;
+--&gt;
+&lt;!ENTITY <span class="entity">% Inline.mix</span>
+     "%Inline.class;
+      %Misc.class;"
+&gt;
+
+&lt;!-- .....................  Block Elements  ...................... --&gt;
+
+&lt;!-- In the HTML 4.0 DTD, heading and list elements were included
+     in the %block; parameter entity. The %Heading.class; and
+     %List.class; parameter entities must now be included explicitly
+     on element declarations where desired.
+--&gt;
+
+&lt;!ENTITY <span class="entity">% Heading.class</span>
+     "%h1.qname; | %h2.qname; | %h3.qname;
+      | %h4.qname; | %h5.qname; | %h6.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% List.class</span> "%ul.qname; | %ol.qname; | %dl.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% Table.class</span> "| %table.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% Form.class</span>  "| %form.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% Fieldset.class</span>  "| %fieldset.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% BlkStruct.class</span> "%p.qname; | %div.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% BlkPhras.class</span>
+     "| %pre.qname; | %blockquote.qname; | %address.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% BlkPres.class</span> "| %hr.qname;" &gt;
+
+&lt;!ENTITY <span class="entity">% BlkSpecial.class</span>
+     "%Table.class;
+      %Form.class;
+      %Fieldset.class;"
+&gt;
+
+&lt;!ENTITY <span class="entity">% Block.extra</span> "" &gt;
+
+&lt;!-- %Block.class; includes all block elements,
+     used as an component in mixes
+--&gt;
+&lt;!ENTITY <span class="entity">% Block.class</span>
+     "%BlkStruct.class;
+      %BlkPhras.class;
+      %BlkPres.class;
+      %BlkSpecial.class;
+      %Block.extra;"
+&gt;
+
+&lt;!-- %Block.mix; includes all block elements plus %Misc.class;
+--&gt;
+&lt;!ENTITY <span class="entity">% Block.mix</span>
+     "%Heading.class;
+      | %List.class;
+      | %Block.class;
+      %Misc.class;"
+&gt;
+
+&lt;!-- ................  All Content Elements  .................. --&gt;
+
+&lt;!-- %Flow.mix; includes all text content, block and inline
+--&gt;
+&lt;!ENTITY <span class="entity">% Flow.mix</span>
+     "%Heading.class;
+      | %List.class;
+      | %Block.class;
+      | %Inline.class;
+      %Misc.class;"
+&gt;
+
+&lt;!-- end of xhtml11-model-1.mod --&gt;
+
+</pre>
+
+<hr />
+<div class="navbar">[<a href="references.html">previous</a>] &#160; [<a href="acknowledgements.html">next</a>] &#160; [<a href="Overview.html#toc">table of contents</a>]</div>
+</body>
+</html>
+

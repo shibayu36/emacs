@@ -38,3 +38,12 @@
   (interactive)
   (save-excursion (mark-defun)
                   (perltidy-region)))
+
+(defun my-mac-toggle-max-window ()
+  (interactive)
+  (if (frame-parameter nil 'fullscreen)
+      (set-frame-parameter nil 'fullscreen nil)
+    (set-frame-parameter nil 'fullscreen 'fullboth)))
+
+
+

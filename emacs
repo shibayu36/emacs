@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;ロードパス追加設定;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -17,6 +16,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/python-mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/perl/")
         (expand-file-name "~/.emacs.d/elisp/mode/psgml/")
+        (expand-file-name "~/.emacs.d/elisp/auto-complete/")
         )
        load-path))
 
@@ -51,8 +51,10 @@
 
 (global-set-key "\C-cc" 'comment-region) ; C-c c を範囲指定コメントに
 (global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
-
+(global-set-key "\C-x\C-g" 'goto-line) ;C-x C-gで行ジャンプ
+(global-set-key "\C-cm" 'my-mac-toggle-max-window);全画面表示の設定
 (define-key global-map (kbd "C-;") 'anything);;anything用キーバインド
+(global-set-key "%" 'match-paren)
 
 
 
@@ -72,7 +74,7 @@
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8-unix)
 (set-language-environment "Japanese")
-
+(setq locale-coding-system 'utf-8)
 
 
 ;;HTMLのMETAタグコーディング無視
@@ -145,6 +147,9 @@ default-frame-alist))
 ;;フォントロックモード
 (global-font-lock-mode t)
 
+;;行番号の表示
+(require 'linum)
+
 ;; ;; タブ, 全角スペース, 行末空白を色付き表示
 ;;シェルモードで邪魔だったため消去
 ;; (defface my-face-b-1 '((t (:background "NavajoWhite4"))) nil) ; 全角スペース
@@ -186,6 +191,15 @@ default-frame-alist))
           ("-cdac$" . 1.3))))
 
 
+;;対応する括弧に飛べるように
+;;C-M-n,C-M-pで行けそうなので消去
+;; (defun match-paren (arg)
+;;   "Go to the matching paren if on a paren; otherwise insert %."
+;;   (interactive "p")
+;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;;         (t (self-insert-command (or arg 1)))))
+
 
 
 
@@ -200,16 +214,20 @@ default-frame-alist))
 ;;ここからインストールした拡張の設定;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+
+
 ;;install-elispコマンド設定
 ;; まず、install-elisp のコマンドを使える様にします。
 (require 'install-elisp)
 ;; 次に、Elisp ファイルをインストールする場所を指定します。
 (setq install-elisp-repository-directory "~/.emacs.d/elisp/")
 
-
 ;;auto-complete-modeの読み込み
-(require 'auto-complete)
-(global-auto-complete-mode t)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete//ac-dict")
+(ac-config-default)
+
 
 
 
@@ -255,3 +273,5 @@ default-frame-alist))
 ;;編集モードの設定
 (load "init-edit-mode")
 
+;;term-modeの設定
+(load "init-term-mode.el")

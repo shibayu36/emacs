@@ -54,7 +54,6 @@
 (global-set-key "\C-x\C-g" 'goto-line) ;C-x C-gで行ジャンプ
 (global-set-key "\C-cm" 'my-mac-toggle-max-window);全画面表示の設定
 (define-key global-map (kbd "C-;") 'anything);;anything用キーバインド
-(global-set-key "%" 'match-paren)
 
 
 
@@ -275,3 +274,7 @@ default-frame-alist))
 
 ;;term-modeの設定
 (load "init-term-mode.el")
+
+;;tramp
+(require 'tramp)
+(setq tramp-default-method "ssh")

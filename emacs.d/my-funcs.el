@@ -46,4 +46,8 @@
     (set-frame-parameter nil 'fullscreen 'fullboth)))
 
 
-
+;;perlのsyntaxチェック
+(defun perl-syntax-check()
+  (interactive)
+  (shell-command
+   (concat "perl -wc " (file-name-nondirectory (buffer-file-name)))))

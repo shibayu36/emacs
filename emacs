@@ -53,7 +53,7 @@
 (global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
 
 (define-key global-map (kbd "C-;") 'anything);;anything用キーバインド
-
+;;(global-set-key "\C-;" 'anything)
 
 
 

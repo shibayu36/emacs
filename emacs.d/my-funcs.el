@@ -38,3 +38,16 @@
   (interactive)
   (save-excursion (mark-defun)
                   (perltidy-region)))
+
+(defun my-mac-toggle-max-window ()
+  (interactive)
+  (if (frame-parameter nil 'fullscreen)
+      (set-frame-parameter nil 'fullscreen nil)
+    (set-frame-parameter nil 'fullscreen 'fullboth)))
+
+
+;;perlのsyntaxチェック
+(defun perl-syntax-check()
+  (interactive)
+  (shell-command
+   (concat "perl -wc " (file-name-nondirectory (buffer-file-name)))))

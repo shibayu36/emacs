@@ -4,3 +4,6 @@
 *.elc
 *~
 .#*
+emacs.d/anything-c-adaptive-history
+emacs.d/ac-comphist.dat
+

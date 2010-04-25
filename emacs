@@ -53,8 +53,8 @@
 (global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
 (global-set-key "\C-x\C-g" 'goto-line) ;C-x C-gで行ジャンプ
 (global-set-key "\C-cm" 'my-mac-toggle-max-window);全画面表示の設定
-(define-key global-map (kbd "C-;") 'anything);;anything用キーバインド
-
+(define-key global-map (kbd "C-]") 'anything);;anything用キーバインド
+;;(global-set-key "\C-;" 'anything)
 
 
 
@@ -146,27 +146,28 @@ default-frame-alist))
 ;;フォントロックモード
 (global-font-lock-mode t)
 
+;;色の設定
+(set-face-foreground 'font-lock-comment-face "red")
+
 ;;行番号の表示
 (require 'linum)
 
-;; ;; タブ, 全角スペース, 行末空白を色付き表示
-;;シェルモードで邪魔だったため消去
-;; (defface my-face-b-1 '((t (:background "NavajoWhite4"))) nil) ; 全角スペース
-;; (defface my-face-b-2 '((t (:background "gray10"))) nil) ; タブ
-;; (defface my-face-u-1 '((t (:background "SteelBlue" :underline t))) nil) ; 行末空白
-;; (defvar my-face-b-1 'my-face-b-1)
-;; (defvar my-face-b-2 'my-face-b-2)
-;; (defvar my-face-u-1 'my-face-u-1)
-;; (defadvice font-lock-mode (before my-font-lock-mode ())
-;;   (font-lock-add-keywords
-;;    major-mode
-;;    '(("\t" 0 my-face-b-2 append)
-;;      ("　" 0 my-face-b-1 append)
-;;      ("[ \t]+$" 0 my-face-u-1 append)
-;;      )))
-;; (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-;; (ad-activate 'font-lock-mode)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 編集行を目立たせる（現在行をハイライト表示する）
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defface hlline-face
+  '((((class color)
+      (background dark))
+     (:background "dark slate gray"))
+    (((class color)
+      (background light))
+     (:background "pale green"))
+    (t
+     ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+;; (setq hl-line-face 'underline) ; 下線
+(global-hl-line-mode)
 
 
 ;;等幅文字設定
@@ -190,14 +191,6 @@ default-frame-alist))
           ("-cdac$" . 1.3))))
 
 
-;;対応する括弧に飛べるように
-;;C-M-n,C-M-pで行けそうなので消去
-;; (defun match-paren (arg)
-;;   "Go to the matching paren if on a paren; otherwise insert %."
-;;   (interactive "p")
-;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-;;         (t (self-insert-command (or arg 1)))))
 
 
 

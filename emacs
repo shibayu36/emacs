@@ -80,7 +80,6 @@
 (setq auto-coding-functions nil)
 ;; 対応する括弧を光らせる。
 (show-paren-mode t)
-
 ;; 選択部分のハイライト
 (transient-mark-mode t)
 
@@ -155,19 +154,19 @@ default-frame-alist))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defface hlline-face
-  '((((class color)
-      (background dark))
-     (:background "dark slate gray"))
-    (((class color)
-      (background light))
-     (:background "pale green"))
-    (t
-     ()))
-  "*Face used by hl-line.")
-(setq hl-line-face 'hlline-face)
-;; (setq hl-line-face 'underline) ; 下線
-(global-hl-line-mode)
+;; (defface hlline-face
+;;   '((((class color)
+;;       (background dark))
+;;      (:background "dark slate gray"))
+;;     (((class color)
+;;       (background light))
+;;      (:background  "#98FB98"))
+;;     (t
+;;      ()))
+;;   "*Face used by hl-line.")
+;; (setq hl-line-face 'hlline-face)
+;; ;; (setq hl-line-face 'underline) ; 下線
+;; (global-hl-line-mode)
 
 
 ;;等幅文字設定

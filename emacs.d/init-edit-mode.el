@@ -270,3 +270,12 @@
 ;;     '("\\(<%\\(=\\)?\\>[^%>]+%>\\)" 1 font-lock-function-name-face t)
 ;;     )))
 
+
+
+;;yamlモード
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-hook 'yaml-mode-hook
+          '(lambda ()
+             (setq yaml-indent-offset 4)
+          ))

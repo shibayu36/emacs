@@ -270,3 +270,5 @@ default-frame-alist))
 ;;tramp
 (require 'tramp)
 (setq tramp-default-method "ssh")
+(setq recentf-auto-cleanup 'never)
+

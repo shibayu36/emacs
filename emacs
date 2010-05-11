@@ -17,6 +17,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/perl/")
         (expand-file-name "~/.emacs.d/elisp/mode/psgml/")
         (expand-file-name "~/.emacs.d/elisp/mode/yml/")
+        (expand-file-name "~/.emacs.d/elisp/mode/javascript/")
         (expand-file-name "~/.emacs.d/elisp/auto-complete/")
         )
        load-path))
@@ -56,6 +57,7 @@
 (global-set-key "\C-cm" 'my-mac-toggle-max-window);全画面表示の設定
 (define-key global-map (kbd "C-]") 'anything);;anything用キーバインド
 ;;(global-set-key "\C-;" 'anything)
+(define-key global-map "\C-xF" 'mac-toggle-max-window)
 
 
 
@@ -89,16 +91,6 @@
 
 ;; file名の補完で大文字小文字を区別しない
 (setq completion-ignore-case t)
-
-;; 表示位置の調節
-(setq default-frame-alist
-(append (list ' ;(top . 0) ; 起動時の表示位置（右から）
-;; '(left . 120) ; 起動時の表示位置（左から）
-;; '(width . 90) ; 起動時のサイズ（幅）
-'(height . 44) ; 起動時のサイズ（縦）
-;; '(alpha . (85 50))
-)
-default-frame-alist))
 
 
 ;;yes-noの選択肢をy-nにする
@@ -151,6 +143,35 @@ default-frame-alist))
 
 ;;行番号の表示
 (require 'linum)
+
+;;windowの設定
+(setq default-frame-alist
+      (append (list 
+		    '(width . 175)
+		    '(height . 47)
+		    '(top . 0)
+		    '(left . 0)
+		    '(alpha . (90 60)))    ;;ここ
+		    default-frame-alist))
+
+;;画面最大化
+(defun mac-toggle-max-window ()
+  (interactive)
+  (if (frame-parameter nil 'fullscreen)
+      (set-frame-parameter nil 'fullscreen nil)
+    (set-frame-parameter nil 'fullscreen 'fullboth)))
+(setq mac-autohide-menubar-on-maximize nil)
+
+(custom-set-variables
+ '(display-time-mode t)
+ '(tool-bar-mode nil)
+ '(transient-mark-mode t))
+(custom-set-faces
+ )
+
+;;画面端まで来たら折り返す
+(setq truncate-lines nil)
+(setq truncate-partial-width-windows nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）
@@ -260,7 +281,10 @@ default-frame-alist))
     (load "my-funcs.el"))
 
 ;;flymakeの設定
-(load "init-flymake.el")
+;(load "init-flymake.el")
+
+;;womanの設定
+(setq woman-use-own-frame nil)
 
 ;;編集モードの設定
 (load "init-edit-mode")
@@ -273,3 +297,8 @@ default-frame-alist))
 (setq tramp-default-method "ssh")
 (setq recentf-auto-cleanup 'never)
 
+
+;;カラーテーマ
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-dark-laptop)

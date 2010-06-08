@@ -75,6 +75,7 @@
 (defalias 'perl-mode 'cperl-mode)
 (setq auto-mode-alist (cons '("\\.t$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cgi$" . cperl-mode) auto-mode-alist))
+(require 'set-perl5lib)
 
 
 (setq cperl-indent-level 4
@@ -104,7 +105,7 @@
             (set-face-background 'cperl-hash-face "black")
             ))
 
-;; (add-hook 'cperl-mode-hook 'flymake-perl-load)
+(add-hook 'cperl-mode-hook 'flymake-perl-load)
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。
@@ -372,3 +373,10 @@
   (message "My JS2 hook"))
 
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;はてなmode;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'simple-hatena-mode)
+(setq simple-hatena-default-id "shiba_yu36")

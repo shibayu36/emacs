@@ -19,6 +19,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/yml/")
         (expand-file-name "~/.emacs.d/elisp/mode/javascript/")
         (expand-file-name "~/.emacs.d/elisp/auto-complete/")
+        (expand-file-name "~/.emacs.d/elisp/mode/hatena/")
         )
        load-path))
 
@@ -281,7 +282,7 @@
     (load "my-funcs.el"))
 
 ;;flymakeの設定
-;(load "init-flymake.el")
+(load "init-flymake.el")
 
 ;;womanの設定
 (setq woman-use-own-frame nil)

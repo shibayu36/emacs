@@ -63,7 +63,7 @@
 (shell-pop-set-internal-mode "ansi-term")
 (shell-pop-set-internal-mode-shell shell-file-name)
 (shell-pop-set-internal-mode-shell "/bin/zsh")
-(shell-pop-set-window-height 100)
-(setq shell-pop-window-position "top")
+(shell-pop-set-window-height 90)
+(setq shell-pop-window-position "bottom")
 
 (global-set-key (kbd "<f2>") 'shell-pop)

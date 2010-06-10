@@ -1,0 +1,38 @@
+comment.el		コメントアウト関連
+dir			sample `dir' file for Info
+docs/htmlqa		yahtmlに関する一般的な質問と回答
+docs/htmlqa.eng		Q and A on using yahtml
+docs/qanda		野鳥に関する一般的な質問と回答
+docs/qanda.eng		Q and A on using YaTeX
+docs/yahtmle		yahtml Texinfo Manual
+docs/yahtmle.tex	yahtml Texinfo Manual source text
+docs/yahtmlj		yahtml 日本語 Texinfo マニュアル
+docs/yahtmlj.tex	yahtml 日本語 Texinfo マニュアルのソース
+docs/yatex.ref		野鳥・キーバインド早見表
+docs/yatexadd.doc	野鳥用付加関数の仕様説明
+docs/yatexe		YaTeX Texinfo Manual
+docs/yatexe.tex		YaTeX Texinfo Manual source text
+docs/yatexgen.doc	付加関数自動作成モード使用上の注意
+docs/yatexj		野鳥・日本語 Texinfo マニュアル
+docs/yatexj.tex		野鳥・日本語 Texinfo マニュアルのソース
+docs/yatexref.eng      	Quick reference of YaTeX's key bindings
+help/YATEXHLP.jp 	オンラインヘルプデータ
+help/YATEXHLP.eng 	LaTeX on-line help text
+install			インストールガイド
+readme.meadow.j		Meadow 用インストールガイド
+yahtml.el		野鳥風 html モード
+yatex.el		野鳥・主 Emacs-Lisp ファイル
+yatex.new		各バージョンの変更履歴
+yatex19.el		Emacs-19(Mule2)用の設定
+yatexadd.el		付加関数の定義例
+yatexenv.el		LaTeX 環境依存の関数
+yatexgen.el		野鳥用付加関数自動作成モード
+yatexhie.el		野鳥用ドキュメント階層表示プログラム
+yatexhks.el		hook を詰め込むために使う(ユーザ用)
+yatexhlp.el		オンラインヘルププログラム
+yatexlib.el		野鳥用ライブラリ関数
+yatexm-o.el		.emacs の設定例(min-outを使用)
+yatexmth.el		数式環境用記号補完モード
+yatexpkg.el		野鳥用 \usepackage 解決プログラム
+yatexprc.el		野鳥・プロセス処理関数
+yatexsec.el		セクション抽出関数

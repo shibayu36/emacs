@@ -1,0 +1,469 @@
+Info file: yahtmlj,    -*-Text-*-
+produced by `texinfo-format-buffer'
+from file `yahtmlj.tex'
+using `texinfmt.el' version 2.32 of 19 November 1993.
+
+
+
+
+
+File: yahtmlj, Node: Top, Next: Intro, Prev: (dir), Up: (dir)
+
+* Menu:
+
+* Intro::                       はじめに
+* Installation::                インストール
+* Command Invocation::          外部コマンド起動
+* Completion::                  補完入力
+* Jump::                        カーソルジャンプ
+* Changing and Deleting::       変更と削除
+* CSS Support::                 スタイルシート補完
+* Customizations::              カスタマイズ変数一覧
+* Copying::                     とりあつかい
+* Concept Index::               索引
+
+
+
+File: yahtmlj, Node: Intro, Next: Installation, Prev: Top, Up: Top
+
+はじめに
+********
+
+yahtmlは GNU Emacs 上で HTML文書を作成する時に、繁雑なHTMLタグの入力を補完
+機能によってスムーズに行えるようにするだけでなく、weblintなどの構文チェッ
+クプログラム、カーソル位置のURLやファイル名に依存したブラウザ/イメージヴュー
+アの起動などを Emacs 編集画面中から行えるようにするパッケージです。
+
+(このInfoは未完成です(__)…)
+
+
+File: yahtmlj, Node: Installation, Next: Command Invocation, Prev: Intro, Up: Top
+
+インストール
+************
+* Menu:
+
+* yahtml起動のための設定::      
+* lintプログラム/ブラウザ/イメージヴューア環境等の設定::  
+* WWWページ環境用変数の設定::   
+
+
+File: yahtmlj, Node: yahtml起動のための設定, Next: lintプログラム/ブラウザ/イメージヴューア環境等の設定, Prev: Installation, Up: Installation
+
+yahtml起動のための設定
+======================
+
+
+`~/.emacs'に下の2項目を加えます。
+
+     (setq auto-mode-alist
+           (cons (cons "\\.html$" 'yahtml-mode) auto-mode-alist))
+     (autoload 'yahtml-mode "yahtml" "Yet Another HTML mode" t)
+
+次にyahtmlに必要なファイル(`yahtml.el', `yatexlib.el', `yatexprc.el') を置
+くディレクトリを load-path に加えます。たとえば、 `~/src/emacs/yahtml'に置
+くのであれば、
+
+     (setq load-path (cons (expand-file-name "~/src/emacs/yahtml") load-path))
+
+などとします。
+
+  以上の設定により、拡張子が .html であるファイルを編集すると自動的に
+yahtml がロードされます。yahtmlが正常に起動できたときはモードラインの表示
+が「yahtml」に変わります。
+
+
+File: yahtmlj, Node: lintプログラム/ブラウザ/イメージヴューア環境等の設定, Next: WWWページ環境用変数の設定, Prev: yahtml起動のための設定, Up: Installation
+
+lintプログラム/ブラウザ/イメージヴューア環境等の設定
+====================================================
+
+利用する外部プログラムなどに関する以下の変数を確認し、必要なら正しい値に変
+更します(括弧内はデフォルト値)。
+`yahtml-www-browser'
+             ... 起動するブラウザのコマンド名(netscape)
+`yahtml-image-viewer'
+             ... 起動する画像ビューアのコマンド名(xv)
+`yahtml-lint-program'
+             ... 構文チェックプログラムのコマンド名(jweblint)
+`yahtml-kanji-code'
+             ... htmlファイルの漢字コード
+
+
+File: yahtmlj, Node: WWWページ環境用変数の設定, Prev: lintプログラム/ブラウザ/イメージヴューア環境等の設定, Up: Installation
+
+WWWページ環境用変数の設定
+=========================
+
+ホームページとなるファイルが存在するPATH名に関する変数を設定します。
+`yahtml-path-url-alist'
+             ... ファイルシステム上のPATH名と、URLの対応表
+`yahtml-directory-index'
+             ... URL指定でファイル名を省略したときに表示されるインデックス
+                     ファイル名(NCSA系httpdなら `index.html', CERN系なら
+                     `Welcome.html'が一般的)
+
+変数 `yahtml-path-url-alist' の設定例を示します。例えば、自宅では、
+`/home/yuuji/http/' が `http://localhost/~yuuji' で参照でき、職場では 
+`/usr/home/yuuji/www/' が`http://www.keio.ac.jp/~yuuji/' で参照できるよう
+になっている場合は以下のように設定します。
+
+     (setq yahtml-path-url-alist
+           '(("/home/yuuj/http" . "http://localhost/~yuuji")
+             ("/usr/home/yuuj/www" . "http://www.keio.ac.jp/~yuuji")))
+
+この対応組はいくらでも設定することができます。
+
+
+File: yahtmlj, Node: Command Invocation, Next: Completion, Prev: Installation, Up: Top
+
+外部コマンド起動
+****************
+
+HTMLファイル編集にかかわるいくつかのコマンドを即座に呼ぶことができます。
+`[prefix] t j'
+             ... HTML構文チェッカ(jweblint)起動
+`[prefix] t p'
+             ... 現在のページを対象としたブラウザ起動
+`[prefix] t r'
+             ... 現在のページがブラウザに表示されているときのreload指定
+
+
+File: yahtmlj, Node: Completion, Next: Jump, Prev: Command Invocation, Up: Top
+
+補完入力
+********
+
+「野鳥」で利用できる、「begin型補完」、「section型補完」、「large型補完」、
+「maketitle型補完」、「アクセント補完」と全く同じキー操作で対応するHTMLタ
+グの補完入力ができます。それぞれの型の補完は順に、「複数行に渡るタグ入力」、
+「空要素タグ(imgなど)の補完」、「一行内での開始/終了タグの入力」、「空要素
+空属性タグの入力」、「文字参照入力」に対応しています。具体的には
+
+`[prefix] b (野鳥のbegin補完に対応)'
+     ...
+          <ul>
+          </ul>
+
+     のように開始タグと終了タグを二行に渡って書きたい場合の補完を指します。
+     おもにブロック型タグが補完候補に含まれます。
+
+`[prefix] s (野鳥のsection型補完に対応)'
+     ...
+          <img src="foo.gif" alt="photo">
+
+     のように終了タグを持たず、かつ属性値のみで機能を指定するタグを補完し
+     ます。補完候補としては、img, input が存在します。
+
+`[prefix] l (野鳥のlarge型補完に対応)'
+     ... begin型補完とほぼ同じですが、
+
+          <big> 〜 </big>
+
+     のように一行内に開始/終了タグを入れたいときに利用します。
+
+`[prefix] m (野鳥のmaketitle型補完に対応)'
+     ... 要素も属性値も持たないタグを補完入力します。<br> 
+     などが補完候補に相当します。
+
+`[prefix] a (野鳥のアクセント補完に対応)'
+     ... エンティティ参照による文字表記を入力するときに用います。
+     デフォルトでは < (&lt;), > (&gt;), & (&amp;), " (&quot;), ' (&apos;),
+     ブランク (&nbsp;) の補完入力が行えます。
+
+
+File: yahtmlj, Node: Jump, Next: Changing and Deleting, Prev: Completion, Up: Top
+
+カーソルジャンプ
+****************
+文書中のいろいろな場所で
+
+`[prefix] g'
+             ... 対応するオブジェクトにジャンプ
+
+を押すことにより、カーソル位置のHTML構文に対応する場所にジャンプします。対
+応関係が存在すると解釈されるコマンドには以下のものがあります。
+
+   * `<TAG>' ←→ `</TAG>'
+   * `<img src="画像ファイル">' → 対応するviewer起動
+   * `<a href="リンク先">' → リンク先へのポイント移動
+   * `<applet code="プログラム">' → Javaソースプログラムへの移動
+
+
+File: yahtmlj, Node: Changing and Deleting, Next: CSS Support, Prev: Jump, Up: Top
+
+変更/削除
+*********
+
+* Menu:
+
+* 対タグの変更::                
+* 文字参照への変更::            
+* リジョン内文字のURLencode::   
+
+
+File: yahtmlj, Node: 対タグの変更, Next: 文字参照への変更, Prev: Changing and Deleting, Up: Changing and Deleting
+
+対タグの変更
+============
+文書中のいろいろな場所で
+
+`[prefix] c'
+             ... 対応するタグ等を変更
+
+を押すことにより、カーソル位置のHTML構文に応じた記述内容の変更を行います。
+カーソル位置と変更する内容の対応は以下の通りです。
+
+   * `<TAG>'〜`</TAG>'
+     ... `TAG' の変更
+   * `<img src="画像ファイル" alt="photo">' などの属性値
+     ... 属性値の変更
+
+
+File: yahtmlj, Node: 文字参照への変更, Next: リジョン内文字のURLencode, Prev: 対タグの変更, Up: Changing and Deleting
+
+文字参照への変更
+================
+文字としての < や > を表現するときは、文字参照を用いて&lt; や &gt; と表記
+する必要がありますが、HTML以外のファイルからこれらの文字を含むテキストを張
+り込んだ場合などに、これらの文字を一括して文字参照形式に変換できます。
+
+`[prefix] ;'
+             ... 指定した領域の文字参照に置き換えるべき文字の置換
+`[prefix] :'
+             ... 指定した領域の文字参照を参照文字そのものに置換
+             ([prefix] ; の逆変換)
+
+
+
+File: yahtmlj, Node: リジョン内文字のURLencode, Prev: 文字参照への変更, Up: Changing and Deleting
+
+リジョン内文字のURLencode
+=========================
+      [prefix] #
+     
+     	... 指定した領域内に URLencode すべき文字があればそれらを
+             エンコード表記に置換。
+
+
+File: yahtmlj, Node: CSS Support, Next: Customizations, Prev: Changing and Deleting, Up: Top
+
+CSS(スタイルシート)サポート
+***************************
+
+* Menu:
+
+* CSS-class completion::        
+* Reread CSS file::             
+
+
+File: yahtmlj, Node: CSS-class completion, Next: Reread CSS file, Prev: CSS Support, Up: CSS Support
+
+CSSクラス名補完
+===============
+HTML屋はCSS(Cascading Style Sheets)のクラス名を補完入力することができます。
+スタイル定義として
+
+      h1.foo, h2.foo { background-color: 0xffffff; }
+      h1.bar, h2.bar { font-size: 120%; }
+
+のようなものがあった場合に、h1またはh2タグを [prefix] b や [prefix] l で補
+完入力した場合に、それらに有効な class 名である foo, bar を候補として補完
+入力することが可能です。また
+
+      .caution { font-size: 120%; background-color: 0xc00000;}
+
+のような全てのエレメントに働くclassが定義されていた場合は、全てのタグの補
+完入力時にclass参照入力を求められます。これが煩わしい場合はエレメント名入
+力確定のときにリターンキー(またはC-m)ではなく、C-jを押せばclass補完入力を
+キャンセルできます。たとえば
+
+      `[prefix] l'                    行内タグ補完を起動
+         (または`[prefix] l SPC')
+      tt                                  <tt></tt>をいれたいのでttと入力
+      `C-m'
+
+とした場合は続いて class= と補完プロンプトが出ますが、
+
+      `[prefix] l'                    行内タグ補完を起動
+         (または`[prefix] l SPC')
+      tt                                  <tt></tt>をいれたいのでttと入力
+      `C-j'
+
+と最後を `C-j' で入力した場合は class 補完プロンプトは出ません。
+
+
+File: yahtmlj, Node: Reread CSS file, Prev: CSS-class completion, Up: CSS Support
+
+CSS定義ファイルの読み直し
+=========================
+htmlファイルを編集中にCSS定義ファイルを修正し、追加したclassを補完候補とし
+て直ちに読み込ませたい場合は、`M-x yahtml-mode' として再起動を行ってくださ
+い。
+
+
+File: yahtmlj, Node: Customizations, Next: Copying, Prev: CSS Support, Up: Top
+
+カスタマイズ
+************
+
+yahtmlの動作を制御する変数について説明します。
+
+* Menu:
+
+* All customizable variables::  カスタマイズ変数一覧
+* Hook variables::              hook変数
+
+
+File: yahtmlj, Node: All customizable variables, Next: Hook variables, Prev: Customizations, Up: Customizations
+
+カスタマイズ変数一覧
+====================
+
+ -- Variable: yahtml-prefix
+     yahtml-mode 中のプリフィクスキー (`\C-c')
+
+ -- Variable: yahtml-image-viewer
+     imgで参照している画像ファイルを表示するときに起動するコマンド (xv)
+
+ -- Variable: yahtml-www-browser
+     `[prefix]g' で外部ページを表示するときに起動するブラウザ (netscape)
+
+ -- Variable: yahtml-kanji-code
+     デフォルトの漢字コード。1=sjis, 2=jis, 3=euc (2)
+     .htaccess ファイルに
+           AddType "text/html; charset=xxx" .htmlの記述があった場合はそれ
+     に従う
+
+ -- Variable: yahtml-fill-column
+     auto-fillするときのカラム数 (72)
+
+ -- Variable: yahtml-fill-prefix
+     yahtml-mode 固有のfill-prefix (`nil')
+
+ -- Variable: yahtml-path-url-alist
+     OSのファイルシステム上でのフルパス名と、その外部公開時のURLの対応表。
+
+ -- Variable: yahtml-directory-index
+     サーバアクセス時ファイル名を省略したときにデフォルトで開かれるインデッ
+     クスファイルの名前。多くの場合 index.html。(`"index.html"')
+
+ -- Variable: yahtml-lint-program
+     HTML構文チェックプログラム。(`"jweblint"')
+
+ -- Variable: yahtml-hate-too-deep-indentation
+     ネストした列挙系環境でのインデントが深すぎるときにtにする。(`nil')
+
+ -- Variable: yahtml-always-/p
+     `<p>' をいれたら必ず `</p>' したい人向け。`nil'
+
+ -- Variable: yahtml-p-prefered-env-regexp
+     自動的に `<p>' を入れて欲しい環境。
+     (`"^\\(body\\|dl\\|blockquote\\)"')
+
+ -- Variable: yahtml-template-file
+     新規HTMLファイル作成時に自動的に挿入して欲しいファイル名。
+     `"~/http/template.html"'
+
+ -- Variable: yahtml-prefer-upcases
+     タグに大文字を使いたい。`nil'
+
+ -- Variable: yahtml-prefer-upcase-attributes
+     属性指定子に大文字を使いたい。`nil'
+
+ -- Variable: yahtml-server-type
+     Apache系のサーバを利用している場合は 'apache をセットする。
+     ./.htaccess を参照するかどうかを決定する。`'apache'
+
+ -- Variable: yahtml-apache-access-file
+     `yahtml-server-type' が `'apache' のときにアクセス制限ファイル名を指
+     定。`".htaccess"'
+
+ -- Variable: yahtml-shell-command-option
+     シェルで別コマンドを起動するときのオプション。
+
+ -- Variable: yahtml-translate-hyphens-when-comment-region
+     領域コメントアウトをするときに既に存在するハイフンを `&#45;' に変更す
+     るかどうか。(`t')
+
+ -- Variable: yahtml-entity-reference-chars-alist
+     エンティティ参照(Entity Reference)で記述すべき文字群を
+      `'(?文字 . "エンティティ表記")' という形式を列挙したalistで並べる。
+     デフォルトで `<', `>', `&', `'', `"' に対するalistが設定されているの
+     で、追加したい分だけを記述すれば良い。cdr部 `"エンティティ表記"' は、
+     先頭の `&' と 末尾の`;'は含めずに書く。
+
+ -- Variable: yahtml-faithful-to-htmllint
+     構文チェッカとして htmllint を利用する場合ちょっとした余計な空白など
+     に対しても警告を示すので、これを回避するときにはこの変数を`t'にする。
+
+ -- Variable: yahtml-use-css
+     CSSの補完機能を使うかどうか (`t')
+
+ -- Variable: yahtml-image-inspection-bytes
+     画像ファイルのサイズを調べるときに読み込むバイト数 (`10000')
+
+ -- Variable: yahtml:img-default-alt-format
+     <img src...>のALT属性のデフォルト文字列の書式。%xは画像の幅、%yは画像
+     の高さ、%sはファイルサイズに置換される (`"%xx%y(%sbytes)"')
+
+ -- Variable: yahtml-escape-chars
+     href補完などのときに予約文字をURLエンコードするか; 'askのときは確認し
+     てから置換する (`'ask')
+
+ -- Variable: yahtml-use-font-lock
+     ソースの色づけパッケージとして font-lock を利用するか(`(featurep '
+     font-lock)')
+
+ -- Variable: yahtml-use-hilit19
+     ソースの色づけパッケージとして hilit19 を利用するか(`(featurep '
+     hilit19)')
+
+ -- Variable: yahtml-indentation-boundary
+     インデント計算を打ち切ってよい境界となる正規表現(`"^\\s *<h[1-3]>"')
+
+
+File: yahtmlj, Node: Hook variables, Prev: All customizable variables, Up: Customizations
+
+hook変数
+========
+
+
+
+File: yahtmlj, Node: Copying, Next: Concept Index, Prev: Customizations, Up: Top
+
+取り扱い
+********
+
+  本プログラムはフリーソフトウェアです。本プログラムを使用して生じたいかな
+る結果に対しても作者は責任を負わないこととします。転載等に関しては制限いた
+しません。常識的に扱ってください。また、使用している旨をメイルでお知らせい
+ただくと、作者は喜んでサポートに励むことでしょう。
+
+  苦情、希望、バグ報告、感想等は歓迎いたします。連絡は yuuji@yatex.org ま
+で(2000年12月現在)。継続的に使用してくださる方はメイリングリスト「fj野鳥の
+会」に是非加入してください。加入方法については本パッケージの `docs/htmlqa'
+ファイルの「その他」の章を御覧ください。
+
+仕様は、予告なく確実に(気分次第で)変更されます:-p。
+
+                                                                  広瀬雄二
+
+
+
+File: yahtmlj, Node: Concept Index, Prev: Copying, Up: Top
+
+索引
+****
+
+* Menu:
+
+* キーアサイン[きいあさいん]:   Customizations.         4.
+* カスタマイズ[かすたまいす]:   Customizations.         4.
+* Demacs:                       Intro.                  4.
+* HTML屋[HTMLや]:               Intro.                  4.
+* LaTeX:                        Intro.                  4.
+* Mule:                         Intro.                  4.
+
+
+

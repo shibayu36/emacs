@@ -1,0 +1,459 @@
+Info file: yahtmle,    -*-Text-*-
+produced by `texinfo-format-buffer'
+from file `yahtmle.tex'
+using `texinfmt.el' version 2.32 of 19 November 1993.
+
+
+
+
+
+File: yahtmle, Node: Top, Next: Intro, Prev: (dir), Up: (dir)
+
+* Menu:
+
+* Intro::                       Introduction
+* Installation::                Installing yahtml
+* Command Invocation::          Using External Commands
+* Completion::                  Input with Completion
+* Jump::                        Moving the Cursor
+* Changing and Deleting::       Changing and Deleting
+* CSS Support::                 Style Sheet Support
+* Customizations::              List of Customize Variables
+* Copying::                     Copyright
+* Concept Index::               Index
+
+
+File: yahtmle, Node: Intro, Next: Installation, Prev: Top, Up: Top
+
+Introduction
+************
+
+yahtml is a package to support creating HTML documents on Emacsens.  Easy
+input of elements (tags) by completion, syntax checking with programs like
+weblint, and invoking the appropriate browser or image viewer depending on
+the cursor position is its main features.
+
+(This Info is still incomplete)
+
+
+File: yahtmle, Node: Installation, Next: Command Invocation, Prev: Intro, Up: Top
+
+Installing yahtml
+*****************
+* Menu:
+
+* Setting up yahtml::           
+* Setting environments for weblint browsers and image viewers::  
+* Setting environment variables for WWW pages::  
+
+
+File: yahtmle, Node: Setting up yahtml, Next: Setting environments for weblint browsers and image viewers, Prev: Installation, Up: Installation
+
+Setting up yahtml
+=================
+
+
+Add the following to `~/.emacs'
+
+     (setq auto-mode-alist
+           (cons (cons "\\.html$" 'yahtml-mode) auto-mode-alist))
+     (autoload 'yahtml-mode "yahtml" "Yet Another HTML mode" t)
+
+Next, add to load-path the directory with the yahtml files (`yahtml.el',
+`yatexlib.el', `yatexprc.el').  For example, if you put them in
+`~/src/emacs/yahtml',
+
+     (setq load-path (cons (expand-file-name "~/src/emacs/yahtml") load-path))
+
+is what you add.
+
+By this, yahtml will be automatically loaded when editing files with .html
+extensions.  "yahtml" will be displayed on the mode line if no errors
+occurred.
+
+
+File: yahtmle, Node: Setting environments for weblint browsers and image viewers, Next: Setting environment variables for WWW pages, Prev: Setting up yahtml, Up: Installation
+
+Setting environments for weblint, browsers, and image viewers
+=============================================================
+
+Check the variables for invoking external commands and modify as needed.
+Defaults are in parenthesis.
+
+`yahtml-www-browser'
+             ... browser command name (netscape)
+`yahtml-image-viewer'
+             ... image viewer command name (xv)
+`yahtml-lint-program'
+             ... syntax check programs command name (jweblint)
+`yahtml-kanji-code'
+             ... kanji code for HTML files
+
+
+File: yahtmle, Node: Setting environment variables for WWW pages, Prev: Setting environments for weblint browsers and image viewers, Up: Installation
+
+Setting environment variables for WWW pages
+===========================================
+
+Variables regarding path names for files that will be your home page.
+`yahtml-path-url-alist'
+             ... list of matching path name on file system and URLs
+`yahtml-directory-index'
+             ... index file displayed when none is given in URL.  Usually
+             `index.html' on NCSA type httpd and `Welcome.html' on
+             CERN types.
+
+Examples for `yahtml-path-url-alist'.  If `/home/yuuji/http/' is
+`http://localhost/~yuuji' at home and `/usr/home/yuuji/www/' is
+`http://www.keio.ac.jp/~yuuji/' at work, then
+
+     (setq yahtml-path-url-alist
+           '(("/home/yuuji/http" . "http://localhost/~yuuji")
+             ("/usr/home/yuuji/www" . "http://www.keio.ac.jp/~yuuji")))
+
+Any number of additions can be made to this list.
+
+
+File: yahtmle, Node: Command Invocation, Next: Completion, Prev: Installation, Up: Top
+
+Invoking external commands
+**************************
+
+For easy use of commands that are handy when editing HTML files.
+`[prefix] t j'
+             ... Invoke HTML syntax checker (jweblint)
+`[prefix] t p'
+             ... Display current page in browser
+`[prefix] t r'
+             ... Reload current page if browser is already running
+
+
+File: yahtmle, Node: Completion, Next: Jump, Prev: Command Invocation, Up: Top
+
+Completion Input
+****************
+
+Completion input of HTML elements is done through the same key strokes as
+YaTeX's begin-type completion, section-type completion, large-type
+completion, maketitle-type completion, and accent completion.
+Corresponding elements in this order is; elements that span multiple
+lines, empty elements such as img, tags that start and end in a single
+line, elements with no attributes or contents, and special or symbol
+entities.
+
+`[prefix] b (YaTeX begin-type completion)'
+     ...
+          <ul>
+          </ul>
+
+     Completion for elements that the start tag and the end tag span
+     multiple lines. Mostly block-level elements.
+
+`[prefix] s (YateX section-type completion)'
+     ...
+          <img src="foo.gif" alt="photo">
+
+     Completion for elements that do not have end tags and require only
+     attributes.  Possible completions are, <img>, <input>.
+
+`[prefix] l (YaTeX large-type completion)'
+     ... 
+
+          <big> 〜 </big>
+
+     Similar to begin-type completion but used for elements that start and
+     end on a single line.
+
+
+`[prefix] m (YaTeX maketitle-type completion)'
+     ... Completion for elements without attributes or contents.  Possible
+     completion is <br>
+
+`[prefix] a (YaTeX accent completion)'
+     ... Used to enter special or symbol entities.  By default completion
+     for < (&lt;), > (&gt;), & (&amp;), " (&quot;), ' (&apos;), blank
+     (&nbsp;) is possible.
+
+
+File: yahtmle, Node: Jump, Next: Changing and Deleting, Prev: Completion, Up: Top
+
+Cursor Movement
+***************
+By using
+
+`[prefix] g'
+             ... move to corresponding object
+
+the cursor will go to the corresponding object according to the context.
+Recognized contexts are
+
+   * `<TAG>' <--> `</TAG>'
+   * `<img src="image.file">' -> invoke viewer
+   * `<a href="link.to.somewhere">' -> move cursor to linked target
+   * `<applet code="program">' -> open Java source
+
+
+File: yahtmle, Node: Changing and Deleting, Next: CSS Support, Prev: Jump, Up: Top
+
+Changing and Deleting
+*********************
+
+* Menu:
+
+* Changing tags in pairs::      
+* Changing entities::           
+* URLencoding of strings within region::  
+
+
+File: yahtmle, Node: Changing tags in pairs, Next: Changing entities, Prev: Changing and Deleting, Up: Changing and Deleting
+
+Changing tags in pairs
+======================
+By using
+
+`[prefix] c'
+             ... change tags in matching pairs
+
+the content can be changed according to the context of the HTML document
+where the cursor is located.
+
+   * `<TAG>'〜`</TAG>'
+     ... change `TAG' element name
+   * attributes such as `<img src="image.file" alt="photo">'
+     ... change attributes
+
+
+File: yahtmle, Node: Changing entities, Next: URLencoding of strings within region, Prev: Changing tags in pairs, Up: Changing and Deleting
+
+Changing entities
+=================
+Special characters such as < or > must be written as &lt; and &gt;.  Easy
+conversion of these characters can be done when importing text from non
+HTML files.
+
+
+`[prefix] ;'
+             ... convert char to special entity in marked region
+`[prefix] :'
+             ... convert special entity to original char in marked region
+             (reverse of [prefix] ;)
+
+
+
+File: yahtmle, Node: URLencoding of strings within region, Prev: Changing entities, Up: Changing and Deleting
+
+URLencoding of strings within region
+====================================
+
+`[prefix] #'
+     	... encode chars that needs to be URLencoded within region
+
+
+File: yahtmle, Node: CSS Support, Next: Customizations, Prev: Changing and Deleting, Up: Top
+
+CSS(Style Sheets) Support
+*************************
+
+* Menu:
+
+* CSS-class completion::        
+* Reread CSS definition::       
+
+
+File: yahtmle, Node: CSS-class completion, Next: Reread CSS definition, Prev: CSS Support, Up: CSS Support
+
+CSS class-name completion
+=========================
+You can input a class name in your CSS definition with completion.  If you
+have CSS defined as below;
+
+      h1.foo, h2.foo { background-color: 0xffffff; }
+      h1.bar, h2.bar { font-size: 120%; }
+
+when you input h1(or h2) tag with completing-read by [prefix] b or
+[prefix] l, yahtml prompts you to input class name with completion from
+the words which are effective to h1 or h2.  And if you defined global
+class like this;
+
+      .caution { font-size: 120%; background-color: 0xc00000;}
+
+when you input any tags via completing-read, yahtml prompts you to input
+class name.  If this is bothering, typing `C-j' instead of `RET' (or
+`C-m') cancels the next prompt to class name completion.
+
+
+File: yahtmle, Node: Reread CSS definition, Prev: CSS-class completion, Up: CSS Support
+
+Re-reading CSS definition
+=========================
+If you add some class to your CSS file and you want yahtml to load new
+definitions, type `M-x yahtml-mode RET' to make yahtml do.
+
+
+File: yahtmle, Node: Customizations, Next: Copying, Prev: CSS Support, Up: Top
+
+Customizations
+**************
+
+Variables that modify yahtml's behavior.
+
+* Menu:
+
+* All customizable variables::  List of customizable variables
+* Hook variables::              hook variables
+
+
+File: yahtmle, Node: All customizable variables, Next: Hook variables, Prev: Customizations, Up: Customizations
+
+List of customizable variables.  Defaults in parenthesis
+========================================================
+
+ -- Variable: yahtml-prefix
+     Prefix key for yahtml-mode.  (`\C-c')
+
+ -- Variable: yahtml-image-viewer
+     Command to view image files refered by img. (xv)
+
+ -- Variable: yahtml-www-browser
+     Browser to view external pages with `[prefix]g'. (netscape)
+
+ -- Variable: yahtml-kanji-code
+     Default kanji code. 1=sjis, 2=jis, 3=euc (2) If
+           AddType "text/html; charset=xxx" .html is written in .htaccess,
+     this will override yahtml-kanji-code.
+
+ -- Variable: yahtml-fill-column
+     Columns to auto-fill (72)
+
+ -- Variable: yahtml-fill-prefix
+     fill-prefix specific to yahtml-mode. (`nil')
+
+ -- Variable: yahtml-path-url-alist
+     Matching list of URL and full path name on OS's file system.
+
+ -- Variable: yahtml-directory-index
+     Default index filed opened when accessing a server without a
+     filename, usually index.html. (`"index.html"')
+
+ -- Variable: yahtml-lint-program
+     HTML syntax check program. (`"jweblint"')
+
+ -- Variable: yahtml-hate-too-deep-indentation
+     setq to t when indentations for nested enumerate elements are too
+     deep.  (`nil')
+
+ -- Variable: yahtml-always-/p
+     setq to t if you always want `</p>' after `</p>'. `nil'
+
+ -- Variable: yahtml-p-prefered-env-regexp
+     Elements that `<p>' will be automatically inserted.
+     (`"^\\(body\\|dl\\|blockquote\\)"')
+
+ -- Variable: yahtml-template-file
+     File to automatically insert when editing a new HTML file.
+     `"~/http/template.html"'
+
+ -- Variable: yahtml-prefer-upcases
+     Use uppercase for tags. `nil'
+
+ -- Variable: yahtml-prefer-upcase-attributes
+     Use uppercase for attributes. `nil'
+
+ -- Variable: yahtml-server-type
+     setq to 'apache if using a Apache server, and will refer ./.htaccess.
+     `'apache'
+
+ -- Variable: yahtml-apache-access-file
+     When `yahtml-server-type' is `'apache', define name of access
+     restriction file. `".htaccess"'
+
+ -- Variable: yahtml-shell-command-option
+     Options needed to invoke shell commands.
+
+ -- Variable: yahtml-translate-hyphens-when-comment-region
+     Whether to change hyphens to `&#45;' when commenting out region.
+     (`t')
+
+ -- Variable: yahtml-entity-reference-chars-alist
+     alist of characters that needs to be written by Entity Reference.
+     Enter as `'(?char . "EntityReference")'.  By default, `<', `>', `&',
+     `'', is set.  Add as needed.  Do not include `&' at beginning and `;'
+     at end of cdr portion of `"EntityReference"'.
+
+ -- Variable: yahtml-faithful-to-htmllint
+     When using htmllint to check syntax, it will complain about excess
+     spaces.  setq to `t' to avoid this.
+
+ -- Variable: yahtml-use-css
+     Use style-sheet support or not (`t')
+
+ -- Variable: yahtml-image-inspection-bytes
+     Number of bytes to inspect the image for geometry information
+     (`10000')
+
+ -- Variable: yahtml:img-default-alt-format
+     format of img entity's ALT attributes.  %x: width, %y: height, %s:
+     size in bytes, %c: first comment string, %f: filename
+     (`"%xx%y(%sbytes)"')
+
+ -- Variable: yahtml-escape-chars
+     When, completing href-s, Escape reserved characters to URL-encoding
+     or not.  Nil for never, t for everytime, and 'ask for inquiring at
+     each reserved chars. (`'ask')
+
+ -- Variable: yahtml-use-font-lock
+     Use font-lock to fontify buffer or not (`(featurep 'font-lock)')
+
+ -- Variable: yahtml-use-hilit19
+     Use hilit19 to highlight buffer or not (`(featurep 'hilit19)')
+
+ -- Variable: yahtml-indentation-boundary
+     Boundary regexp for indentation calculation.  (`"^\\s *<h[1-3]>"')
+
+
+File: yahtmle, Node: Hook variables, Prev: All customizable variables, Up: Customizations
+
+hook variables
+==============
+
+
+
+File: yahtmle, Node: Copying, Next: Concept Index, Prev: Customizations, Up: Top
+
+Copying
+*******
+
+This program is distributed as freesoftware.  The author will take no
+responsibility to any damages due to the usage of this software
+whatsoever.  There are no restrictions to its redistribution, just use
+common sense.  Mail me your thoughts on this program and I will be more
+than willing to help.
+
+Complaints, requests, bug reports and comments are welcome.  Make contacts
+to yuuji@yatex.org　(as of December 2000)
+
+If you like this program and use it on a regular basis, please join the
+mailing list "fj Wild Bird Society".  Procedures can be found in the "etc"
+section of `docs/htmlqa.eng' in this package.
+
+
+                                                             HIROSE, Yuuji
+
+
+
+File: yahtmle, Node: Concept Index, Prev: Copying, Up: Top
+
+Index
+*****
+
+* Menu:
+
+* Customize:                    Customizations.         4.
+* Demacs:                       Intro.                  4.
+* Key Assign:                   Customizations.         4.
+* LaTeX:                        Intro.                  4.
+* Mule:                         Intro.                  4.
+* yahtml:                       Intro.                  4.
+
+
+

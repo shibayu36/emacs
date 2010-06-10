@@ -1,0 +1,2399 @@
+\def\lang{jp} % -*- texinfo -*-
+\input texinfo.tex
+@setfilename yatexe
+@settitle Yet Another tex-mode for Emacs
+
+@iftex
+@c @syncodeindex fn cp
+@c Last modified Wed Jul 20 21:27:50 2005 on firestorm
+@syncodeindex vr cp
+@end iftex
+
+@titlepage
+@sp 10
+@center
+@subtitle Yet Another tex-mode for emacs
+@title Wild Bird
+@subtitle // YaTeX //
+@author @copyright{} 1991-2003 by    HIROSE, Yuuji [yuuji@@yatex.org]
+@end titlepage
+
+@node Top, What is YaTeX?, (dir), (dir)
+@comment  node-name,  next,  previous,  up
+@cindex Demacs
+@cindex Mule
+@cindex LaTeX
+@cindex YaTeX
+
+@menu
+* What is YaTeX?::              
+* Main features::               What YaTeX can do
+* Installation::                Guide to install
+* Typesetting::                 Call typesetting processes
+* %#notation::                  Meta-keyword `%#'
+* Completion::                  Input LaTeX commands with completion
+* Local dictionaries::          Directory dependent completion
+* Commenting out::              Commenting/uncommenting text
+* Cursor jump::                 Jumping to related position
+* Changing and Deleting::       Changing/deleting certain unit of text
+* Filling::                     Filling an item or paragraph
+* Updation of includeonly::     Free from maintaining includeonly
+* What column::                 Check what table-column the cursor belong
+* Intelligent newline::         Guess requisites of new line
+* Usepackage checker::          Selecting correct \usepackage is YaTeX's job
+* Online help::                 On-line documentation of LaTeX
+* Browsing file hierarchy::     Walking through file hierarchy
+* Cooperation with other packages::  Work well with gmhist, min-out
+* Customizations::              How to breed `Wild Bird'
+* Etcetera::                    YaTeX is acquisitive.
+* Copying::                     Redistribution
+
+
+@node What is YaTeX?, Main features, Top, Top
+@comment  node-name,  next,  previous,  up
+@chapter What is YaTeX?
+
+  YaTeX automates typesetting and previewing of LaTeX and enables
+completing input of LaTeX mark-up command such as
+@code{\begin@{@}}..@code{\end@{@}}.
+
+  YaTeX also supports Demacs which runs on MS-DOS(386), Mule (Multi
+Language Enhancement to GNU Emacs), and latex on DOS.
+
+@node Main features, Installation, What is YaTeX?, Top
+@comment  node-name,  next,  previous,  up
+@chapter Main features
+
+@itemize
+@item Invocation of typesetter,  previewer and related programs(@kbd{C-c t})
+@item Typesetting on static region which is independent from point
+@item Semiautomatic replacing of @code{\includeonly}
+@item Jumping to error line(@kbd{C-c '})
+@item Completing-read of La@TeX{} commands such as @code{\begin@{@}},
+        @code{\section} etc. 
+        (@kbd{C-c b}, @kbd{C-c s}, @kbd{C-c l}, @kbd{C-c m})
+@item Enclosing text into La@TeX{} environments or commands
+      (@kbd{C-u} @var{AboveKeyStrokes})
+@item Displaying the structure of text at entering sectioning commands
+@item Lump shifting of sectioning commands (@ref{view-sectioning})
+@item Learning unknown/new La@TeX{} commands for the next completion
+@item Argument reading with a guide for complicated La@TeX{} commands
+@item Generating argument-readers for new/unsupported commands(@file{yatexgen})
+@item Quick changing or deleting of La@TeX{} commands(@kbd{C-c c}, @kbd{C-c k})
+@item Jumping from and to inter-file, begin<->end, ref<->label(@kbd{C-c g})
+@item Blanket commenting out or uncommenting
+        (@kbd{C-c >}, @kbd{C-c <}, @kbd{C-c ,}, @kbd{C-c .})
+@item Easy input of accent mark, math-mode's commands and Greek letters
+        (@kbd{C-c a}, @kbd{;}, @kbd{:})
+@item Online help for the popular La@TeX{} commands
+      (@kbd{C-c ?}, @kbd{C-c /})
+@item Document files hierarchy browser (@kbd{C-c d})
+@item Adding automatically \usepackage corresponding to inputting LaTeX
+      macro with completion
+@item Allow you to forget creating \label{}s, \ref or \cite completion
+      automatically generate labels.
+@end itemize
+
+@node Installation, Typesetting, Main features, Top
+@comment  node-name,  next,  previous,  up
+@chapter Installation
+@cindex installation
+@cindex .emacs
+@cindex auto-mode-alist
+@cindex autoload
+
+  Put next two expressions into your @file{~/.emacs}.
+
+@lisp
+        (setq auto-mode-alist
+              (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+        (autoload 'yatex-mode "yatex" "Yet Another La@TeX{} mode" t)
+@end lisp
+
+Next, add certain path name where you put files of YaTeX to your
+load-path.  If you want to put them in @file{~/src/emacs}, write
+
+@lisp
+       (setq load-path
+             (cons (expand-file-name "~/src/emacs") load-path))
+@end lisp
+
+@noindent
+in your @file{~/.emacs}
+
+  Then, yatex-mode will be automatically loaded when you visit a
+file which has extension @file{.tex}.  If yatex-mode is successfully
+loaded, mode string on mode line will be turned to "YaTeX".
+
+
+@node Typesetting, %#notation, Installation, Top
+@comment  node-name,  next,  previous,  up
+@chapter Typesetting
+@cindex typesetting
+@cindex previewer
+@cindex typesetter
+@cindex latex
+@cindex printing out
+
+  The prefix key stroke of yatex-mode is @kbd{C-c} (Press 'C' with Control
+key) by default.  If you don't intend to change the prefix key stroke,
+assume all @kbd{[prefix]} as @kbd{C-c} in this document.  These key
+strokes execute typeset or preview command.
+
+@table @kbd
+@item [prefix] t j
+        @dots{} invoke latex
+@item [prefix] t r
+        @dots{} invoke latex on region
+@item [prefix] t k
+        @dots{} kill current typesetting process
+@item [prefix] t b
+        @dots{} invoke bibtex
+@item [prefix] t p
+        @dots{} preview
+@item [prefix] t l
+        @dots{} lpr dvi-file
+@item [prefix] t s
+        @dots{} search current string on xdvi-remote
+@end table
+
+@menu
+* Calling typesetter::          
+* Calling previewer::           
+* Printing out::                
+@end menu
+
+@node Calling typesetter, Calling previewer, Typesetting, Typesetting
+@comment  node-name,  next,  previous,  up
+@section Calling typesetter
+
+  Typing @kbd{[prefix] t j}, the current editing window will be divided
+horizontally when you invoke latex command, and log message of La@TeX{}
+typesetting will be displayed in the other window; called typesetting
+buffer.  The typesetting buffer automatically scrolls up and traces
+La@TeX{} warnings and error messages.  If you see latex stopping by an
+error, you can send string to latex in the typesetting buffer.
+
+  If an error  stops the La@TeX{}  typesetting, this  key stroke will
+move the cursor to the line where La@TeX{} error is detected.
+
+@table @kbd
+@item [prefix] '
+@itemx ([prefix]+single quotation)
+
+        @dots{} jump to the previous error or warning
+@end table
+
+  If you find a noticeable error, move to the typesetting buffer and move
+the cursor on the line of error message and type @kbd{SPACE} key.  This
+makes the cursor move to corresponding source line.
+
+  Since @kbd{[prefix] tr} pastes the region into the file
+@file{texput.tex} in the current directory, you should be careful of
+overwriting.  The method of specification of the region is shown in the
+section @xref{%#notation}.
+
+  The documentclass  for typeset-region is the same as that of editing
+file if you edit one  file,  and is the same as main file's if you
+edit splitting files.
+
+@node Calling previewer, Printing out, Calling typesetter, Typesetting
+@comment  node-name,  next,  previous,  up
+@section Calling previewer
+
+  @kbd{[prefix] t p} invokes the TeX previewer.  And if you are using
+xdvi-remote, which can be controled from other terminals, @kbd{[prefix] t
+s} enables you to search current string at the cursor on the running xdvi
+window.
+
+@node Printing out,  , Calling previewer, Typesetting
+@comment  node-name,  next,  previous,  up
+@section Printing out
+
+  When you type @code{[preifx] t l}, YaTeX asks you the range of
+dvi-printing by default.  You can skip this by invoking it with
+universal-argument as follows:
+
+@example
+        C-u [prefix] tl
+@end example
+
+@node %#notation, Completion, Typesetting, Top
+@comment  node-name,  next,  previous,  up
+@chapter %# notation
+@cindex %# notation
+
+  You can control the typesetting process by describing @code{%#}
+notations in the source text.
+
+@menu
+* Changing typesetter::         
+* Splitting input files::       
+* Static region for typesetting::  
+* Lpr format::                  
+* Editing %# notation::         
+@end menu
+
+@node Changing typesetter, Splitting input files, %#notation, %#notation
+@comment  node-name,  next,  previous,  up
+@section To change the `latex' command or to split a source text.
+@cindex typesetter
+
+  To change the typesetting command, write
+
+@example
+        %#!latex-big
+@end example
+
+@noindent
+anywhere in the source text.  This is useful for changing
+typesetter.
+
+@node Splitting input files, Static region for typesetting, Changing typesetter, %#notation
+@comment  node-name,  next,  previous,  up
+@section Splitting input files
+
+  And if you split the source text and
+edit subfile that should be included from main text.
+
+@example
+        %#!latex main.tex
+@end example
+
+@noindent
+will be helpful to execute latex on main file from sub text buffer.  Since
+this command line after @kbd{%#!} will be sent to shell literally, next
+description makes it convenient to use ghostview as dvi-previewer.
+
+@example
+        %#!latex main ; dvi2ps main.dvi > main
+@end example
+
+@noindent
+Note that YaTeX  assumes the component  before the  last period of
+the last word in this line as base name of the main La@TeX{} source.
+The @code{%f} notation in this line is replaced by main file name, and
+@code{%r} replaced by root name of main file name.  If you specify
+@code{%f} or @code{%r}, YaTeX always ask you the name of main file at the
+first typesetting.
+
+  To make best use of the feature of inter-file jumping by
+@kbd{[prefix] g} (see @ref{Cursor jump}), take described below into
+consideration.
+
+@itemize
+@item You can put split texts in sub directory, but not in
+ sub directory of sub directory.
+@item In the main text, specify the child file name with relative path name
+ such as \include@{chap1/sub@}, when you include the file in
+ a sub-directory.
+@item In a sub-text, write @code{%#!latex main.tex} even if @file{main.tex}
+ is in the parent directory(not %#!latex ../main.tex).
+@end itemize
+
+@node Static region for typesetting, Lpr format, Splitting input files, %#notation
+@comment  node-name,  next,  previous,  up
+@section Static region
+@cindex static region
+@cindex Fixed region
+
+  Typeset-region by @kbd{[prefix] tr} passes the region between point and
+mark to typesetting command by default.  But when you want to typeset
+static region, enclose the region by @code{%#BEGIN} and @code{%#END} as
+follows.
+
+@example
+        %#BEGIN
+          TheRegionYouWantToTypesetManyTimes
+        %#END
+@end example
+
+This is the rule of deciding the region.
+
+@enumerate
+@item
+If there exists %#BEGIN before point,
+
+@enumerate
+@item
+If there exists %#END after %#BEGIN,
+@itemize
+@item From %#BEGIN to %#END.
+@end itemize
+
+@item
+If %#END does not exist after %#BEGIN,
+@itemize
+@item From %#BEGIN to the end of buffer.
+@end itemize
+@end enumerate
+
+@item
+If there does not exist %#BEGIN before point,
+@itemize
+@item Between point and mark(standard method of Emacs).
+@end itemize
+@end enumerate
+
+  It is useful to write @code{%#BEGIN} in the previous line of \begin and
+@code{%#END} in the next line of \@code{end} when you try complex
+environment such as `tabular' many times.  It is also useful to put only
+@code{%#BEGIN} alone at the middle of very long text.  Do not forget to
+erase @code{%#BEGIN} @code{%#END} pair.
+
+@node Lpr format, Editing %# notation, Static region for typesetting, %#notation
+@comment  node-name,  next,  previous,  up
+@section Lpr format
+@cindex lpr format
+
+  Lpr format is specified by three Lisp variables.  Here are the
+default values of them.
+
+@table @code
+@item (1)dviprint-command-format
+        @code{"dvi2ps %f %t %s | lpr"}
+@item (2)dviprint-from-format
+        @code{"-f %b"}
+@item (3)dviprint-to-format
+        @code{"-t %e"}
+@end table
+
+  On YaTeX-lpr, @code{%s} in (1) is replaced by the file name of main
+text, @code{%f} by contents of (2), %t by contents of (3).  At these
+replacements, @code{%b} in (2) is also replaced by the number of beginning
+page, @code{%e} in (3) is replaced by the number of ending page.  But
+@code{%f} and @code{%t} are ignored when you omit the range of print-out
+by @kbd{C-u [prefix] tl}.
+
+  If you want to change this lpr format temporarily, put a command
+such as follows somewhere in the text:
+
+@example
+        %#LPR dvi2ps %f %t %s | 4up -page 4 | texfix | lpr -Plp2
+@end example
+
+  And if you want YaTeX not to ask you the range of printing
+out, the next example may be helpful.
+
+@example
+        %#LPR dvi2ps %s | lpr
+@end example
+
+@node Editing %# notation,  , Lpr format, %#notation
+@comment  node-name,  next,  previous,  up
+@section Editing %# notation
+
+  To edit @code{%#} notation described above, type
+
+@table @kbd
+@item [prefix] %
+        @dots{} editing %# notation menu
+@end table
+
+@noindent
+and select one of the entry of the menu as follows.
+
+@example
+        !)Edit-%#! B)EGIN-END-region L)Edit-%#LPR
+@end example
+
+@noindent
+Type @kbd{!} to edit @code{%#!} entry, @code{b} to enclose the region with
+@code{%#BEGIN} and @code{%#END}, and @code{l} to edit @code{%#LPR} entry.
+When you type @kbd{b}, all @code{%#BEGIN} and @code{%#END} are
+automatically erased.
+
+@node Completion, Local dictionaries, %#notation, Top
+@comment  node-name,  next,  previous,  up
+@chapter Completion
+@cindex completion
+
+  YaTeX makes it easy to input the La@TeX{} commands.  There are several
+kinds of completion type, begin-type, section-type, large-type, etc...
+
+@menu
+* Begin-type completion::       
+* Section-type completion::     
+* Large-type completion::       
+* Maketitle-type completion::   
+* Arbitrary completion::        
+* End completion::              
+* Accent completion::           
+* Image completion::            
+* Greek letters completion::    
+@end menu
+
+@node Begin-type completion, Section-type completion, Completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Begin-type completion
+@cindex begin-type completion
+@cindex environment
+@cindex prefix b
+
+  "Begin-type completion" completes commands of @code{\begin@{env@}} ... 
+@code{\end@{env@}}.  All of the begin-type completions begin with this key
+sequence.
+
+@table @kbd
+@item [prefix] b
+        @dots{} start begin-type completion
+@end table
+
+@noindent
+An additional key  stroke immediately  completes a frequently used
+La@TeX{} @code{\begin@{@}}...@code{\@code{end}@{@}} environment.
+
+@table @kbd
+@item [prefix] b c
+        @dots{}  @code{\begin@{center@}...\end@{center@}}
+@item [prefix] b d
+        @dots{}  @code{\begin@{document@}...\end@{document@}}
+@item [prefix] b D
+        @dots{}  @code{\begin@{description@}...\end@{description@}}
+@item [prefix] b e
+        @dots{}  @code{\begin@{enumerate@}...\end@{enumerate@}}
+@item [prefix] b E
+        @dots{}  @code{\begin@{equation@}...\end@{equation@}}
+@item [prefix] b i
+        @dots{}  @code{\begin@{itemize@}...\end@{itemize@}}
+@item [prefix] b l
+        @dots{}  @code{\begin@{flushleft@}...\end@{flushleft@}}
+@item [prefix] b m
+        @dots{}  @code{\begin@{minipage@}...\end@{minipage@}}
+@item [prefix] b t
+        @dots{}  @code{\begin@{tabbing@}...\end@{tabbing@}}
+@item [prefix] b T
+        @dots{}  @code{\begin@{tabular@}...\end@{tabular@}}
+@item [prefix] b^T
+        @dots{}  @code{\begin@{table@}...\end@{table@}}
+@item [prefix] b p
+        @dots{}  @code{\begin@{picture@}...\end@{picture@}}
+@item [prefix] b q
+        @dots{}  @code{\begin@{quote@}...\end@{quote@}}
+@item [prefix] b Q
+        @dots{}  @code{\begin@{quotation@}...\end@{quotation@}}
+@item [prefix] b r
+        @dots{}  @code{\begin@{flushright@}...\end@{flushright@}}
+@item [prefix] b v
+        @dots{}  @code{\begin@{verbatim@}...\end@{verbatim@}}
+@item [prefix] b V
+        @dots{}  @code{\begin@{verse@}...\end@{verse@}}
+@end table
+
+  Any other La@TeX{} environments are made by  completing-read of the
+Emacs function.
+
+@table @kbd
+@item [prefix] b SPACE
+        @dots{} begin-type completion
+@end table
+
+@noindent
+The next message will show up in the minibuffer
+
+@example
+        Begin environment(default document): 
+@end example
+
+@noindent
+by typing @kbd{[prefix] b}.  Put the wishing environment with completion
+in the minibuffer, and @code{\begin@{env@}}...\@code{\end@{env@}} will be
+inserted in the La@TeX{} source text.  If the environment you want to put
+does not exist in the YaTeX completion table, it will be registered in the
+user completion table.  YaTeX automatically saves the user completion
+table in the user dictionary file at exiting of emacs.
+
+At the completion of certain environments, the expected initial entry will 
+automatically inserted such as @code{\item} for @code{itemize}
+environment.  If you don't want the entry, it can be removed by undoing.
+
+  If you want to  enclose some paragraphs  which have already been
+written, invoke the  begin-type completion with changing  the case
+of @kbd{b} of key sequence upper(or invoke it with  universal argument
+by @kbd{C-u} prefix).
+@cindex enclose region into environment
+
+  The following example encloses a region with `description'
+environment.
+
+@table @kbd
+@item [prefix] B D
+@itemx (or ESC 1 [prefix] b D)
+@itemx (or  C-u  [prefix] b D)
+
+        @dots{} begin-type completion for region
+@end table
+
+  This enclosing holds good for the completing input by @kbd{[prefix] b
+SPC}.  @kbd{[prefix] B SPC} enclose a region with the environment selected
+by completing-read.
+
+@node Section-type completion, Large-type completion, Begin-type completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Section-type completion
+@cindex section-type completion
+@cindex prefix s
+
+  "Section-type completion" completes section-type commands which take an
+argument or more such as @code{\section@{foo@}}.  To invoke section-type
+completion, type
+
+@table @kbd
+@item [prefix] s
+        @dots{} section-type completion
+@end table
+
+@noindent
+then the prompt
+
+@example
+        (C-v for view) \???@{@} (default documentclass):
+@end example
+
+@noindent
+will  show up in the  minibuffer.  Section-type La@TeX{} commands are
+completed by space key, and the default value is selected when you
+type nothing in the minibuffer.
+
+  Next, 
+
+@example
+        \section@{???@}:
+@end example
+
+@noindent
+prompts you the argument of section-type La@TeX{} command.  For
+example, the following inputs
+
+@example
+        \???@{@} (default documentclass): section
+        \section@{???@}: Hello world.
+@end example
+
+@noindent
+will insert the string
+
+@example
+        \section@{Hello world.@}
+@end example
+
+in your La@TeX{} source.  When you neglect argument such as
+
+@example
+        (C-v for view) \???@{@} (default section): vspace*
+        \vspace*@{???@}: 
+@end example
+
+YaTeX puts
+
+@example
+        \vspace*@{@}
+@end example
+
+@noindent
+and move the cursor in the braces.
+
+  In La@TeX{} command, there are commands which take more than one
+arguments such as @code{\addtolength@{\topmargin@}@{8mm@}}.  To complete these
+commands, invoke section-type completion with universal argument as,
+@cindex number of argument
+
+@example
+        C-u 2 [prefix] s (or ESC 2 [prefix] s)
+@end example
+
+@noindent
+and make answers in minibuffer like this.
+
+@example
+        (C-v for view) \???@{@} (default vspace*): addtolength
+        \addtolength@{???@}: \topmargin
+        Argument 2: 8mm
+@end example
+
+@code{\addtolength} and the first argument @code{\topmargin} can be typed
+easily by completing read.  Since YaTeX also learns the number of
+arguments of section-type command and will ask that many arguments in
+future completion, you had better tell the number of arguments to YaTeX at
+the first completion of the new word.  But you can change the number of
+arguments by calling the completion with different universal argument
+again.
+
+
+  Invoking section-type completion with @code{[Prefix] S} (Capital `S')
+includes the region as the first argument of section-type command.
+
+  The  section/large/maketitle type completion  can  work at the
+prompt for   the argument   of  other section-type   completion.
+Nested La@TeX{}  commands are  efficiently read with  the recursive
+completion by typing  YaTeX's   completion key sequence in   the
+minibuffer.
+
+@menu
+* view-sectioning::             
+@end menu
+
+@node view-sectioning,  , Section-type completion, Section-type completion
+@comment  node-name,  next,  previous,  up
+@subsection view-sectioning
+@cindex view sectioning
+@cindex outline
+
+  In the minibuffer at the prompt of section-type command completion,
+typing @kbd{C-v} shows a list of sectioning commands in source text(The
+line with @code{<<--} mark is the nearest sectioning command).  Then,
+default sectioning command appears in the minibuffer.  You can go up/down
+sectioning command by typing @kbd{C-p}/@kbd{C-n}, can scrolls up/down the
+listing buffer by @kbd{C-v}/@kbd{M-v}, and can hide sectioning commands
+under certain level by 0 through 6.  Type @kbd{?}  in the minibuffer of
+sectioning prompt for more information.
+
+  You can generate this listing buffer (@code{*Sectioning Lines*} buffer)
+by typing
+@table @kbd
+@item M-x YaTeX-section-overview
+        @dots{} Generate *Sectioning Lines* buffer
+@end table
+@cindex{Generate the listing of sectioning units}
+from the LaTeX source buffer.  In this listing buffer, typing @kbd{u} on
+the sectioning command shifts up the corresponding sectioning command in
+source text and @kbd{d} shifts down.  After marking lines in the listing
+buffer, typing @kbd{U} shifts up all sectioning commands in the region,
+and @kbd{U} shifts down.  Here are all the key bindings of
+@code{*Sectioning Lines*} buffer.
+
+@table @kbd
+@item SPC
+        @dots{} Jump to corresponding source line
+@item .
+        @dots{} Display corresponding source line
+@item u
+        @dots{} Shift up a sectioning line
+@item d
+        @dots{} Shift down a sectioning line
+@item U
+        @dots{} Shift up sectioning lines in region
+@item D
+        @dots{} Shift down sectioning lines in region
+@item 0@dots{}6
+        @dots{} Hide sectioning commands whose level is lower than n
+@end table
+
+
+@node Large-type completion, Maketitle-type completion, Section-type completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Large-type completion
+
+  "Large-type   completion"  inputs  the  font  or  size  changing
+descriptions such as @code{@{\large @}}.  When you type
+
+@table @kbd
+@item [prefix] l
+        @dots{} large-type completion
+@end table
+
+@noindent
+the message in the minibuffer
+
+@example
+        @{\??? @} (default large): 
+@end example
+
+prompts prompts you large-type command with completing-read.  There are
+TeX commands to change fonts or sizes, @code{it}, @code{huge} and so on,
+in the completion table.
+
+  Region-based completion is also invoked by changing the letter after
+prefix key stroke as @kbd{[prefix] L}.  It encloses the region by braces
+with large-type command.
+
+@node Maketitle-type completion, Arbitrary completion, Large-type completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Maketitle-type completion
+@cindex maketitle-type completion
+
+  We call it "maketitle-type completion" which completes commands such as
+@code{\maketitle}.  Take notice that maketitle-type commands take no
+arguments.  Then, typing
+
+@table @kbd
+@item [prefix] m
+        @dots{} maketitle-type completion
+@end table
+
+@noindent
+begins maketitle-completion.  Above mentioned  method is  true for
+maketitle-completion, and   there  are   La@TeX{} commands    with no
+arguments in completion table.
+
+@node Arbitrary completion, End completion, Maketitle-type completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Arbitrary completion
+@cindex arbitrary completion
+
+@noindent
+  You can complete certain La@TeX{} command anywhere without typical
+completing method as described, by typing
+
+@table @kbd
+@item [prefix] SPC
+        @dots{} arbitrary completion
+@end table
+
+@noindent
+after the initial string of La@TeX{} command that is preceded by @code{\}.
+
+@node End completion, Accent completion, Arbitrary completion, Completion
+@comment  node-name,  next,  previous,  up
+@section End completion
+@cindex end completion
+
+@noindent
+  YaTeX automatically detects the opened environment and close it with
+\@code{\end@{environment@}}.  Though proficient YaTeX users never fail to
+make environment with begin-type completion, some may begin an environment
+manually.  In that case, type
+
+@table @kbd
+@item [prefix] e
+        @dots{} @code{end} completion
+@end table
+
+@noindent
+at the end of the opened environment.
+
+@node Accent completion, Image completion, End completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Accent completion
+@cindex accent completion
+
+  When you want to write the European accent marks(like @code{\`@{o@}}),
+
+@table @kbd
+@item [prefix] a
+        @dots{} accent completion
+@end table
+
+@noindent
+shows the menu
+
+@example
+        1:` 2:' 3:^ 4:" 5:~ 6:= 7:. u v H t c d b
+@end example
+
+@noindent
+in the minibuffer.  Chose one character or corresponding numeric,
+and you will see
+
+@example
+        \`@{@}
+@end example
+
+@noindent
+in the editing buffer with the cursor positioned  in braces.  Type
+one more character `o' for example, then
+
+@example
+        \`@{o@}
+@end example
+
+@noindent
+will be completed, and the cursor gets out from braces.
+
+@node Image completion, Greek letters completion, Accent completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Image completion of mathematical sign
+@cindex image completion
+@cindex math-mode
+@cindex sigma
+@cindex leftarrow
+@cindex ;
+
+  Arrow  marks,  sigma mark and those signs mainly used  in  the
+TeX's  math environment  are completed by  key  sequences  which
+imitate the  corresponding symbols graphically.  This completion
+only works in the math environment.  YaTeX automatically detects
+whether the  cursor  located  in math environment  or  not,  and
+change the behavior of key strokes @kbd{;} and @kbd{:}.
+
+  By the way, we often express the leftarrow mark by `<-' for example.
+Considering such image, you can write @code{\leftarrow} by typing @kbd{<-}
+after @kbd{;} (semicolon) as a prefix.  In the same way,
+@code{\longleftarrow} (@code{<--}) is completed by typing @kbd{;<--},
+infinity mark which is imitated by @code{oo} is completed by typing
+@kbd{;oo}.
+
+  Here are the sample operations in YaTeX math-mode.
+
+@example
+INPUT                   Completed La@TeX{} commands
+; < -                   @code{\leftarrow}
+; < - -                 @code{\longleftarrow}
+; < - - >               @code{\longleftrightarrow}
+; o                     @code{\circ}
+; o o                   @code{\infty}
+@end example
+
+  In  any case, you can quit  from image completion and can move
+to the next editing  operation if the La@TeX{}  command you want is
+shown in the buffer.
+
+  @code{;} itself in math-environment is inserted by @kbd{;;}.  Typing
+@kbd{TAB} in the midst of image completion shows all of the La@TeX{}
+commands that start with the same name as string you previously typed in.
+In this menu buffer, press @kbd{RET} after moving the cursor (by @kbd{n},
+@kbd{p}, @kbd{b}, @kbd{f}) to insert the La@TeX{} command.
+
+  To know all of the completion table, type @kbd{TAB} just after @kbd{;}.
+And here is the sample menu by @kbd{TAB} after @kbd{;<}.
+
+@example
+KEY             LaTeX sequence          sign
+<               \leq                    <
+                                        ~
+<<              \ll                     << 
+<-              \leftarrow              <-
+<=              \Leftarrow              <=
+@end example
+
+  You can define your favorite key-vs-sequence completion table in the
+Emacs-Lisp variable @code{YaTeX-math-sign-alist-private}.  See also
+@file{yatexmth.el} for the information of the structure of this variable.
+
+@node Greek letters completion,  , Image completion, Completion
+@comment  node-name,  next,  previous,  up
+@section Greek letters completion
+@cindex Greek letters completion
+@cindex :
+
+  Math-mode of YaTeX provides another image completion, Greek letters
+completion in the same method.  After prefix @kbd{:}, typing @kbd{a} makes
+@code{\alpha}, @kbd{b} makes @code{\beta} and @kbd{g} makes @code{\gamma}
+and so on.  First, type @kbd{:TAB} to know all the correspondence of
+alphabets vs. Greek letters.
+
+  If you will find @kbd{;} or @kbd{:} doesn't work in correct position of
+math environment, it may be a bug of YaTeX.  Please send me a bug report
+with the configuration of your text, and avoid it temporarily by typing
+@kbd{;} or @kbd{:} after universal-argument(@kbd{C-u}) which forces
+@kbd{;} and @kbd{:} to work as math-prefix.
+
+@node Local dictionaries, Commenting out, Completion, Top
+@comment  node-name,  next,  previous,  up
+@chapter Local dictionaries
+@cindex local dictionaries
+@cindex nervous users
+
+  Tables for completion consist of three dictionaries; `standard
+dictionary' built in @file{yatex.el}, `user dictionary' for your common
+private commands, and `local dictionary' that is effective in a certain
+directory.
+
+  When you input the command unknown to YaTeX at a completion in the
+minibuffer, YaTeX asks you with the following prompt;
+
+@example
+  `foo' is not in table. Register into: U)serDic L)ocalDic N)one D)iscard
+@end example
+
+@noindent 
+In this menu, typing @kbd{u} updates your `user dictionary', @kbd{l}
+updates your local dictionary, @kbd{n} updates only on-memory dictionary
+which go through only current Emacs session, and @kbd{d} updates no
+dictionary and throws the new word away.
+
+  If you find this switching feature meaningless and bothersome, put the
+next expression into your @file{~/.emacs}
+
+@lisp
+        (setq YaTeX-nervous nil)
+@end lisp
+
+@node Commenting out, Cursor jump, Local dictionaries, Top
+@comment  node-name,  next,  previous,  up
+@chapter Commenting out
+@cindex commenting out
+@cindex prefix >
+@cindex prefix <
+@cindex prefix ,
+@cindex prefix .
+
+  You may want to comment out some region.
+
+@table @kbd
+@item [prefix] >
+        @dots{} comment out region by %
+@item [prefix] <
+        @dots{} uncomment region
+@end table
+
+@noindent
+cause an operation to the region between point and mark.
+
+@table @kbd
+@item [prefix] .
+        @dots{} comment out current paragraph
+@item [prefix] ,
+        @dots{} uncomment current paragraph
+@end table
+
+@noindent
+comments or  uncomments the paragraph  where the  cursor  belongs.
+This  `paragraph' means   the   region marked    by  the  function
+mark-paragraph,  bound    to  @kbd{ESC h}   by   default.   It  is NOT
+predictable  what will happen  when you  continuously  comment out
+some paragraph many times.
+
+  You can also comment out an environment between @code{\begin} and
+@code{\end}, or a @code{\begin}-\@code{\end} pair themselves, by making the
+following key strokes on the line where @code{\begin@{@}} or
+@code{\end@{@}} exists.
+
+@table @kbd
+@item [prefix] >
+        @dots{} comment out from \begin to \@code{end}
+@item [prefix] <
+        @dots{} uncomment from \begin to \@code{end}
+@end table
+
+@noindent
+comment whole the contents of environment.  Moreover,
+
+@table @kbd
+@item [prefix] .
+        @dots{} comment out \begin and \@code{end}
+@item [prefix] ,
+        @dots{} uncomment \begin and \@code{end}
+@end table
+
+@noindent
+(un)comments out only environment declaration: @code{\begin@{@}} and
+@code{\end@{@}}.  NOTE that even if you intend to comment out some region,
+invoking @kbd{[prefix] >} on the @code{\begin},@code{\end} line decides to
+work in `commenting out from @code{\begin} to @code{\end}' mode.
+
+
+@node Cursor jump, Changing and Deleting, Commenting out, Top
+@comment  node-name,  next,  previous,  up
+@chapter Cursor jump
+@cindex cursor jump
+@cindex prefix g
+
+
+@menu
+* Jump to corresponding object::  
+* Invoking image processor::    
+* Jump to main file::           
+* Jumping around the environment::  
+* Jumping to last completion position::  
+@end menu
+
+@node Jump to corresponding object, Invoking image processor, Cursor jump, Cursor jump
+@comment  node-name,  next,  previous,  up
+@section Jump to corresponding object
+
+  Typing
+
+@table @kbd
+@item [prefix] g
+        @dots{} go to corresponding object
+@end table
+
+@noindent
+in a certain place move the cursor to the place corresponding to the
+La@TeX{} command of last place.  YaTeX recognize the followings as pairs
+that have relation each other.
+
+@itemize @bullet
+@item @code{\begin@{@}} <-> @code{\end@{@}}
+@item @code{%#BEGIN} <-> @code{%#END}
+@item On the image-including line -> corresponding viewer or drawing tool
+@item @code{\label@{@}} <-> @code{\ref@{@}}
+@item @code{\include(\input)} -> included file
+@item @code{\bibitem@{@}} <-> @code{\cite@{@}}
+@end itemize
+
+  On a @code{\begin},@code{\end} line, typing @kbd{[prefix] g} moves the
+cursor to the corresponding @code{\end},@code{\begin} line, if its partner
+really exists.  The behavior on the line @code{%#BEGIN} and @code{%#END}
+are the same.  Note that if the correspondent of @code{label/ref} or
+@code{cite/bibitem} exists in another file, that file have to be opened to
+make a round trip between references by @kbd{[prefix] g}.
+
+  If you type @code{[prefix] g} on the line of @code{\include@{chap1@}},
+typically in the main text, YaTeX switches buffer to @file{chap1.tex}.
+
+@table @kbd
+@item [prefix] 4 g
+        @dots{} go to corresponding object in other window
+@end table
+
+@noindent
+do the same job as @kbd{[prefix] g} except it's done in other window.
+Note that this function doesn't work on @code{begin/end},
+@code{%#BEGIN/%#END} pairs because it is meaningless.
+
+@node Invoking image processor, Jump to main file, Jump to corresponding object, Cursor jump
+@comment  node-name,  next,  previous,  up
+@section Invoking image processor
+@cindex{Drawing tool invocation}
+
+`image-including line' described above means such lines as
+@code{\epsfile@{file=foo.ps@}}.  If you type @kbd{[prefix] g} on that
+line, YaTeX automatically searches source of `foo.ps' and invokes image
+viewer or drawing tool correspoinding to it.  For example; if you draw
+an image foo.obj with Tgif and enclose its product named foo.eps by
+@code{\epsfile} command.  Typing @kbd{[prefix] g} on @code{\epsfile} line
+make YaTeX invoke @code{tgif foo.obj}.  How a processor is choosen is as
+follows.
+
+@enumerate
+@item
+If there is an expression matching with one of the pattern
+defined in @code{YaTeX-processed-file-regexp-alist}, extract file name
+from regexp group surrounded by \\(\\).  (Which group corresponds is
+written in the cdr part of each list.)  If no matches were found, do
+nothing.
+@item
+If there is a pattern as `%PROCESSOR' which is defined in the variable
+@code{YaTeX-file-processor-alist}, call that processor giving the
+file name with corresponding extension.
+@item
+If not, check the existence of each file which is supplied the
+extension in the cdr part of each list of
+@code{YaTeX-file-processor-alist}.  If any, call the corresponding
+image viewer or drawing tool.
+@end enumerate
+
+@node Jump to main file, Jumping around the environment, Invoking image processor, Cursor jump
+@comment  node-name,  next,  previous,  up
+@section Jump to main file
+
+  Typing
+
+@table @kbd
+@item [prefix] ^
+        @dots{} visit main file
+@item [prefix] 4^
+        @dots{} visit main file in other buffer
+@end table
+@cindex prefix ^
+@cindex prefix 4 ^
+
+in a sub text switch the buffer to the main text specified by
+@code{%#!}  notation.
+
+@node Jumping around the environment, Jumping to last completion position, Jump to main file, Cursor jump
+@comment  node-name,  next,  previous,  up
+@section Jumping around the environment
+
+  And these are the functions which work on the current La@TeX{}
+environment:
+
+@table @kbd
+@item M-C-a
+        @dots{} beginning of environment
+@item M-C-e
+        @dots{} @code{end} of environment
+@item M-C-@@
+        @dots{} mark environment
+@end table
+@cindex M-C-a
+@cindex M-C-e
+@cindex M-C-@@
+
+@node Jumping to last completion position,  , Jumping around the environment, Cursor jump
+@comment  node-name,  next,  previous,  up
+@section Jumping to last completion position
+
+YaTeX always memorize the position of completion into register @code{3}.
+So every time you make a trip to any other part of text other than you are
+writing, you can return to the editing paragraph by calling
+register-to-point with argument YaTeX-current-position-register, which is
+achieved by typing @kbd{C-x j 3}(by default).
+
+@node Changing and Deleting, Filling, Cursor jump, Top
+@comment  node-name,  next,  previous,  up
+@chapter Changing and Deleting
+
+  These  functions  are for change or   deletion of La@TeX{} commands
+already entered.
+
+@table @kbd
+@item [prefix] c
+        @dots{} change La@TeX{} command
+@item [prefix] k
+        @dots{} kill La@TeX{} command
+@end table
+@cindex prefix c
+@cindex prefix k
+
+@menu
+* Changing LaTeX commands::     
+* Killing LaTeX commands::      
+@end menu
+
+@node Changing LaTeX commands, Killing LaTeX commands, Changing and Deleting, Changing and Deleting
+@comment  node-name,  next,  previous,  up
+@section Changing La@TeX{} commands
+
+@kbd{[prefix] c} can change the various (La)@TeX{} commands.  This can
+change the followings.
+@itemize @bullet
+@item Environment names
+@item Section-type commands
+@item Argument of section-type commands
+@item Optional parameters (enclosed by []) of section-type commands
+@item Font/size designators
+@item Math-mode's maketitle-type commands that can be inputted with
+image completion
+@end itemize
+
+  Typing @kbd{[prefix] c} on one of above objects you want to change
+brings a suitable reading function sometimes with completion.
+Note: If you want to change the argument of section-type command that
+contains other La@TeX{} commands, type @kbd{[prefix] c} either of
+surrounding braces of the argument in order to make YaTeX ignore the
+internal La@TeX{} sequences as an object of changing.  Anyway, it is
+very difficult to know which argument position the cursor belongs because
+the La@TeX{} commands can be nested and braces can freely emerge.  So keep 
+it mind to put the cursor on a brace when you are thinking of changing a
+complicated argument.
+
+@node Killing LaTeX commands,  , Changing LaTeX commands, Changing and Deleting
+@comment  node-name,  next,  previous,  up
+@section Killing La@TeX{} commands
+@cindex Killing La@TeX{} commands
+
+  @kbd{[prefix] k} kills the La@TeX{} commands sometimes with their
+arguments.  Following table illustrates the correspondence of the invoking
+position and what is killed.
+
+@example
+[Invoking position]             [action]
+\begin, \end line               kill \begin,\end pairs
+%#BEGIN, %#END line             kill %#BEGIN,%#END pairs
+on a Section-type command       kill section-type command
+on a parenthesis                kill parentheses
+@end example
+
+Note that when killing @code{\begin, \end} or @code{%#BEGIN, %#END} pair,
+the lines @code{\begin, \end} or @code{%#BEGIN, %#END} exist will be
+killed entirely.  So take care not to create any line that contains more
+than one @code{\begin} or so.
+
+While all operations above are to kill `containers' which surround some
+text, universal argument (@kbd{C-u}) for these commands kills not only
+`containers' but also `contents' of them.  See below as a sample.
+
+@example
+Original text:                  [prefix] k      C-u [prefix] k
+Main \footnote@{note@} here.    Main note here. Main  here.
+       ~(cursor)
+@end example
+
+@node Filling, Updation of includeonly, Changing and Deleting, Top
+@comment  node-name,  next,  previous,  up
+@chapter Filling
+@cindex filling
+
+@section Filling an item
+@cindex filling an item
+@cindex prefix i
+
+  To fill a term (descriptive sentences) of @code{\item}, type
+
+@c @table @kbd
+@c @item [prefix] i
+@c         @dots{} fill item
+@c @end table
+@table @kbd
+@item M-q
+        @dots{} fill item
+@end table
+
+@noindent
+on that item.
+
+  YaTeX uses the value of  the variable @code{YaTeX-item-regexp} as the
+regular expression to search item header  in  itemize environment.
+If you make a newcommand to itemize terms(e.g. @code{\underlineitem}), put
+
+@lisp
+        (setq YaTeX-item-regexp
+              "\\(\\\\\\(sub\\)*item\\)\\|\\(\\\\underlineitem\\)")
+@end lisp
+@cindex YaTeX-item-regexp
+
+in your @file{~/.emacs}.  If you are not familiar with regular expression
+for Emacs-Lisp, name  a newcommand  for  `itemize' beginning  with
+@code{\item} such as @code{\itembf}, not @code{\bfitem}.
+
+  This function reformats the @code{\item} into `hang-indented' style.
+For example:
+
+@example
+itemize, enumerate environment:
+       >
+       >\item[foo] `foo' is the typical word for describing an
+       >           arbitrarily written....
+description environment:
+       > \item[bar] When the word `for' is used as an arbitrarily
+       >        word, `bar'  is bound to follow it.
+@end example
+
+  Note that the indent depth of an @code{\item} word and its descriptive
+paragraph are the same in latter case.  If you want to use different
+depth, invoke fill-paragraph at the beginning of non-whitespace
+character(see below).
+
+@section Filling paragraph
+@cindex Filling paragraph
+@cindex M-q
+
+  Fill-paragraph is little bit adapted for La@TeX{} sources.  It retains from
+filling in certain environments where formatting leads to a disaster such
+as verbatim, tabular, or so.  And it protects @code{\verb} expressions
+from being folded (The variable @code{YaTeX-verb-regexp} controls this).
+Besides, putting cursor on the first occurrence of non-whitespace
+character on a line changes the fill-prefix temporarily to the depth of
+the line.
+
+@node Updation of includeonly, What column, Filling, Top
+@comment  node-name,  next,  previous,  up
+@chapter Updation of @code{\includeonly}
+@cindex includeonly
+
+  When you edit splitting source texts, the notation
+
+@example
+        \includeonly@{CurrentEditingFileName@}
+@end example
+
+@noindent
+in the main file reduces the time of typesetting.  If you want
+to hack other file a little however, you have to rewrite it to
+
+@example
+        \includeonly@{OtherFileNameYouWantToFix@}
+@end example
+
+@noindent
+in the main file.  YaTeX automatically detects that the current
+edited text is not in includeonly list and prompts you
+
+@example
+        A)dd R)eplace %)comment?
+@end example
+
+in the minibuffer.  Type @kbd{a} if you want to add the current file name
+to @code{\includeonly} list, @kbd{r} to replace \@code{includeonly} list
+with the current file, and type @kbd{%} to comment out the
+@code{\includeonly} line.
+
+@node What column, Intelligent newline, Updation of includeonly, Top
+@comment  node-name,  next,  previous,  up
+@chapter What column?
+@cindex what column
+@cindex complex tabular
+@cindex prefix &
+
+  We  are often get  tired of  finding the corresponding column in
+large tabulars.  For example,
+
+@example
+        \begin@{tabular@}@{|c|c|c|c|c|c|c|c|@}\hline
+         Name&Position&Post No.&Addr.&Phone No.&FAX No.&
+                Home Addr.&Home Phone\\ \hline
+         Thunder Bird & 6 & 223 & LA & xxx-yyy &
+          zzz-www & Japan & 9876-54321 \\
+           & 2 & \multicolumn@{2@}@{c|@}@{Unknown@}
+                &&&(???)
+         \\ \hline
+         \end@{tabular@}
+@end example
+
+Suppose you have the cursor located  at @code{(???)} mark, can you tell
+which  column it is  belonging  at once?  Maybe no.  In such case,
+type
+
+@table @kbd
+@item [prefix] &
+        @dots{} What column
+@end table
+
+@noindent
+in  that position.   YaTeX  tells you  the  column header  of  the
+current  field.  Since  YaTeX  assumes  the  first line of tabular
+environment  as a row of column  headers, you  can  create a row of
+virtual column  headers by  putting  them  in the  first line  and
+commenting that line with @code{%}.
+
+@node Intelligent newline, Usepackage checker, What column, Top
+@comment  node-name,  next,  previous,  up
+@chapter Intelligent newline
+@cindex Intelligent newline
+@cindex ESC RET
+@cindex M-C-m
+
+  At the end of begin-type completion of tabular[*], array, itemize,
+enumerate or tabbing environment, or typing 
+
+@table @kbd
+@item ESC RET
+        @dots{} Intelligent newline
+@end table
+
+@noindent 
+in these environments inserts the contents corresponding to the current
+environment in the next line.  (At the begin-type completion, this
+contents can be removed by `undo'.)  In @code{tabular} environment, for
+example, @kbd{ESC RET} inserts the certain number of @code{&} and trailing
+@code{\\}, and @code{\hline} if other @code{\hline} is found in backward.
+Here are the list of contents vs. environments.
+
+@itemize
+@item @code{tabular}, @code{tabular*}, @code{array}
+
+        Corresponding number of @code{&} and  @code{\\}.
+        And @code{\hline} if needed.
+
+@item @code{tabbing}
+
+        The same number of @code{\>} as @code{\=} in the first line.
+
+@item @code{itemize}, @code{enumerate}, @code{description}, @code{list}
+
+        @code{\item} or @code{item[]}.
+@end itemize
+
+  Note that since this function works seeing the contents of the first
+line, please call this after the second line if possible.
+
+  If you want to apply these trick to other environments, @code{foo}
+environment for example, define the function named
+@code{YaTeX-intelligent-newline-foo} to insert corresponding contents.
+That function will be called at the beginning of the next line after the
+newline is inserted to the current line.  Since the function
+@code{YaTeX-indent-line} is designed to indent the current line properly,
+calling this function before your code to insert certain contents must be
+useful.  See the definition of the function
+@code{YaTeX-intelligent-newline-itemize} as an example.
+
+@node Usepackage checker, Online help, Intelligent newline, Top
+@comment  node-name,  next,  previous,  up
+@chapter Usepackage checker
+@cindex usepackage
+
+When you input begint-type, section-type, maketitle-type macros with
+completion, and it requires some LaTeX2e package, YaTeX examines
+the existence of correct @code{\usepackage}.  If not, YaTeX inserts
+the @code{\usepackage@{@}} declaration corresponding to input macro.
+
+To activate the package completion for your favarite package,
+set the variable @code{YaTeX-package-alist-private} correctly.
+Please refere the value of @code{YaTeX-package-alist-default} as an
+example.
+
+@node Online help, Browsing file hierarchy, Usepackage checker, Top
+@comment  node-name,  next,  previous,  up
+@chapter Online help
+@cindex online help
+@cindex prefix ?
+@cindex prefix /
+@cindex apropos
+@cindex keyword search
+
+  YaTeX provides you the online help with popular La@TeX{} commands.
+
+  Here are the key strokes for the online help.
+
+@table @kbd
+@item [prefix] ?
+        @dots{} Online help
+@item [prefix] /
+        @dots{} Online apropos
+@end table
+
+@section Online help
+
+  `Online help' shows the documentation for the popular La@TeX{}
+commands(defaults to the commands on the cursor) in the next buffer.
+There are two help file, `global help' and `private help'.  The former
+file contains the descriptions on the standard La@TeX{} command and is
+specified its name by variable @code{YaTeX-help-file}.  Usually, the
+global help file should be located in public space (@code{$EMACSEXECPATH}
+by default) and should be world writable so that anyone can update it to
+enrich its contents.  The latter file contains descriptions on
+non-standard or personal command definitions and is specified by
+@code{YaTeX-help-file-private}.  This file should be put into private
+directory.
+
+@section Online apropos
+
+  `Online  apropos' is an  equivalent  of GNU Emacs's apropos.  It
+shows all the documentations that contains  the keyword entered by
+the user.
+
+@section When no descriptions are found...
+
+  If there is no description  on a command   in help files,  YaTeX
+requires you to  write a description on  that command.  If you are
+willing  to  do, determine  which help file  to add and  write the
+description on it referring  your manual of (La)TeX.  Please  send
+me your additional descriptions if you  describe  the help on some
+standard commands.   I might  want    to include it  in   the next
+distribution.
+
+@node Browsing file hierarchy, Cooperation with other packages, Online help, Top
+@comment  node-name,  next,  previous,  up
+@chapter Browsing file hierarchy
+@cindex hierarchy
+@cindex browsing
+
+  When you are editing multi-file source, typing
+
+@table @kbd
+@item [prefix] d
+        @dots{} browse file hierarchy
+@end table
+
+@noindent
+asks you the parent-most file (which may be defaulted) and displays the
+documentation hierarchy in the next window.  In this buffer, the following
+commands are available.
+
+@table @kbd
+@item n
+        @dots{} move to the next line and show its contents
+@item p
+        @dots{} move to the previous line and show its contents
+@item N
+        @dots{} move to the next file in the same inclusion level
+@item P
+        @dots{} move to the previous file in the same inclusion level
+@item j
+        @dots{} move to the next line
+@item k
+        @dots{} move to the previous line
+@item u
+        @dots{} move to the parent file
+@item .
+        @dots{} show the current files contents in the next window
+@item SPC
+        @dots{} scroll up the current file window
+@item DEL, b
+        @dots{} scroll down the current file window
+@item <
+        @dots{} show the beginning of the current file
+@item >
+        @dots{} show the end of the current file
+@item >
+        @dots{} return to the previous postion after @kbd{<} or @kbd{>}
+@item RET, g
+        @dots{} open the current file in the next window
+@item mouse-2
+        @dots{} same as RET(available only with window system)
+@item o
+        @dots{} other window
+@item 1
+        @dots{} delete other windows
+@item -
+        @dots{} shrink hierarchy buffer window
+@item +
+        @dots{} enlarge hierarchy buffer window
+@item ?
+        @dots{} describe mode
+@item q
+        @dots{} quit
+@end table
+
+  Note that operations on the file contents in the next window do not work 
+correctly when you close the corresponding file.
+
+@node Cooperation with other packages, Customizations, Browsing file hierarchy, Top
+@comment  node-name,  next,  previous,  up
+@chapter Cooperation with other packages
+
+  YaTeX works better with other brilliant packages.
+
+@section gmhist
+@cindex gmhist
+@cindex command history
+@cindex minibuffer history
+
+  When you are loading @file{gmhist.el} and @file{gmhist-mh.el}, you can
+use independent command history list at the prompt of preview command
+(@kbd{[prefix] tp}) and print command (@kbd{[prefix] tl}).  On each
+prompt, you can enter the previous command line string repeatedly by
+typing @kbd{M-p}.
+
+@section min-out
+@cindex min-out
+
+  @file{min-out}, the outline minor mode,  can  be used in yatex-mode
+buffers.  If you want to use it with YaTeX, please refer the
+file @file{yatexm-o.el} as an example.
+
+@node Customizations, Etcetera, Cooperation with other packages, Top
+@comment  node-name,  next,  previous,  up
+@chapter Customizations
+@cindex customizations
+
+  You can customize YaTeX by setting Emacs-Lisp variables and by making
+add-in functions.
+
+@menu
+* Lisp variables::              
+* Add-in functions::            
+* Add-in generator::            
+@end menu
+
+@node Lisp variables, Add-in functions, Customizations, Customizations
+@comment  node-name,  next,  previous,  up
+@section Lisp variables
+@cindex customizable variables
+
+  You can change the key assignments or make completion more comfortable
+by setting the values of various variables which control the movement of
+yatex-mode.
+
+  For example, if you want to change the prefix key stroke from @kbd{C-c}
+to any other sequence, set YaTeX-prefix to whatever you want to use.  If
+you don't want to use the key sequence @kbd{C-c letter} which is assumed
+to be the user reserved sequence in Emacs world, set
+@code{YaTeX-inhibit-prefix-letter} to @code{t}, and all of the default key
+bind of @kbd{C-c letter} will turn to the corresponding @kbd{C-c C-letter}
+(but the region based completions that is invoked with @kbd{C-c
+Capital-letter} remain valid, if you want to disable those bindings, set
+that variable to 1 instead of @code{t}).
+
+@menu
+* All customizable variables::  
+* Sample definitions::          
+* Hook variables::              
+* Hook file::                   
+@end menu
+
+@node All customizable variables, Sample definitions, Lisp variables, Lisp variables
+@comment  node-name,  next,  previous,  up
+@subsection All customizable variables
+@cindex all customizable variables
+
+  Here are the customizable variables of yatex-mode.  Each value setq-ed
+in @file{~/.emacs} is preferred and that of defined in @file{yatex.el} is
+neglected.  Parenthesized contents stands for the default value.  When you
+are to change some of these variables,  see more detailed documentation of
+the variable by @kbd{M-x describe-variable}.
+
+@defvar YaTeX-japan
+Set this nil to produce all messages in English
+(@code{Depends on Japanese feature of Emacs})
+@end defvar
+
+@defvar YaTeX-kanji-code
+Default buffer-file-coding-system for YaTeX modes' buffer.
+Set this 0 to no language conversion.  Nil to preserve original 
+coding-system. (@code{1 or 2})
+@end defvar
+
+@defvar YaTeX-prefix
+Prefix key stroke (@kbd{C-c})
+@end defvar
+
+@defvar YaTeX-inhibit-prefix-letter
+Change key stroke from @kbd{C-c letter} to @kbd{C-c C-letter} (@code{nil})
+@end defvar
+
+@defvar YaTeX-fill-prefix
+Fill-prefix used in yatex-mode (@code{nil})
+@end defvar
+
+@defvar YaTeX-user-completion-table
+Name of user dictionary where learned completion table will be stored. 
+(@code{"~/.yatexrc"})
+@end defvar
+
+@defvar tex-command
+La@TeX{} typesetter command (@code{"latex"})
+@end defvar
+
+@defvar dvi2-command
+Preview command (@code{"xdvi -geo +0+0 -s 4"})
+@end defvar
+
+@defvar dviprint-command-format
+Command format to print dvi file (@code{"dvi2ps %f %t %s | lpr"})
+@end defvar
+
+@defvar dviprint-from-format
+Start page format of above %f. %b will turn to start page (@code{"-f %b"})
+@end defvar
+
+@defvar dviprint-to-format
+End page format of above %t. %e will turn to @code{end} page (@code{"-t %e"})
+@end defvar
+
+@defvar makeindex-command
+Default makeindex command (@code{"makeindex"} (@code{"makeind"} on MS-DOS))
+@end defvar
+
+@defvar YaTeX-need-nonstop
+Put @code{\nonstopmode@{@}} or not (@code{nil})
+@end defvar
+
+@defvar latex-warning-regexp
+Regular expression of warning message latex command puts out 
+(@code{"line.* [0-9]*"})
+@end defvar
+
+@defvar latex-error-regexp
+Regular expression of error message (@code{"l\\.[1-9][0-9]*"})
+@end defvar
+
+@defvar latex-dos-emergency-message
+Message latex command running on DOS puts at abort (@code{"Emergency stop"})
+@end defvar
+
+@defvar YaTeX-item-regexp
+Regular expression of item command (@code{"\\\\item"})
+@end defvar
+
+@defvar YaTeX-verb-regexp
+Regexp of verb family.  Omit \\\\. (@code{"verb\\*?\\|path"})
+@end defvar
+
+@defvar YaTeX-nervous
+T for using local dictionary (@code{t})
+@end defvar
+
+@defvar YaTeX-sectioning-regexp
+Regexp of La@TeX{} sectioning command 
+(@code{"\\(part\\|chapter\\*?\\|\\(sub\\)*\\(section\\|paragraph\\)\\*?\\)\\b"})
+@end defvar
+
+@defvar YaTeX-fill-inhibit-environments
+Inhibit fill in these environments 
+(@code{'("tabular" "tabular*" "array" "picture" "eqnarray" "eqnarray*" "equation" "math" "displaymath" "verbatim" "verbatim*")})
+@end defvar
+
+@defvar YaTeX-uncomment-once
+T for deleting all preceding @code{%} (@code{nil})
+@end defvar
+
+@defvar YaTeX-close-paren-always
+T for always close all parenthesis automatically, @code{nil} for only eol 
+(@code{t})
+@end defvar
+
+@defvar YaTeX-auto-math-mode
+Switch math-mode automatically (@code{t})
+@end defvar
+
+@defvar YaTeX-math-key-list-private
+User defined alist, math-mode-prefix vs completion alist
+used in image completion (@code{nil}).  See @file{yatexmth.el}
+for the information about how to define a completion alist.
+@end defvar
+
+@defvar YaTeX-default-pop-window-height
+Initial height of typesetting buffer when one-window.
+Number for the lines of the buffer, numerical string for
+the percentage of the screen-height. @code{nil} for half height (10)
+@end defvar
+
+@defvar YaTeX-help-file
+Global online help file name (@file{$doc-directory/../../site-lisp/YATEXHLP.eng})
+@end defvar
+
+@defvar YaTeX-help-file-private
+Private online help file name (@file{"~/YATEXHLP.eng"})
+@end defvar
+
+@defvar YaTeX-no-begend-shortcut
+Disable [prefix] b ?? shortcut (@code{nil)}
+@end defvar
+
+@defvar YaTeX-hilit-pattern-adjustment-private
+List of the list that contain the regular expression and the symbol of
+logical meaning of the string that matches the pattern.  See also the
+value from @code{(assq 'yatex-mode hilit-patterns-alist)} and the value of 
+@code{YaTeX-hilit-pattern-adjustment-default} (and even the document of
+hilit19.el).
+@end defvar
+
+@defvar YaTeX-sectioning-level
+Alist of LaTeX's sectioning command vs its height.
+@end defvar
+
+@defvar YaTeX-hierarchy-ignore-heading-regexp
+@code{YaTeX-display-hierarchy} searches for sectioning command first, and
+comment line secondary as a file headings.  In latter case, ignore lines
+that match with regular expression of this variable.  Default value of
+this variable is RCS header expressions and mode specifying line `-*- xxxx 
+-*'.
+@end defvar
+
+@defvar YaTeX-skip-default-reader
+Non-nil for this variable skips the default argument reader of
+section-type command when add-in function for it is not defined 
+(@code{nil})
+@end defvar
+
+@defvar YaTeX-create-file-prefix-g
+When typing @kbd{prefix g} on the @code{\include} line,
+open the target file even if the file doesn't exist (@code{nil})
+@end defvar
+
+@defvar YaTeX-simple-messages
+Simplyfy messages of various completions (@code{nil})
+@end defvar
+
+@defvar YaTeX-hilit-sectioning-face
+When hilit19 and yatex19 is active, YaTeX colors the sectioning commands.
+This variable specifies the foreground and background color of
+@code{\part} macro.  The default value is @code{'(yellow/dodgerblue
+yellow/slateblue)}.  The first element of this list is for the screen when
+@code{hilit-background-mode} is @code{'light}, and the second element is
+for @code{'dark}.  You should specify both color as `forecolor/backcolor'.
+@end defvar
+
+@defvar YaTeX-hilit-sectioning-attenuation-rate
+When color mode, this variable specifies how much attenuate the color
+density of @code{\subparagraph} compared with that of @code{\chapter} 
+(@code{'(15 40)}) See also @code{YaTeX-hilit-sectioning-face}.
+@end defvar
+
+@defvar YaTeX-use-AMS-LaTeX
+If you use AMS-LaTeX, set to @code{t} (@code{nil})
+@end defvar
+
+@defvar YaTeX-use-LaTeX2e
+If you use LaTeX2e, set to @code{t} (@code{t})
+@end defvar
+
+@defvar YaTeX-template-file
+File name which is automatically inserted at creation
+(@code{~/work/template.tex})
+@end defvar
+
+@defvar YaTeX-search-file-from-top-directory
+Non-nil means to search input-files from the directory where main file exists
+(@code{t})
+@end defvar
+
+@defvar YaTeX-use-font-lock
+Use font-lock to fontify buffer or not (@code{(featurep 'font-lock)}
+@end defvar
+
+@defvar YaTeX-use-hilit19
+Use hilit19 to highlight buffer or not (@code{(featurep 'hilit19)}
+@end defvar
+
+@defvar YaTeX-use-italic-bold
+YaTeX tries to search italic, bold fontsets or not
+(@code{t} if Emacs-20 or later).  This variable is effective only when
+font-lock is used.
+(@code{(featurep 'hilit19)}
+@end defvar
+
+@defvar YaTeX-singlecmd-suffix
+Suffix which is always inserted after maketitle-type macros.
+@code{"{}"} is recommended.
+@end defvar
+
+@defvar YaTeX-package-alist-private
+Alist of LaTeX2e-package name vs. lists of macros in it.
+Set this alist properly and YaTeX automatically check the declaratiion of
+`usepackage' for corresponding macro, when you input that macro with
+completion.  If required `usepackage' is not found, YaTeX also
+automatically inserts `\usepackage'.  Alist is as follows;
+@lisp
+   '((PackageName1
+        (completionType ListOfMacro)
+        (completionType ListOfMacro))
+     (PackageName2
+        (completionType ListOfMacro)
+        (completionType ListOfMacro...))....)
+@end lisp
+completionType is one of @code{env, section, maketitle}.
+Consult the value of @code{YaTeX-package-alist-default} as an example.
+@end defvar
+
+@defvar YaTeX-tabular-indentation
+At indentation by @kbd{C-i} in tabular or array environment, 
+YaTeX put the additional spaces to the normail indentation depth.
+The number of additional spaces is the product of YaTeX-tabular-indentation
+and the number of column position in tabular.
+@end defvar
+
+@defvar YaTeX-noindent-env-regexp
+Regexp of environment names that should begin with no indentation.
+All verbatime-like environment name should match with.
+@end defvar
+
+@defvar YaTeX-ref-default-label-string
+Default \\ref time string format.
+This format is like strftime(3) but allowed conversion char are as follows;
+%y -> Last 2 digit of year,  %b -> Month name,  %m -> Monthe number(1-12),
+%d -> Day,  %H -> Hour,  %M -> Minute,  %S -> Second,
+%qx -> alphabetical-decimal conversion of yymmdd.
+%qX -> alphabetical-decimal conversion of HHMMSS.
+Beware defualt label-string should be always unique.  So this format string
+should have both time part (%H+%M+%S or %qX) and date
+part (%y+(%b|%m)+%d or %qx).
+@end defvar
+
+@defvar YaTeX-ref-generate-label-function
+Function to generate default label string for unnamed \\label{}s.
+The function pointed to this value should take two arguments.
+First argument is LaTeX macro's name, second is macro's argument.
+Here is an example for using this value.
+@lisp
+  (setq YaTeX-ref-generate-label-function 'my-yatex-generate-label)
+  (defun my-yatex-generate-label (command value)
+    (and (string= command "caption")
+         (re-search-backward "\\\\begin{\\(figure\\|table\\)}" nil t)
+         (setq command (match-string 1)))
+    (let ((alist '(("chapter" . "chap")
+                   ("section" . "sec")
+                   ("subsection" . "subsec")
+                   ("figure" . "fig")
+                   ("table" . "tbl"))))
+      (if (setq command (cdr (assoc command alist)))
+          (concat command ":" value)
+        (YaTeX::ref-generate-label nil nil))))
+@end lisp
+@end defvar
+
+
+@node Sample definitions, Hook variables, All customizable variables, Lisp variables
+@comment  node-name,  next,  previous,  up
+@subsection Sample definitions
+@cindex prefix key stroke
+@cindex fill-prefix
+
+ For instance, to change the prefix key stroke to @kbd{ESC}, and name of
+the user dictionary @file{~/src/emacs/yatexrc}, and set @code{fill-prefix}
+to single TAB character, add the following @code{setq} to @file{~/.emacs}.
+
+@lisp
+        (setq YaTeX-prefix "\e"
+              YaTeX-user-completion-table "~/src/emacs/yatexrc"
+              YaTeX-fill-prefix "       ")
+@end lisp
+
+@node Hook variables, Hook file, Sample definitions, Lisp variables
+@comment  node-name,  next,  previous,  up
+@subsection Hook variables
+@cindex hook variables
+
+  More customizations will be done by the hook-function defined in
+hook-variable @code{yatex-mode-hook}.  This is useful to define a shortcut
+key sequence to enter some environments other than @code{document} and
+@code{enumerate} etc.  The following statement defines @code{[prefix] ba}
+to enter @code{\begin@{abstract@}} ...  @code{=end@{abstract@}}
+immediately.
+
+@lisp
+        (setq yatex-mode-hook
+              '(lambda() (YaTeX-define-begend-key "ba" "abstract")))
+@end lisp
+
+        You should use functions @code{YaTeX-define-key}, or
+@code{YaTeX-define-begend-key}  to define all the key sequences of
+yatex-mode.
+
+@node Hook file,  , Hook variables, Lisp variables
+@comment  node-name,  next,  previous,  up
+@subsection Hook file
+@cindex hook file
+
+  You can stuff all of YaTeX related expressions into a file named
+@file{yatexhks.el} if you have a lot of codes.  YaTeX automatically load
+this file at the initialization of itself.  Using @file{yatexhks.el}
+makes @code{yatex-mode-load-hook} unnecessary.
+
+@node Add-in functions, Add-in generator, Lisp variables, Customizations
+@comment  node-name,  next,  previous,  up
+@section Add-in functions
+@cindex add-in functions
+@cindex yatexadd.el
+
+  You can easily  define  a function to input  detailed  arguments
+with completion according  to La@TeX{} environments  or commands. 
+
+@c @node What is add-in functions?,  , Add-in functions, Add-in functions
+@comment  node-name,  next,  previous,  up
+@subsection What is add-in functions?
+@cindex tabular
+
+  When you input @code{tabular} environment, don't you think ``I want
+YaTeX to complete its argument toward my favorite one such as
+@code{@{|c|c|c|@}}...''?  Yes, you can define the function to complete
+arguments for any environment and any La@TeX{} commands.
+
+@subsection Procedure
+
+  Here is the procedure to define add-in functions.
+@enumerate
+@item
+Define the function
+@item
+Put the function into @file{yatexhks.el}
+@end enumerate
+
+@menu
+* How the add-in function works::  
+* How the function is called::  
+* Useful functions for creating add-in::  
+* Contribution::                
+@end menu
+
+@node How the add-in function works, How the function is called, Add-in functions, Add-in functions
+@comment  node-name,  next,  previous,  up
+@subsection How the add-in function works
+
+There are three types of add-in.
+
+@enumerate
+@item
+Option add-in
+@item
+argument add-in
+@item
+enclosing add-in
+@end enumerate
+
+@dfn{Option add-in} returns the
+La@TeX{}'s optional parameters such as optional strings after
+@code{\begin@{ENV@}}, optional strings between a section-type command
+and its first argument, and optional strings just after type
+maketitle-type command.  The following illustrates the name of add-in
+functions, where underlined strings are generated by add-in functions.
+
+@display
+\begin@{table@}[ht]		(Function name: YaTeX:table)
+             ~~~~
+\put(100,200)@{@}		(Function name: YaTeX:put)
+    ~~~~~~~~~
+\sum_@{i=0@}^@{n@}		(Function name: YaTeX:sum)
+    ~~~~~~~~~~
+@end display
+
+  Obviously, the function name is decided by concatenating the prefix
+`YaTeX:' and La@TeX{} command's name.
+
+  Another add-in type is @dfn{argument add-in}, which completes arguments
+for section-type commands.
+
+@display
+\newcommand@{\foo@}@{bar@}	(Function name: YaTeX::newcommand)
+            ~~~~  ~~~
+@end display
+
+  When the section-type command is inputted, the function named by
+concatenating `YaTeX::' and section-type command, is called automatically
+with an integer argument which indicates which argument of section-type
+command is being read.  Thus the add-in should determine the
+job referring the value of its argument.
+
+  @dfn{enclosing add-in} is for modifying and/or checking the region that
+will be enclosed by section-type commands via @kbd{[prefix] S}.  An
+enclosing add-in function will be called with two arguments, beginning of
+the enclosed region and end of the region.  Suppose you want to enclose
+the existing text @code{(a+b)/c} by @code{\frac{}}.
+
+@display
+a/c
+|  |
+A  B
+@end display
+
+You do set-mark-command at point A and then move to point B.  Typing
+@kbd{[prefix] S} and input @code{frac} enclose the region like this;
+
+@display
+\frac{a/c}
+@end display
+
+Normally, the expression @code{a/c} is translated to
+@code{\frac@{a@}@{c@}}. An enclosing add-in is useful for modifying
+@code{/} to @code{@}@{}.
+
+@menu
+* Defining option-add-in::      
+* Defining argument-add-in::    
+* Defining enclosing-add-in::   
+@end menu
+
+@node Defining option-add-in, Defining argument-add-in, How the add-in function works, How the add-in function works
+@comment  node-name,  next,  previous,  up
+@subsubsection Defining `option add-in'
+
+  If you want @code{@{|c|c|c|@}} for all @code{tabular} environment,
+
+@lisp
+        (defun YaTeX:tabular ()
+          "@{|c|c|c|@}")
+@end lisp
+
+@noindent
+is enough.  If you want more complicated format, define as below.
+
+@lisp
+        (defun YaTeX:tabular ()
+          "@{@@@{\\vrule width 1pt\\ @}|||@@@{\\ \\vrule width 1pt@}@}")
+@end lisp
+
+@noindent
+Note that the character @code{\} must be described as @code{\\} in
+Emacs-Lisp.  The next example reads the tabular format from keyboard.
+@lisp
+        (defun YaTeX:tabular ()
+          (concat "@{" (read-string "Rule: ") "@}"))
+@end lisp
+
+@node Defining argument-add-in, Defining enclosing-add-in, Defining option-add-in, How the add-in function works
+@comment  node-name,  next,  previous,  up
+@subsubsection Defining `argument add-in'
+
+  This section describes how to define the add-in function for
+@code{\newcommand}.
+
+  The first argument of @code{\newcommand} begins always with @code{\}.
+The second argument is usually so complex that we can not edit them in the 
+minibuffer.  Here is the created function considering this.
+
+@lisp
+        (defun YaTeX::newcommand (n)	;n is argument position
+          (cond
+           ((= n 1)			;1st argument is macro name
+            (read-string "Command: " "\\")) ;initial input `\' 
+           ((= n 2) "")			;do nothing when reading arg#2
+           (t nil)))
+@end lisp
+
+  Note that when the `argument add-in' function return `nil', normal
+argument reader will be called.
+
+@node Defining enclosing-add-in,  , Defining argument-add-in, How the add-in function works
+@comment  node-name,  next,  previous,  up
+@subsubsection Defining `enclosing add-in'
+
+  This section describes how to define the add-in function for
+text enclosed by @code{\frac@{@}}.
+
+  When enclosing the text @code{5/3} by @code{\frac@{@}}, you might want to
+replace @code{/} with @code{@}@{}.  Enclosing function
+@code{YaTeX::frac-region} is called with two arguments, beginning of
+enclosed text and end of enclosed text.  The function is expected to
+replace @code{/} with @code{@}@{}.  Here is an example expression.
+
+@lisp
+(defun YaTeX::frac-region (beg end)
+  (catch 'done
+    (while (search-forward "/" end t)
+      (goto-char (match-beginning 0))
+      (if (y-or-n-p "Replace this slash(/) with `}{'")
+	  (throw 'done (replace-match "}{")))
+      (goto-char (match-end 0)))))
+@end lisp
+
+@node How the function is called, Useful functions for creating add-in, How the add-in function works, Add-in functions
+@comment  node-name,  next,  previous,  up
+@subsection How the function is called
+
+  YaTeX calls the add-in functions for specified begin-type, section-type,
+and maketitle-type command, if any.  `Option add-in' functions for
+begin-type are called when @code{\begin@{ENV@}} has been inserted,
+functions for section-type are called just before input of the first
+argument, and functions for maketitle-type is called after maketitle-type
+command has been inserted.  `Argument add-in' functions are called at each
+entry of arguments for section-type commands.
+
+@node Useful functions for creating add-in, Contribution, How the function is called, Add-in functions
+@comment  node-name,  next,  previous,  up
+@subsection Useful functions for creating add-in
+
+  Many add-in functions for typical La@TeX{} commands are defined in
+@file{yatexadd.el}.  Those are also useful as references.  Here are the
+short descriptions on useful functions, where [F] means function, [A]
+means arguments, [D] means description.
+
+@table @kbd
+@item [F]
+YaTeX:read-position
+@itemx [A]
+Character list which can show up in the brackets
+@itemx [D]
+   Return the location specifier such as `[htb]'.  When
+nothing is entered, omit [] itself.  If the possible characters
+are "htbp", call this function as
+@code{(YaTeX:read-position "htbp")}
+
+@item [F]
+YaTeX:read-coordinates
+@itemx [A]
+Base prompt, X-axis prompt, Y-axis prompt     (each optional)        
+@itemx [D]
+  Read the coordinates with the prompt ``BasePrompt X-axisPrompt:'' for
+X-axis, ``BasePrompt Y-axisPrompt:'' for Y-axis, and return it in the form 
+of ``(X,Y)''.  The default prompts are @code{Dimension}, @code{X},
+@code{Y} respectively.
+
+@item [F]
+YaTeX:check-completion-type
+@itemx [A]
+One of the symbols: 'begin, 'section, or 'maketitle
+@itemx [D]
+  Check the current completion type is specified one and cause error if
+not. The variable @code{YaTeX-current-completion-type} holds the symbol
+according to the current completion type.
+@end table
+
+@node Contribution,  , Useful functions for creating add-in, Add-in functions
+@comment  node-name,  next,  previous,  up
+@subsection Contribution
+
+  If you make your own pretty function and you let it be in public, please 
+send me the function.  I'm going to include it in the next release.
+
+@node Add-in generator,  , Add-in functions, Customizations
+@comment  node-name,  next,  previous,  up
+@section Add-in generator
+
+  First, don't forget to read the section of add-in functions @ref{Add-in
+functions}.  If you easily understand how to define them, there's no need
+to read this section.  But being not familiar with Emacs-Lisp, when you
+don't have clear idea what to do, this section describes how to get YaTeX
+make add-in function.
+
+  There are two methods of generation.  One is for fully interactive
+generator for beginners and another requires little knowledge of
+Emacs-Lisp.
+
+@subsection Generator for beginners
+  The former generator is called by
+@center @kbd{M-x YaTeX-generate}
+
+@noindent
+strokes.  All you have to do is follow the guidances.  Defying them may cases 
+the disaster (I wonder what is it???).  So when you make some mistake, it
+is recommendable to type @kbd{C-g} and start afresh.
+
+@subsection Simple generator
+
+  The latter generator is invoked by the next sequence.
+@center @kbd{M-x YaTeX-generate-simple}
+This generator can make both ``option add-in'' and ``argument add-in''
+(@emph{refer the section add-in functions}
+@ref{How the add-in function works}), whereas @code{YaTeX-generate}
+cannot make ``argument addin''.
+
+  For example, assume you have the LaTeX command as follows.
+
+@example
+	\epsinput[t](250,50)@{hoge.eps@}@{plain@}@{Picture of foo@}
+	         (A)  (B)     (1)      (2)      (3)
+	(A)Optional parameter to specify the position
+	   One of t(top), b(bottom), l(left), r(right)
+	(B)Maximum size of frame
+	(1)1st argument is filename of EPS file
+	(2)2nd argument indicates
+		plain		do nothing
+		frame		make frame around image
+		dframe		make double-frame around image
+	   for included EPS file.
+	(3)Caption for the picture
+@end example
+
+  Now get start with generation.  Typing @kbd{M-x YaTeX-generate-simple}
+brings the prompt:
+@display
+                (O)ption? (A)rgument?
+@end display
+
+@subsubsection Generating ``option add-in''
+@cindex option add-in
+
+  Since (A), (B) above are optional argument, all we have to do to
+complete them is define the option add-in for them.  Let's generate the
+function to complete (A).
+
+@display
+                M-x YaTeX-generate-simple RET
+                epsinput RET
+                o
+@end display
+
+@noindent
+Typing as above leads the next prompt.
+
+@display
+Read type(1): (S)tring (C)omplete (F)ile ([)option (P)osition co(O)rd. (q)uit
+@end display
+
+@noindent
+  This asks that ``Which type is the completion style of 1st argument?''.
+Here are the possible completion style.
+
+@table @code
+@item String
+read plain string
+@item Complete
+read with completion
+@item File
+read file name
+@item Option
+read optional string (if string omitted, omit [] too)
+@item Position
+read positional option (like [htbp])
+@item Coord.
+read coordinates
+@item Quit
+quit from generating
+@end table
+
+  Since (A) is the optional argument to specify the location of included
+EPS file, the completion style is @code{Position}, and the possible
+characters are t, b, l, and r.  To tell these information to generator,
+operate as follows.
+
+@display
+                Read type(1).... 		p
+                Acceptable characters:		tblr RET
+@end display
+
+  (B) is coordinate.  So its completion style is coOrd.  We want a prompt
+meaning ``Maximum size'' when completion.
+
+@display
+                Read type(2)....		o
+                Prompt for coordinates:		Max size RET
+@end display
+
+  That's all for optional argument.  Select quit.
+
+@display
+                Read type(3)....		q
+@end display
+
+  Then the generated option add-in function for \epsinput will be shown in
+the next window.
+
+@subsubsection Generating ``argument add-in''
+@cindex argument add-in
+
+  Next, create the argument add-in.  The arguments for \epsinput are EPS
+file name, framing style, and caption string in sequence.
+
+@display
+                M-x YaTeX-generate-simple RET
+                epsinput RET
+                a
+@end display
+
+  Above key strokes bring the prompt that asks the number of argument.
+Answer it with 3.
+
+@display
+                How many arguments?: 3 RET
+@end display
+
+  Then the generator asks the completion style and prompt for completion.
+Answer them.  @kbd{f} for FileName and prompt string.
+
+@display
+                Read type(1)....		f
+                Prompt for argument#1		EPS file name RET
+@end display
+
+  The second argument is one of selected symbol.  So the completion type
+is @code{Completion}.
+
+@display
+                Read type(2)....		c
+                Prompt for argument#2		Include style RET
+@end display
+
+  Then all the candidates ready to be read.  Type single RET after
+entering all.
+
+@display
+		Item[1](RET to exit):		plain RET
+		Item[2](RET to exit):		frame RET
+		Item[3](RET to exit):		dframe RET
+		Item[4](RET to exit):		RET
+@end display
+
+  The following prompt asks whether the entered string must belong to
+candidates or not.  In this case, since the argument must be one of
+@code{plain}, @code{frame}, and @code{dframe}, type @code{y}.
+
+@display
+                Require match? (y or n)		y
+@end display
+
+  The last argument is the caption string for which any completion is
+needed.
+
+@display
+                Read type(3)....		s
+                Prompt for argument#3		Caption RET
+                default:			Figure of RET
+@end display
+
+  Finally we'll get the argument add-in in the next window.
+
+@subsection Contribution
+
+  If you get your own pretty function and you let it be in public, please 
+steel yourself in the happy atmosphere and do not send me the function.
+I do know it is not fine because it is generated by yatexgen:-p.
+
+@node Etcetera, Copying, Customizations, Top
+@comment  node-name,  next,  previous,  up
+@chapter Etcetera
+
+  The standard completion  tables provided  in @file{yatex.el} contain  a
+few La@TeX{}  commands  I frequently use.  This is  to lessen the key
+strokes to  complete  entire  word, because   too  many candidates
+rarely used  often cause too many  hits.   Therefore always try to
+use completion  in order to  enrich your dictionary,  and you will
+also find `Wild Bird' growing suitable for your La@TeX{} style.
+
+  The package name `Wild Bird' is the English translation of Japanese
+title `Yachou', which is a trick on words of Japanese.
+
+@node Copying,  , Etcetera, Top
+@comment  node-name,  next,  previous,  up
+@chapter Copying
+
+  This   program   is  distributed   as   a   free   software.   You   can
+use/copy/modify/redistribute this software freely  but with NO warranty to
+anything  as a result  of using  this software.   Adopting code  from this
+program is  also free.  But  I would not  do contract act.
+
+Any reports  and suggestions are  welcome as long  as I feel  interests in
+this software.  My possible  e-mail address is `yuuji@@yatex.org'.  (as of
+Jan.2004)  And there  is  mailing  list for  YaTeX.   Although the  common
+language is Japanese,  questions in English will be  welcome.  To join the
+ML,   send  the   mail  whose   subject   is  `append'   to  the   address
+`yatex@@yatex.org.    If   you  have   some   question,   please  ask   to
+`yatex-admin@@yatex.org'.
+
+  The specification of this software will be surely modified
+(depending on my feelings) without notice :-p.
+
+
+@flushright
+                                                        HIROSE Yuuji
+@end flushright
+@bye
+
+Local variables:
+mode: texinfo
+fill-prefix: nil
+fill-column: 74
+End:

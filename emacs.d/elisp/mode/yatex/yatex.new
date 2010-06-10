@@ -1,0 +1,513 @@
+	What's new in YaTeX/yahtml
+	野鳥/yahtml - 各バージョンの変更点について
+
+1.74	=== yatex ===
+	YaTeX-kanji-code が 4 のときは UTF-8 とした。
+	Previewファイルの拡張子が.dviであるという仮定を弱くした(pdf等)。
+	pdfopenを呼ぶときの問題への対策追加(by松田さん)。
+	拡張子 pdf に対するデフォルトヴューアを追加。
+	=== yahtml ===
+	yahtml-kanji-code が 4 のときは UTF-8 とした。
+	[prefix] Return Intelligent-newline をtable対応にした。
+	cssファイル中に@importがあったときのバグを除去。
+	cssの *.class 解釈を修正。
+	yahtml-image-inspection-bytes を50000に増やした。
+
+1.73	=== yatex ===
+	C-i (YaTeX-indent-line) のtabular/array環境対応。行頭位置の
+	tabular的カラム位置に応じてインデントの深さを4桁ずつ深くする。
+	深くする桁数を制御する変数 YaTeX-tabular-indentation 新設。
+	\ref補完で出る一覧で数式は\label文字列も出すようにした。
+	\ref補完で自動的に生成するラベル名を短くした。カスタマイズも可。
+	生成するラベル名の書式を変える変数YaTeX-ref-default-label-string新設。
+	ラベル名生成関数そのものは YaTeX-ref-generate-label-function で変更可。
+	AMS-LaTeX独自のカウンタつき数式環境も全てref補完でlabel打ち可能
+	な場所を検出できるようにした。
+	AMS-LaTeX独自の数式環境でのお任せ改行サポート。
+	tabularのお任せ改行で *{N}{REP} もカラム数を取れるようにした。
+	verbatim環境/alltt環境宣言はTABインデントで行頭に来るようにした。
+	インデントなしの環境宣言を決める変数 YaTeX-noindent-env-regexp 新設。
+	[prefix] c, [prefix] g などがセクション型マクロの英字のみの引数
+	で動かないのを修正。
+	先回りusepackageでパッケージのオプションを確認できるようにした。
+	[prefix] k でセクション型マクロの引数の数を考慮して消すようにした。
+	[prefix] k ではマクロの最後の引数の中味のみを残すようにした。
+	[prefix] S ではリジョンをセクション型マクロの最後の引数に括り入
+	れるようにしてそれ以前の引数入力にアドイン関数を呼ぶようにした。
+	数式モード内の _添字 ^上字 を変えるfaceを作成。とりあえず色だけ
+	変えるようにした(Emacs21.4なら上下にスライドできるだろう)。
+	変数 YaTeX-dvi2-command-ext-alist 新設。Previewerコマンドと、そ
+	れでPreviewするファイルのデフォルト拡張子を指定できるようにした。
+	tabular中のカラム内に\begin\endがある場合はfill-paragraph境界を
+	そこまでに絞るようにした。
+	\cite上での[prefix] g で\bibliography{}で指定したBibファイルの対
+	応エントリに飛べるようにした。
+
+	=== yahtml ===
+	cssの @import に対応(たぶん)。
+	class補完でクラス名をSPCで区切った複数指定の補完入力を可能に。
+	Emacs-21.3 以降のため insert-default-directory をnilに。
+	single-cmd-tableから p を削除。
+	変数 yahtml-html4-strict を新設。HTML4Strict準拠をできるだけ補助。
+	script, noscript要素の補完を追加。script要素のアドインも追加。
+	[prefix] m に <!--#include ...--> <!--#exec ...--> 補完を追加。
+	[prefix] m でもアドイン補完を呼ぶようにしたので M-C-m の<li>挿入
+	でクラス名補完が起きる。これを回避するために M-C-j にも intelligent
+	newline を割り当ててクラス名補完を飛ばせるようにした。
+	[prefix] g に universal arg を指定しても隣窓で開かないのを修正。
+
+1.72	=== yatex ===
+	YaTeX-kanji-code が nil なら coding-system に感知しない
+	補完したマクロがLaTeX2eの特定のpackageに依存している場合
+	そのpackageを半自動で \usepackage する(yatexpkg.el新設)
+	{} の末尾がイタリック補正 \/ ならそれを消す
+	=== yahtml ==
+	yahtml-kanji-code が nil なら coding-system に感知しない
+
+1.71	=== yatex ===
+	fill-prefix を指定している場合、Emacs21で \item の auto-fill が
+	\item の深さにかかわらず fill-prefix になってしまうのを回避
+	\refのラベル補完で、既にlabel定義してあるものがカウンタと\label
+	両方が補完候補に出現していたのを修正。またenumerate環境内では
+	\itemとラベルが重複して候補に現れていたのを修正。
+	Emacsの背景色の定義がXリソースに全く無いときの不具合修正
+	[prefix] c で AMS-LaTeX の大括弧対の種類を変えられるようにした
+	[prefix] g で AMS-LaTeX の括弧対間でジャンプできるようにした
+
+1.70	Emacs21でmake-frameがエラーになることがあるのを回避
+	font-lock での Recenter が効かなくなるのを修正
+	(他、細かい修正がほとんど)
+
+1.69	font-lock 対応(XEmacs, Emacs-20, Emacs-21 のみ)。
+	hilit19, font-lockを共存させている場合 YaTeX-use-hilit19 か、	
+	YaTeX-use-font-lock どちらか一方を Non-nil にする。
+	~/.emacs で (put 'yatex-mode 'font-lock-defaults ....) や
+	(put 'yahtml-mode 'font-lock-defaults ...)などを入れている人はその
+	設定を削り、(setq YaTeX-use-font-lock t) を入れてください。
+	Emacs-21(pretest version)で動くようにした。
+	kill-bufferしたときに親ファイルが出現するよう努力。
+	野鳥起動時の段階でEmacsに italic, bold フォントが登録されていれ
+	ば、それを積極的に利用するようにした。
+	=== yatex ===
+	section型補完のときに直前の文字列でデフォルト候補を変える機能を
+	試験的に入れてみた。
+	(Meadow)Typeset menu での IME OFF。
+	yatexmth, ;[TAB] 一覧の最初の \| が選択できなかったのを修正。
+	=== yahtml ===
+	XEmacsで img src での画像サイズ取得ができなかったのを修正。
+	[prefix] ESC で yahtml-mode に入る前の major-mode に復帰(メイルの
+	draftバッファでHTMLを書くために一時的にyahtmlを読んで元に戻るとき
+	に有効)。
+
+1.68	=== yatex ===
+	XEmacsでyatexgenが動かなくなったのに対処。
+	Windowsでのインストールが少し楽になるように makefile を修正。
+	ref/cite ラベル補完で全てのカウンタを補完候補にあげてなおかつ
+	labelが設定していないところには自動的にラベルを付加するようにした。
+	\cite の補完を BibTeX データベースファイルからも探すようにした。
+	LaTeX2eの多くのコマンドに、本体/アドイン共に対応。
+	=== yahtml ===
+	英語版info、Q&Aの添付(by Jun Ohyaさん)
+	<img src="..">補完でsrcとなる画像ファイルのピクセルサイズを自前
+	で調べて width, height 属性の補完のデフォルトとなるようにした。
+	M-C-a(beginning-of-environment), M-C-e(end-of-environment),
+	M-C-@(mark-environment) が yatex.el 内に定義されていてyahtmlだけ
+	をロードしているときにエラーになったので、これら関数定義を
+	yatexlibに移動。
+	css定義ファイル中ピリオドで始まるエントリを全てのエレメントに共
+	通なclass補完候補として出すようにした。
+	yahtmlを使用するとYaTeXでのインデントがおかしくなるのを直した。
+	& でchar-entity reference補完。
+
+1.67	[[[ http://www.yatex.org/ が誕生しました ]]]
+	=== yahtml ===
+	href入力でSPCなどのunsafe-charを%エンコードに置換するかを
+	yahtml-escape-chars で選べるようにした。nilならしない、tなら常に、
+	'ask なら確認する。デフォルトは 'ask。
+	初回href入力時に yahtml-urls を補完候補に入れてなかったのを修正。
+	[prefix] ; でリジョン中の <>'"& をエンティティ参照に変換、
+	[prefix] : で逆変換する機能を追加。
+	yahtml-translate-hyphens-when-comment-region が non-nil のときに
+	領域コメントアウトで - を &#45; に変換。
+	yahtml-prefer-upcase-attributes が non-nil のとき属性名を大文字に。
+	カレントまたは上位ディレクトリに .htaccess ファイルがありその中に
+	  AddType "text/html; charset=XXXX" .html
+	宣言があれば編集するHTMLソースの漢字コードもその宣言に合わせる。
+	<style>をデフォルト補完候補にいれ type 属性を入れるアドイン作成。
+	yahtml-insert-begend-region で領域を括った後の状態のリジョンが
+	括った環境全体になるようにした。つまり続けて insert-begend-region
+	すると括った直後の環境をさらに括ることが出来る。
+	スタイルシート(に関する補完)対応(ローカルファイルにあるもののみ)。
+	[prefix] s で<link>タグ補完。type="text/css" などの補完可。
+	[prefix] c で属性代入値をどこでも変更できるようにした。
+	=== yatex ===
+	数式モードで \left の直後に ( | [ を入れたときには自動的に対応す
+	る \right ) | ] を挿入するようにした。
+	[prefix] c で \right\left の括弧の組をまとめて変更できるようにし
+	た(by 千葉大松田さん)。
+
+1.66	\section*{} などの*つきセクションコマンドでインデントがずれるの
+	を修正。
+	[prefix] g でのlabel/ref検索をre-searchにしpagerefにも飛べるよう
+	にした。またsearch-ringではなくregexp-search-ringを更新するので
+	継続検索は M-C-s or M-C-r で行うようになった。
+	XEmacsでのラベル補完のバグフィクス。
+	tgif2tex(*.tps) への [prefix] g を追加。
+	Emacs20のsuppress-keymapの仕様が変わったので対処。
+	Emacs20+yahtml でアイテム化タグでのfillがうまく行かなかったのを修正。
+	yahtmlで <applet code=foo.class> という位置で [prefix] g したときに
+	foo.java へ、#include ではそのファイル、#execではCGIスクリプトファ
+	イルへジャンプするようにした。
+
+1.65	yahtmlのお任せ改行のバグフィクス。
+	a, body, img タグのオプション引数入力アドインの強化。
+	section型マクロの第一引数が改行によって分断されていても正しく
+	hilitするようにした。
+	yahtmlの行インデント関数の高速化。カレント行がタグで始まらないと
+	きは直前の非空行のインデントを真似するようにした。副作用あるかも。
+	thebibliography環境でitemize系インデントが効いていなかったのを修正。
+	GNU Emacs 20 対応(by竹中さん&me)。
+	XEmacs 20 対応。
+	yahtmlパッケージの独立性強化。
+	[prefix] k で環境を消したときはkill-ringに追加するようにした。
+	yahtml-hate-too-deep-indentation がtのときにインデントが浅くなり
+	すぎるのを修正。
+	href 補完の http:// ヒストリを .mosaic-global-history から取るの
+	を廃止し、ユーザ辞書に登録するようにした。
+	yahtmlの [prefix] p で <p></p> が出るようにした。
+	yahtmlのおまかせ改行で、yahtml-p-prefered-env-regexp にマッチす
+	るタグ環境内のときは<p></p>を自動挿入するようにした。
+	YaTeX-fill-prefix, yahtml-fill-prefix(新設)のデフォルトをnilに。
+	YaTeX-template-file, yahtml-template-file を新規ファイルに挿入。
+
+1.64	yahtmlを起動するとYaTeXで [prefix] Bc が<center>などになってしま
+	うのを修正。
+	NTT-jTeX が t のときにfillがうまく行かないことがあるのを修正。
+	YaTeX-uncomment-paragraph を修正。
+	yahtmlで文章中に$があるとauto-indentが効かなくなるのを修正。
+	yatexで\end行でIntelligent newlineした時のバグを修正。
+
+1.63	数式モードに入ったら漢字モードをOFFにするようにした(本来1.62)
+	yahtmlで [prefix] t j で(j)weblintを呼ぶようにした。
+	yahtmlのブラウザ起動は、[prefix] t p に変更。
+	yahtmlで、<pre>の中でfillした場合、<a>タグなどを文字数にカウント
+	せずにfillするようにした。
+	LaTeX2eのフォント設定マクロを正しくhilitするようにした。
+	yahtmlで src="??" や align="???" などのchangeができるようにした。
+	yahtmlのNAME補完のときにauto-hilightが効かないようにした。
+	数式モードのときはauto-fillが効かないようにした。
+	\のあとに{を入れたときは\}を入れるようにした。
+	yahtmlでブラウザにIEを指定したときの不具合を修正。
+
+1.62	\ref の引数が二行に渡る時行末に%を付けるようにした。
+	yahtmlでおまかせ改行が不必要に起動するのを修正。
+	href の補完文字列に # が含まれる時は name を補完。
+	\epsfile{file=foo.eps} などで [prefix] g した場合、foo.epsの元絵
+	を編集しているお絵書きソフトを起動するようにした。
+	yahtmlで [prefix] a で &lt などが入るようにした。
+	verbatim環境の [prefix] g がうまく飛ばなかったのを修正。
+	sectionのオプション引数をつけた時の色づけが無効だったのを修正。
+
+1.61	AMS-LaTeX 対応
+	xdvi -remote によるサーチに対応 [prefix] t s
+	begin型補完終了直後に自動的におまかせ改行を実行するようにした
+	yahtmlで <p>, <br> が行末にある時に fill-paragraph した時のバグ修正
+	htmlタグそのものではなく、意味を表す文字列で補完できるようにした
+	yahtml で [prefix] g を <img src=..> の上で押したらViewer(xv)を起動
+	するようにし、<a href="http://外部リンク">の上で押したらnetscape
+	を起動(またはプロセスコントロール)するようにした
+	yahtml に [preix] t (野鳥でいうタイプセットメニュー)を設け、
+	[prefix] t b でカレントファイルをWWWブラウザで見られるようにした
+	[prefix] t r で Netscape に reload コマンドを送れるようにした
+	html の括り補完をまともにした
+	yahtml-indent-line を作成。リスティング環境のインデントのみ少し
+	まともにした
+	yahtml におまかせ改行を追加
+	html <a> の補完を、http:// で始まっていればヒストリからの補完、/ 
+	で始まっていればWWWサーバ内のURL名補完、いずれでもなければUNIXファ
+	イルシステムでのファイル名補完となるようにした
+	html3 この期に及んでまだ未調査。だれかおしえてー
+	\pagebreak, \linebreak のアドイン関数の追加
+	セクション区切りアウトライン表示のバッファで u, d を押すことによ
+	り、対応するセクションコマンドのレベルを上げる/下げる。U, D を押
+	すと領域内のセクションコマンドを一括シフト
+	変数 YaTeX-open-lines を廃止
+	[prefix] i の YaTeX-fill-item を廃止
+	$$ 中に \% があった場合の数式モード終了判定ミスを修正
+
+1.60	LaTeX2e 対応
+	documentclass パラメータを修正し、ASCII 版 jLaTeX2e に対応
+	\{ \}でhilitがおかしくなるバグを修正
+	YaTeX-hilit-recenterのたびにpatterns-alistが太るのを修正
+	yahtml.el に hilit を導入
+	変数 YaTeX-hilit-sectioning-attenuation-rate で、セクションコマ
+	ンドの色の濃さの減衰百分率を指定できるようにした
+	\chapter, \section, ...のデフォルトの色を変えた
+
+1.59	%(コメント)のhilitのバグを修正。
+	tabular環境のお任せ改行で無限ループになることがあるのを回避。
+	アドイン関数が効かないバグを修正。
+	[prefix] i (YaTeX-fill-item) の不具合修正
+	`yatex19.el' をロードしているのを修正
+	italic フォントの使い方の説明を書いてみた (docs/qanda)
+
+1.58	数式環境専用コマンドを maketitle 型補完した時には自動的に$$で囲む。
+	[prefix] x でキーマップ YaTeX-user-extensional-map を呼び出す。この
+	キーマップにはユーザが好きなキーに好きな関数を定義できる。
+	section 型補完で maketitle 型のものも入れられるようにした(引数0個)。
+	YaTeX-close-paren-always が 'never なら常に自動的に括弧を閉じない。
+	YaTeX-skip-default-reader が non-nil なら section 型補完のデフォ
+	ルトの引数リーダを呼ばない。
+	YaTeX-simple-messages が non-nil なら簡素なメッセージで表示。
+	英語版のLaTeXヘルプも完備した。
+	fj.sourcesにポスト。
+
+1.57	同じ環境がネストしている時の M-C-a, M-C-e のバグ修正。
+	\beginの行をTABでreindentした時は\endも同じ桁に揃える。
+	リジョンを環境で括った時の中身の処理を行う関数
+	YaTeX-enclose-<環境名> をサポート。equation で括った時に中身の $ 
+	を全て消去し、verbatimで括った時はなにもしないようにした。
+	\item 行でTABした時にカーソル位置を保存。
+	\item を補完した次の section 型コマンドのデフォルトを label に。
+	hierarchyバッファでの SPC, DEL, +, - の追加。
+	fill すると kill-ring を壊してしまうのを修正。
+	数式環境でのインデントのサポート(やだなあ)。
+	中括弧がネストしたり、引数が複数ある section 型コマンドも正しく 
+	hilit するようにし、% の hilit も適正化した。
+	インデントが変わらない時のTABでも修正フラグが立っていたのを修正。
+
+1.56	[prefix] d の YaTeX-display-hierarchy を追加。
+	変数 indent-line-function に YaTeX-indent-line を設定した。
+	YaTeX-generate-simple の修正(1.51から今まで全然動かなかったのに…)。
+	NTT-jTeX を利用する時に文書をインデントしても良いように 
+	auto-fill や fill-paragraph を調整した。
+	maketitle 型コマンドが [] で終わっている時にはカーソルを括弧内に。
+	セクションコマンドの論理的高さに応じて色の濃度を変える(Mule2+X)。
+
+1.55	{}の上で [prefix] k した時に直前のコマンドが maketitle 型辞書に
+	属していれば {} のみ(フォント指定子があればそれも)を消すようにした。
+	新単語入力時に、N)one を選ぶと、そのEmacsでのみ有効にするように
+	し、補完テーブルも辞書ファイルも更新しない D)iscard を新設。
+	?プロンプトを出しているタイプセッタをkillする時は x コマンドを送っ
+	て終了させ .aux ファイルの破損を防ぐようにした。
+	Emacs19でタイプセット時親ファイルを聞いた時にカレントバッファが
+	親ファイルになってしまうのを回避した。
+	親子ファイル間ジャンプで別 frame へのジャンプをサポート(Emacs19)。
+	\include{child} 上で [prefix] g して child.tex に飛び child.tex
+	に親ファイル指定(%#!jlatex parent)がない時はジャンプ元ファイルを
+	親ファイルとみなすようにした。
+	\input{} にフルパスが書いてある時も [prefix] g を可能にした。
+	同時編集するファイルの名前の重複を許した。
+	[prefix] i の \item fill の修正。
+	エラージャンプで dired が起動する事があるバグを修正。
+	Emacs-19でもミニバッファから読み込むものの種別毎にヒストリを分け
+	て持つようにした(今までは Emacs18+gmhist のみ有効)。
+	maketitle 型コマンド入力直後のスペースは入れないようにした。
+	itemize 環境中のTABで \subitem のインデントの深さを変えた。
+
+1.54	section 型コマンドの引数のデフォルトの入力には通常の文字列入力を
+	行うようにし、変数 user-article-table を廃止した。これにより
+	~/.yatexrc に任意の elisp を入れておいても消えないようになった。
+	Emacs-19(Mule2) でのデフォルトのヘルプファイルの格納場所をetcディ
+	レクトリから、site-lisp ディレクトリに変更した(注意!!)。
+	documentstyle のアドイン関数を充実させ、スタイルオプションやスタ
+	イルの学習を行うようにした。
+	ユーザ辞書も新単語の入力と同時に更新するようにし、kill-emacs を
+	トラップするのをやめた。
+	[prefix] c で section 型コマンドとその引数/オプション、large型
+	コマンドを変更できるようにした。
+	数式モード自動判定時にコメントアウトされた $ は数えないようにし
+	た。また、変数 YaTeX-verbatim-environments を用意し、LaTeX コマ
+	ンドが無効となる環境名のリストを列挙できるようにした。
+	YaTeX-hilit-pattern-adjustment-private で独自カラーを定義可能に。
+	YaTeX-sectioning-level で独自に定義したセクション区切りコマンド
+	を登録してもうまく動作するようにした。
+
+1.53	Emacs-19で新単語の更新がうまくいかなかったのを今度こそ直した。
+	ref/labelジャンプで別のバッファのref/labelに飛べるようにした。
+	ref/labelジャンプと同形式でcite/bibitem間で飛べるようにした。
+	cite/bibitemのアドイン関数の追加。
+
+1.52	外部プロセス用テンポラリバッファが別 frame にある時には現 frame
+	にテンポラリバッファを popup しないようにした。
+	Hilightening に独自のタグを導入し、reverseVideo がON/OFFの時両方
+	に対応した。
+	Emacs-19で新単語の更新がうまくいかなかったのを直した。
+
+1.51	メニューバーへのメニュー登録。
+	YaTeX-fill-item(C-c C-i) と YaTeX-indent-line (C-i)が賢くなった。
+	hilit19をロードしておくとセクション区切りが目立つように色が付く。
+	YaTeX-generate-simple のバグフィクス。
+
+1.50	YaTeX-math モードの記号用 prefix を , から ; に変えた(注意!)。
+	イメージ補完の一覧表示キーを RET から TAB に変えた(注意!)。
+	[prefix] / の YaTeX-apropos の追加。
+	[prefix] & の YaTeX-what-column の追加。
+	YaTeX-math モードは自動判定するようにした。YaTeX-math モード用の
+	prefix を強制的に活かす時は C-u ; などとする。
+	YaTeX-beginning-of-environment(ESC C-a)
+	YaTeX-end-of-environment(ESC C-e)
+	YaTeX-mark-environment(ESC C-@) をそれぞれ追加。
+	YaTeX-default-pop-window-height でデフォルトのタイプセットバッ
+	ファの高さを指定できるようにした。数値を指定するとタイプセットバッ
+	ファの行数、数字文字列でEmacsウィンドウの高さに対する百分率。
+	YaTeX-close-paren-always がt、かつ新規入力モードなら常に開き括弧
+	の入力で閉じ括弧も入力する(デフォルトはt)。
+	ギリシャ文字補完候補を maketitle 型補完から除去。
+	YaTeX-end-environment で呼んでいる YaTeX-inner-environment の高速化。
+	YaTeX-end-environment で次の\end検索がうまく行かないバグを直した。
+	C-u [prefix] k でLaTeXコマンドとその中身を同時削除するようにし、
+	子ファイルでpreview用コマンドを変えても反映されないバグを直した。
+	\endの次で{を押した時には自動的に閉じるべき環境名を入れる(^^;)。
+	引数型アドイン関数も作れる M-x YaTeX-generate-simple を用意した。
+	%#REQUIRE の行は必ず typeset-region の時にコピーする。
+	ドキュメントの Texinfo 化。
+    <Fixes>
+	ネストしたsection型コマンドの削除範囲判定のバグを直した。
+	\begin と \end の uncomment が verbatim 環境でうまく行かないバグ
+	を直した。
+	typeset-regionでend-of-bufferまでか%#ENDまでかの表示が逆だったの
+	を直した。
+
+1.49	YaTeX::newcommand において \newcommand の引数0個の時は maketitle 
+	型用の辞書を更新するようにした。
+	テンポラリ辞書を格納する変数を buffer-local に。
+	YaTeX-nervous のデフォルト値を t にした。
+	ユーザが新規コマンドのテンポラリ辞書への追加を指示した時には、テ
+	ンポラリ辞書ファイルがなくても作成するようにした。
+	YaTeX-typeset-region の bug-fix.
+
+1.48	[prefix] ? の YaTeX-help でカーソル位置の LaTeX コマンドのヘルプ
+	が出るようにした(ヘルプ内容は未完成)。
+	begin 型補完全般でのインデント調整処理の改善。
+	gmhistとの連携により Preview, Lpr, call-command それぞれのヒスト
+	リを他のヒストリとは分離させた。
+	\ref 補完でカレントバッファのラベルが出なくなっていたバグを修正。
+	outline-minor-mode との連携がうまくいかなかったのを修正。
+
+1.47	YaTeX-quick-in-environment-p と YaTeX-get-latex-command の
+	バグフィクス。
+
+1.46	リジョン指定つき section 型補完の追加。
+	[prefix] k で section 型コマンドの削除、対応する括弧の削除。
+	エラー行ジャンプの適正化。
+	再帰的 section 型補完時のバグフィクス。
+	親ファイルを手入力した時に二度目以降もそのファイルを親とみなす。
+	[prefix] g でファイル間ジャンプをする時に、既にそのファイルがど
+	こかのウィンドウに出ていれば、そのウィンドウに移るようにした。
+	\verbのアドイン関数追加。
+
+1.45:	comment-region を begin/end 行で起動した時にメッセージを出す。
+	yatexmth:イメージ補完で複数の補完テーブルが使えるようにし、
+	/で始まるギリシャ文字補完を追加。
+	YaTeX-mark-evrironment を追加。
+	[prefix] % の %#記法編集メニューを追加。
+	dviout起動時(DOS)にカーソルを消すようにした。
+	section型コマンドの引数入力時に section/large/maketitle 型補完を
+	再帰的に利用できるようにした。
+	yatexaddの引数型付加関数に第二引数以後の処理が行かないバグを修正。
+
+1.44:	タイプセットプログラムの起動処理を高速化。
+	エラージャンプのウィンドウ利用の最適化。
+	数式モード/修正モードのモードライン表示修正。
+	数式環境補完時には自動的に数式モードに入る。
+
+1.43:	環境のネストに応じたインデント(変数YaTeX-environment-indentで指定)。
+	数式環境記号補完モード(yatexmth)添付。
+	modify-mode の値で開き括弧の動作を決定する。
+	LaTeX error 発生ファイルの検出の確実化。
+	\ref のラベルをバッファ中の\labelを検索してメニュー形式で補完。
+	タイプセットなどでウィンドウ利用の最適化。
+
+1.42:	fill-paragraph と、(un)comment-paragraph の適正化。
+	[prefix] k での削除範囲の適正化。
+	YaTeX-end-environment などで verb(atim)中のbegin/endは数えない。
+	LaTeX error 発生ファイルの検出の確実化。
+	begin型補完のインデントは必ず \begin の桁に合わせるようにした。
+	対応する \label{} または \ref{} へのジャンプ。
+
+1.41:	アドイン関数の自動作成モード追加。
+	アドイン関数のmaketitle型補完への対応と、現在の補完形式を変数
+	YaTeX-current-completion-type に記憶。
+	タイプセットバッファで jlatex に文字列を送る処理の完全化。
+
+1.40:	編集ファイルをサブディレクトリ毎に分けた場合に対応。
+	アドイン関数をsection型補完にも対応し、仕様を固めた。
+	領域指定のタイプセット直後のプレビューファイル候補は texput に。
+	プロセス処理関係の関数を別ファイルに分けた。
+	section型補完で、セクションタイトル(chapter, section, ...) は
+	read-string で読み込むようにした。また、引数0を付加することにより
+	明示的に read-string での読み込みを指定可能。
+	yatexadd.el が load-path 中にある場合のみ自動的にロードする。
+
+1.39:	編集しながらタイプセット画面をスクロール。
+	BibTeX 起動の追加。タイプセットプロセスの中断。
+	jlatex の ? プロンプトに対して、文字列を送れるようにした。
+
+1.38:	YaTeX-nervous が t の時、一時的、またはカレントディレクトリでのみ
+	有効なテンポラリ辞書が利用可能。
+	section型補完に引数の数も埋め込み、これも学習する。
+	lprフォーマットに %f,%t がないときは、From,To を聞かない。
+	\includeonlyで指定した二つ目以降のファイルへもジャンプ可能に。
+	[prefix] i の桁揃え時に検索するitemの正規表現を指定可能にした。
+
+1.37:	YaTeX-kill-* の、%#BEGIN/%#END対応。
+	対応する環境へのジャンプで、ネストした環境を正しく検出。
+	verbatim 環境では " は " のまま入力。
+	タイプセット時に未保存の .tex バッファのセーブを確認。
+	カレントファイルが、メインファイルの includeonly からもれている場
+	合には、確認後自動的に includeonly に追加。
+	[prefix] i の \item 項目の桁揃え(fill-prefix自動調整)追加。
+	[prefix] a のアクセント記号入力メニュー追加。
+	[prefix] 4^ で別ウィンドウでメインファイルを選択。
+	[prefix] tl で lpr メニュー。view-error の見直し。
+	Demacs でのタイプセット時には Hit Any Key を出さずに終了。
+	修論が終わった:-)。
+
+1.36:	リジョン指定のタイプセットのサポート。%#BEGINと%#ENDで囲まれた領域、
+	%#END が無ければ %#BEGIN 以降、両方なければマークとポイントの間を
+	texput.tex に保存し、jlatex を起動する。
+
+1.35:	[prefix] k でカーソル上にあるオブジェクトの消去。まずは、対応する
+	begin/end の消去(YaTeX-kill-environment)のみ。
+	[prefix] c でカーソル上にあるオブジェクトの変更。まずは、LaTeX の
+	環境名の変更(YaTeX-change-environment)のみ。
+	アドイン関数のサポート。まずは、begin型補完時に呼び出せる関数があ
+	るかチェック。
+	補完入力した位置を YaTeX-current-position-register に保存。
+	begin型補完を入力した位置と同じインデントで補完。
+
+1.34:	Mule 対応(漢字コード関係の見直し)。
+	[prefix] g を押した時の行の内容により、動作を変えるようにした。
+	YaTeX-prev-error で tex コマンドのログからどのファイルから出された
+	エラーか調べ、そのファイルに switch-to-buffer するようにした。
+	typeset 中に何かキーを押して、編集バッファに戻った場合、typeset が
+	終了したら自動的に、typeset バッファの一番下を表示するようにした。
+
+1.33:	コマンド名のデフォルト値を OS によって自動的に選択。
+	\begin{} \end{} の行でコメント操作したときの動作を変更。
+	dvi2-command をバッファローカルに。
+	prefixキーの直後のキーバインドの英字の使用を禁止するスイッチと機能
+	を追加。
+	YaTeX-end-environment の見直し。begin/end 検索の正規表現を変え、高
+	速化&確実化。
+	\begin{環境}\end{環境} 挿入のショートカットキーを定義するためのユー
+	ザ開放関数を追加。
+
+1.32:	リジョン/パラグラフをコメントアウトする機能を追加。
+	対応する \begin{}/\end{} 間でジャンプする機能を追加。
+
+1.31:	Previewer に渡すデフォルトのファイル名も %#! に指定したものを使用。
+
+1.30:	30行計画に対応(要するに行数可変にした)。
+
+1.29:	現在開いている環境名を閉じる YaTeX-end-environment を追加。
+
+1.28:	%#! に続くコマンド名を latex コマンドとして実行するようにした。
+	fill-prefix を null にした。
+
+1.27:	最初の正式リリース版
+
+Local Variables:
+mode: indented-text
+End:

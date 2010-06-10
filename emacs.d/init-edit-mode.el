@@ -10,8 +10,55 @@
           '(lambda ()
              (setq c-basic-offset 4)
              (setq tab-width 4)
-             (setq intelligent-tab nil)
+             (setq intelligent-tab t)
              ) t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;yatex;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq auto-mode-alist
+      (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;yahtml-mode;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (autoload 'yahtml-mode "yahtml" "Yet Another HTML mode" t)
+;; (setq auto-mode-alist (cons (cons "\\.html?$" 'yahtml-mode) auto-mode-alist))
+
+;; ;; 表示には w3m 
+;; (defadvice yahtml-browse-html
+;;   (around w3m-yahtml-browse-html activate compile)
+;;   (w3-fetch (ad-get-arg 0))
+;; ;  (w3m-goto-url (ad-get-arg 0) t)
+;;   )
+;; (setq yahtml-lint-program "htmllint")
+;; (setq yahtml-kanji-code 2) ; (1 sjis, 2 jis, 3 euc)
+;; (setq yahtml-path-url-alist
+;;       '(
+;;         ("~/public_html" . "http://www.math.s.chiba-u.ac.jp/~matsu")
+;;         ))
+;; (add-hook
+;;  'yahtml-mode-hook
+;;  (function (lambda ()
+;;              (progn
+;;                (require 'yahtml-insert-index)
+;;                (auto-fill-mode 0)
+;;                (if (equal 'shift_jis-unix buffer-file-coding-system)
+;;                    (progn
+;;                      (set-buffer-file-coding-system 'shift_jis-dos)
+;;                      (set-buffer-modified-p nil)))             
+;;                ))))
+
+;; (autoload 'yahtml-mode "yahtml" "Yet Another HTML mode" t)
+;; ;;; yahtml 用の設定
+;; (setq yahtml-www-browser "mosaic"); yatex の html モードで起動するビューワ
+;; (setq yahtml-path-url-alist ; ホームページの連想リスト
+;;       '(("~/public_html/index-j.html" .
+;;          "http://www.math.s.chiba-u.ac.jp/~matsu/public_html/index.html")))
+;; ;; html ファイルを編集する際の自動折り返し桁数
+;; (add-hook 'yahtml-mode-hook '(lambda () (setq fill-column 78)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -105,7 +152,13 @@
             (set-face-background 'cperl-hash-face "black")
             ))
 
-(add-hook 'cperl-mode-hook 'flymake-perl-load)
+;;flymake, perl-completionは重いので、やめた
+;;(add-hook 'cperl-mode-hook 'flymake-perl-load)
+;; (add-hook 'cperl-mode-hook
+;;           (lambda()
+;;             (require 'perl-completion)
+;;             (perl-completion-mode t)
+;;             (add-to-list 'ac-sources 'ac-source-perl-completion)))
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。
@@ -174,7 +227,7 @@
 ;;           (lambda ()
 ;;             (setq tab-width                             2
 ;;                   sgml-indent-step                      2
-;;                   indent-tabs-mode                      nil
+;;                   indent-tabs-mode                      t
 ;;                   sgml-xml-p                            t
 ;;                   sgml-always-quote-attributes          t
 ;;                   sgml-system-identifiers-are-preferred t
@@ -273,8 +326,9 @@
 ;;     )))
 
 
-
-;;yamlモード
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;yamlモード;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-hook 'yaml-mode-hook

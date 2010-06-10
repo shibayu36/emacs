@@ -1,0 +1,138 @@
+%%
+%% Q and A on yahtml
+%%
+%% C-u C-x $ shows only questions.  C-x $ shows all.
+%%
+-- New Item
+     *Can I use font-lock with yahtml?
+
+[Installation]
+==============
+*Must I install YaTeX even if I don't use LaTeX?
+	
+	No.  Get the files starting with "yahtml" from
+	http://www.yatex.org/
+	and that's all you will need.
+
+[Customization]
+==============
+*Can I use font-lock with yahtml?
+	
+	Yes.  Native font-lock  support started at yahtml-1.69.  All you
+	have to  do for font-lock-ing, is  to load font-lock beforehand.
+	If you had added such workaround as
+	
+		(put 'yahtml-mode 'font-lock-defaults 'another-html-mode)
+	
+	in hooks, please remove it!
+	
+*I usually use EUC, but need JIS coding on some files.
+	
+	Write
+	(setq yahtml-kanji-code 3) ;3 for EUC
+	and your default kanji code for HTML files will be EUC.
+	Now to change codings foe selected files.  If your server is
+	Apache, then prepare a file named ".htaccess" in the directory
+	and write
+
+	    AddType "text/html; charset=iso-2020-jp" .html
+
+	Apache will now inform all your visitors that the html files
+	in this directory are in iso-2022-jp, aka JIS.  yahtml will
+	also follow this and encode all files in this directory with JIS.
+
+	Not using Apache? Then adding the following to the end of your
+	html source will make this files coding system JIS.
+
+	<!-- Local Variables: -->
+	<!-- file-coding-system: *junet* -->
+	<!-- End: -->
+
+	Note that Emacs-20 and XEmacs do not need the "*" in the kanji
+	code symbol.
+
+[What about...]
+==============
+*Indentation for a large file is slow
+       
+	Should be fixed.
+	
+*Inserting template.html
+	
+	Use autoinsert.el that comes with Emacs19/Mule2.  Another
+	option is to use auto-insert-tkld.  The latter can be found at
+	ftp://ftp.ae.keio.ac.jp/pub/emacs-lisp/util/auto-inset-tkld.tar.Z
+	Examples in Japanese are at
+	http://namazu.org/~tsuchiya/elisp/yahtml-mode.html
+	
+[ETC]
+============
+*How do I pronounce yahtml
+	
+	A real FAQ.  The author doesn't know either.  Any ideas?
+	... It hits on me!  We define the official name of yahtml as;
+	
+		HTML-Ya
+	
+	"Ya" is the Japanese word whose meaning is `shop', and sometimes
+	`enthusiast' of something.  With  HTML-Ya, do the publishment of
+	your thought efficiently and beautifully!
+	
+*Mailing lists?
+	
+
+	A question, so an answer. The mailing list for YaTeX (Wild Bird)
+	and it's  implementation to Vz Editor; LaiTeX  (Thunder Bird, by
+	KATSURAGAWA Naoki), implementation  to Wz Editor; HackTeX (Swan,
+	by TAKENAKA  Hiroshi), implementation to  Hidemaru Editor; HiTeX
+	(Flying  Bird, by YASUDA  Haruyuki) is  "fj Wild  Bird Society".
+	Send a mail like
+
+	
+		To: yatex@yatex.org
+		Subject: subscribe
+		-----
+		Hi!
+		My name is yuuji.
+		See any birds fly by?
+	
+	and you're in.  Once you're in, you'll get a reply with lists of
+	commands used in  the mailing list.  Join along  and help adding
+	new feathers to Wild Bird.   BTW, if you haven't guessed it yet,
+	yes,  this mailing  list  is in  Japanese.   But give  us a  try
+	anyway.  You're always welcome.
+	
+*How to get the up-to-date information on yahtml?
+	
+	If you can access WWW, try to see;
+	http://www.yatex.org/
+	And if  you trace the link  of `yatex-current', you  can get the
+	really latest version of yahtml.  Since it collects the elisps in
+	the author's source directory, what  you'll get may contain some
+	errors.  The author   cannot    respond to  your  query    about
+	yatex-current.
+	
+*Help, help HELP!!
+	
+	Ways of getting answers in fastest order.
+
+	*Look for someone near you who knows what's he/she's doing.
+	*Post a question to the mailing list.
+	*Send mail to yuuji@yatex.org
+	
+	take a pick.
+	
+*Picking a question in this file with C-u C-x $ and hitting C-x $ takes
+ me to a weird world.
+	
+	You too?  Try  marking the question before  C-x $ and to C-x C-x
+	to take you back to  it.  (Mule2 doesn't  seem to have the  same
+	problem)
+
+
+Local Variables:
+mode: indented-text
+fill-column: 72
+fill-prefix: "	"
+End:
+

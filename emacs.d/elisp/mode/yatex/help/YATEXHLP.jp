@@ -1,0 +1,2024 @@
+%%%
+%%% 野鳥-LaTeXヘルプファイル(c)HIROSE Yuuji [yuuji@yatex.org]
+%%% このヘルプファイルを野鳥以外のデバイスで利用することを許可します。
+%%% 項目の修正や追加は自由に行なって構いませんが、そのことを
+%%% 知らせて頂けるとありがたいです。
+%%% 他のデバイスで利用する場合でも先頭のコピーライト表示と、末尾に含まれる
+%%% LaiTeX, laitex, YaTeX, yatex の各項目は(このヘルプファイルについての
+%%% 著作権表記と謝辞が含まれているので)削除しないでください。
+%%%
+
+textfloatsep
+\addtolength{\textfloatsep}{長さ}
+ページ先頭のfloatまたは、ページ最下部のfloatとテキストとの間隔。
+
+floatsep
+\addtolength{\floatsep}{長さ}
+floatとfloatの間隔。
+
+pagestyle
+\pagestyle{スタイル}
+出力ページのヘッダとフッタのスタイルを決める。スタイルには以下のものがある:
+plain		標準スタイル. フッタにページ番号だけつける.
+empty		ヘッダにもフッタにも何も出力しない.
+headings	ヘッダにセクションに応じた見出しとページ番号をつけ
+		フッタには何も出力しない.
+myheadings	headingsのスタイルで、ヘッダの情報を \markbpth と
+		\markright で指定できる.
+
+thispagestyle
+\thispagestyle{スタイル}
+現在のページだけのスタイルを決定する。
+
+pagenumbering
+\pagenumbering{スタイル}
+ページ番号のスタイルを決める。スタイルには以下のものがある:
+arabic		アラビア数字
+alph		小文字の英字
+Alph		大文字の英字
+roman		小文字のローマ数字
+Roman		大文字のローマ数字
+
+shortstack
+\shortstack[場所]{重ねて\\表示する\\内容}
+{}内の内容を\\で区切られた単位毎に積み重ねて表示する。
+[場所]は、l(左寄せ)、c(センタリング)、r(右寄せ)のいずれか。
+
+表(tabular)の中で縦書きに項目を入れたいときにも便利。
+
+
+newlength
+\newlength{NAME}
+NAMEという長さコマンドを新たに宣言する。
+
+addtolength
+\addtolength{長さコマンド}{数値}
+第1引数の長さを第2に引数の数値を足す。
+代表的なスタイルパラメータについては \setlength の項を参照せよ。
+
+setlength
+\setlength{長さコマンド}{数値}
+第1引数の長さを第2に引数の数値に設定する。
+代表的なスタイルパラメータは以下の通り:
+(スタイルパラメータの変更はプリアンブルで行うこと)
+\evensidemargin	\footheight	\footskip	\headheight
+\headsep	\marginparsep	\marginparwidth	\oddsidemargin
+\textheight	\textwidth	\topmargin	\topskip
+\parindent	\baselineskip	\baselinestretch \parskip
+\columnsep	\columnseprule	\mathindent
+
+settowidth
+\settowidth{\NAME}{TEXT}
+\hbox{TEXT}の出力結果と同じ幅に長さ\NAME をセットする。
+文書中のある文字列と同じ長さを持つ長さコマンドを作る場合は次のようにする。
+\newlength{\somelength}
+\settowidth{\somelength}{この文字列と同じ長さ}
+たとえば表を作るときに、特定の列を最大の長さを持つ文字列とおなじ
+幅に合わせたいときに便利である。
+ { \newlength{\maxwidth}
+   \settowidth{\maxwidth}{This is Max width!}
+   \begin{tabular}{l|p{\maxwidth}}
+    \hline
+    その1 & This short \\
+    その2 & This is Max width! \\ \hline
+   \end{tabular}
+ }
+すると右側の列が "This is Max width!" と同じ幅になる。表全体を
+{}で括っているのは長さコマンド \maxwidth の通用範囲を局所的にするためである。
+
+evensidemargin
+\setlength{\evensidemargin}{長さ}
+左ページの左端から1インチ(2.54cm)の線と本文の距離
+
+footheight
+\setlength{\footheight}{長さ}
+フッタの高さ
+
+footskip
+\setlength{\footskip}{長さ}
+本文の箱の下端とフッタの距離
+
+headheight
+\addtolength{\headheight}{長さ}
+ヘッダの高さ
+
+headsep
+\setlength{\headsep}{長さ}
+ヘッダと本文の間隔
+
+marginparsep
+\addtolength{\marginparsep}{長さ}
+傍注と本文の間隔
+
+marginparwidth
+\addtolength{\marginparwidth}{長さ}
+傍注の幅
+
+oddsidemargin
+\addtolength{\oddsidemargin}{長さ}
+右ページの左端から1インチ(2.54cm)の線と本文の距離
+
+textheight
+\addtolength{\textheight}{長さ}
+本文の高さ
+
+textwidth
+\addtolength{\textwidth}{長さ}
+本文の幅
+
+topmargin
+\addtolength{\topmargin}{長さ}
+ページ上端から1インチの線とヘッダの距離
+
+topskip
+\addtolength{\topskip}{長さ}
+本文の箱の上端と一行目のテキストとの間隔
+
+parindent
+\setlength{\parindent}{長さ}
+\parindent	段落の先頭の字下げ幅.
+
+linewidth
+\addtolength{\linewidth}{長さ}
+\linewidth	行の幅.
+
+baselineskip
+\addtolength{baselineskip}{長さ}
+\baselineskip	行のベースライン間の最低限の高さ.
+
+baselinestretch
+\renewcommand{\baselinestretch}{1.5}
+\baselinestretch \baselineskip に乗ずる係数.		(default=1)
+(* \setlengthなどではなく、\renewcommandで再定義する。)
+
+parskip
+\addtolength{\parskip}{長さ}
+\parskip	段落前の垂直スペース.
+
+columnsep
+\addtolength{\columnsep}{長さ}
+\columnsep	2段組みの時の段間の幅.
+
+columnseprule
+\addtolength{\columnseprule}{長さ}
+二段組の時の段間の罫線の太さ.		(default=0pt)
+
+columnwidth
+\addtolength{\columnwidth}{長さ}
+二段組の時には (\textwidth - \columnsep)/2
+そうでない時は、\textwidth
+
+mathindent
+\addtolength{mathindent}{長さ}
+\mathindent	スタイルオプションで fleqn を指定した場合の、
+		左マージンからの数式の字下げ幅.
+
+LaTeX
+\LaTeX
+\LaTeX のロゴを表示。\LaTeX の定義は以下の通り。
+\def\LaTeX{{\rm L\kern-.36em\raise.3ex\hbox{\sc a}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+fragile
+** LaTeX用語 **
+引数によって展開結果が変わるようなコマンドをいう。
+その逆は robust なコマンド。
+
+robust
+** LaTeX用語 **
+展開結果が常に変わらないようなコマンドをいう。
+フォント/サイズ指定子、長さコマンド、数式モード中に使う多くのコマンドは
+robustなコマンド。
+(maketitle型コマンドのうちオプション引数を全くとらないものと考えて良い)
+
+protect
+\protect「fragileなコマンド」
+引数によって結果が変わるようなコマンドを「fragileなコマンド」と言う。
+一方、引数がいろいろな箇所で参照されるコマンドを「動く引数を取るコマンド
+と言う。これは chapter や caption など目次などから参照される引数をとるも
+のや、tabular/array 環境の @ 表現が該当する。
+
+さて、これらの「動く引数を取るコマンド」の引数に「fragileなコマンド」を
+与える時に(fragileなコマンドの直前に)使うのが \protect である。以下は典
+型的な利用例である。
+
+\newcommand{\thissystem}[1]{YaTeX version #1}
+\chapter{\protect \thissystem{1.50}について}
+
+newcommand
+\newcommand{\コマンド名}[引数の数]{定義}
+「コマンド名」を「引数の数」個の引数を取る「定義」であるマクロとして定義
+する。定義中でn番目の引数は #n として参照する。
+	\newcommand{\foo}[1]{\underline{#1}}
+とすると \foo{bar} は \underline{bar} と展開される。したがってフォント指
+定子を含む場合newcommandの{}につられて、
+	\newcommand{\foo}[1]{\bf #1}
+とすると \foo{bar} がテキスト中で \bf bar と展開されてしまうので、
+	\newcommand{\foo}[1]{{\bf #1}}
+としなければならない。
+
+  「コマンド名」のマクロが既に定義されている場合はエラーとなる。再定義す
+る場合は、\renewcommandを使う。
+
+renewcommand
+\renewcommand{\コマンド名}[引数の数]{定義}
+既に定義されているコマンドを別の内容で再定義する。
+以下は \newcommand の説明。
+<refer newcommand>
+
+newenvironment
+\newenvironment{環境名}[引数の数]{定義1}{定義2}
+新たな環境を定義する。
+\begin{環境名}の時の展開内容を「定義1」に\end{環境名}の時の展開内容を
+「定義2」に記述する。
+	\newcommand{\環境名}{定義1} \def{\end環境名}{定義2}
+と同値。
+
+renewenvironment
+\renewenvironment{環境名}[引数の数]{定義1}{定義2}
+既に定義されている「環境名」を別の内容で再定義する。
+以下は、\newenvironmentの説明。
+
+<refer newenvironment>
+
+typeout
+\typeout{メッセージ}
+タイプセット中に「メッセージ」を端末に出力する。
+
+typein
+\typein{メッセージ}	\typein[\マクロ]{メッセージ}
+タイプセット中に「メッセージ」をプロンプトに出し、入力した結果を実行する。
+第二の書式では、「\マクロ」を入力したものに定義する。
+
+par
+\par
+段落の区切りの役割をする。空行と同じ。
+
+everypar
+\everypar
+RTFM
+
+nopagebreak
+\nopagebreak[i]		(i = 0,1,2,3,4)
+改頁を強さiで抑制する([i]を省略すると4)。
+
+pagebreak
+\pagebreak[i]		(i = 0,1,2,3,4)
+改頁を強さiで促す([i]を省略すると4)。
+
+linebreak
+\linebreak[i]		(i = 0,1,2,3,4)
+改行を強さiで促す([i]を省略すると4)。
+
+nolinebreak
+\nolinebreak[i]		(i = 0,1,2,3,4)
+改行を強さiで抑制する([i]を省略すると4)。
+
+samepage
+\samepage
+改頁を禁止する。
+RTFM
+
+obeycr
+\obeycr
+<CR> を \\. に定義する。→\restorecr
+
+restorecr
+\restorecr
+\obeycrで変更した<CR>の定義を元に戻す。
+
+\
+\\		\\[長さ]
+(任意の場所で)改行する。段落中では、\newline と同じ。
+オプション引数の[長さ]を指定すると、次の行との間隔を
+\vspace{長さ}によって確保する。
+
+addvspace
+\addvspace{スキップ}
+縦方向の間隔に「スキップ」の値を足す。ただし
+\addvspace{S1} \addvspace{S2} と複数の値を同時に指定しても
+\addvspace{S1,S2のうち大きいほう} と同値になる。
+
+vspace
+\vspace{間隔}		\vspace*{間隔}
+垂直方向に「間隔」ぶんのスペースを足す。
+\vspace* はどんな場所でもスペースを足すが、\vspace はページの先頭や
+末尾でははたらかない。
+
+vspace*
+\vspace{間隔}		\vspace*{間隔}
+垂直方向に「間隔」ぶんのスペースを足す。
+\vspace* はどんな場所でもスペースを足すが、\vspace はページの先頭や
+末尾でははたらかない。
+
+hspace
+\hspace{間隔}		\hspace*{間隔}
+水平方向に「間隔」ぶんのスペースを足す。
+\hspace* はどんな場所でもスペースを足すが、\hspace は行の先頭や末尾では
+はたらかない。
+
+hspace*
+\hspace{間隔}		\hspace*{間隔}
+水平方向に「間隔」ぶんのスペースを足す。
+\hspace* はどんな場所でもスペースを足すが、\hspace は行の先頭や末尾では
+はたらかない。
+
+smallskip
+\smallskip
+垂直方向に小さな間隔を空ける。
+\def\smallskip{\vspace\smallskipamount}
+
+medskip
+\medskip
+垂直方向に中くらいの間隔を空ける。
+\def\medskip{\vspace\medskipamount}
+
+bigskip
+\bigskip
+垂直方向に大きな間隔を空ける。
+\def\bigskip{\vspace\bigskipamount}
+
+,
+\,
+狭いスペースを空ける。段落モード、LRモード、数式モードいずれでも利用可。
+クォートの中にクォートを書くときなどに用いる。
+例: ``\,`Foo', he said.''
+数式モードで使えるスペースには以下のものがある:
+	\:	少し広い
+	\!	負で狭い
+	\;	広い
+
+:
+$\:$
+少し広いスペース。数式モードのみ。
+
+!
+$\!$
+狭い負のスペース。数式モードのみ。
+
+;
+$\;$
+広いスペース。数式モードのみ。
+
+@whilenum
+\@whilenum TEST \do {BODY}  
+この辺あとで
+
+whiledo{TEST}{BODY}
+TESTが真の間BODYを繰り返す。
+
+
+nofiles
+\nofiles
+プリアンブルで宣言すると、.aux, .idx, .lof, .lot, .toc ファイルの作成が
+抑制される。
+
+includeonly
+\includeonly{sub1}	\includeonly{sub1,sub3}
+\include{}で読み込むファイルのうち、実際に読み込み処理するものを指定する。
+(.texは省略可)
+\includeonlyの引数リストにないファイルはまったく処理されない、または前回
+以前に処理されている場合そこから全く変更がないものとして扱われる。
+
+include
+\include{FILE}
+\clearpage \input{FILE} \clearpage
+と同じはたらきをする。
+
+input
+\input{FILE}
+FILE.tex がそこにあるかのように処理を続ける。
+
+setcounter
+\setcounter{FOO}{VAL}
+カウンタFOOの値をVALに設定する。
+
+<refer 新しいカウンタの作り方>
+
+addtocounter
+\addtocounter{FOO}{VAL}
+カウンタFOOの値にVALを加える。
+
+<refer 新しいカウンタの作り方>
+
+
+newcounter
+\newcounter{COUNTER}[OLDCTR]
+新しいカウンタCOUNTERを設定する。
+オプション引数[OLDCTR]を指定すると、既存のカウンタOLDCTRの値が
+\stepcounter もしくは \addtocounter で変更されるたびにCOUNTERの値もリセッ
+トされる。
+
+<refer 新しいカウンタの作り方>
+
+新しいカウンタの作り方
+以下の定義で \mondai とすると、自動的にnをインクリメントして「第n問」を
+出力する。
+
+\newcounter{toi}
+\renewcommand{\thetoi}{第\arabic{toi}問~ }
+\setcounter{toi}{0}
+\newcommand{\mondai}{\refstepcounter{toi}\thetoi}
+
+
+value
+\value{COUNTER}
+COUNTERの値を返す。\protect を前置してはならない。
+
+stepcounter
+\stepcounter{FOO}
+カウンタFOOの値をインクリメントする。FOOに従うカウンタがあればそれらをリ
+セットする。
+
+refstepcounter
+\refstepcounter{FOO}
+カウンタFOOの値をインクリメントする。FOOに従うカウンタがあればそれらをリ
+セットする。\stepcounterとの違いは、\refstepcounter{FOO} の直後に 
+\label{hoge} があった場合に、\ref{hoge} の値が \value{FOO} を持つように
+「\ref値」を設定することである。
+
+arabic
+\arabic{COUNTER}
+アラビア数字でCOUNTERの値を出力。
+
+roman
+\roman{COUNTER}
+小文字のローマ数字でCOUNTERの値を出力。
+
+Roman
+\Roman{COUNTER}
+大文字のローマ数字でCOUNTERの値を出力。
+
+alph
+\alph{COUNTER}
+小文字の英字でCOUNTERの値を出力。
+
+Alph
+\Alph{COUNTER}
+大文字の英字でCOUNTERの値を出力。
+
+fnsymbol
+\fnsymbol{COUNTER}
+脚注シンボル(1 = *, 2 = \dagger, ...) でCOUNTERの値を出力。数式モードのみ。
+
+label
+\label{LABEL}
+ラベルLABELの値をその時の「\ref値」に設定する。
+この値は、\ref{LABEL}によって参照される。また\pageref{LABEL}により
+\label{LABEL}の存在するページ番号が参照される。
+「\ref値」とは \section などのセクションコマンド、enumerate環境での
+\item コマンド、theorem環境などによって設定される値である。例えば、
+enumerate環境中の \item の直後ではそのitemの番号が「\ref値」となり、
+そこにある \label{LABEL} はitemの番号をLABELにセットする。
+
+ref
+\ref{LABEL}
+\label{LABEL}で設定したLABELの値を参照する。
+本文中で設定されたラベルにたいしてはページ番号が、
+図表中で設定されたラベルは図表番号が、
+enumerateされたitemで設定されたラベルにたいしては、item番号が返される。
+
+pageref
+\pageref{LABEL}
+\label{LABEL}の存在するページ番号を参照する。
+
+(
+\( 数式 \)
+文中数式を組む。
+\begin{math} 数式 \end{math}
+と同値。\( および \)は fragile.
+
+)
+\( x^2 = 4 \)
+文中数式を組む。
+\begin{math} 数式 \end{math}
+と同値。\( および \)は fragile.
+
+[
+ディスプレイ数式を組む。
+\[ 数式 \]
+\begin{displaymath} 数式 \end{displaymath}
+と同値。\[ および \]は fragile.
+
+]
+\[ 数式 \]
+ディスプレイ数式を組む。
+\begin{displaymath} 数式 \end{displaymath}
+と同値。\[ および \]は fragile.
+
+equation
+\begin{equation} 数式 \end{equation}
+番号つきの数式をdisplaymath環境で組む。
+
+eqnarray
+\begin{eqnarray} 方程式の並び \end{eqnarray}
+方程式の並びを3つの桁に整理して出力する。3つの桁は&記号によって、
+「左辺 & 等不等号 & 右辺」のように区切られる。例えば以下のようにする。
+\begin{eqnarray}
+ 3x + 2y & = & 4 \\
+  x - 4y & = & -5
+\end{eqnarray}
+eqnarray* 環境は数式番号を出力しないほかはeqnarray環境と同じである。
+
+eqnarray*
+\begin{eqnarray*} 方程式の並び \end{eqnarray*}
+数式番号を出力しないほかはeqnarray環境と同じである。
+
+frac
+\frac{分子}{分母}
+ 分子
+------   のような分数形式を組む。{分子 \over 分母} と同じ。
+ 分母
+
+sqrt
+\sqrt[N]{式}
+「式」のN乗根をあらわす数式。[N]を省略すると平方根。
+
+lefteqn
+\lefteqn{式}
+ディスプレイ数式モードにおいて、「式」が幅ゼロであるとみなして、左寄せす
+る。たとえばeqnarray環境において、左辺が長くなってしまう場合に、行を
+折り畳むために利用する。
+\begin{eqnarray}
+ \lefteqn{a_1 + a_2 + \cdots + a_n =} \\
+ 	&	&	a_1 + b_1 + \cdots + z_1 + \\
+ 	&	&	b_2 + c+2 + \cdost + z_2
+\end{eqnarray}
+
+center
+\begin{center} 内容 \end{center}
+「内容」を中央寄せする。各行は\\によって改行位置を指定する。
+→ \centering
+
+flushright
+\begin{flushright} 内容 \end{flushright}
+「内容」を右寄せする。各行は\\によって改行位置を指定する。
+→ \raggedright
+
+flushleft
+\begin{flushleft} 内容 \end{flushleft}
+「内容」を左寄せする。各行を\\によって改行位置を指定するとその位置で改行
+するが、指定しないと適当な行長のところで改行してくれる。
+→ \raggedleft
+
+centering
+\centering 
+段落をセンタリングして組版する。
+たとえば table環境、figura環境の先頭で宣言すると環境の終りまでをセンタリ
+ングして組む。
+
+raggedright
+\raggedright
+段落の右端を不揃いにして組版。
+結果として左寄せになる。
+
+raggedleft
+\raggedleft
+段落の左端を不揃いにして組版。
+結果として右寄せになる。
+
+raggedbottom
+\raggedbottom
+組版する時に各ページの高さに多少のずれがあっても許容する。
+プリアンブルで指定する。
+→\flushbottom
+
+flushbottom
+\flushbottom
+組版する時に各ページの高さを正確にそろえる。
+プリアンブルで指定する。
+→\raggedbottom
+
+sloppy
+\sloppy
+\sloppy を指定すると、各行を必ず右マージンで折り返す代わりに、
+単語間の空白を大目に見る。
+→\fussy
+
+fussy
+\fussy
+通常の組版規則に戻る。
+→\sloppy
+
+sloppypar
+\begin{sloppypar} 段落 \end{sloppypar}
+段落を \sloppy で組む。
+→\sloppy
+
+verbatim
+\begin{verbatim} 内容 \end{verbatim}
+「内容」を固定幅フォントのタイプライタ書体で表示し、すべての文字を(TeXの
+シーケンスとしてではなく)そのまま解釈する。
+
+#「ばーばちむ」じゃなくて「ばーべいたむ」だ!
+
+verbatim*
+\begin{verbatim*} 内容 \end{verbatim*}
+通常のverbatim環境において、スペース文字を空白ではなく、TeXbook に載って
+いるスペース文字のように印字する。
+
+(註)こういう感じ→ |_|
+    (苦しい…)
+
+list
+\begin{list}{デフォルトラベル}{整形パラメータ} ... \end{list}
+リスト環境に入る。リスト環境では \item で指定された各項目を一定の字下げ
+で列挙する。第1引数には \item のオプション引数のラベルが省略された時のデ
+フォルトラベルを指定し、第2引数には各itemを置く時に処理されるパラメータ
+を指定する。
+例:
+\begin{list}%
+ {$\diamond$}
+ {\addtolength{\leftmargin}{4em}}
+ \item 第1引数には\verb|\item| にオプション引数をつけなかった時にふる、
+       デフォルトのラベルを与える。
+ \item 第2引数には各itemを置く時に処理されるパラメータを与える。
+ \item[*] のようにオプション引数をつけるとそれがラベルとなる。
+\end{list}
+
+  list環境の体裁を制御する変数には以下のものがある(括弧内は既定値)。
+水平方向:
+<refer list環境の体裁を制御する変数>
+
+list環境の体裁を制御する変数
+\labelwidth	itemのラベルの幅
+\labelsep	ラベルの右端と最初のアイテムのテキストとの間隔
+\leftmargin	list環境内での左マージン
+\rightmargin	同右マージン (0pt)
+\itemindent	itemの直前に加えられるインデント幅 (0pt)
+\linewidth	一行の幅
+\listparindent	各パラグラフの先頭のインデント(ただし\itemの付いている先
+		頭のパラグラフを除く)(0pt)
+
+垂直方向:
+\topsep		list環境に入る前のパラグラフと最初のitemとの間隔
+\partopsep	list環境で新しいパラグラフをはじめる時に\topsepに加えら
+		れる付加的な間隔
+\itemsep	連続するitemどうしの間隔
+\parsep		一つのitem内でのパラグラフどうしの間隔
+
+
+itemize
+\begin{itemize} \item アイテム1 ... \item アイテムn \end{itemize}
+項目を列挙するための環境。
+最大4つまでネストできる。
+各レベルのitemの頭につく記号は、\labelitemi, \labelitemii,
+\labelitemiii, \labelitemiv で制御される。
+
+itemize環境の体裁を制御する変数には以下のものがある。
+<refer list環境の体裁を制御する変数>
+
+
+enumerate
+\begin{enumerate} \item アイテム1 ... \item アイテムn \end{enumerate}
+項目を番号つきで列挙するための環境。
+最大4つまでネストできる。
+各レベルのitemの頭につく番号は、enumi, enumii, enumiii, enumiv
+が保持していて、各itemのラベルは、\labelenumi, ..., \labelenumiv
+で生成される。また、\p@enumN\theenumN は \ref値を設定する。
+(Nはレベルの深さ。\ref値については\refの説明を参照せよ)
+たとえば
+\def\theenumii{\alph{enumii}}
+\def\p@enumii{\theenumi\theenumii}
+\def\labelenumii{(\theenumii)}
+とすると \ref値が 3a などのように設定される。
+
+enumerate環境の体裁を制御する変数には以下のものがある。
+<refer list環境の体裁を制御する変数>
+
+item
+\item			\item[LABEL]
+itemize, enumerate, description 環境などで項目を開始する。
+[LABEL]を指定するとラベルとしてLABELを出力する。
+
+description
+\begin{description} \item[見出し単語] 説明 ... \end{description}
+[見出し単語]を見出しとする
+<refer itemize>
+
+subitem
+\subitem 項目
+サブアイテムを定義。
+
+subsubitem
+\subsubitem 項目
+サブサブアイテムを定義。
+
+makebox
+\makebox[WID][POS]{オブジェクト}	\makebox(X,Y)[POS]{オブジェクト}
+第1の書式では、オブジェクトをWIDで指定した幅として、\hbox 内の
+POSで指定した場所に配置する。POSにlを指定すると左寄せ、rを指定すると右寄せ、
+何も指定しないとセンタリングされる。
+第2の書式では、picuture環境で大きさ(X,Y)の(\unitlengthを基準とする)
+\hbox にオブジェクトを配置する。配置位置POSは第1の書式と同様。
+
+LaTeX2e以降では第1の書式のPOSにsを指定でき、ボックス内に文字を均等割り付け
+してくれる。ボックスの幅は全角1字を表すzwを単位にすると便利だろう。
+\makebox[7zw][s]{山田太郎}\\
+\makebox[7zw][s]{木村花}\\
+\makebox[7zw][s]{広瀬 雄二}
+とすると
+	|山  田  太  郎|
+	|木    村    花|
+	|広 瀬    雄 二|
+
+という感じになる。
+
+mbox
+\mbox{オブジェクト}
+\makebox{オブジェクト}と同じ。
+
+newsavebox
+\newsavebox{\CMD}
+新規のボックス保存用コマンドを定義する。\CMDは \savebox コマンドで
+ボックスを保存するために使う。\newsaveboxで宣言したコマンド名は
+常にグローバルとなる。
+
+savebox
+\savebox{\CMD}{テキスト}
+ボックスを組む内容である「テキスト」の結果を\CMDに保存する。
+「テキスト」は \makebox への引数と全く同じであるが、「テキスト」を
+処理した結果はその場に表示はしない。\usebox{\CMD}により処理したボックス
+が置かれる。
+
+sbox
+\sbox{\CMD}{テキスト}
+\saveboxと同じ。sboxはrobust, saveboxはfragile
+
+usebox
+\usebox{\CMD}
+\saveboxで\CMDに保存されたテキストを配置する。
+
+framebox
+\framebox[WID][POS]{オブジェクト}	\framebox(X,Y)[POS]{オブジェクト}
+「オブジェクト」に枠をつけて\makeboxと同様の処理をする。
+枠の線の太さは \framerule、オブジェクトとの間隔は \framesep で決まる。た
+だしpicture環境で \framebox(X,Y){オブジェクト}とした場合は、picture環境
+用の線の太さに従い、外枠とオブジェクトとの間隔は空けられない。
+
+LaTeX2e以降では第1の書式のPOSにsを指定でき、ボックス内に文字を均等割付
+してくれる。ボックスの幅は全角1字を表すzwを単位にすると便利だろう。
+\framebox[7zw][s]{山田太郎}\\
+\framebox[7zw][s]{木村花}\\
+\framebox[7zw][s]{広瀬 雄二}
+とすると
+	+--------------+
+	|山  田  太  郎|
+	+--------------+
+	|木    村    花|
+	+--------------+
+	|広 瀬    雄 二|
+	+--------------+
+
+という感じになる。
+
+fbox
+\fbox{オブジェクト}
+\framebox{オブジェクト}と同じ。
+\fboxはrobust, \frameboxはfragile
+
+\fbox の罫線の太さを変えるには，\fboxrule を変更します．
+
+  {
+    \fboxrule=2\fboxrule
+    \fbox{2倍の太さの罫線で囲まれたボックス}
+  }
+
+parbox
+\parbox[POS]{WIDTH}{TEXT}
+TEXTをWIDThの幅で組んでボックスを作成する。ボックスの位置はPOSによって
+c : センタリング(デフォルト)
+b : ボックスの一番下の線が現テキストのラインに合う
+t : ボックスの一番上の線が現テキストのラインに合う
+のように決められる。\parboxではパラメータが以下のようにリセットされる。
+
+\parskip          = 0pt
+\linewidth        = \hsize
+\@totalleftmargin = 0pt
+\leftskip         = 0pt
+\rightskip        = 0pt
+\@rightskip       = 0pt
+\parfillskip      = 0pt plus 1fil
+\lineskip         = \normallineskip
+\baselineskip     = \normalbaselineskip
+
+minipage
+\begin{minipage}[pos]{WIDTH}  TEXT   \end{minipage}
+\parbox とほぼ同様WIDTHの幅のTEXTをボックスとして組む。ボックスの位置は
+POSによって
+c : センタリング(デフォルト)
+b : ボックスの一番下の線が現テキストのラインに合う
+t : ボックスの一番上の線が現テキストのラインに合う
+のように決められる。
+parboxと違い、TEXTは通常のパラグラフとして組まれる。
+
+rule
+\rule[RAISED]{WIDTH}{HEIGHT}
+幅 WIDTH x 高さ HEIGHT の罫線を作る。RAISEDが指定された場合、その分だけ
+上に上げられる。
+
+underline
+\underline{TEXT}
+TEXTに下線をつけて表示。
+
+raisebox
+\raisebox{DISTANCE}[HEIGHT][DEPTH]{BOX}
+BOXをDISTANCEだけ上げて組む。
+HEIGHT, DEPTH を指定すると、TeXから見たBOXの「高さ」と「深さ」
+(註:これらの用語についてはTeXBookなどを参照のこと)
+を HEIGHT, DEPTH に指定する。
+
+tabbing
+\begin{tabbing} \= text1.1 \= text1.2 \\ \> text2.1 \> text2.2 \end{tabbing}
+桁揃えを行う環境を作る(入れ子不可)。例えば、
+\begin{tabbing}
+ \= 項目1 \hspace*{2em} \= 項目2 \hspace*{3em}	\= 項目3 \\
+ \> いろは		\> にほへ		\> とちり \+ \\
+ 			\> ぬるを		\> わかよ \\
+			\> たれそ \- \\
+ \> つねな		\> らむう		\> ゐのお
+\end{tabbing}
+上のtabbing環境は以下のように3つのタブ位置で組まれる。
+  (1番目)   (2番目)     (3番目)
+   いろは    にほへ      とちり
+             ぬるを      をかよ
+             たれそ
+   つねな    らむう      ゐのお
+        \2em/      \3em/
+tabbing環境におけるタブ位置操作コマンドは以下の通り(nは1から):
+\=	n番目のタブ位置を現在位置に設定しタブカウンタ(n)を1進める
+\\	改行してタブカウンタをリセットする(n=1)
+\>	位置をn番目のタブ位置に設定し、カウンタを1進める
+\+	次の行のタブカウンタの初期値に1加える \+ \\ とすると次の行の最初
+	の \> は2番目のタブ位置を示す. \+ を複数書くとその数だけタブカウ
+	ンタの初期値が増える
+\-	\+とは逆に、次の行のタブカウンタの初期値から1引く
+\<	一つ前のタブカウンタに戻ってそのタブ位置をセット. 行頭のみ
+\'	\'以降を通常のタブ位置より \tabbingsep 分だけ右寄せして出力
+\`	\`以降のテキストをすべて右寄せして出力
+\pushtabs それまで用いていたタブストップ位置を全てpush
+\poptabs  それまで用いていたタブストップ位置を全てpop. \pushtabs と 
+	\poptabs は必ず対になっていなければならない. 入れ子可
+\aX	Xは = か ' か `   tabbing環境でない通常のアクセントは
+	\a= \a' \a` で表わす
+\kill	現在行のテキストは出力せずタブ設定だけ解釈する
+
+array
+\begin{array}{プリアンブル} C1 & C2 & .. & Cn \\ D1 ... \end{array}
+(数式などによる)配列を作成する。行列などは array 環境で作成する。
+詳しい説明は tabular 環境を参照。
+
+tabular
+\begin{tabular}[OPT]{プリアンブル} C1 & C2 & .. & Cn \\ D1 ... \end{tabular}
+表を作成する。
+【[OPT]】(省略可)
+[t]		表の上端を現在の行に合わせる
+[b]		表の下端を現在の行に合わせる
+【プリアンブル】
+c		カラムを一つ指定し、そのカラムをセンタリング
+l		カラムを一つ指定し、そのカラムを左寄せ
+r		カラムを一つ指定し、そのカラムを右寄せ
+@{表現}		「表現」をカラム毎に挿入する。これを指定すると
+		\arraycolsep や \tabcolsep のスペーシングは抑制される
+*{N}{PRE}	PREを N 回書いたのと同様の作用
+p{LEN}		そのカラムをLENの長さのparboxエントリとして作成する
+		表の項目に長い説明分が含まれる場合に用いると良い。
+
+【array, tabular 環境で使えるコマンド】
+\multicolumn
+<refer multicolumn>
+\vline
+<refer vline>
+\hline
+<refer hline>
+\cline{i-j}
+<refer cline>
+\extracolsep{W}
+<refer extracolsep>
+
+
+以下の例を参照せよ。
+
+\LaTeX 表記					印刷形式
+\begin{array}{ccr}
+ x+y+z	& a_1	&  1 \\				x+y+z  a1    1
+ x+z	& a_2	&  21 \\			 x+z   a2   21
+ y	& a_3	&  321				  y    a3  321
+\end{array}
+
+\[ \left(
+ \begin{array}{cccc}
+  a_{11}  & a_{12}  & \dots & a_{1n} \\		/ a11 a12 ... a1n \
+  a_{21}  & a_{22}  & \dots & a_{2n} \\		| a21 a22 ... a2n |
+  \vdots  & \vdots  & \ddots& \vdots \\		|  :   :  \.   :  |
+  a_{n1}  & a_{n2}  & \dots & a_{nn}		\ an1 an2 ..: ann /
+ \end{array} 
+\right)\]
+
+\begin{tabular}{lp{0.7\textwidth}
+ \hline						----------------------------
+ \verb|.|	& ピリオドは任意の		.  ピリオドは任意の一文字
+		  一文字にマッチします。\\	   にマッチします。
+ \verb|*|	& アスタリスクは直前の		*  アスタリスクは直前の正規
+		  正規表現が0回以上繰り返し	   表現が回以上繰り返し現れ
+		  現れることを意味します。	   ることを意味します。
+\\ \hline					----------------------------
+\end{tabular}
+
+
+array環境を \right( \left) で囲むと配列自体を大きな括弧で括る。同様に、
+\right\{ \left\} で配列を中括弧で、\right[ \left] で配列を大括弧で、
+\right| \left| で配列をノルム記号(絶対値記号)で括ることができる。
+\right の数と \left の数は必ず同じでなければならないが、\right( \left] 
+のように括弧の種類は違ってもよい。\right. のように . をつけると見えない
+括弧が出力される。
+
+\[ 答 \cdots \left\{					/
+	\begin{array}{ccc}				|  x = 5
+	 x & = & 5 \\				答 ... <
+   	 y & = & 3					|  y = 3
+	\end{array} \right. \]				\
+
+array環境を制御する変数には以下のものがある:
+\arraycolsep    : array環境の各カラム間の間隔の半分
+\tabcolsep      : tabular環境の各カラム間の間隔の半分
+\arrayrulewidth : 罫線の幅
+\doublerulesep  : array, tabular環境での隣接した罫線(二重罫線?)間の間隔
+\arraystretch   : \baselinestretch と同様行間スペースの比率を決める
+		  \renewcommandで再定義する
+
+tabular環境は、ページを跨ることができない。これを可能にするスタイルファ
+イルとして、supertab.styがある。
+
+l, c, r 指定した1つのカラムに2行以上の項目を入れたいときはparboxを利用する
+(shortstackを利用すると上にずれるのでraiseboxで調整しなければならない)。
+\begin{tabular}{lp{0.5\columnwidth}}
+ \parbox[t]{7em}{あ\\い} & あぶらかだぶらあぶらかだぶらあぶらかだぶら
+\end{tabular}
+は、以下のようにレイアウトされる。
+
+	あ	あぶらかだ
+	い	ぶらあぶら
+		かだぶら
+
+
+tabular*
+\begin{tabular*}{幅}{プリアンブル} ... \end{tabular*}
+幅を指定してtabular環境を作成。
+この幅を充填するだけのスペースをプリアンブルの \extracolsep{} コマンドで
+確保する。
+\begin{tabular*}{10em}[b]{|c@{\extracolsep{\fill}}|c|c|}
+ \hline
+ a & b & c \\ \hline
+ 1 & 2 & 3
+\end{tabular*}
+tabular環境の説明を参照のこと。
+
+multicolumn
+\multicolumn{N}{FORMAT}{ITEM}
+	tabular環境で現在のカラムを含めNこのカラムをFORMATに従った
+	ITEMで埋める。FORMATはl,r,cのうち(最大)ひとつ
+
+vline
+\vline
+	tabular環境でそのカラムに縦線を引く. 縦線の位置はそのカラムに
+	指定されている l, r, c によって決まる
+
+hline
+\hline
+	tabular環境で、行間に水平線を引く. 環境の最初のエントリの直前、
+	もしくは \\ の直後に来なければならない. もし \hline を続けて
+	指定すると\doublerulesep 分の空白が空けられる(標準では罫線の
+	箱自体が分割されてしまう)
+
+cline
+\cline{i-j}
+	tabular環境中、i番目からj番目のカラムに横線を引く. \hlineと同様
+
+extracolsep
+\extracolsep{W}
+	tabular環境の@表現の中で用いると、幅Wのスペースをそれ以降の
+	全てのカラムの左側に加える
+
+picture
+\begin{picture}(WIDTH,HEIGHT)(X,Y) ..contents.. \end{picture}
+幅WIDTH, 高さHEIGHT の描画ボックスを作成。このボックスの左下の座標は
+(X,Y) となる(省略すると(0,0))。これらの引数の数値を含め、picuture環境の
+数値は \unitlength に対する相対値であらわされる。\unitlength の既定値は
+1pt.
+今時picture環境じゃないと思うので用法しか書かないよーん。
+
+【コマンド】
+\put(X座標,Y座標){描画オブジェクト}
+\multiput(X座標,Y座標)(Xの増分,Yの増分){繰り返し回数}{描画オブジェクト}
+【描画オブジェクト】
+\makebox(X座標,Y座標)[POS]{テキスト}		(箱)
+\framebox(X座標,Y座標)[POS]{テキスト}		(枠付きの箱)
+\dashbox(X座標,Y座標)[POS]{テキスト}		(破線枠付きの箱)
+(以上POS = l, r, b, t)
+\line(ΔX,ΔY){水平方向の長さ}			(直線)
+\vector(ΔX,ΔY){水平方向の長さ}		(矢印)
+(ΔX,ΔY = ±1, ±2, ..., ±6 で互素, それぞれ基準は始点)
+\shortstack[POS]{一行\\二行\\三行}
+\circle{直径}					(円)
+\circle*{直径}					(塗り潰した円)
+(それぞれ基準は円の中心, 最大直径は40pt, 15pt)
+\oval(直径X,直径Y)[POS]				(楕円風 POS = l, r, t, b)
+\frame{描画オブジェクト}
+\thinlines, \thicklines				(細,太線を選ぶ)
+\linethickness{太さ}
+
+newtheorem
+\newtheorem{NAME}{TEXT}[COUNTER]	\newtheorem{NAME}[OLDNAME]{TEXT} 
+定理型の新しい環境「NAME」を定義する。
+TEXT	定理番号のキャプションとして出される文字列
+COUNTER	NAMEのカウンタの親となるカウンタ名. 通常section.
+第2の形式では OLDNAME と同じカウンタ形式を使うことを指示する。
+NAME環境のカウンタ形式は \theNAME コマンドを再定義する。これのデフォルトは
+\theCOUNTER.\arabic{NAME}
+
+title
+\title{タイトル}
+\maketitleコマンドで出力するタイトル名を設定する。
+
+author
+\author{著者名}
+\maketitleコマンドで出力する著者を設定する。
+複数の著者を書くときは \and で区切って名前を書く。
+
+date
+\date{日付}
+\maketitleコマンドで出力する日付を設定する。
+\date を省略するとタイプセットした日の日付が出力される。
+
+thanks
+\thanks{脚注}
+タイトル中(\title, \author, \date)での脚注(謝辞や住所など)の出力を行う。
+
+maketitle
+\maketitle
+タイトルを出力する。document環境中で宣言されなければならない。
+タイトルを構成する項目は以下のコマンドで定義する。
+\title{タイトル}
+\author{著者名}
+\date{日付}		(省略するとタイプセットした日の日付)
+\thanks{脚注}		(謝辞や所属名などを脚注形式で出すために用いる)
+
+part
+\part{第?部のタイトル}
+<refer chapter>
+
+chapter
+\chapter{章のタイトル}
+文を区切るコマンド一覧:
+\part			第?部
+\chapter		?章	(articleにはない)
+\section		?節
+\subsection		?.?節
+\subsubsection		?.?.?節
+\paragraph		段落
+\subparagraph		副段落
+
+section
+\section{セクション名}
+第一引数のセクション名でセクションの区切りを設定。
+<refer chapter>
+
+subsection
+\subsection{サブセクション名}
+第一引数の名前でサブセクションの区切りを設定。
+<refer chapter>
+
+subsubsection
+\subsubsection{サブサブセクション名}
+第一引数の名前でサブサブセクションの区切りを設定。
+<refer chapter>
+
+paragraph
+\paragraph{パラグラフ名}
+第一引数の名前でパラグラフの区切りを設定。
+<refer chapter>
+
+subparagraph
+\subparagraph{サブパラグラフ名}
+第一引数の名前でサブパラグラフの区切りを設定。
+<refer chapter>
+
+appendix
+\appendix
+付録部に入る宣言。
+セクションコマンドの番号の方式を付録用に変える。
+
+contentsline
+\contentsline{TYPE}{ENTRY}{PAGE}
+\contentsline{subsection}{\makebox{30pt}[r]{1.4.3} Gnats and Gnus}{22}
+とすると .toc ファイルに ENTRY を吐き出す。
+TYPEはセクションコマンドのどれか。
+
+addcontentsline
+\addcontentsline{TABLE}{TYPE}{ENTRY}
+TABLEで指定したファイル(toc, lof, lot のどれか)にENTRYというエントリを出
+力する。TYPEはTABLEの値によって変わり、
+	toc:	セクションコマンドのどれか
+	lof:	figure
+	lot:	table
+である。
+
+addtocontents
+\addtocontents{TABLE}{TEXT}
+TEXTをTABLEで指定したテーブルファイル(toc, lof, lot のどれか)に出力する。
+
+index
+\index{INDEX}
+索引のエントリを定義する。
+
+--------------------------------------------------------------------
+<refer 索引の作り方>
+
+glossary
+\glossary{STRING}
+用語集のエントリを定義する。
+
+makeindex
+\makeindex
+\indexentryで登録されている項目を .idx ファイルに書き込む。
+プリアンブルで指定する。
+
+--------------------------------------------------------------------
+<refer 索引の作り方>
+
+makeglossary
+\makeglossary
+\glossaryentryで登録されている項目を .glo ファイルに書き込む。
+プリアンブルで指定する。
+
+索引の作り方
+
+(1)\documentstyleにmakeidxオプションを与え、プリアンブルに \makeindex
+   を書き、索引を生成する場所に \printindex を書く。
+(2)本文に \index{索引となる単語} を埋め込む。
+(3)一度(または二度)タイプセットする。
+(4).idxファイルができるのでそのファイルを makeindex にかける。
+(5).indファイルができるのでもう一度タイプセットして出来上がり。
+
+** \indexの記法 **
+日本語をそのまま \index{漢字} と入れたのではあいうえお順にソートされない。
+そこで、読みを@で区切って \index{かんじ@漢字} のように入れる。
+
+bibliography
+\bibliography{FILE1,FILE2, ... ,FILEn}
+BibTeXで読み込むファイルを指定する。
+
+bibliographystyle
+\bibliographystyle{スタイル}
+plain	通上
+unsrt	ソートしない
+alpha	"Foo94" のようなタグをつける
+abbrv	著者のファーストネーム、発行月、書籍名が省略される
+
+thebibliography
+\begin{thebibliography}{LONGESTLABEL} \bibitem{アイテム}… \end{thebibliography}
+参考文献データの登録環境を開始する。
+データは \bibitem コマンドによって登録する。
+\bibitem コマンドの用法は以下の通り。
+<refer bibitem>
+
+bibitem
+\bibitem{NAME}			\bibitem[LABEL]{NAME}
+\bibitem{NAME}の書式では、\cite{NAME}で参照され、[1],[2] のような形で引用記号が
+出力される、\bibitem[LABEL]{NAME}の書式では、\cite{NAME}で参照され、
+[LABEL] のような引用記号が出力される。
+LONGESTLABEL は、ラベルの最長を示すためのダミー文字列。
+
+cite
+\cite{NAME}			\cite[LABEL]{NAME}
+\cite{NAME}の書式では、NAMEで参照され、[1],[2] のような形で引用記号が
+出力される、\cite[LABEL]{NAME}の書式では、[1,LABEL] のような引用記号
+が出力される。
+
+footnote
+\footnote{NOTE}
+NOTEという内容の脚注を生成する。
+\footnote[NUM]{NOTE} とすると、番号をNUMで指定できる。
+脚注がうまく出力されないような場所では \footnotemark と \footnotetext を
+組み合わせて出力する。
+fragile
+ダガー(†)にするなど，記号にしたいときはプリアンブルで
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+とする。
+†1, †2, ...にしたいときは
+\renewcommand{\thefootnote}{$\dagger$\arabic{footnote}}
+
+
+footnotemark
+\footnotemark[NUM]
+脚注番号のみ出力する時に使う。tabbing環境のように、脚注が出力されないと
+ころで、\footnotetext と組み合わせて使う。[NUM]は省略可。
+
+footnotetext
+\footnotetext[NUM]{TEXT}
+脚注番号を出力せず脚注のみ出力する。
+通常 \footnotemark と組み合わせて使う。
+
+footnotesize
+\footnotesize
+文字サイズを脚注用のサイズに変更する。
+
+footnotesep
+\footnotesep
+各脚注の最初に置かれる空白の高さ(数値)。
+
+
+footnoterule
+\footnoterule
+本文と脚注のあいだに引かれる罫線を出力。
+
+documentstyle
+\documentstyle[OPTION1,OPTION2, ... ,OPTIONn]{STYLE}
+文書スタイルを指定する。
+[OPTION...] を指定すると、STYLE.sty を読んだ後に、
+OPTIONn.sty が順次読み込まれる。
+
+documentclass
+\documentclass[OPTION1,OPTION2, ... ,OPTIONn]{STYLE}
+文書スタイルを指定する(LaTeX2e)。
+[OPTION...] を指定すると、STYLE.cls を読んだ後に、
+OPTIONn.sty が順次読み込まれる。
+
+usepackage
+\usepackage[オプション]{パッケージ}
+LaTeX2e の記法を拡張する「パッケージ」をロードする。
+
+
+verb
+\verb#内容#
+\verbの直後に来る文字と、次にあらわれる同じ文字とのあいだに挟まれたもの
+を verbatim で表示する。\verb|foo| と \verb,foo, は同じ結果が得られる。
+
+styleparameter
+まだ訳していないスタイルパラメータ。
+%   \topfigrule     : Command to place rule (or whatever) between floats
+%                     at top of page and text.  Executed in inner vertical
+%                     mode right before the \textfloatsep skip separating
+%                     the floats from the text.  Must occupy zero vertical
+%                     space.  (See \footnoterule.)
+botfigrule
+\setlength{\botfigrule}{長さ}
+Same as \topfigrule, but put after the \textfloatsep
+skip separating text from the floats at bottom of page.
+
+intextsep
+\setlength{\intextsep}{長さ}
+文書中フロートの上下に残された空白の長さ
+
+
+newpage
+\newpage
+改頁を行う。
+\clearpage 		未出力の図表があれば独立した図表用頁を出力してから
+			改頁を行う。
+\cleardoublepage 	clearpageと同じだが、 両画面スタイル(bookなど)の
+			場合は、奇数頁から始まるように改頁する。
+\newpage		二段組みの時は現在の段を終了する。
+
+clearpage
+\clearpage 
+<refer newpage>
+
+cleardoublepage
+\cleardoublepage 
+<refer newpage>
+
+長さ
+
+長さに使える単位には以下のものがある。
+cm		センチ
+em		大文字Mの幅
+ex		小文字xの高さ
+in		インチ(約2.54cm)
+mm		ミリメートル
+pc		パイカ(=12pt)
+pt		ポイント(72.27pt=1インチ)
+zw		日本語全角1字の幅
+zh		日本語全角1字の高さ
+\fill		自然長は0だが、任意の長さに伸びることのできる伸縮長
+\stretch{X}	\fill のX倍
+
+stretch
+\stretch{X}
+<refer 長さ>
+
+twocolumn
+\twocolumn[STRING]
+改頁したあと二段組みでの組版を開始する。
+[STRING]を指定すると、STRINGを二段ぶち抜きのタイトルとして出力。
+本文が二段組みでタイトルとアブストラクトのみを1段組にしたい場合は
+\twocolumn[
+\begin{titlepage}
+{\LARGE 和文タイトル等}
+\vspace*{1em}
+\begin{abstract} 和文抄録 \end{abstract}
+\renewcommand{\abstractname}{\textbf{Abstract}}
+\begin{abstract} 英文アブストラクト \end{abstract}
+\end{titlepage}
+]
+のようにすると良い。
+→onecolumn
+
+onecolumn
+\onecolumn
+改頁したあとで一段組みでの組版を開始する。
+→twocolumn
+
+topnewpage
+\topnewpage{BOX}
+新しいページを開始し、\textwidthのBOXをparboxで作成する。
+二段組みページでぶち抜きタイトルを作成する時に用いるとよい。
+
+breakbox
+\begin{breakbox} ... \end{breakbox}
+ページをまたがる枠で囲む
+要 `\usepackage{eclbkbox}'
+
+verbfile
+\verbfile{FILE}
+FILE を verbatim 環境的に取り込む。
+要 `\usepackage{misc}'
+cf) \listing
+
+listing
+\listing{FILE}
+FILE を verbatim 環境的に取り込む(行番号つき)。
+要 `\usepackage{misc}'
+cf) \verbfile
+
+ascmac
+\usepackage{ascmac}
+`ascmac' パッケージで定義されている代表的なマクロ
+* \boxnote 環境			帳面風のボックス
+* \screen 環境			スクリーン出力風の枠
+* \itembox 環境			目立つ枠
+* \shadebox 環境		影つきボックス
+* \keytop{} 			キートップ
+* \yen				円記号
+* \return-key			リターンキー
+* \mask, \maskbox		網掛け文字
+
+boxnote
+\begin{boxnote} ... \end{boxnote}
+帳面風の枠で囲む
+要 ascmac.sty
+
+<refer ascmac>
+
+screen
+\begin{screen} ... \end{screen}
+スクリーン出力風の枠で囲む
+要 `\usepackage{ascmac}'
+
+<refere ascmac>
+
+itembox
+\begin{itembox}{ITEMSTRING} ... \end{itembox}
+見出し(ITEMSTRING)つきの枠で囲む
+要 `\usepackage{ascmac}'
+<refere ascmac>
+
+shadebox
+\begin{shadebox} ... \end{shadebox}
+行幅いっぱいの影つきの枠で囲む
+要 `\usepackage{ascmac}'
+<refere ascmac>
+
+keytop
+\keytop{KEY}
+キートップ風に KEY を出力
+要 `\usepackage{ascmac}'
+<refere ascmac>
+
+mask
+\mask{文字列}{網掛けタイプ}
+「文字列」を指定した網掛けタイプで装飾する。
+網掛けタイプは A～K のどれか。
+
+例) \mask{御食事券発覚!}{C}
+
+どんな見映えかは以下を見よ。
+http://www.yatex.org/help/ascmac-mask.jpg
+
+要 `\usepackage{ascmac}'
+
+<refere ascmac>
+
+maskbox
+\maskbox{WIDTH}{HEIGHT}{MASKTYPE}{POS}{STRING}
+指定した幅(WIDTH)と高さ(HEIGHT)で指定した網掛けタイプ(MASKTYPE)
+のボックスを作り、その中の指定した位置(POS)にSTRINGを配置する。
+POSは l c rのどれかで、それぞれ、左寄せ、中央寄せ、右寄せ。
+
+網掛けタイプは A～K のどれか。
+
+例) \maskbox{0.7\columnwidth}{6em}{A}{c}{\shortstack{これは\\大事件だ!}}
+
+マスクタイプA～Kがどんな見映えかは以下を見よ。
+http://www.yatex.org/help/ascmac-mask.jpg
+
+要 `\usepackage{ascmac}'
+<refere ascmac>
+
+alltt
+\begin{alltt} ... \end{alltt}
+TeXマクロの使えるverbitam環境。
+
+comment
+\begin{comment} ... \end{comment}
+環境内の全てを出力しないようにする。
+ただし、 \includeversion{comment} と書くと環境を出力するようになる。
+また \excludeversion{ENV} とすると新しい環境 ENV が
+comment 環境 と同じ機能を持つものとして使えるようになる。
+
+要 `\usepackage{version}'
+
+bou
+\bou{STRING}
+横書き環境で STRING に傍点を付ける。
+
+要 `\usepackage{plext}'
+
+url
+\url{URL_STRING}
+overfullしがちなURLを頑張って折り返してくれる。
+
+要 `\usepackage{url}'
+
+longtable
+\begin{longtable}{POSSTRING} ... \end{longtable}
+ページをまたぐ表が作れる。
+
+table環境も参照せよ。
+
+fancybox
+\usepackage{fancybox}
+各種の見栄えの良いボックスが定義されている。
+
+* \shadowbox{}
+* \ovalbox{}
+* \doublebox{}
+
+shadowbox
+\shadowbox{STRING}
+STRINGをその幅で影つきボックスで囲む。
+
+要 `\usepackage{fancybox}`
+
+<ref fancybox>
+
+ovalbox
+\ovalbox{STRING}
+角の丸い四角枠で STRING を囲む。
+
+要 `\usepackage{fancybox}`
+
+<ref fancybox>
+
+Ovalbox
+\Ovalbox{STRING}
+角の丸い四角枠で STRING を囲む。ovalboxより線が太い。
+
+要 `\usepackage{fancybox}`
+
+<ref fancybox>
+
+doublebox
+\doublebox{STRING}
+二重四角枠で STRING を囲む。
+
+quote
+\begin{quote} ... \end{quote}
+段落を含まない引用
+
+quotation
+\begin{quotation} ... \end{quotation}
+段落を含む引用
+
+
+要 `\usepackage{fancybox}`
+
+<ref fancybox>
+
+textcircled
+\textcircled{文字}
+「文字」を丸枠で囲む。1文字と同じ大きさの丸枠なので
+{\small ...}, {\tiny ...}, {\scriptsize ...} などで括った方が良い。
+
+hfill
+\hfill
+できるだけ広い間隔を開ける。\hspace{\fill} と同じ。
+あ\hfill い
+とすると
+        あ                                                      い
+
+あ\hfill い\hfill う
+とすると
+        あ                         い                           う
+
+のように最大限に間隔を延ばしてくれる。ただし \hspace{} 相当なので
+行頭だとうまく行かない。右寄せしたいなら \hspace*{\fill} とする。
+
+hfil
+\hfil
+\hfill より弱い間隔開け。
+\hfill も参照のこと。
+
+vfill
+\vfill
+縦方向に最大限の空白を開ける。\vspace{\fill} と同じ。
+\hfill も参照のこと。
+
+hrulefill
+\hrulefill
+可能な限り長い下付罫線を引く。
+あんまりいい説明じゃないな。
+
+backslashbox
+\backslashbox{A}{B}
+tabular環境の(主に)左上のカラムで用いて右下がり斜線で区切った2項目を書く。
+要 \usepackage{slashbox}
+\begin{tabular}
+\hline
+\backslashbox{A}{B} & hoge \\ \hline
+\end{tabular}
+
+     +------+--------+
+     | ＼ B |        |
+     | A ＼ |  hoge  |
+     +------+--------+
+
+
+slashbox
+\slashbox{A}{B}
+tabular環境の(主に)右上のカラムで用いて右上がり斜線で区切った2項目を書く。
+backslashboxも参照せよ。
+
+ooalign
+{\ooalign{文字列1\crcr 文字列2……}
+行送りゼロの設定に変更して文字の重ね打ちを可能にする。
+○つき文字を作るための有名なマクロ \maru{} は便利。
+
+\newcommand{\maru}[1]{{\ooalign {\hfill$\scriptstyle#1$\hfill\crcr$\bigcirc$}}}
+
+\crcr は\ooalign内での改行を意味する。\hfill は「最大に延びる空白」とい
+うことで、文字の左右に配置することでセンタリングの効果が得られる。
+\ooalign は改行幅などの長さパラメータをいじってしまうので全体を {} で
+括る必要があることに注意。
+
+maru
+\maru{あ}
+文字(1文字に限る)を○で囲む。プリアンブルで以下の \newcommand をせよ。
+\newcommand{\maru}[1]{{\ooalign {\hfill$\scriptstyle#1$\hfill\crcr$\bigcirc$}}}
+
+today
+\date{\today}
+作成日の日付けの出力を指定する。プリアンブルで \date とともに使う。
+
+和暦
+\和暦
+\和暦 は日付けを元号での表記にする。
+\西暦 は西暦での表記にする。
+\maketitle より先に指定する。
+
+西暦
+\西暦
+<refer 和暦>
+
+colorの名前つきカラー
+\textcolor[named]{色名}{内容} など、[named] を指定する。
+
+\usepackage{color} によって使用可能。
+使える色は以下の通り。
+GreenYellow Yellow Goldenrod Dandelion Apricot Peach Melon YellowOrange
+Orange BurntOrange Bittersweet RedOrange Mahogany Maroon BrickRed Red
+OrangeRed RubineRed WildStrawberry Salmon CarnationPink Magenta
+VioletRed Rhodamine Mulberry RedViolet Fuchsia Lavender Thistle
+OrchidDarkOrchid Purple Plum Violet RoyalPurple BlueViolet Periwinkle
+CadetBlue CornflowerBlue MidnightBlue NavyBlue RoyalBlue Blue Cerulean
+Cyan ProcessBlue SkyBlue Turquoise TealBlue Aquamarine BlueGreen Emerald
+JungleGreen SeaGreen Green ForestGreen PineGreen LimeGreen YellowGreen
+SpringGreen OliveGreen RawSienna Sepia Brown Tan Gray Black White)
+
+色見本を出すソースが
+http://www.yatex.org/help/color.tex にあるので、試すと良い。
+
+textcolor
+\textcolor{色}{内容}
+文字の色を「色」に設定して「内容」を出力。
+
+<refer colorの名前つきカラー>
+
+pagecolor
+\pagecolor{色}
+ページの背景色を「色」に設定する。
+
+<refer colorの名前つきカラー>
+
+color
+\color{色}
+
+ページの文字色を「色」に設定する。
+
+<refer colorの名前つきカラー>
+
+colorbox
+\colorbox{色}{内容}
+「色」が背景のボックスを作りその中に「内容」を出力。
+
+
+<refer colorの名前つきカラー>
+
+fcolorbox
+\fcolorbox{枠の色}{背景色}{内容}
+枠と背景色を指定して「内容」を出力。
+
+<refer colorの名前つきカラー>
+
+rotatebox
+\rotatebox{角度}{内容}
+「内容」を「角度」回転して出力。
+要 `\usepackage{graphicx}'
+
+resizebox
+\resizebox{横の長さ}{縦の長さ}{内容}
+縦か横を省略したいときは ! を指定する。
+\resizebox{!}{40mm}{内容} とすると縦が40mmで縦横比を保存して拡大する。
+要 `\usepackage{graphicx}'
+
+scalebox
+\scalebox{倍率}[縦倍率]{内容}
+「内容」を「倍率」倍して出力。縦倍率は省略可能。
+倍率として負の数を指定すると反転。
+要 `\usepackage{graphicx}'
+
+reflectbox
+\reflectbox{内容}
+「内容」を左右反転して出力。\scalebox{-1}[1]{内容} と同じ。
+要 `\usepackage{graphicx}'
+
+ulem
+\usepackage{ulem}
+\usepackage{ulem} すると 以下のマクロが使える。
+\uline{通常の下線}
+\uwave{波線}
+\uuline{二重の下線} 
+
+\underlineと\ulineは前後に単語空白が挿入されるかどうかが異なっている。
+
+前\underline{中}後
+前\uline{中}後
+
+を typeset して比較してみると分かる。
+
+(情報提供 TSUCHIYA Masatoshi <tsuchiya@pine.kuee.kyoto-u.ac.jp>)
+
+uline
+\uline{内容}
+「内容」にアンダーラインをつける。
+
+<refer ulem>
+
+uwave
+\uwave{内容}
+「内容」に波下線をつける。
+
+<refer ulem>
+
+uuline
+\uuline{内容}
+「内容」に二重アンダーラインをつける。
+
+<refer ulem>
+
+showkeys.sty
+\usepackage[options]{showkeys}
+ラベルが無い（unlabeled）数式には {?} がマージンに印刷される。
+引用されなかったラベルは ?label? のように印刷される。
+オプションには showrefs, norefs, showcites, nocites, msgs, nomsgs,
+chkunlbld, ignoreunlbld がある。msgs/nomsgs は .log ファイルに
+メッセージを書き込むか否か。その他のオプションは自明。
+
+AMS-LaTeX や HyperRef と同時に使えるが、これらよりも後に
+\usepackage しなくてはならない。
+
+似たような package に refcheck.sty というのがある。
+これだと \ref まで見える（でもかえってうざったいかも）。
+(情報提供 Masaki Shigemori <mshige@ucla.edu>)
+
+dots
+\dots
+点々
+\dotsにはいくつも種類があるので適切に使いわけましょう。
+
+\dotsc ... コンマで区切られた列が続くことを表わす点々． $A_1, A_2, \dotsc$
+\dotsb ... 二項演算子(+など)が続くことを表わす点々．$A_1+A_2+\dotsb$
+\dotsm ... 掛け算(演算子省略)が続くことを表わす点々．$A_1 A_2 \dotsm$
+\dotsi ... 積分が続くことを表わす点々 \[ \int_{A_1} int_{A_2} \dotsi \]
+
+(情報提供 Ryohei SETO <setoryohei@mac.com>)
+
+table*
+\begin{table*} ... \end{table*}
+二段組環境でも表を上段ぶち抜きで配置
+
+figure*
+\begin{figure*} ... \end{figure*}
+二段組環境でも図を上段ぶち抜きで配置([t]のみ)。
+下段([b])に置きたいときは nidanfloat.sty を使う。
+\begin{figure*}[b]
+ ～～\includegraphicsとか図をいれるマクロ～～
+ \caption{標題}
+\end{figure*}
+
+includegraphics
+\usepackage{graphicx}  ... \includegraphics[オプション]{graphicfile.eps}
+画像を取り込む。要 graphicx パッケージ。
+「オプション」は以下のものが指定可能。
+scale=拡大率
+width=幅
+height=高さ
+draft     (草稿モード; 枠だけ表示)
+angle=回転角
+origin=回転の中心位置  (c, tl, tr, bl, brのどれか)
+bb=llx lly urx ury    (BoundingBoxとなる矩形対角座標を指定)
+viewport=llx lly urx ury  (BoundingBox内の相対的座標で切り取る)
+trim=left bottom right top  (指定した幅を切り取る)
+
+abstract
+\begin{abstract} ... \end{abstract}
+抄録(アブストラクト)を出力する。
+和文抄録から英文に切り替えたいときは和文のabstract環境を終えたあとで
+\renewcommand{\abstractname}{\textbf{Abstract}}
+としてから再度abstract環境を始めると良い。
+
+\langle
+$\langle$
+         
+数式モードでの`〈'
+
+\langle
+$rlangle$
+         
+数式モードでの`〉'
+
+\slash
+\slash
+スラッシュそのもの
+
+\textbackslash
+\textbackslash
+バックスラッシュそのもの
+
+LaiTeX
+a Little Assistant Interface for TeX on Vz
+おそらくあなたが今 Vz 上で使っているこのモード。
+LaTeXを効率的に使うための多くの機能を盛り込んでいます。
+
+【発音について】
+laitex.defなどプログラムを指す時は「らいてっく」、システムを指す時は「ら
+いちょう」と読みます。
+
+【補足】
+「雷鳥」の旧仮名遣いは「らいてう」だそうです。
+
+【謝辞】
+以下の方々の御協力を頂きました。ここに感謝申し上げます。
+
+(順不同/代表項目のみ)
+横田和也さん(マツダ)
+	転載を行って頂きました。
+
+北岸隆史さん(豊橋技術科学大)
+小林克志さん(広島大)
+保甫恒喜さん(立命館大)
+小島昭二さん(静岡大)
+小林肇さん(金沢工業大)
+坂田一生さん(niftyserve)
+山際直之さん(niftyserve)
+並川仁さん(niftyserve)
+	バグの指摘や、要望、励ましのメールを頂きました。
+	(まとめてでごめんなさい -- 桂川)
+
+柴田みゆきさん(京都ソフトウェアリサーチ)
+	Software Design 誌で本ソフトをご紹介いただきました。
+
+バッキー"毒ラッコ"トミザワさん(筑波大)
+	雷鳥の為にノートパソコンを無償で貸与して下さいました。
+	彼のおかげで、雷鳥ははばたくことが出来ました。
+
+laitex
+a Little Assistant Interface for TeX on Vz
+<refer LaiTeX>
+
+YaTeX
+(setq auto-mode-alist (cons '("\\.tex$" . yatex-mode) auto-mode-alist))
+おそらくあなたが今 Emacs で使っているこのモード。
+LaTeXを効率的に使うための多くの機能を盛り込んでいます。
+
+【発音について】
+yatex.elなどプログラムを指す時は「やてっく」、システムを指す時は「やちょ
+う」と読みます。
+
+【謝辞】
+以下の方々の御協力を頂きました。ここに感謝申し上げます。
+
+(順不同/代表項目のみ/所属は記載当時のもの)
+峯恒憲さん(九州大)
+	Bibtex起動、typeset process の kill、エラー箇所の正しい判定
+	の要望その他を頂きました。
+
+森中秀明さん(アンリツ)
+	タイプセットバッファでの実行継続、lpq, bibtex起動、領域指定タイ
+	プセット後のプレビュー対象ファイルのデフォルト値の変更、
+	describe-mode、\verb の補完の要望、verbatim環境や\verbの中にある
+	\begin{}, \end{} を数えないようにする要望、などを頂きました。
+
+石坂裕毅さん(富士通)
+	YaTeX-get-error-file のバグレポートなどを頂きました。
+
+Bayardさん(asciinet)
+	min-outとの連係の不具合の報告を頂きました。
+
+Ｋけんさん(asciinet)
+	ms-dos固有の設定に関するバグレポートを頂きました。
+
+sa2cさん(asciinet)
+	Mule用のパッチを頂きました。
+
+桂川直己さん(筑波大)
+	数え切れないバグレポートと要望を頂きました。またVzへの移植版であ
+	る laitex(雷鳥) を作成されました。また、「こんな機能はどうだろう?」
+	と相談すると、「いらん」と一蹴し、しばらく経ってから「やっぱり欲
+	しい」と言うなど、多くの混乱を招かせていただきました。
+
+	1997年3月10日、交通事故により愛機ZZ-R1100(D1)と共にあの世へ旅立
+	たれました。享年二十六歳。彼には、野鳥だけでなく私が手掛けた数多
+	くのソフトウェアを作る動機、センスあふれるコメントなどを頂きまし
+	た。現在の野鳥が皆様に支持されるように健やかに育ったのは彼のおか
+	げと言っても過言ではありません。野鳥/雷鳥/白鳥/飛鳥/花鳥を使うと
+	きに彼の安らかな眠りを私と共に祈って下さい。
+
+るねきちさん(asciinet)
+	占い師だそうです。
+	http://www.gentei.org/~yuuji/lune/astrology/
+
+三平善郎さん(慶應大)
+	開き括弧の入力時の処理のモード分けのアイデアを頂きました。
+
+萩庭崇さん(慶應大)
+	begin型補完の内側に文字があった場合それらをインデントしてほしい
+	という要望を頂きました。
+
+田中健次郎さん(慶應大)
+	タイプセット時に未セーブ状態の関連ファイルをセーブして欲しいとい
+	う要望を頂きました。
+
+bauerさん(asciinet)
+	アクセント補完の要望とアクセント記号の規則の情報等を頂きました。
+
+佐々木たろうさん(asciinet)
+	数式環境の処理に関する多様なアイデア、ウィンドウ選択処理に関する
+	ユーザインタフェースの繊細な改善案などを頂きました。
+
+Deslarさん(asciinet)
+	byte-compile関係のバグ報告などを頂きました。
+
+tadfさん(asciinet)
+	Demacsでのプロセス起動時のインタフェースの不具合の報告などを頂き
+	ました。
+
+ほんまたけるさん(asciinet)
+	パラグラフ境界をLaTeX用に設定しなおす要望などを頂きました。
+
+TUSKさん(asciinet)
+	Texinfoドキュメント(初版)を作成して頂き、第二版に関するコメント
+	と添削をして頂きました。
+
+横田和也さん(asciinet)
+	dviout起動時の工夫の案、ミニバッファで読み込むもののヒストリを分
+	けるアイデアのきっかけを頂き、ヘルプファイルの項目の提供をして頂
+	きました。
+
+Nop.Mさん(asciinet)
+	異なる環境での設定の不具合等のレポートを数多く頂きました。
+
+jaybirdさん(asciinet, bekkoame)
+	ドキュメントの多くを英訳して下さいました。
+
+内山滋さん(成蹊大学)
+	日本語入力モード判定関数のバグを直すパッチ、section-view のバグ
+	報告、* 付きセクションコマンド対応の要望、\right, \left のアドイ
+	ン関数作成に関する有用な情報などを頂きました。
+
+神貞介さん(niftyserve)
+	dviout起動オプションに関するコメント、ヘルプファイルのバグ報告等
+	を頂きました。
+
+藤枝和宏さん(JAIST)
+	野鳥/雷鳥の Mailing List を設立して頂きました。
+
+松本憲彦さん(東京学芸大)
+	マニュアルのバグを指摘して頂きました。
+
+小宮山康子さん(成蹊大)
+	\item[] などの補完後 [] の中にカーソルを置く要望を頂きました。
+
+竹中浩さん(東京大)
+	M-q (YaTeX-fill-paragraph) のバグを報告して頂きました。
+	YaTeX-insert-amper をcontributeして頂きました。
+	作者の数多くの凡ミスを丁寧に拾って下さいました。
+	YaTeX-shift-section-undo の実現方法を教えていただきました。
+	Wzへの移植版 HackTeX を作成されました。
+
+佐藤圭さん(慶應大)
+	ネストした同種のitemize環境でのindentationの不具合を指摘して頂き
+	ました。
+
+石川洋介さん(富士通)
+	Mule2で斜体フォントを使用するための手順、auto-insertの存在を教え
+	て頂きました。
+
+井上浩一さん(九州大学)
+	MuleでフォーマットしたinfoファイルをNemacs用にコンバートする方法
+	を教えて頂きました。
+
+田口直文さん(慶應大)
+	font-lock の使い方を調査するといって、まだ何も教えてくれません。
+	早くしてください:-)。
+
+吉田尚志さん(慶應大)
+	label/ref補完で、labelやrefで始まる単語全てを候補にいれてしまう
+	バグを報告して頂きました。
+
+吉田尚志さん(NTT DATA)
+	Win32関連で多大なる貢献をして頂きました。
+
+上田佳明さん(豊橋技科大)
+	Emacs 19.29 以降で生じるYaTeX-indent-new-comment-lineの不具合を
+	指摘して頂きました。
+
+成宮隆之さん
+	「野鳥わぁるど」というCoolなWWWページを作成して下さいました。
+
+田中敏さん(富山大学)
+	AMS-LaTeX に対応するためのパッチを送って頂きました。
+
+西澤幸司さん(東北大学)
+田仲稔さん([株]ケイケンエンジニアリングシステム)
+	begin型補完でおまかせ改行関数があれば、補完時に初期エントリを挿
+	入するというアイデアを提供していただきました。
+
+葛西澄人さん(慶應大)
+	YaTeX-default-pop-window-height の原案を頂きました。
+	$ \% $ のような場合の数式モード終了判定のミスを指摘して頂きました。
+
+安藤利和さん(金沢工大)
+	野鳥を使うTipsをまとめた「あなたもわたしも野鳥の…」というWWWペー
+	ジを作成して下さいました。
+
+小原功任さん(神戸大学)
+	AMS-LaTeXでの数式環境の不足分定義と、\[ .. \] ではfillしない事を
+	指摘して頂きました。
+
+竹内 奏吾さん(電通大)
+	YaTeX-section-overview の不具合を修正するパッチを送って頂きました。
+
+宇佐見 Kousukeさん()
+	数式モードでのセクション型マクロ対応の要望と足すべきマクロ一覧を
+	頂きました。
+
+松田茂樹さん(千葉大)
+	AMS LaTeX用のいくつかの関数、YaTeX-change-parentheses などを作成
+	して頂きました。
+
+安宅 正之さん(東京理科大)
+	かな漢字変換自動OFF機能の T-Code 対応パッチを送って頂きました。
+
+土屋 雅稔さん(京大)
+	用紙指定オプションなどたくさんのパッチとコメントを頂きました。
+
+太田康広さん(buffalo.edu)
+山尾貴則さん(東北大)
+	Meadowユーザのための詳細インストールドキュメントを書いて下さいました。
+
+重森正樹さん(東京大)
+	数え切れないバグレポートとコメントを頂きました。
+
+瀬戸亮平さん(立命館大)
+	Carbon Emacs(MacOS X) での使用のための情報をたくさん頂きました。
+	AMS-LaTeXで使う重要なマクロの情報をたくさん頂きました。
+
+
+
+
+yatex
+(setq auto-mode-alist (cons '("\\.tex$" . yatex-mode) auto-mode-alist))
+<refer YaTeX>
+

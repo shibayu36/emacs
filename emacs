@@ -9,6 +9,7 @@
         (expand-file-name "~/.emacs.d/elisp/anything/")
         (expand-file-name "~/.emacs.d/elisp/abbrev/")
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
+        (expand-file-name "~/.emacs.d/elisp/yasnippet")
         (expand-file-name "~/.emacs.d/elisp/mode/html/")
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
@@ -247,10 +248,10 @@
 
 
 ;;auto-install設定
-(require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/elisp/")
-(auto-install-update-emacswiki-package-name t)
-(auto-install-compatibility-setup)
+;; (require 'auto-install)
+;; (setq auto-install-directory "~/.emacs.d/elisp/")
+;; (auto-install-update-emacswiki-package-name t)
+;; (auto-install-compatibility-setup)
 
 ;;anything 設定
 (require 'anything)
@@ -304,3 +305,6 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-dark-laptop)
+
+;;yasnippet
+(load "init-yasnippet.el")

@@ -162,20 +162,15 @@ If SNIPPET-FILE does not contain directory, it is placed in default snippet dire
         (yas/choose-tables-first nil)
         (yas/buffer-local-condition 'always))
     (let* ((result-alist '((candidates) (transformed) (template-key-alist)))
-           (cur-tables
-            (if table
-                (list table)
-              (yas/get-snippet-tables anything-c-yas-cur-major-mode)))
-           (hash-value-alist nil))
-      (let ((hashes (loop for table in cur-tables
+           (hash-value-alist nil)
+           (cur-table (first (yas/get-snippet-tables anything-c-yas-cur-major-mode)))
+           (hash-table (yas/snippet-table-hash cur-table))) ;`yas/snippet-table-hash'
+      (let ((hashes (loop for table in (yas/get-snippet-tables)
                           collect (yas/snippet-table-hash table))))
         (loop for hash in hashes
               do (maphash (lambda (k v)
-                            (let (a)
-                              (maphash (lambda (n te)
-                                         (setq a (append (list (cons k te)) a)))
-                                       v)
-                              (setq hash-value-alist (append a hash-value-alist))))
+                            (setq hash-value-alist (append v hash-value-alist))
+                            )
                           hash))
         (loop with transformed
               with templates
@@ -311,7 +306,7 @@ space match anyword greedy"
     (candidate-transformer . (lambda (candidates)
                                (anything-c-yas-get-transformed-list anything-c-yas-cur-snippets-alist anything-c-yas-initial-input)))
     (action . (("Insert snippet" . (lambda (template)
-                                     (yas/expand-snippet template anything-c-yas-point-start anything-c-yas-point-end)
+                                     (yas/expand-snippet anything-c-yas-point-start anything-c-yas-point-end template)
                                      (when anything-c-yas-display-msg-after-complete
                                        (message "this snippet is bound to [ %s ]"
                                                 (anything-c-yas-get-key-by-template template anything-c-yas-cur-snippets-alist)))))

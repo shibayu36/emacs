@@ -10,6 +10,7 @@
         (expand-file-name "~/.emacs.d/elisp/abbrev/")
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/yasnippet")
+        (expand-file-name "~/.emacs.d/elisp/moccur")
         (expand-file-name "~/.emacs.d/elisp/mode/html/")
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
@@ -308,3 +309,8 @@
 
 ;;yasnippet
 (load "init-yasnippet.el")
+
+;;moccur拡張
+(require 'moccur-edit)
+(require 'color-moccur)
+(setq moccur-split-word t)

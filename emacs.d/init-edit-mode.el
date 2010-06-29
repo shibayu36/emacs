@@ -1,18 +1,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;html-helper-mode設定;;;;;;;
+;;;;;;;;;;;;;html-mode設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'html-helper-mode "html-helper-mode" "Ya HTML" t)
 (setq auto-mode-alist 
       (append '(
-                ("\\.\\(html\\|htm\\)\\'" . html-helper-mode)
+                ("\\.\\(html\\|htm\\|tt\\|tt2\\)\\'" . html-mode)
                 ) auto-mode-alist))
-(add-hook 'html-helper-mode-hook
-          '(lambda ()
-             (setq c-basic-offset 4)
-             (setq tab-width 4)
-             (setq intelligent-tab t)
-             ) t)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;yatex;;;;;;;;;;;;;;;;;;;;;;;
@@ -20,46 +12,6 @@
 (setq auto-mode-alist
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;yahtml-mode;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (autoload 'yahtml-mode "yahtml" "Yet Another HTML mode" t)
-;; (setq auto-mode-alist (cons (cons "\\.html?$" 'yahtml-mode) auto-mode-alist))
-
-;; ;; 表示には w3m 
-;; (defadvice yahtml-browse-html
-;;   (around w3m-yahtml-browse-html activate compile)
-;;   (w3-fetch (ad-get-arg 0))
-;; ;  (w3m-goto-url (ad-get-arg 0) t)
-;;   )
-;; (setq yahtml-lint-program "htmllint")
-;; (setq yahtml-kanji-code 2) ; (1 sjis, 2 jis, 3 euc)
-;; (setq yahtml-path-url-alist
-;;       '(
-;;         ("~/public_html" . "http://www.math.s.chiba-u.ac.jp/~matsu")
-;;         ))
-;; (add-hook
-;;  'yahtml-mode-hook
-;;  (function (lambda ()
-;;              (progn
-;;                (require 'yahtml-insert-index)
-;;                (auto-fill-mode 0)
-;;                (if (equal 'shift_jis-unix buffer-file-coding-system)
-;;                    (progn
-;;                      (set-buffer-file-coding-system 'shift_jis-dos)
-;;                      (set-buffer-modified-p nil)))             
-;;                ))))
-
-;; (autoload 'yahtml-mode "yahtml" "Yet Another HTML mode" t)
-;; ;;; yahtml 用の設定
-;; (setq yahtml-www-browser "mosaic"); yatex の html モードで起動するビューワ
-;; (setq yahtml-path-url-alist ; ホームページの連想リスト
-;;       '(("~/public_html/index-j.html" .
-;;          "http://www.math.s.chiba-u.ac.jp/~matsu/public_html/index.html")))
-;; ;; html ファイルを編集する際の自動折り返し桁数
-;; (add-hook 'yahtml-mode-hook '(lambda () (setq fill-column 78)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;phpモード設定;;;;;;;;;;;;;;
@@ -123,7 +75,6 @@
 (setq auto-mode-alist (cons '("\\.t$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cgi$" . cperl-mode) auto-mode-alist))
 (require 'set-perl5lib)
-
 
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4
@@ -195,146 +146,6 @@
           (if pop-or-set-flag
               (switch-to-buffer buffer)
             (display-buffer buffer)))))))
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;psgmlモードの設定;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; dot emacs for psgml
-;; (autoload 'sgml-mode "psgml" "Major mode to edit SGML files." t)
-;; (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
-;; (setq auto-mode-alist
-;;       (append
-;;        '(("\\.html$" . xml-mode)
-;;          ("\\.xhtml$" . xml-mode))
-;;        auto-mode-alist))
-
-;; ;;; カタログファイルの指定
-;; (setq sgml-catalog-files '("~/.emacs.d/DTD/xhtml11-20010531/DTD/xhtml11.cat"))
-
-;; ;;; DOCTYPE 宣言の設定
-;; (setq sgml-custom-dtd
-;;       '(
-;;         ("XHTML 1.1"
-;;          "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"
-;;                       \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">")
-;;         ))
-
-;; ;;; hookで変数をsetq
-;; (add-hook 'sgml-mode-hook
-;;           (lambda ()
-;;             (setq tab-width                             2
-;;                   sgml-indent-step                      2
-;;                   indent-tabs-mode                      t
-;;                   sgml-xml-p                            t
-;;                   sgml-always-quote-attributes          t
-;;                   sgml-system-identifiers-are-preferred t
-;;                   sgml-auto-activate-dtd                t
-;;                   sgml-recompile-out-of-date-cdtd       t
-;;                   sgml-auto-insert-required-elements    t
-;;                   sgml-insert-missing-element-comment   t
-;;                   sgml-balanced-tag-edit                t
-;;                   sgml-default-doctype-name             "XHTML 1.1"
-;;                   sgml-ecat-files                       nil
-;;                   sgml-general-insert-case              'lower
-;;                   sgml-entity-insert-case               'lower
-;;                   sgml-normalize-trims                  t
-;;                   sgml-insert-defaulted-attributes      nil
-;;                   sgml-live-element-indicator           t
-;;                   sgml-active-dtd-indicator             t
-;;                   sgml-minimize-attributes              nil
-;;                   sgml-omittag                          nil
-;;                   sgml-omittag-transparent              nil
-;;                   sgml-shorttag                         nil
-;;                   sgml-tag-region-if-active             t
-;;                   sgml-xml-validate-command             "xmllint --noout --valid %s %s"
-;;                   )
-;;             ))
-
-;; ;; これ以下はお好みで
-
-;; ;;; font-lock
-;; (font-lock-mode 1)
-;; (setq font-lock-support-mode   'jit-lock-mode
-;;       jit-lock-stealth-verbose nil
-;;       font-lock-verbose nil)
-
-;; ;;;;; PSGML デフォルトのfont-lockを使う場合
-;; ;;(setq sgml-set-face t
-;; ;;    sgml-markup-faces '((start-tag  . font-lock-builtin-face)
-;; ;;                          (end-tag    . font-lock-builtin-face)
-;; ;;                          (ms-start   . font-lock-variable-name-face)
-;; ;;                          (ms-end     . font-lock-variable-name-face)
-;; ;;                          (comment    . font-lock-comment-face)
-;; ;;                          (ignored    . font-lock-warning-face)
-;; ;;                          (pi         . font-lock-preprocessor-face)
-;; ;;                          (sgml       . font-lock-type-face)
-;; ;;                          (doctype    . font-lock-constant-face)
-;; ;;                          (entity     . font-lock-string-face)
-;; ;;                          (shortref   . font-lock-reference-face)))
-
-;; ;;; My original font-lock-keywords
-;; (add-hook 'sgml-mode-hook
-;;           '(lambda ()
-;;              (make-local-variable 'font-lock-defaults)
-;;              (setq sgml-set-face nil
-;;                    font-lock-defaults '(xml-font-lock-keywords-2 nil))
-;;              (turn-on-font-lock)
-;;              ))
-
-;; (defvar xml-font-lock-keywords-1
-;;   (list
-;;    ;; タグ開始区切子 & タグ終了区切子
-;;    '("<\\|>" 0 font-lock-keyword-face t)
-;;    ;; スラッシュ
-;;    '("\\(/\\)>" 1 font-lock-keyword-face t)
-;;    '("<\\(/\\)" 1 font-lock-keyword-face t)
-;;    ;; 要素名
-;;    '("\\(</?\\)\\([a-zA-Z]+[a-zA-Z0-9-_:]*\\)" 2  font-lock-builtin-face t)
-;;    ;; コメント
-;;    '("\\(<!--\\([^-]\\|-[^-]\\|--[^>]\\)*-->\\)" 1 font-lock-comment-face t)
-;;    ;; 命令処理
-;;    '("\\(<\\?[a-zA-Z]*\\>[^<>]*\\(<[^>]*>[^<>]*\\)*\\?>\\)" 1 font-lock-type-face t)
-;;    ;; DOCTYPE, ENTITY, ATTLIST, NOTATION等々 マーク宣言
-;;    '("\\(<![a-zA-Z]+\\>[^<>]*\\(<[^>]*>[^<>]*\\)*>\\)" 1 font-lock-constant-face t)
-;;    ;; °
-;;    '("\\<\\([a-zA-Z]+[a-zA-Z-_:]*\\)=" 1 font-lock-variable-name-face t)
-;;    ;; 属性値
-;;    '("=?\\(\"[^\"]*\"\\|'[^\']*'\\)" 1 font-lock-string-face t)
-;;    ;; 数値文字参照, 文字実体参照, パラメータ実体参照
-;;    '("\\(&#[0-9]+;\\|&[a-zA-Z]+;\\|%[^'\";]+;\\)" 1 font-lock-reference-face t)
-;;    ;; CDATA 等々 マーク区間 (マーク指定区域)
-;;    '("\\(<!\\[[^\\[]+\\[[^]]+]]>\\)" 1 font-lock-warning-face t)
-;;    ))
-
-;; (defvar xml-font-lock-keywords-2
-;;   (append
-;;    xml-font-lock-keywords-1
-;;    (list
-;;     ;; SSI
-;;     `(,(concat "\\(<!--#\\(fsize\\|flastmod\\|printenv\\|"
-;;                "include\\|echo\\|config\\|exec\\|set\\|"
-;;                "if\\|elif\\|else\\|endif\\)\\>[ \t\n]+"
-;;                "\\([^-]\\|-[^-]\\|--[^>]\\)*-->\\)")
-;;       1 'bold t)
-;;     ;; php
-;;     '("\\(<\\?\\(php\\|=\\)[^?>]+\\?>\\)" 1 font-lock-function-name-face t)
-;;     ;; eRuby, JSP, ASP
-;;     '("\\(<%\\(=\\)?\\>[^%>]+%>\\)" 1 font-lock-function-name-face t)
-;;     )))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;yamlモード;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-hook 'yaml-mode-hook
-          '(lambda ()
-             (setq yaml-indent-offset 4)
-          ))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

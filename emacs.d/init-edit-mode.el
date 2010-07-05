@@ -1,3 +1,6 @@
+;;括弧対応
+(require 'acp)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;html-mode設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -90,6 +93,7 @@
              (progn
                (setq indent-tabs-mode nil)
                (setq tab-width nil)
+               (acp-mode t)
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key "\C-cs" 'perl-syntax-check)
                (set-perl5lib)

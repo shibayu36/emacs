@@ -11,6 +11,7 @@
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/yasnippet")
         (expand-file-name "~/.emacs.d/elisp/moccur")
+        (expand-file-name "~/.emacs.d/elisp/mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/html/")
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")
         (expand-file-name "~/.emacs.d/elisp/mode/css/")
@@ -36,8 +37,8 @@
 ;;;;;;;;;;;;;;キーの設定;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq system-type 'darwin)       ; もし、システムが Mac のとき
-  (setq mac-command-key-is-meta nil) ; コマンドキーをメタにしない
-  (setq mac-option-modifier 'meta)   ; オプションキーをメタに
+;;  (setq mac-command-key-is-meta nil) ; コマンドキーをメタにしない
+;;  (setq mac-option-modifier 'meta)   ; オプションキーをメタに
   ;;superを割り当てておくと、linux、windowsでうまく使えない
   ;;(setq mac-command-modifier 'super) ; コマンドキーを Super に
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
@@ -314,3 +315,6 @@
 (require 'moccur-edit)
 (require 'color-moccur)
 (setq moccur-split-word t)
+
+;;自動再読み込み
+(global-auto-revert-mode 1)

@@ -1,10 +1,15 @@
-;;括弧対応
-(require 'acp)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;mmmモード;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (require 'mmm-mode)
+;; (setq mmm-global-mode 'maybe)
+;; (set-face-background 'mmm-default-submode-face nil)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;html-mode設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq auto-mode-alist 
+(setq auto-mode-alist
       (append '(
                 ("\\.\\(html\\|htm\\|tt\\|tt2\\)\\'" . html-mode)
                 ) auto-mode-alist))
@@ -35,7 +40,7 @@
 ;;;;;;;;;;;;;cssモード設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'css-mode "css-mode" "CSS mode" t)
-(setq auto-mode-alist       
+(setq auto-mode-alist
       (cons '("\\.css\\'" . css-mode) auto-mode-alist))
 (setq cssm-indent-function #'cssm-c-style-indenter)
 
@@ -57,7 +62,7 @@
 ;;ipython設定
 ;;(setq ipython-command "/usr/local/bin/ipython")
 ;;(require 'ipython)
-             
+
 ;;pycompleteの有効化
 ;;なぜかうまくいかない
 ;; (add-hook 'python-mode-hook '(lambda ()
@@ -93,7 +98,6 @@
              (progn
                (setq indent-tabs-mode nil)
                (setq tab-width nil)
-               (acp-mode t)
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key "\C-cs" 'perl-syntax-check)
                (set-perl5lib)
@@ -108,12 +112,12 @@
             ))
 
 ;;flymake, perl-completionは重いので、やめた
-;;(add-hook 'cperl-mode-hook 'flymake-perl-load)
-;; (add-hook 'cperl-mode-hook
-;;           (lambda()
-;;             (require 'perl-completion)
-;;             (perl-completion-mode t)
-;;             (add-to-list 'ac-sources 'ac-source-perl-completion)))
+(add-hook 'cperl-mode-hook 'flymake-perl-load)
+(add-hook 'cperl-mode-hook
+          (lambda()
+            (require 'perl-completion)
+            (perl-completion-mode t)
+            (add-to-list 'ac-sources 'ac-source-perl-completion)))
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。
@@ -151,6 +155,11 @@
               (switch-to-buffer buffer)
             (display-buffer buffer)))))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;podモード;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'pod-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;javascriptモード;;;;;;;;;;;;;;;;;

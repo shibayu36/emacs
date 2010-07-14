@@ -181,20 +181,41 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defface hlline-face
-;;   '((((class color)
-;;       (background dark))
-;;      (:background "dark slate gray"))
-;;     (((class color)
-;;       (background light))
-;;      (:background  "#98FB98"))
-;;     (t
-;;      ()))
-;;   "*Face used by hl-line.")
-;; (setq hl-line-face 'hlline-face)
-;; ;; (setq hl-line-face 'underline) ; 下線
-;; (global-hl-line-mode)
+(defface hlline-face
+  '((((class color)
+      (background dark))
+     (:background "dark slate gray"))
+    (((class color)
+      (background light))
+     (:background  "#98FB98"))
+    (t
+     ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+;; (setq hl-line-face 'underline) ; 下線
+(global-hl-line-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;全角空白、タブ、行末の空白を目立たせる;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defface my-face-tab         '((t (:background "Yellow"))) nil :group 'my-faces)
+(defface my-face-zenkaku-spc '((t (:background "LightBlue"))) nil :group 'my-faces)
+(defface my-face-spc-at-eol  '((t (:foreground "Red" :underline t))) nil :group 'my-faces)
+(defvar my-face-tab         'my-face-tab)
+(defvar my-face-zenkaku-spc 'my-face-zenkaku-spc)
+(defvar my-face-spc-at-eol  'my-face-spc-at-eol)
+(defadvice font-lock-mode (before my-font-lock-mode ())
+  (font-lock-add-keywords
+   major-mode
+   '(("\t" 0 my-face-tab append)
+     ("　" 0 my-face-zenkaku-spc append)
+     ("[ \t]+$" 0 my-face-spc-at-eol append)
+     )))
+(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+(ad-activate 'font-lock-mode)
+
+(font-lock-mode t)
+(font-lock-fontify-buffer)
 
 ;;等幅文字設定
 ;;carbonでの設定
@@ -216,7 +237,10 @@
           (".*monaco-bold-.*-mac-roman" . 0.9)
           ("-cdac$" . 1.3))))
 
-
+;;;サーバ起動
+(server-start)
+;;;クライアントを終了するとき終了するかどうかを聞かない
+(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 
 
@@ -286,7 +310,7 @@
     (load "my-funcs.el"))
 
 ;;flymakeの設定
-;;(load "init-flymake.el")
+(load "init-flymake.el")
 
 ;;womanの設定
 (setq woman-use-own-frame nil)

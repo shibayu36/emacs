@@ -24,6 +24,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/yatex/")
         (expand-file-name "~/.emacs.d/elisp/auto-complete/")
         (expand-file-name "~/.emacs.d/elisp/mode/hatena/")
+        (expand-file-name "~/.emacs.d/elisp/mode/magit/share/emacs/site-lisp/")
         )
        load-path))
 

@@ -24,6 +24,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/yatex/")
         (expand-file-name "~/.emacs.d/elisp/auto-complete/")
         (expand-file-name "~/.emacs.d/elisp/mode/hatena/")
+        (expand-file-name "~/.emacs.d/elisp/mode/ruby/")
         (expand-file-name "~/.emacs.d/elisp/mode/magit/share/emacs/site-lisp/")
         )
        load-path))
@@ -98,7 +99,6 @@
 ;; file名の補完で大文字小文字を区別しない
 (setq completion-ignore-case t)
 
-
 ;;yes-noの選択肢をy-nにする
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -152,13 +152,13 @@
 
 ;;windowの設定
 (setq default-frame-alist
-      (append (list 
-		    '(width . 175)
-		    '(height . 47)
-		    '(top . 0)
-		    '(left . 0)
-		    '(alpha . (90 60)))    ;;ここ
-		    default-frame-alist))
+      (append (list
+               '(width . 175)
+               '(height . 47)
+               '(top . 0)
+               '(left . 0)
+               '(alpha . (90 60))) ;;ここ
+              default-frame-alist))
 
 ;;画面最大化
 (defun mac-toggle-max-window ()
@@ -178,6 +178,10 @@
 ;;画面端まで来たら折り返す
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil)
+
+; 保存時に無駄なスペースを削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）

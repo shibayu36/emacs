@@ -113,11 +113,11 @@
 
 ;;flymake, perl-completionは重いので、やめた
 (add-hook 'cperl-mode-hook 'flymake-perl-load)
-(add-hook 'cperl-mode-hook
-          (lambda()
-            (require 'perl-completion)
-            (perl-completion-mode t)
-            (add-to-list 'ac-sources 'ac-source-perl-completion)))
+;; (add-hook 'cperl-mode-hook
+;;           (lambda()
+;;             (require 'perl-completion)
+;;             (perl-completion-mode t)
+;;             (add-to-list 'ac-sources 'ac-source-perl-completion)))
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。
@@ -263,3 +263,54 @@
 ;;;;;;;;;;;magit-mode;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'magit)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;ruby-mode;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(setq auto-mode-alist
+      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
+                                     interpreter-mode-alist))
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (setq tab-width 4)
+             (setq ruby-indent-level tab-width)
+             ))
+
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (inf-ruby-keys)))
+
+;; ruby-electric
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+
+;; rubydb
+(autoload 'rubydb "rubydb3x"
+  "run rubydb on program file in buffer *gud-file*.
+the directory containing file becomes the initial working directory
+and source-file directory for your debugger." t)
+
+;; rails
+(defun try-complete-abbrev (old)
+  (if (expand-abbrev) t nil))
+(setq hippie-expand-try-functions-list
+      '(try-complete-abbrev
+        try-complete-file-name
+        try-expand-dabbrev))
+(setq rails-use-mongrel t)
+(require 'cl)
+(require 'rails)
+
+;; ruby-block
+(require 'ruby-block)
+(ruby-block-mode t)
+;; ミニバッファに表示し, かつ, オーバレイする.
+(setq ruby-block-highlight-toggle t)

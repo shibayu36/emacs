@@ -26,6 +26,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/hatena/")
         (expand-file-name "~/.emacs.d/elisp/mode/ruby/")
         (expand-file-name "~/.emacs.d/elisp/mode/magit/share/emacs/site-lisp/")
+        (expand-file-name "~/.emacs.d/elisp/mode/git/")
         )
        load-path))
 
@@ -46,8 +47,6 @@
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
 
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;キーバインドの設定;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -65,7 +64,8 @@
 (define-key global-map (kbd "C-]") 'anything);;anything用キーバインド
 ;;(global-set-key "\C-;" 'anything)
 (define-key global-map "\C-xF" 'mac-toggle-max-window)
-
+(global-set-key (kbd "C-c a")   'align)
+(global-set-key (kbd "C-c M-a") 'align-regexp)
 
 
 
@@ -243,6 +243,7 @@
           ("-cdac$" . 1.3))))
 
 ;;;サーバ起動
+(require 'server)
 (server-start)
 ;;;クライアントを終了するとき終了するかどうかを聞かない
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
@@ -347,3 +348,6 @@
 
 ;;自動再読み込み
 (global-auto-revert-mode 1)
+
+;;gitに関する設定のロード
+(load "init-git.el")

@@ -280,13 +280,34 @@
   "Set local key defs for inf-ruby in ruby-mode")
 (add-hook 'ruby-mode-hook
           '(lambda ()
-             (setq tab-width 4)
+             (setq tab-width 2)
              (setq ruby-indent-level tab-width)
+             (setq ruby-deep-indent-paren-style nil)
+             (define-key ruby-mode-map [return] 'ruby-reindent-then-newline-and-indent)
              ))
 
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-             (inf-ruby-keys)))
+(require 'align)
+(add-to-list 'align-rules-list
+             '(ruby-comma-delimiter
+               (regexp . ",\\(\\s-*\\)[^# \t\n]")
+               (repeat . t)
+               (modes  . '(ruby-mode))))
+(add-to-list 'align-rules-list
+             '(ruby-hash-literal
+               (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
+               (repeat . t)
+               (modes  . '(ruby-mode))))
+(add-to-list 'align-rules-list
+             '(ruby-assignment-literal
+               (regexp . "\\(\\s-*\\)=\\s-*[^# \t\n]")
+               (repeat . t)
+               (modes  . '(ruby-mode))))
+(add-to-list 'align-rules-list          ;TODO add to rcodetools.el
+             '(ruby-xmpfilter-mark
+               (regexp . "\\(\\s-*\\)# => [^#\t\n]")
+               (repeat . nil)
+               (modes  . '(ruby-mode))))
+
 
 ;; ruby-electric
 (require 'ruby-electric)
@@ -299,15 +320,15 @@ the directory containing file becomes the initial working directory
 and source-file directory for your debugger." t)
 
 ;; rails
-(defun try-complete-abbrev (old)
-  (if (expand-abbrev) t nil))
-(setq hippie-expand-try-functions-list
-      '(try-complete-abbrev
-        try-complete-file-name
-        try-expand-dabbrev))
-(setq rails-use-mongrel t)
+;; (defun try-complete-abbrev (old)
+;;   (if (expand-abbrev) t nil))
+;; (setq hippie-expand-try-functions-list
+;;       '(try-complete-abbrev
+;;         try-complete-file-name
+;;         try-expand-dabbrev))
+;; (setq rails-use-mongrel t)
 (require 'cl)
-(require 'rails)
+;; (require 'rails)
 
 ;; ruby-block
 (require 'ruby-block)

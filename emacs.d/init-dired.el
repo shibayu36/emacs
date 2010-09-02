@@ -157,3 +157,8 @@ Creates a buffer if necessary."
 
 ;;ディレクトリを最初に表示する
 (setq ls-lisp-dirs-first t)
+
+;; wdiredの設定
+(require 'wdired)
+(define-key dired-mode-map "r"
+  'wdired-change-to-wdired-mode)

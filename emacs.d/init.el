@@ -29,7 +29,6 @@
         (expand-file-name "~/.emacs.d/elisp/mode/git/")
         )
        load-path))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;バイトコンパイル設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -264,10 +263,9 @@
 ;;;サーバ起動
 (require 'server)
 (server-start)
+
 ;;;クライアントを終了するとき終了するかどうかを聞かない
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
-
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -299,10 +297,10 @@
 
 
 ;;auto-install設定
-;; (require 'auto-install)
-;; (setq auto-install-directory "~/.emacs.d/elisp/")
-;; (auto-install-update-emacswiki-package-name t)
-;; (auto-install-compatibility-setup)
+(require 'auto-install)
+(setq auto-install-directory "~/.emacs.d/elisp/")
+(auto-install-update-emacswiki-package-name t)
+(auto-install-compatibility-setup)
 
 ;;anything 設定
 (require 'anything)
@@ -376,3 +374,11 @@
 
 ;; migemoに関する設定
 (load "init-migemo.el")
+
+;; undohistの設定
+(when (require 'undohist nil t)
+  (undohist-initialize))
+
+;; undo-treeモードの設定
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))

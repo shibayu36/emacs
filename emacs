@@ -47,6 +47,17 @@
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;; exec-pathの設定 ;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'exec-path "/opt/local/bin")
+(add-to-list 'exec-path "/opt/local/sbin")
+(add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "/usr/local/sbin")
+(add-to-list 'exec-path "~/bin")
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;キーバインドの設定;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -66,6 +77,7 @@
 (define-key global-map "\C-xF" 'mac-toggle-max-window)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
+(global-set-key (kbd "C-x ?") 'help-command)
 
 
 
@@ -85,11 +97,12 @@
 (set-language-environment "Japanese")
 (setq locale-coding-system 'utf-8)
 
-
 ;;HTMLのMETAタグコーディング無視
 (setq auto-coding-functions nil)
+
 ;; 対応する括弧を光らせる。
 (show-paren-mode t)
+
 ;; 選択部分のハイライト
 (transient-mark-mode t)
 
@@ -106,6 +119,7 @@
 ;;(setq auto-save-list-file-prefix (expand-file-name "~/.emacs.d/.autosave/"))
 ;;オートセーブファイルを作らない
 (setq auto-save-default nil)
+
 ;; Backup fileの場所指定
 (setq make-backup-files t)
 (setq backup-directory-alist
@@ -124,7 +138,9 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-
+;; メニューバーにファイルパスを表示
+(setq frame-title-format
+      (format "%%f - Emacs@%s" (system-name)))
 
 ;;emacsのVCでバッファの履歴を引き継ぐための設定
 ;; checkin 後に実行される関数をフック
@@ -179,8 +195,11 @@
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil)
 
-; 保存時に無駄なスペースを削除
+;; 保存時に無駄なスペースを削除
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; スタートアップメッセージを非表示
+(setq inhibit-startup-screen t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -351,3 +370,9 @@
 
 ;;gitに関する設定のロード
 (load "init-git.el")
+
+;; grepから直接置換できるように
+(require 'grep-edit)
+
+;; migemoに関する設定
+(load "init-migemo.el")

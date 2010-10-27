@@ -78,7 +78,7 @@
 (global-set-key (kbd "C-c M-a") 'align-regexp)
 (global-set-key (kbd "C-x ?") 'help-command)
 
-
+(define-key global-map (kbd "C-c C-a") 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;
@@ -195,7 +195,7 @@
 (setq truncate-partial-width-windows nil)
 
 ;; 保存時に無駄なスペースを削除
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
@@ -377,3 +377,10 @@
 
 ;; elscreenの設定
 (load "init-elscreen")
+
+;; jaunte.el
+(require 'jaunte)
+(global-set-key (kbd "C-c C-j") 'jaunte)
+
+;; set-perl5lib-glob-from-git-root
+(require 'set-perl5lib-glob-from-git-root)

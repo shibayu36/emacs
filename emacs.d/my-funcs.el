@@ -51,3 +51,12 @@
   (interactive)
   (shell-command
    (concat "perl -wc " (file-name-nondirectory (buffer-file-name)))))
+
+
+;; gitルートからPERL5LIBにPATH通す
+(defun setup-perl5lib ()
+   (interactive)
+  (set-perl5lib-glob-from-git-root "lib")
+  (set-perl5lib-glob-from-git-root "t/lib")
+  (set-perl5lib-glob-from-git-root "modules/*/lib"))
+

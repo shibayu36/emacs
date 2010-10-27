@@ -31,7 +31,7 @@
        (require 'anything-migemo nil t))
   (when (require 'anything-complete nil t)
     ;; M-xによる補完をAnythingで行なう
-    (anything-read-string-mode 1)
+    ;; (anything-read-string-mode 1)
     ;; lispシンボルの補完候補の再検索時間
     (anything-lisp-complete-symbol-set-timer 150))
 
@@ -90,4 +90,7 @@
 
     (global-set-key (kbd "C-M-o")
                     'anything-c-moccur-occur-by-moccur))
+
+  ;; kill ringを表示
+  (global-set-key (kbd "M-y") 'anything-show-kill-ring)
   )

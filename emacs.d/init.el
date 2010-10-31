@@ -262,7 +262,6 @@
 
 ;;;サーバ起動
 (require 'server)
-(server-start)
 
 ;;;クライアントを終了するとき終了するかどうかを聞かない
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
@@ -384,3 +383,11 @@
 
 ;; set-perl5lib-glob-from-git-root
 (require 'set-perl5lib-glob-from-git-root)
+
+;; redo
+(require 'redo)
+(global-set-key "\M-/" 'redo)
+
+;; sudo-ext
+(server-start)
+(require 'sudo-ext)

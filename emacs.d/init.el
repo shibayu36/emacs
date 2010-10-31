@@ -11,6 +11,7 @@
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/yasnippet")
         (expand-file-name "~/.emacs.d/elisp/moccur")
+        (expand-file-name "~/.emacs.d/elisp/apel")
         (expand-file-name "~/.emacs.d/elisp/mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/html/")
         (expand-file-name "~/.emacs.d/elisp/mode/nxhtml/")

@@ -60,3 +60,15 @@
   (set-perl5lib-glob-from-git-root "t/lib")
   (set-perl5lib-glob-from-git-root "modules/*/lib"))
 
+
+;;;
+(require 'cl)
+(defun delete-trailing-whitespace-toggle ()
+  (interactive)
+  (cond ((find 'delete-trailing-whitespace before-save-hook)
+         (remove-hook 'before-save-hook 'delete-trailing-whitespace))
+        (
+         (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+  )
+
+   

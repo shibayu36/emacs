@@ -38,6 +38,29 @@
 (define-abbrev-table 'conf-xdefaults-mode-abbrev-table '(
     ))
 
+(define-abbrev-table 'cperl-mode-abbrev-table '(
+    ("=head1" "=head1" cperl-electric-pod 0)
+    ("=head2" "=head2" cperl-electric-pod 0)
+    ("=over" "=over" cperl-electric-pod 0)
+    ("=pod" "=pod" cperl-electric-pod 0)
+    ("continue" "continue" cperl-electric-else 0)
+    ("do" "do" cperl-electric-keyword 0)
+    ("else" "else" cperl-electric-else 0)
+    ("elsif" "elsif" cperl-electric-keyword 0)
+    ("for" "for" cperl-electric-keyword 0)
+    ("foreach" "foreach" cperl-electric-keyword 0)
+    ("foreachmy" "foreachmy" cperl-electric-keyword 0)
+    ("formy" "formy" cperl-electric-keyword 0)
+    ("head1" "head1" cperl-electric-pod 0)
+    ("head2" "head2" cperl-electric-pod 0)
+    ("if" "if" cperl-electric-keyword 0)
+    ("over" "over" cperl-electric-pod 0)
+    ("pod" "pod" cperl-electric-pod 0)
+    ("unless" "unless" cperl-electric-keyword 0)
+    ("until" "until" cperl-electric-keyword 0)
+    ("while" "while" cperl-electric-keyword 0)
+    ))
+
 (define-abbrev-table 'diff-mode-abbrev-table '(
     ))
 
@@ -46,6 +69,9 @@
 
 (define-abbrev-table 'global-abbrev-table '(
     ("name" "expand-name" nil 2)
+    ))
+
+(define-abbrev-table 'grep-mode-abbrev-table '(
     ))
 
 (define-abbrev-table 'html-helper-mode-abbrev-table '(
@@ -346,6 +372,7 @@ $><tr><td>$${Data}</td></tr>
     ))
 
 (define-abbrev-table 'php-mode-abbrev-table '(
+    ("ex" "extends" nil 0)
     ))
 
 (define-abbrev-table 'pike-mode-abbrev-table '(

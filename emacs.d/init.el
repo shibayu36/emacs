@@ -196,7 +196,7 @@
 (setq truncate-partial-width-windows nil)
 
 ;; 保存時に無駄なスペースを削除
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
@@ -243,10 +243,10 @@
 
 ;;等幅文字設定
 ;;carbonでの設定
-;;(if (= emacs-major-version 22)
+;; (if (= emacs-major-version 22)
 ;;  (require 'carbon-font))
-;;(fixed-width-set-fontset "hiramaru" 12)
-;;cocoaでの設定
+;; (fixed-width-set-fontset "hiramaru" 12)
+;; ;; cocoaでの設定
 (when (= emacs-major-version 23)
   (set-fontset-font
    (frame-parameter nil 'font)
@@ -260,6 +260,7 @@
           (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
           (".*monaco-bold-.*-mac-roman" . 0.9)
           ("-cdac$" . 1.3))))
+
 
 ;;;サーバ起動
 (require 'server)

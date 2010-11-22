@@ -243,24 +243,13 @@
 
 ;;等幅文字設定
 ;;carbonでの設定
-;; (if (= emacs-major-version 22)
-;;  (require 'carbon-font))
-;; (fixed-width-set-fontset "hiramaru" 12)
-;; ;; cocoaでの設定
+(when (= emacs-major-version 22)
+ (require 'carbon-font)
+ (fixed-width-set-fontset "hiramaru" 12))
+;; cocoaでの設定
 (when (= emacs-major-version 23)
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   'japanese-jisx0208
-   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
-  (setq face-font-rescale-alist
-        '(("^-apple-hiragino.*" . 1.2)
-          (".*osaka-bold.*" . 1.2)
-          (".*osaka-medium.*" . 1.2)
-          (".*courier-bold-.*-mac-roman" . 1.0)
-          (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
-          (".*monaco-bold-.*-mac-roman" . 0.9)
-          ("-cdac$" . 1.3))))
-
+    (set-default-font
+     "-*-Osaka-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
 
 ;;;サーバ起動
 (require 'server)
@@ -311,6 +300,7 @@
 
 ;;recentf設定
 (recentf-mode 1)
+(setq recentf-max-saved-items 1000)
 
 ;;shellモード設定
 (load "init-shell")
@@ -393,3 +383,6 @@
 ;; sudo-ext
 (server-start)
 (require 'sudo-ext)
+
+;; outputz
+;; (load "init-outputz")

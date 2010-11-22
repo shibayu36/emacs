@@ -93,4 +93,9 @@
 
   ;; kill ringを表示
   (global-set-key (kbd "M-y") 'anything-show-kill-ring)
+
+  ;; (when (require 'anything-startup nil t)
+;;     (setq anything-c-filelist-file-name "/tmp/all.filelist")
+;;     (setq anything-grep-candidates-fast-directory-regexp "^/tmp"))
+
   )

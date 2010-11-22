@@ -61,14 +61,12 @@
   (set-perl5lib-glob-from-git-root "modules/*/lib"))
 
 
-;;;
+;;; delete-trailing-whitespaceのbefore-hook設定をトグルする
 (require 'cl)
-(defun delete-trailing-whitespace-toggle ()
+(defun toggle-delete-trailing-whitespace-setting ()
   (interactive)
   (cond ((find 'delete-trailing-whitespace before-save-hook)
          (remove-hook 'before-save-hook 'delete-trailing-whitespace))
         (
          (add-hook 'before-save-hook 'delete-trailing-whitespace)))
   )
-
-   

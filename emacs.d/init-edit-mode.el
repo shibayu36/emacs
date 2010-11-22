@@ -11,7 +11,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq auto-mode-alist
       (append '(
-                ("\\.\\(html\\|htm\\|tt\\|tt2\\)\\'" . html-mode)
+                ("\\.\\(html\\|htm\\|tt\\|tt2\\|tx\\)\\'" . html-mode)
                 ) auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

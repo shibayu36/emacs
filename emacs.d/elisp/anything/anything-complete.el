@@ -1,5 +1,5 @@
 ;;; anything-complete.el --- completion with anything
-;; $Id: anything-complete.el,v 1.83 2010/03/22 06:10:40 rubikitch Exp $
+;; $Id: anything-complete.el,v 1.86 2010-03-31 23:14:13 rubikitch Exp $
 
 ;; Copyright (C) 2008, 2009, 2010 rubikitch
 
@@ -38,16 +38,12 @@
 ;;    `lisp-complete-symbol' replacement using `anything' (partial match).
 ;;  `anything-apropos'
 ;;    `apropos' replacement using `anything'.
-;;  `anything-read-file-name-follow-directory'
-;;    Follow directory in `anything-read-file-name'.
 ;;  `anything-read-string-mode'
 ;;    If this minor mode is on, use `anything' version of `completing-read' and `read-file-name'.
 ;;  `anything-complete-shell-history'
 ;;    Select a command from shell history and insert it.
 ;;  `anything-execute-extended-command'
 ;;    Replacement of `execute-extended-command'.
-;;  `anything-find-file'
-;;    Replacement of `find-file'.
 ;;
 ;;; Customizable Options:
 ;;
@@ -57,7 +53,7 @@
 ;;    *Whether to sort completion candidates.
 ;;    default = nil
 ;;  `anything-execute-extended-command-use-kyr'
-;;    *Use `anything-kyr' (context-aware commands) in `anything-execute-extended-command'. 
+;;    *Use `anything-kyr' (context-aware commands) in `anything-execute-extended-command'.
 ;;    default = t
 
 ;; * `anything-lisp-complete-symbol', `anything-lisp-complete-symbol-partial-match':
@@ -79,7 +75,7 @@
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
 ;; Then install dependencies.
-;; 
+;;
 ;; Install anything-match-plugin.el (must).
 ;; M-x install-elisp http://www.emacswiki.org/cgi-bin/wiki/download/anything-match-plugin.el
 ;;
@@ -106,292 +102,24 @@
 ;; ;; Bind C-o to complete shell history
 ;; (anything-complete-shell-history-setup-key "\C-o")
 
-;;; History:
+;;; Change log:
+;;
+;;  Change log of this file is found at
+;;  http://repo.or.cz/w/anything-config.git/history/master:/anything-complete.el
+;;
+;;  Change log of this project is found at
+;;  http://repo.or.cz/w/anything-config.git?a=shortlog
 
-;; $Log: anything-complete.el,v $
-;; Revision 1.83  2010/03/22 06:10:40  rubikitch
-;; tidy
-;;
-;; Revision 1.82  2010/03/22 05:57:57  rubikitch
-;; New sources:
-;;   `anything-c-source-complete-emacs-faces',
-;;   `anything-c-source-apropos-emacs-faces',
-;;   `anything-c-source-emacs-face-at-point'
-;; `anything-lisp-complete-symbol', `anything-apropos': Search faces too
-;;
-;; Revision 1.81  2010/02/20 10:38:31  rubikitch
-;; More strict version check.
-;;
-;; Revision 1.80  2010/02/20 10:16:30  rubikitch
-;; * `ac-new-input-source': remove unnecessary attributes
-;; * version check
-;;
-;; Revision 1.79  2010/02/06 23:38:21  rubikitch
-;; * `alcs-update-restart': use `anything-update' instead
-;; * Minor fix in `anything-execute-extended-command-sources'
-;;
-;; Revision 1.78  2010/02/04 19:27:07  rubikitch
-;; Added docstrings
-;;
-;; Revision 1.77  2010/01/29 09:20:33  rubikitch
-;; update Copyright
-;;
-;; Revision 1.76  2010/01/29 09:19:21  rubikitch
-;; New option: `anything-execute-extended-command-use-kyr'
-;;
-;; Revision 1.75  2010/01/29 09:15:24  rubikitch
-;; Make `anything-execute-extended-command' faster
-;; * eliminate "Commands (by prefix)", which makes it slow down
-;; * `C-c C-u' to update commands instead
-;;
-;; Revision 1.74  2010/01/23 04:18:18  rubikitch
-;; `ac-new-input-source': temporarily disable shortcuts
-;;
-;; Revision 1.73  2009/12/25 01:35:59  rubikitch
-;; Adjust `anything-noresume' to latest version of `anything'
-;;
-;; Revision 1.72  2009/12/14 00:13:28  rubikitch
-;; New command: `alcs-update-restart'
-;;
-;; Pressing `C-c C-u' in `anything-lisp-complete-symbol' and `anything-lisp-complete-symbol-partial-match' recollects symbols and reexecutes this command.
-;;
-;; Revision 1.71  2009/12/13 23:34:19  rubikitch
-;; Show timestamp of lisp symbols
-;;
-;; Revision 1.70  2009/12/13 23:17:18  rubikitch
-;; Make alcs-make-candidates timer singleton
-;;
-;; Revision 1.69  2009/12/13 23:06:34  rubikitch
-;; New variable `anything-lisp-complete-symbol-add-space-on-startup':
-;;
-;; If non-nil, `anything-lisp-complete-symbol' and `anything-lisp-complete-symbol-partial-match' adds space on startup.
-;; It utilizes anything-match-plugin's feature.
-;;
-;; Revision 1.68  2009/11/11 19:01:09  rubikitch
-;; Bug fix when completing at right side
-;;
-;; Revision 1.67  2009/11/11 18:03:49  rubikitch
-;; New implementation of `alcs-current-physical-column'
-;;
-;; Revision 1.66  2009/10/26 09:38:39  rubikitch
-;; `anything-completing-read': Show default source first when require-match and default is specified.
-;;
-;; Revision 1.65  2009/10/22 08:54:58  rubikitch
-;; `anything-complete-shell-history-setup-key': Use `minibuffer-local-shell-command-map' if any
-;;
-;; Revision 1.64  2009/10/13 05:40:51  rubikitch
-;; `anything-completing-read': Show completions first when require-match == t
-;;
-;; Revision 1.63  2009/10/11 20:27:22  rubikitch
-;; `alcs-transformer-prepend-spacer': use physical column instead of logical column
-;;
-;; Revision 1.62  2009/10/10 03:27:33  rubikitch
-;; New variable: `anything-complete-sort-candidates'
-;;
-;; Revision 1.61  2009/10/08 17:06:35  rubikitch
-;; `anything-complete-shell-history': taller window
-;;
-;; Revision 1.60  2009/10/08 05:12:27  rubikitch
-;; If anything-show-completion.el is available, candidates are shown near the point.
-;;
-;; Revision 1.59  2009/10/07 10:29:34  rubikitch
-;; `anything-find-file': use `anything-other-buffer' instead of `anything-complete'
-;;
-;; Revision 1.58  2009/10/01 03:07:44  rubikitch
-;; Fix an error in `anything-find-file'. Thanks to troter.
-;; http://d.hatena.ne.jp/troter/20090929/1254199115
-;;
-;; Revision 1.57  2009/08/02 04:19:52  rubikitch
-;; New variable: `anything-complete-persistent-action'
-;;
-;; Revision 1.56  2009/07/26 21:25:04  rubikitch
-;; New variable: `anything-completing-read-use-default'
-;; New variable: `anything-completing-read-history-first'
-;; `anything-completing-read', `anything-read-file-name': history order bug fix
-;;
-;; Revision 1.55  2009/07/19 07:33:33  rubikitch
-;; `anything-execute-extended-command': adjust to keyboard macro command
-;;
-;; Revision 1.54  2009/06/29 15:13:02  rubikitch
-;; New function: `anything-complete-shell-history-setup-key'
-;;
-;; Revision 1.53  2009/06/24 15:37:50  rubikitch
-;; `anything-c-source-complete-shell-history': require bug fix
-;;
-;; Revision 1.52  2009/05/30 05:04:30  rubikitch
-;; Set `anything-execute-action-at-once-if-one' to t
-;;
-;; Revision 1.51  2009/05/25 18:57:22  rubikitch
-;; Removed experimental tags
-;;
-;; Revision 1.50  2009/05/06 12:34:45  rubikitch
-;; `anything-complete': target is default input.
-;;
-;; Revision 1.49  2009/05/04 14:51:18  rubikitch
-;; use `define-anything-type-attribute' to add `anything-type-attributes' entry.
-;;
-;; Revision 1.48  2009/05/03 19:07:22  rubikitch
-;; anything-complete: `enable-recursive-minibuffers' = t
-;;
-;; Revision 1.47  2009/05/03 18:42:23  rubikitch
-;; Remove *-partial-match sources.
-;; They are aliased for compatibility.
-;;
-;; Revision 1.46  2009/05/03 18:33:35  rubikitch
-;; Remove dependency of `ac-candidates-in-buffer'
-;;
-;; Revision 1.45  2009/04/20 16:24:33  rubikitch
-;; Set anything-samewindow to nil for in-buffer completion.
-;;
-;; Revision 1.44  2009/04/18 10:07:35  rubikitch
-;; * auto-document.
-;; * Use anything-show-completion.el if available.
-;;
-;; Revision 1.43  2009/02/27 14:45:26  rubikitch
-;; Fix a read-only bug in `alcs-make-candidates'.
-;;
-;; Revision 1.42  2009/02/19 23:04:33  rubikitch
-;; * update doc
-;; * use anything-kyr if any
-;;
-;; Revision 1.41  2009/02/19 22:54:29  rubikitch
-;; refactoring
-;;
-;; Revision 1.40  2009/02/06 09:19:08  rubikitch
-;; Fix a bug when 2nd argument of `anything-read-file-name' (DIR) is not a directory.
-;;
-;; Revision 1.39  2009/01/28 20:33:31  rubikitch
-;; add persistent-action for `anything-read-file-name' and `anything-read-buffer'.
-;;
-;; Revision 1.38  2009/01/08 19:28:33  rubikitch
-;; `anything-completing-read': fixed a bug when COLLECTION is a non-nested list.
-;;
-;; Revision 1.37  2009/01/02 15:08:03  rubikitch
-;; `anything-execute-extended-command': show commands which are not collected.
-;;
-;; Revision 1.36  2008/11/27 08:12:36  rubikitch
-;; `anything-read-buffer': accept empty buffer name
-;;
-;; Revision 1.35  2008/11/02 06:30:06  rubikitch
-;; `anything-execute-extended-command': fixed a bug
-;;
-;; Revision 1.34  2008/10/30 18:45:27  rubikitch
-;; `arfn-sources': use `file-name-history' instead
-;;
-;; Revision 1.33  2008/10/30 16:39:17  rubikitch
-;; *** empty log message ***
-;;
-;; Revision 1.32  2008/10/30 11:09:17  rubikitch
-;; New command: `anything-find-file'
-;;
-;; Revision 1.31  2008/10/30 10:29:56  rubikitch
-;; `ac-new-input-source', `ac-default-source', `acr-sources', `arfn-sources', `arb-sources': changed args
-;;
-;; Revision 1.30  2008/10/30 09:33:50  rubikitch
-;; `anything-execute-extended-command': fixed a bug
-;;
-;; Revision 1.29  2008/10/27 10:55:55  rubikitch
-;; New command: `anything-execute-extended-command'
-;;
-;; Revision 1.28  2008/10/27 10:41:33  rubikitch
-;; use linkd tag (no code change)
-;;
-;; Revision 1.27  2008/10/21 18:02:39  rubikitch
-;; `anything-noresume': restore `anything-last-buffer'
-;;
-;; Revision 1.26  2008/10/03 09:55:45  rubikitch
-;; anything-read-file-name bug fix
-;;
-;; Revision 1.25  2008/09/30 22:49:22  rubikitch
-;; `anything-completing-read': handle empty input.
-;;
-;; Revision 1.24  2008/09/22 09:15:03  rubikitch
-;; *** empty log message ***
-;;
-;; Revision 1.23  2008/09/22 09:12:42  rubikitch
-;; set `anything-input-idle-delay'.
-;;
-;; Revision 1.22  2008/09/20 20:27:46  rubikitch
-;; s/anything-attr/anything-attr-defined/ because of `anything-attr' change
-;;
-;; Revision 1.21  2008/09/15 17:31:34  rubikitch
-;; *** empty log message ***
-;;
-;; Revision 1.20  2008/09/14 15:20:12  rubikitch
-;; set `anything-input-idle-delay'.
-;;
-;; Revision 1.19  2008/09/12 02:56:33  rubikitch
-;; Complete functions using `anything' restore `anything-last-sources'
-;; and `anything-compiled-sources' now, because resuming
-;; `anything'-complete session is useless.
-;;
-;; Revision 1.18  2008/09/10 23:27:09  rubikitch
-;; Use *anything complete* buffer instead
-;;
-;; Revision 1.17  2008/09/10 09:59:22  rubikitch
-;; arfn-sources: bug fix
-;;
-;; Revision 1.16  2008/09/10 09:40:31  rubikitch
-;; arfn-sources: paren bug fix
-;;
-;; Revision 1.15  2008/09/09 01:19:49  rubikitch
-;; add (require 'shell-history)
-;;
-;; Revision 1.14  2008/09/05 13:59:39  rubikitch
-;; bugfix
-;;
-;; Revision 1.13  2008/09/05 13:50:14  rubikitch
-;; * Use `keyboard-quit' when anything-read-* is quit.
-;; * Change keybinding of `anything-read-file-name-follow-directory' to Tab
-;; * `anything-read-file-name-follow-directory': smarter behavior
-;;
-;; Revision 1.12  2008/09/05 12:46:27  rubikitch
-;; bugfix
-;;
-;; Revision 1.11  2008/09/05 03:15:26  rubikitch
-;; *** empty log message ***
-;;
-;; Revision 1.10  2008/09/05 01:49:56  rubikitch
-;; `anything-completing-read' supports list collection only.
-;;
-;; Revision 1.9  2008/09/05 00:09:46  rubikitch
-;; New functions: moved from anything.el
-;;   `anything-completing-read', `anything-read-file-name', `anything-read-buffer',
-;;   `anything-read-variable', `anything-read-command', `anything-read-string-mode'.
-;;
-;; Revision 1.8  2008/09/04 16:54:59  rubikitch
-;; add commentary
-;;
-;; Revision 1.7  2008/09/04 08:36:08  rubikitch
-;; fixed a bug when `symbol-at-point' is nil.
-;;
-;; Revision 1.6  2008/09/04 08:29:40  rubikitch
-;; remove unneeded code.
-;;
-;; Revision 1.5  2008/09/04 08:12:05  rubikitch
-;; absorb anything-lisp-complete-symbol.el v1.13.
-;;
-;; Revision 1.4  2008/09/04 07:36:23  rubikitch
-;; Use type plug-in instead.
-;;
-;; Revision 1.3  2008/09/03 04:13:23  rubikitch
-;; `anything-c-source-complete-shell-history': deleted requires-pattern
-;;
-;; Revision 1.2  2008/09/01 22:27:45  rubikitch
-;; *** empty log message ***
-;;
-;; Revision 1.1  2008/09/01 22:23:55  rubikitch
-;; Initial revision
-;;
 
 ;;; Code:
 
-(defvar anything-complete-version "$Id: anything-complete.el,v 1.83 2010/03/22 06:10:40 rubikitch Exp $")
+(defvar anything-complete-version "$Id: anything-complete.el,v 1.86 2010-03-31 23:14:13 rubikitch Exp $")
 (require 'anything-match-plugin)
 (require 'thingatpt)
+(require 'anything-obsolete)
 
 ;; version check
-(let ((version "1.244"))
+(let ((version "1.263"))
   (when (and (string= "1." (substring version 0 2))
              (string-match "1\.\\([0-9]+\\)" anything-version)
              (< (string-to-number (match-string 1 anything-version))
@@ -511,18 +239,22 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
 
 (defcustom anything-complete-sort-candidates nil
   "*Whether to sort completion candidates."
-  :type 'boolean  
+  :type 'boolean
   :group 'anything-complete)
 
 (defcustom anything-execute-extended-command-use-kyr t
   "*Use `anything-kyr' (context-aware commands) in `anything-execute-extended-command'. "
-  :type 'boolean  
+  :type 'boolean
   :group 'anything-complete)
 (defun alcs-sort-maybe (candidates source)
   (if anything-complete-sort-candidates
       (sort candidates #'string<)
     candidates))
-
+(defun alcs-fontify-face (candidates source)
+  (mapcar
+   (lambda (facename)
+     (propertize facename 'face (intern-soft facename)))
+   candidates))
 ;;; borrowed from pulldown.el
 (defun alcs-current-physical-column ()
   "Current physical column. (not logical column)"
@@ -548,15 +280,17 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
     candidates))
 
 (defun alcs-describe-function (name)
-  (describe-function (intern name)))
+  (describe-function (anything-c-symbolify name)))
 (defun alcs-describe-variable (name)
-  (describe-variable (intern name)))
+  (describe-variable (anything-c-symbolify name)))
 (defun alcs-describe-face (name)
-  (describe-face (intern name)))
+  (describe-face (anything-c-symbolify name)))
+(defun alcs-customize-face (name)
+  (customize-face (anything-c-symbolify name)))
 (defun alcs-find-function (name)
-  (find-function (intern name)))
+  (find-function (anything-c-symbolify name)))
 (defun alcs-find-variable (name)
-  (find-variable (intern name)))
+  (find-variable (anything-c-symbolify name)))
 
 (defvar anything-c-source-complete-emacs-functions
   '((name . "Functions")
@@ -631,7 +365,8 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
     (type . apropos-variable)))
 
 (defvar anything-lisp-complete-symbol-sources
-  '(anything-c-source-complete-emacs-commands
+  '(anything-c-source-complete-anything-attributes
+    anything-c-source-complete-emacs-commands
     anything-c-source-complete-emacs-functions
     anything-c-source-complete-emacs-variables
     anything-c-source-complete-emacs-faces))
@@ -646,6 +381,7 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
   '((filtered-candidate-transformer . alcs-sort-maybe)
     (header-name . alcs-header-name)
     (persistent-action . alcs-describe-function)
+    (update . alcs-make-candidates)
     (action
      ("Describe Function" . alcs-describe-function)
      ("Find Function" . alcs-find-function))))
@@ -653,43 +389,50 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
   '((filtered-candidate-transformer . alcs-sort-maybe)
     (header-name . alcs-header-name)
     (persistent-action . alcs-describe-variable)
+    (update . alcs-make-candidates)
     (action
      ("Describe Variable" . alcs-describe-variable)
      ("Find Variable" . alcs-find-variable))))
 (define-anything-type-attribute 'apropos-face
-  '((filtered-candidate-transformer . alcs-sort-maybe)
+  '((filtered-candidate-transformer alcs-sort-maybe alcs-fontify-face)
+    (get-line . buffer-substring)
     (header-name . alcs-header-name)
+    (update . alcs-make-candidates)
     (persistent-action . alcs-describe-face)
     (action
+     ("Customize Face" . alcs-customize-face)
      ("Describe Face" . alcs-describe-face))))
 (define-anything-type-attribute 'complete-function
   '((filtered-candidate-transformer alcs-sort-maybe alcs-transformer-prepend-spacer-maybe)
     (header-name . alcs-header-name)
     (action . ac-insert)
+    (update . alcs-make-candidates)
     (persistent-action . alcs-describe-function)))
 (define-anything-type-attribute 'complete-variable
   '((filtered-candidate-transformer alcs-sort-maybe alcs-transformer-prepend-spacer-maybe)
     (header-name . alcs-header-name)
     (action . ac-insert)
+    (update . alcs-make-candidates)
     (persistent-action . alcs-describe-variable)))
 (define-anything-type-attribute 'complete-face
   '((filtered-candidate-transformer alcs-sort-maybe alcs-transformer-prepend-spacer-maybe)
     (header-name . alcs-header-name)
     (action . ac-insert)
+    (update . alcs-make-candidates)
     (persistent-action . alcs-describe-face)))
 
 (defvar alcs-this-command nil)
-(defun anything-lisp-complete-symbol-1 (update sources input)
+(defun* anything-lisp-complete-symbol-1 (update sources input &optional (buffer "*anything complete*"))
   (setq alcs-this-command this-command)
   (when (or update (null (get-buffer alcs-variables-buffer)))
     (alcs-make-candidates))
   (let (anything-samewindow
         (anything-input-idle-delay
          (or anything-lisp-complete-symbol-input-idle-delay
-             anything-input-idle-delay))
-        (anything-map (copy-keymap anything-map)))
-    (define-key anything-map "\C-c\C-u" 'alcs-update-restart)
-    (anything-noresume sources input nil nil nil "*anything complete*")))
+             anything-input-idle-delay)))
+    (funcall
+     (if (equal buffer "*anything complete*") 'anything-noresume 'anything)
+     sources input nil nil nil buffer)))
 
 ;; Test alcs-update-restart (with-current-buffer alcs-commands-buffer (erase-buffer))
 ;; Test alcs-update-restart (kill-buffer alcs-commands-buffer)
@@ -720,7 +463,74 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
 (defun anything-apropos (update)
   "`apropos' replacement using `anything'."
   (interactive "P")
-  (anything-lisp-complete-symbol-1 update anything-apropos-sources nil))
+  (anything-lisp-complete-symbol-1 update anything-apropos-sources nil "*anything apropos*"))
+
+;; (@* "anything attribute completion")
+(defvar anything-c-source-complete-anything-attributes
+  '((name . "Anything Attributes")
+    (candidates . acaa-candidates)
+    (action . ac-insert)
+    (persistent-action . acaa-describe-anything-attribute)
+    (filtered-candidate-transformer alcs-sort-maybe alcs-transformer-prepend-spacer-maybe)
+    (header-name . alcs-header-name)
+    (action . ac-insert)))
+;; (anything 'anything-c-source-complete-anything-attributes)
+
+(defun acaa-describe-anything-attribute (str)
+  (anything-describe-anything-attribute (anything-c-symbolify str)))
+
+(defun acaa-candidates ()
+  (with-current-buffer anything-current-buffer
+    (when (and (require 'yasnippet nil t)
+               (acaa-completing-attribute-p (point)))
+      (mapcar 'symbol-name anything-additional-attributes))))
+
+(defvar acaa-anything-commands-regexp
+  (concat "(" (regexp-opt '("anything" "anything-other-buffer")) " "))
+
+(defun acaa-completing-attribute-p (point)
+  (save-excursion
+    (goto-char point)
+    (ignore-errors
+      (or (save-excursion
+            (backward-up-list 3)
+            (looking-at (concat "(defvar anything-c-source-"
+                                "\\|"
+                                acaa-anything-commands-regexp)))
+          (save-excursion
+            (backward-up-list 4)
+            (looking-at acaa-anything-commands-regexp))))))
+
+;; (anything '(ini
+;;;; unit test
+;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el")
+;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-mock.el")
+(dont-compile
+  (when (fboundp 'expectations)
+    (expectations
+      (desc "acaa-completing-attribute-p")
+      (expect t
+        (with-temp-buffer
+          (insert "(anything '(((na")
+          (acaa-completing-attribute-p (point))))
+      (expect t
+        (with-temp-buffer
+          (insert "(anything '((na")
+          (acaa-completing-attribute-p (point))))
+      (expect nil
+        (with-temp-buffer
+          (insert "(anything-hoge '((na")
+          (acaa-completing-attribute-p (point))))
+      (expect nil
+        (with-temp-buffer
+          (insert "(anything-hoge '(((na")
+          (acaa-completing-attribute-p (point))))
+      (expect t
+        (with-temp-buffer
+          (insert "(defvar anything-c-source-hoge '((na")
+          (acaa-completing-attribute-p (point))))
+
+      )))
 
 ;; (@* "anything-read-string-mode / read-* compatibility functions")
 ;; moved from anything.el
@@ -750,10 +560,14 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
 ;; (ac-default-source nil)
 
 ;; (@* "`completing-read' compatible read function ")
+(defvar anything-use-original-function nil
+  "If non-nil, use original implementation not anything version.")
 (defun anything-completing-read (prompt collection &optional predicate require-match initial hist default inherit-input-method)
-  (if (or (arrayp collection) (functionp collection))
+  (if (or anything-use-original-function
+          (arrayp collection) (functionp collection))
       (anything-old-completing-read prompt collection predicate require-match initial hist default inherit-input-method)
     ;; support only collection list.
+    (setq hist (or (car-safe hist) hist))
     (let* (anything-input-idle-delay
            (result (or (anything-noresume (acr-sources
                                            prompt
@@ -765,7 +579,7 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
       (when (stringp result)
         (prog1 result
           (setq hist (or hist 'minibuffer-history))
-          (set hist (cons result (delete result (symbol-value hist)))))))))
+          (set hist (cons result (ignore-errors (delete result (symbol-value hist))))))))))
 
 ;; TODO obarray/predicate hacks: command/variable/symbol
 (defvar anything-completing-read-use-default t
@@ -789,9 +603,10 @@ It accepts one argument, selected candidate.")
               '(persistent-action
                 . (lambda (cand) (funcall anything-complete-persistent-action cand)))))
          (new-input-source (ac-new-input-source prompt require-match additional-attrs))
-         (history-source (unless require-match
+         (histvar (or hist 'minibuffer-history))
+         (history-source (when (and (boundp histvar) (not require-match))
                            `((name . "History")
-                             (candidates . ,(or hist 'minibuffer-history))
+                             (candidates . ,histvar)
                              ,persistent-action
                              ,@additional-attrs)))
          (default-source (and anything-completing-read-use-default (ac-default-source default t)))
@@ -809,6 +624,9 @@ It accepts one argument, selected candidate.")
           (t
            (list default-source main-source history-source new-input-source)))))
 ;; (anything-completing-read "Command: " obarray 'commandp t)
+;; (anything-completing-read "Test: " '(("hoge")("foo")("bar")) nil nil nil 'hoge-history)
+;; hoge-history
+;; (anything-completing-read "Test: " '(("hoge")("foo")("bar")) nil nil nil)
 ;; (anything-completing-read "Test: " '(("hoge")("foo")("bar")) nil t)
 ;; (anything-completing-read "Test: " '(("hoge")("foo")("bar")) nil t nil nil "foo")
 ;; (let ((anything-complete-persistent-action 'message)) (anything-completing-read "Test: " '(("hoge")("foo")("bar")) nil t))
@@ -818,117 +636,15 @@ It accepts one argument, selected candidate.")
 ;; (anything-completing-read "Test: " '(("hoge")("foo")("bar")) nil nil nil nil "nana")
 ;; (anything-completing-read "Test: " '("hoge" "foo" "bar"))
 
-;; (@* "`read-file-name' compatible read function ")
-(defvar anything-read-file-name-map nil)
-(defvar arfn-followed nil)
-(defvar arfn-dir nil)
-(defun anything-read-file-name-map ()
-  "Lazy initialization of `anything-read-file-name-map'."
-  (unless anything-read-file-name-map
-    (setq anything-read-file-name-map (copy-keymap anything-map))
-    (define-key anything-read-file-name-map "\C-i" 'anything-read-file-name-follow-directory)
-    (define-key anything-read-file-name-map [tab] 'anything-read-file-name-follow-directory))
-  anything-read-file-name-map)
-
-(defun anything-read-file-name-follow-directory ()
-  "Follow directory in `anything-read-file-name'."
-  (interactive)
-  ;; These variables are bound by `arfn-sources' or `anything-find-file'.
-  (declare (special prompt default-filename require-match predicate additional-attrs))
-  (setq arfn-followed t)
-  (let* ((sel (anything-get-selection))
-         (f (expand-file-name sel arfn-dir)))
-    (cond ((and (file-directory-p f) (not (string-match "/\\.$" sel)))
-           (with-selected-window (minibuffer-window) (delete-minibuffer-contents))
-           (setq anything-pattern "")
-           ;;(setq arfn-dir f)
-           (anything-set-sources
-            (arfn-sources
-             prompt f default-filename require-match nil predicate additional-attrs))
-           (anything-update))
-          ((string-match "^\\(.+\\)/\\([^/]+\\)$" sel)
-           (with-selected-window (minibuffer-window)
-             (delete-minibuffer-contents)
-             (insert (match-string 2 sel)))
-           (anything-set-sources
-            (arfn-sources
-             prompt (expand-file-name (match-string 1 sel) arfn-dir) nil require-match (match-string 2 sel) predicate additional-attrs))
-           (anything-update)))))
-
-(defun* anything-read-file-name (prompt &optional dir default-filename require-match initial-input predicate (additional-attrs '((action . identity))))
-  "`anything' replacement for `read-file-name'."
-  (setq arfn-followed nil)
-  (let* ((anything-map (anything-read-file-name-map))
-         anything-input-idle-delay
-         (result (or (anything-noresume (arfn-sources
-                                         prompt dir default-filename require-match
-                                         initial-input predicate additional-attrs)
-                                        initial-input prompt nil nil "*anything complete*")
-                     (keyboard-quit))))
-    (when (and require-match
-               (not (and (file-exists-p result)
-                         (funcall (or predicate 'identity) result))))
-      (error "anything-read-file-name: file `%s' is not matched" result))
-    (when (stringp result)
-      (prog1 result
-        (add-to-list 'file-name-history result)
-        (setq file-name-history (cons result (delete result file-name-history)))))))
-
-(defun arfn-candidates (dir)
-  (if (file-directory-p dir)
-      (loop for (f _ _ _ _ _ _ _ _ perm _ _ _) in (directory-files-and-attributes dir t)
-            for basename = (file-name-nondirectory f)
-            when (string= "d" (substring perm 0 1))
-            collect (cons (concat basename "/") f)
-            else collect (cons basename f))))
-
-(defun* arfn-sources (prompt dir default-filename require-match initial-input predicate &optional (additional-attrs '((action . identity))))
-  (setq arfn-dir dir)
-  (let* ((dir (or dir default-directory))
-         (transformer-func
-          (if predicate
-              `(candidate-transformer
-                . (lambda (cands)
-                    (remove-if-not
-                     (lambda (c) (,predicate (if (consp c) (cdr c) c))) cands)))))
-         (new-input-source (ac-new-input-source
-                            prompt nil
-                            (append '((display-to-real . (lambda (f) (expand-file-name f arfn-dir))))
-                                    additional-attrs)))
-         (history-source (unless require-match
-                           `((name . "History")
-                             (candidates . file-name-history)
-                             (persistent-action . find-file)
-                             ,@additional-attrs))))
-    `(((name . "Default")
-       (candidates . ,(if default-filename (list default-filename)))
-       (persistent-action . find-file)
-       (filtered-candidate-transformer
-        . (lambda (cands source)
-            (if (and (not arfn-followed) (string= anything-pattern "")) cands nil)))
-       (display-to-real . (lambda (f) (expand-file-name f ,dir)))
-       ,@additional-attrs)
-      ((name . ,dir)
-       (candidates . (lambda () (arfn-candidates ,dir)))
-       (persistent-action . find-file)
-       ,@additional-attrs
-       ,transformer-func)
-      ,new-input-source
-      ,history-source)))
-;; (anything-read-file-name "file: " "~" ".emacs")
-;; (anything-read-file-name "file: " "~" ".emacs" t)
-;; (anything-read-file-name "file: " "~" )
-;; (anything-read-file-name "file: ")
-;; (read-file-name "file: " "/tmp")
-
 ;; (@* "`read-buffer' compatible read function ")
 (defun anything-read-buffer (prompt &optional default require-match start matches-set)
   "`anything' replacement for `read-buffer'."
   (let (anything-input-idle-delay)
-    (anything-noresume (arb-sources prompt
-                                    (if (bufferp default) (buffer-name default) default)
-                                    require-match start matches-set)
-                       start prompt nil nil "*anything complete*")))
+    (or (anything-noresume (arb-sources prompt
+                                        (if (bufferp default) (buffer-name default) default)
+                                        require-match start matches-set)
+                           start prompt nil nil "*anything complete*")
+        (keyboard-quit))))
 
 (defun* arb-sources (prompt default require-match start matches-set &optional (additional-attrs '((action . identity))))
   `(,(ac-default-source default t)
@@ -976,36 +692,65 @@ It accepts one argument, selected candidate.")
   (defalias 'anything-old-read-variable (symbol-function 'read-variable))
   (defalias 'anything-old-read-command (symbol-function 'read-command))
   (put 'anything-read-string-mode 'orig-read-buffer-function read-buffer-function))
-  
-;; (anything-read-string-mode -1)
-;; (anything-read-string-mode 1)
-;; (anything-read-string-mode 0)
+
+;; (progn (anything-read-string-mode -1) anything-read-string-mode)
+;; (progn (anything-read-string-mode 1) anything-read-string-mode)
+;; (progn (anything-read-string-mode 0) anything-read-string-mode)
+;; (progn (anything-read-string-mode '(string buffer variable command)) anything-read-string-mode)
+(defvar anything-read-string-mode-flags '(string buffer variable command)
+  "Saved ARG of `anything-read-string-mode'.")
 (defun anything-read-string-mode (arg)
-  "If this minor mode is on, use `anything' version of `completing-read' and `read-file-name'."
+  "If this minor mode is on, use `anything' version of `completing-read' and `read-file-name'.
+
+ARG also accepts a symbol list. The elements are:
+string:   replace `completing-read'
+buffer:   replace `read-buffer'
+variable: replace `read-variable'
+command:  replace `read-command' and M-x
+file:     replace `read-file-name' and `find-file' (disabled by default)
+
+So, (anything-read-string-mode 1) and
+ (anything-read-string-mode '(string buffer variable command) are identical."
   (interactive "P")
-  (setq anything-read-string-mode (if arg (> (prefix-numeric-value arg) 0) (not anything-read-string-mode)))
-  (cond (anything-read-string-mode
-         ;; redefine to anything version
-         (defalias 'completing-read (symbol-function 'anything-completing-read))
-         (defalias 'read-file-name (symbol-function 'anything-read-file-name))
-         (setq read-buffer-function 'anything-read-buffer)
-         (defalias 'read-buffer (symbol-function 'anything-read-buffer))
-         (defalias 'read-variable (symbol-function 'anything-read-variable))
-         (defalias 'read-command (symbol-function 'anything-read-command))
-         (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map)
-         (substitute-key-definition 'find-file 'anything-find-file global-map)
-         (message "Installed anything version of read functions."))
-        (t
-         ;; restore to original version
-         (defalias 'completing-read (symbol-function 'anything-old-completing-read))
-         (defalias 'read-file-name (symbol-function 'anything-old-read-file-name))
-         (setq read-buffer-function (get 'anything-read-string-mode 'orig-read-buffer-function))
-         (defalias 'read-buffer (symbol-function 'anything-old-read-buffer))
-         (defalias 'read-variable (symbol-function 'anything-old-read-variable))
-         (defalias 'read-command (symbol-function 'anything-old-read-command))
-         (substitute-key-definition 'anything-execute-extended-command 'execute-extended-command global-map)
-         (substitute-key-definition 'anything-find-file 'find-file global-map)
-         (message "Uninstalled anything version of read functions."))))
+  (when (consp anything-read-string-mode)
+    (anything-read-string-mode-uninstall))
+  (setq anything-read-string-mode
+        (cond ((consp arg) (setq anything-read-string-mode-flags arg)) ; not interactive
+              (arg (> (prefix-numeric-value arg) 0))  ; C-u M-x
+              (t   (not anything-read-string-mode)))) ; M-x
+  (when (eq anything-read-string-mode t)
+    (setq anything-read-string-mode anything-read-string-mode-flags))
+  (if anything-read-string-mode
+      (anything-read-string-mode-install)
+    (anything-read-string-mode-uninstall)))
+
+(defun anything-read-string-mode-install ()
+  ;; redefine to anything version
+  (when (memq 'string anything-read-string-mode)
+    (defalias 'completing-read (symbol-function 'anything-completing-read)))
+  (when (memq 'file anything-read-string-mode)
+    (defalias 'read-file-name (symbol-function 'anything-read-file-name))
+    (substitute-key-definition 'find-file 'anything-find-file global-map))
+  (when (memq 'buffer anything-read-string-mode)
+    (setq read-buffer-function 'anything-read-buffer)
+    (defalias 'read-buffer (symbol-function 'anything-read-buffer)))
+  (when (memq 'variable anything-read-string-mode)
+    (defalias 'read-variable (symbol-function 'anything-read-variable)))
+  (when (memq 'command anything-read-string-mode)
+    (defalias 'read-command (symbol-function 'anything-read-command))
+    (substitute-key-definition 'execute-extended-command 'anything-execute-extended-command global-map))
+  (message "Installed anything version of read functions."))
+(defun anything-read-string-mode-uninstall ()
+  ;; restore to original version
+  (defalias 'completing-read (symbol-function 'anything-old-completing-read))
+  (defalias 'read-file-name (symbol-function 'anything-old-read-file-name))
+  (setq read-buffer-function (get 'anything-read-string-mode 'orig-read-buffer-function))
+  (defalias 'read-buffer (symbol-function 'anything-old-read-buffer))
+  (defalias 'read-variable (symbol-function 'anything-old-read-variable))
+  (defalias 'read-command (symbol-function 'anything-old-read-command))
+  (substitute-key-definition 'anything-execute-extended-command 'execute-extended-command global-map)
+  (substitute-key-definition 'anything-find-file 'find-file global-map)
+  (message "Uninstalled anything version of read functions."))
 
 
 ;; (@* " shell history")
@@ -1078,6 +823,7 @@ It accepts one argument, selected candidate.")
   '(((name . "Emacs Commands History")
      (candidates . extended-command-history)
      (action . identity)
+     (update . alcs-make-candidates)
      (persistent-action . alcs-describe-function))
     ((name . "Commands")
      (header-name . alcs-header-name)
@@ -1085,6 +831,7 @@ It accepts one argument, selected candidate.")
                          (get-buffer-create alcs-commands-buffer))))
      (candidates-in-buffer)
      (action . identity)
+     (update . alcs-make-candidates)
      (persistent-action . alcs-describe-function))))
 
 ;; (with-current-buffer " *command symbols*" (erase-buffer))
@@ -1092,10 +839,7 @@ It accepts one argument, selected candidate.")
   "Replacement of `execute-extended-command'."
   (interactive)
   (setq alcs-this-command this-command)
-  (let* ((anything-map
-          (prog1 (copy-keymap anything-map)
-            (define-key anything-map "\C-c\C-u" 'alcs-update-restart)))
-         (cmd (anything
+  (let* ((cmd (anything
               (if (and anything-execute-extended-command-use-kyr
                        (require 'anything-kyr-config nil t))
                   (cons anything-c-source-kyr
@@ -1104,31 +848,15 @@ It accepts one argument, selected candidate.")
     (when cmd
       (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
       (setq cmd (intern cmd))
-      (if (stringp (symbol-function cmd))
+      (if (or (stringp (symbol-function cmd))
+              (vectorp (symbol-function cmd)))
           (execute-kbd-macro (symbol-function cmd))
+        (setq this-command cmd)
         (call-interactively cmd)))))
-
-(defvar anything-find-file-additional-sources nil)
-(defun anything-find-file ()
-  "Replacement of `find-file'."
-  (interactive)
-  (let ((anything-map (anything-read-file-name-map))
-        ;; anything-read-file-name-follow-directory uses these variables
-        (prompt "Find File: ")
-        default-filename require-match predicate
-        (additional-attrs '(;; because anything-c-skip-boring-files cannot
-                            ;; handle (display . real) candidates
-                            (candidate-transformer)
-                            (type . file))))
-    (anything-other-buffer (append (arfn-sources prompt default-directory
-                                                 nil nil nil nil additional-attrs)
-                                   anything-find-file-additional-sources)
-                           "*anything find-file*")))
-;;(anything-find-file)
 
 (add-hook 'after-init-hook 'alcs-make-candidates)
 
-      
+
 ;;;; unit test
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el")
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-mock.el")
@@ -1221,5 +949,5 @@ It accepts one argument, selected candidate.")
 (provide 'anything-complete)
 
 ;; How to save (DO NOT REMOVE!!)
-;; (emacswiki-post "anything-complete.el")
+;; (progn (magit-push) (emacswiki-post "anything-complete.el"))
 ;;; anything-complete.el ends here

@@ -28,6 +28,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/ruby/")
         (expand-file-name "~/.emacs.d/elisp/mode/magit/share/emacs/site-lisp/")
         (expand-file-name "~/.emacs.d/elisp/mode/git/")
+        (expand-file-name "~/.emacs.d/elisp/mode/evernote/")
         )
        load-path))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -51,11 +52,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; exec-pathの設定 ;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'exec-path "/opt/local/bin")
-(add-to-list 'exec-path "/opt/local/sbin")
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "/usr/local/sbin")
-(add-to-list 'exec-path "~/bin")
+;; http://sakito.jp/emacs/emacsshell.html#path
+;; より下に記述した物が PATH の先頭に追加されます
+(dolist (dir (list
+              "/sbin"
+              "/usr/sbin"
+              "/bin"
+              "/usr/bin"
+              "/usr/local/mysql/bin"
+              "/Developer/Tools"
+              "/usr/local/sbin"
+              "/opt/local/sbin"
+              "/opt/local/bin" ;; これが/usr/binよりも下に書いてあればよい
+              "/usr/local/bin"
+              (expand-file-name "~/bin")
+              ))
+  ;; PATH と exec-path に同じ物を追加します
+  (when ;; (and
+         (file-exists-p dir) ;; (not (member dir exec-path)))
+    (setenv "PATH" (concat dir ":" (getenv "PATH")))
+    (setq exec-path (append (list dir) exec-path))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -72,8 +88,6 @@
 (global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
 (global-set-key "\C-x\C-g" 'goto-line) ;C-x C-gで行ジャンプ
 (global-set-key "\C-cm" 'my-mac-toggle-max-window);全画面表示の設定
-(define-key global-map (kbd "C-]") 'anything);;anything用キーバインド
-;;(global-set-key "\C-;" 'anything)
 (define-key global-map "\C-xF" 'mac-toggle-max-window)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)

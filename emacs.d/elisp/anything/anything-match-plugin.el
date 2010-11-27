@@ -1,5 +1,5 @@
 ;;; anything-match-plugin.el --- Humane match plug-in for anything
-;; $Id: anything-match-plugin.el,v 1.22 2009/03/03 10:21:45 rubikitch Exp $
+;; $Id: anything-match-plugin.el,v 1.27 2010-03-24 11:11:28 rubikitch Exp $
 
 ;; Copyright (C) 2008  rubikitch
 
@@ -28,11 +28,28 @@
 ;; It gives anything.el search refinement functionality.
 ;; exact match -> prefix match -> multiple regexp match
 
+;;; Commands:
+;;
+;; Below are complete command list:
+;;
+;;
+;;; Customizable Options:
+;;
+;; Below are customizable option list:
+;;
+;;  `anything-grep-candidates-fast-directory-regexp'
+;;    *Directory regexp where a RAM disk (or tmpfs) is mounted.
+;;    default = nil
+
 ;; A query of multiple regexp match is space-delimited string.
 ;; Anything displays candidates which matches all the regexps.
 ;; A regexp with "!" prefix means not matching the regexp.
 ;; To include spaces to a regexp, prefix "\" before space,
 ;; it is controlled by `anything-mp-space-regexp' variable.
+
+;; If multiple regexps are specified, first one also tries to match the source name.
+;; If you want to disable this feature, evaluate
+;;   (setq anything-mp-match-source-name nil) .
 
 ;; This file highlights patterns like `occur'. Note that patterns
 ;; longer than `anything-mp-highlight-threshold' are highlighted. And
@@ -47,6 +64,21 @@
 ;;; History:
 
 ;; $Log: anything-match-plugin.el,v $
+;; Revision 1.27  2010-03-24 11:11:28  rubikitch
+;; Added :group keyword to `defface anything-match'
+;;
+;; Revision 1.26  2010/03/24 10:48:55  rubikitch
+;; grep-candidates plug-in: document / imply `delayed' attribute
+;;
+;; Revision 1.25  2010/03/24 10:38:48  rubikitch
+;; grep-candidates plugin: grep-candidates attribute can also accept variable/function name.
+;;
+;; Revision 1.24  2010/03/22 09:01:22  rubikitch
+;; grep-candidates plugin released
+;;
+;; Revision 1.23  2010/03/22 08:02:11  rubikitch
+;; grep-candidates plugin prototype
+;;
 ;; Revision 1.22  2009/03/03 10:21:45  rubikitch
 ;; * Remove highlight.el dependency.
 ;; * Very faster highlight.
@@ -122,15 +154,42 @@
 (require 'anything)
 (require 'cl)
 
+(let ((version "1.283"))
+  (when (and (string= "1." (substring version 0 2))
+             (string-match "1\.\\([0-9]+\\)" anything-version)
+             (< (string-to-number (match-string 1 anything-version))
+                (string-to-number (substring version 2))))
+    (error "Please update anything.el!!
+
+http://www.emacswiki.org/cgi-bin/wiki/download/anything.el
+
+or  M-x install-elisp-from-emacswiki anything.el")))
+
+(defcustom anything-grep-candidates-fast-directory-regexp nil
+  "*Directory regexp where a RAM disk (or tmpfs) is mounted.
+
+If non-nil, grep-candidates plugin gets faster because it uses
+grep as synchronous process.
+
+ex. (setq anything-grep-candidates-fast-directory-regexp \"^/tmp/\")"
+  :type 'string
+  :group 'anything)
+
 ;;;; multiple patterns
 (defvar anything-use-multiple-patterns t
   "If non-nil, enable anything-use-multiple-patterns.")
 (defvar anything-mp-space-regexp "[\\ ] "
   "Regexp to represent space itself in multiple regexp match.")
+(defvar anything-mp-match-source-name t
+  "If non-nil, first query in space-delimited pattern try to match the source name.
+It needs at least two queries.
+For example, to list candidats of \"foo\" source, input pattern as \"foo .\".")
 
 (defun amp-mp-make-regexps (pattern)
   (if (string= pattern "") '("")
-    (loop for s in (split-string (replace-regexp-in-string anything-mp-space-regexp "\000\000" pattern) " " t)
+    (loop for s in (split-string
+                    (replace-regexp-in-string anything-mp-space-regexp
+                                              "\000\000" pattern) " " t)
         collect (replace-regexp-in-string "\000\000" " " s))))
 
 (defun amp-mp-1-make-regexp (pattern)
@@ -150,7 +209,7 @@
          ,pattern-real))))
 
 (defmacro amp-define (prefix pattern-expr)
-  (let ((get-pattern (intern (concat prefix "get-pattern"))) 
+  (let ((get-pattern (intern (concat prefix "get-pattern")))
         (match (intern (concat prefix "match")))
         (search (intern (concat prefix "search")))
         (search-backward (intern (concat prefix "search-backward"))))
@@ -162,7 +221,7 @@
          (re-search-forward (,get-pattern pattern) nil t))
        (defun ,search-backward (pattern &rest ignore)
          (re-search-backward (,get-pattern pattern) nil t)))))
-  
+
 ;; exact match
 ;(amp-define "anything-exact-" (concat (anything-prefix-get-pattern pattern) "$"))
 (amp-define-memoizer "anything-exact-" (concat "\n" pattern "\n"))
@@ -199,21 +258,43 @@
   (unless (equal pattern anything-mp-3-pattern-str)
     (setq anything-mp-3-pattern-str pattern
           anything-mp-3-pattern-list
-          (loop for pat in (amp-mp-make-regexps pattern)
-                collect (if (string= "!" (substring pat 0 1))
-                            (cons 'not (substring pat 1))
-                          (cons 'identity pat)))))
+          (anything-mp-3-get-patterns-internal pattern)))
   anything-mp-3-pattern-list)
+(defun anything-mp-3-get-patterns-internal (pattern)
+  (loop for pat in (amp-mp-make-regexps pattern)
+        collect (if (string= "!" (substring pat 0 1))
+                            (cons 'not (substring pat 1))
+                          (cons 'identity pat))))
+(defun anything-mp-handle-source-name-maybe (pattern self else)
+  (when (stringp pattern)
+    (setq pattern (anything-mp-3-get-patterns pattern)))
+  ;; PATTERN is list of (pred . re) now.
+  (when pattern
+    (destructuring-bind ((first-pred . first-re) . rest) pattern
+      (if (and anything-mp-match-source-name
+               (stringp anything-source-name)
+               (eq 'identity first-pred))
+          (let (anything-mp-match-source-name)
+            (or (and (string-match first-re anything-source-name)
+                     (funcall self rest))
+                (funcall self pattern)))
+        (funcall else)))))
+
 (defun* anything-mp-3-match (str &optional (pattern anything-pattern))
-  (loop for (pred . re) in (anything-mp-3-get-patterns pattern)
-        always (funcall pred (string-match re str))))
+  (anything-mp-handle-source-name-maybe
+   pattern (apply-partially 'anything-mp-3-match str)
+   (lambda ()
+     (loop for (pred . re) in pattern
+           always (funcall pred (string-match re str))))))
 
 (defmacro anything-mp-3-search-base (searchfn1 searchfn2 b e)
-  `(loop with pat = (anything-mp-3-get-patterns pattern)
+  `(loop with pat = (if (stringp pattern)
+                        (anything-mp-3-get-patterns pattern)
+                      pattern)
          while (,searchfn1 (or (cdar pat) "") nil t)
          for bol = (point-at-bol)
          for eol = (point-at-eol)
-         if (loop 
+         if (loop
              for (pred . s) in (cdr pat)
              always (progn (goto-char ,b)
                            (funcall pred (,searchfn2 s ,e t))))
@@ -223,27 +304,42 @@
          finally (return nil)))
 
 (defun anything-mp-3-search (pattern &rest ignore)
-  (anything-mp-3-search-base re-search-forward re-search-forward bol eol))
+  (anything-mp-handle-source-name-maybe
+   pattern 'anything-mp-3-search
+   (lambda () (anything-mp-3-search-base
+               re-search-forward re-search-forward bol eol))))
 (defun anything-mp-3-search-backward (pattern &rest ignore)
-  (anything-mp-3-search-base re-search-backward re-search-backward eol bol))
-
+  (anything-mp-handle-source-name-maybe
+   pattern 'anything-mp-3-search-backward
+   (lambda () (anything-mp-3-search-base
+               re-search-backward re-search-backward eol bol))))
 ;; mp-3p- (multiple regexp pattern 3 with prefix search)
 (defun* anything-mp-3p-match (str &optional (pattern anything-pattern))
-  (destructuring-bind ((first-pred . first-re) . rest)
-      (anything-mp-3-get-patterns pattern)
-    (and (funcall first-pred (anything-prefix-match str first-re))
-         (loop for (pred . re) in rest
-               always (funcall pred (string-match re str))))))
+  (anything-mp-handle-source-name-maybe
+   pattern (apply-partially 'anything-mp-3p-match str)
+   (lambda ()
+     (declare (special first-pred first-re))
+     (and (funcall first-pred (anything-prefix-match str first-re))
+          (loop for (pred . re) in rest
+                always (funcall pred (string-match re str)))))))
+
 (defun anything-mp-3p-search (pattern &rest ignore)
-  (anything-mp-3-search-base anything-prefix-search re-search-forward bol eol))
+  (anything-mp-handle-source-name-maybe
+   pattern 'anything-mp-3p-search
+   (lambda () (anything-mp-3-search-base
+               anything-prefix-search re-search-forward bol eol))))
 
 (defun anything-mp-3p-search-backward (pattern &rest ignore)
-  (anything-mp-3-search-base anything-prefix-search-backward re-search-backward eol bol))
+  (anything-mp-handle-source-name-maybe
+   pattern 'anything-mp-3p-search-backward
+   (lambda () (anything-mp-3-search-base
+               anything-prefix-search-backward re-search-backward eol bol))))
 
 ;;;; Highlight matches
 (defface anything-match
   '((t (:inherit match)))
-  "Face used to highlight matches.")
+  "Face used to highlight matches."
+  :group 'anything)
 
 (defvar anything-mp-highlight-delay 0.7
   "Highlight matches with `anything-match' face after this many seconds.
@@ -267,7 +363,9 @@ The smaller  this value is, the slower highlight is.")
   (save-excursion
     (goto-char start)
     (let (me)
-      (while (and (setq me (re-search-forward regexp nil t)) (< (point) end))
+      (while (and (setq me (re-search-forward regexp nil t))
+                  (< (point) end)
+                  (< 0 (- (match-end 0) (match-beginning 0))))
         (put-text-property (match-beginning 0) me 'face face)))))
 
 (defun* anything-mp-highlight-match-internal (end)
@@ -278,31 +376,140 @@ The smaller  this value is, the slower highlight is.")
         (anything-mp-highlight-region (point-min) end
                                     requote 'anything-match)))
     (loop for (pred . re) in (anything-mp-3-get-patterns anything-pattern)
-          when (and (eq pred 'identity) (>= (length re) anything-mp-highlight-threshold))
+          when (and (eq pred 'identity)
+                    (>= (length re) anything-mp-highlight-threshold))
           do
           (anything-mp-highlight-region (point-min) end re 'anything-match))))
-                         
+
 ;;;; source compier
-(defvar anything-default-match-functions
+(defvar anything-mp-default-match-functions
   '(anything-exact-match anything-mp-3p-match anything-mp-3-match))
-(defvar anything-default-search-functions
+(defvar anything-mp-default-search-functions
   '(anything-exact-search anything-mp-3p-search anything-mp-3-search))
-(defvar anything-default-search-backward-functions
-  '(anything-exact-search-backward anything-mp-3p-search-backward anything-mp-3-search-backward))
+(defvar anything-mp-default-search-backward-functions
+  '(anything-exact-search-backward anything-mp-3p-search-backward
+                                   anything-mp-3-search-backward))
 (defun anything-compile-source--match-plugin (source)
   (let ((searchers (if (assoc 'search-from-end source)
-                       anything-default-search-backward-functions
-                     anything-default-search-functions)))
+                       anything-mp-default-search-backward-functions
+                     anything-mp-default-search-functions)))
     `(,(if (or (assoc 'candidates-in-buffer source)
                (equal '(identity) (assoc-default 'match source)))
            '(match identity)
-         `(match ,@anything-default-match-functions
+         `(match ,@anything-mp-default-match-functions
                  ,@(assoc-default 'match source)))
       (search ,@searchers
               ,@(assoc-default 'search source))
       ,@source)))
 
 (add-to-list 'anything-compile-source-functions 'anything-compile-source--match-plugin t)
+
+;;;; grep-candidates plug-in
+(defun agp-candidates (&optional filter)
+  "Normal version of grep-candidates candidates function.
+Grep is run by asynchronous process."
+  (start-process-shell-command "anything-grep-candidates" nil
+                               (agp-command-line-2 filter)))
+(defun agp-candidates-synchronous-grep (&optional filter)
+  "Faster version of grep-candidates candidates function.
+Grep is run by synchronous process.
+It is faster when candidate files are in ramdisk."
+  (split-string (shell-command-to-string (agp-command-line-2 filter)) "\n"))
+(defun agp-candidates-synchronous-grep--direct-insert-match (&optional filter)
+  "[EXPERIMENTAL]Fastest version of grep-candidates candidates function at the cost of absense of transformers.
+Grep is run by synchronous process.
+It is faster when candidate files are in ramdisk.
+
+If (direct-insert-match) is in the source, this function is used."
+  (with-current-buffer (anything-candidate-buffer 'global)
+    (call-process-shell-command (agp-command-line-2 filter) nil t)))
+
+(defun agp-command-line (query files &optional limit filter)
+  "Build command line used by grep-candidates from QUERY, FILES, LIMIT, and FILTER."
+  (with-temp-buffer
+    (if (string= query "")
+        (insert "cat "
+                (mapconcat
+                 (lambda (f) (shell-quote-argument (expand-file-name f)))
+                 files " "))
+      (loop for (flag . re) in (anything-mp-3-get-patterns-internal query)
+            for i from 0
+            do
+            (setq re (replace-regexp-in-string "^-" "\\-" re))
+            (unless (zerop i) (insert " | "))
+            (insert "grep -ih "
+                    (if (eq flag 'identity) "" "-v ")
+                    (shell-quote-argument re))
+            (when (zerop i)
+              (insert " "
+                      (mapconcat (lambda (f) (shell-quote-argument
+                                              (expand-file-name f)))
+                                 files " ")))))
+    (when limit (insert (format " | head -n %d" limit)))
+    (when filter (insert " | " filter))
+    (buffer-string)))
+(defun agp-command-line-2 (filter)
+  "Build command line used by grep-candidates from FILTER and current source."
+  (agp-command-line
+   anything-pattern
+   (anything-mklist (anything-interpret-value (anything-attr 'grep-candidates)))
+   (anything-candidate-number-limit (anything-get-current-source))
+   filter))
+(defun anything-compile-source--grep-candidates (source)
+  (anything-aif (assoc-default 'grep-candidates source)
+      (append
+       source
+       (let ((use-fast-directory
+              (and anything-grep-candidates-fast-directory-regexp
+                   (string-match
+                    anything-grep-candidates-fast-directory-regexp
+                    (or (car (anything-mklist (anything-interpret-value it))) "")))))
+         (cond ((not (anything-interpret-value it)) nil)
+               ((and use-fast-directory (assq 'direct-insert-match source))
+                (anything-log "fastest version (use-fast-directory and direct-insert-match)")
+                `((candidates . agp-candidates-synchronous-grep--direct-insert-match)
+                  (match identity)
+                  (volatile)
+                  (requires-pattern)))
+               (use-fast-directory
+                (anything-log "faster version (use-fast-directory)")
+                `((candidates . agp-candidates-synchronous-grep)
+                  (match identity)
+                  (volatile)
+                  (requires-pattern)))
+               (t
+                (anything-log "normal version")
+                '((candidates . agp-candidates)
+                  (delayed))))))
+    source))
+(add-to-list 'anything-compile-source-functions 'anything-compile-source--grep-candidates)
+
+(anything-document-attribute 'grep-candidates "grep-candidates plug-in"
+  "grep-candidates plug-in provides anything-match-plugin.el feature with grep and head program.
+It is MUCH FASTER than normal match-plugin to search from vary large (> 1MB) candidates.
+Make sure to install these programs.
+
+It expands `candidates' and `delayed' attributes.
+
+`grep-candidates' attribute accepts a filename or list of filename.
+It also accepts 0-argument function name or variable name.")
+
+;; (anything '(((name . "grep-test")  (grep-candidates . "~/.emacs.el") (action . message))))
+;; (let ((a "~/.emacs.el")) (anything '(((name . "grep-test")  (grep-candidates . a) (action . message) (delayed)))))
+;; (let ((a "~/.emacs.el")) (anything '(((name . "grep-test")  (grep-candidates . (lambda () a)) (action . message) (delayed)))))
+;; (anything '(((name . "grep-test")  (grep-candidates . "~/.emacs.el") (action . message) (delayed) (candidate-number-limit . 2))))
+;; (let ((anything-candidate-number-limit 2)) (anything '(((name . "grep-test")  (grep-candidates . "~/.emacs.el") (action . message) (delayed)))))
+
+;;;; Compatibility
+(unless (fboundp 'apply-partially)
+  (defun apply-partially (fun &rest args)
+    "Return a function that is a partial application of FUN to ARGS.
+ARGS is a list of the first N arguments to pass to FUN.
+The result is a new function which does the same as FUN, except that
+the first N arguments are fixed at the values with which this function
+was called."
+    (lexical-let ((fun fun) (args1 args))
+      (lambda (&rest args2) (apply fun (append args1 args2))))))
 
 ;;;; unit test
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el")
@@ -322,6 +529,30 @@ The smaller  this value is, the slower highlight is.")
       (expect '("foo bar" "baz")
         (let ((anything-mp-space-regexp "\\\\ "))
           (amp-mp-make-regexps "foo\\ bar baz")))
+      (desc "anything-mp-3-get-patterns-internal")
+      (expect '((identity . "foo"))
+        (anything-mp-3-get-patterns-internal "foo"))
+      (expect '((identity . "foo") (identity . "bar"))
+        (anything-mp-3-get-patterns-internal "foo bar"))
+      (expect '((identity . "foo") (not . "bar"))
+        (anything-mp-3-get-patterns-internal "foo !bar"))
+      (desc "agp-command-line")
+      (expect "grep -ih foo /f1"
+        (agp-command-line "foo" '("/f1")))
+      (expect "grep -ih foo /f1 | grep -ih bar"
+        (agp-command-line "foo bar" '("/f1")))
+      (expect "grep -ih foo /f1 | grep -ih -v bar"
+        (agp-command-line "foo !bar" '("/f1")))
+      (expect "grep -ih foo /f1 /f\\ 2 | grep -ih -v bar | grep -ih baz"
+        (agp-command-line "foo !bar baz" '("/f1" "/f 2")))
+      (expect (concat "grep -ih foo " (expand-file-name "~/.emacs.el"))
+        (agp-command-line "foo" '("~/.emacs.el")))
+      (expect "grep -ih f\\ o /f\\ 1"
+        (agp-command-line "f  o" '("/f 1")))
+      (expect "grep -ih foo /f1 | head -n 5"
+        (agp-command-line "foo" '("/f1") 5))
+      (expect "grep -ih foo /f1 | head -n 5 | nkf -w"
+        (agp-command-line "foo" '("/f1") 5 "nkf -w"))
       (desc "anything-exact-match")
       (expect (non-nil)
         (anything-exact-match "thunder" "thunder"))
@@ -689,10 +920,69 @@ The smaller  this value is, the slower highlight is.")
                                   "info !elisp"
                                   '(anything-compile-source--candidates-in-buffer
                                     anything-compile-source--match-plugin)))
+      ;; anything-mp-match-source-name
+      (expect '(("SourceName" ("foo")))
+        (let ((anything-mp-match-source-name t))
+          (anything-test-candidates '(((name . "SourceName")
+                                       (candidates "foo" "bar")))
+                                    "source f"
+                                    '(anything-compile-source--match-plugin))))
+      (expect '(("SourceName cib" ("foo")))
+        (let ((anything-mp-match-source-name t))
+          (anything-test-candidates '(((name . "SourceName cib")
+                                       (init
+                                        . (lambda ()
+                                            (with-current-buffer (anything-candidate-buffer 'global)
+                                              (insert "foo\nbar\n"))))
+                                       (candidates-in-buffer)))
+                                    "source f"
+                                    '(anything-compile-source--candidates-in-buffer
+                                      anything-compile-source--match-plugin))))
+      (expect '(("SourceName cib search-from-end" ("bar")))
+        (let ((anything-mp-match-source-name t))
+          (anything-test-candidates '(((name . "SourceName cib search-from-end")
+                                       (init
+                                        . (lambda ()
+                                            (with-current-buffer (anything-candidate-buffer 'global)
+                                              (insert "foo\nbar\n"))))
+                                       (search-from-end)
+                                       (candidates-in-buffer)))
+                                    "source b"
+                                    '(anything-compile-source--candidates-in-buffer
+                                      anything-compile-source--match-plugin))))
+      (expect '(("SourceName" ("foo" "bar")))
+        (let ((anything-mp-match-source-name t))
+          (anything-test-candidates '(((name . "SourceName")
+                                       (candidates "foo" "bar")))
+                                    "source ."
+                                    '(anything-compile-source--match-plugin))))
+      (expect '(("SourceName cib" ("foo" "bar")))
+        (let ((anything-mp-match-source-name t))
+          (anything-test-candidates '(((name . "SourceName cib")
+                                       (init
+                                        . (lambda ()
+                                            (with-current-buffer (anything-candidate-buffer 'global)
+                                              (insert "foo\nbar\n"))))
+                                       (candidates-in-buffer)))
+                                    "source ."
+                                    '(anything-compile-source--candidates-in-buffer
+                                      anything-compile-source--match-plugin))))
+      (expect '(("SourceName cib search-from-end" ("bar" "foo")))
+        (let ((anything-mp-match-source-name t))
+          (anything-test-candidates '(((name . "SourceName cib search-from-end")
+                                       (init
+                                        . (lambda ()
+                                            (with-current-buffer (anything-candidate-buffer 'global)
+                                              (insert "foo\nbar\n"))))
+                                       (search-from-end)
+                                       (candidates-in-buffer)))
+                                    "source ."
+                                    '(anything-compile-source--candidates-in-buffer
+                                      anything-compile-source--match-plugin))))
       )))
 ;; (anything-compile-sources '(((name . "test"))) anything-compile-source-functions)
 (provide 'anything-match-plugin)
 
 ;; How to save (DO NOT REMOVE!!)
-;; (emacswiki-post "anything-match-plugin.el")
+;; (progn (magit-push) (emacswiki-post "anything-match-plugin.el"))
 ;;; anything-match-plugin.el ends here

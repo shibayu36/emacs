@@ -170,11 +170,11 @@
 (defvar asc-overlay nil)
 (defcustom anything-show-completion-face anything-selection-face
   "*Face of anything-show-completion."
-  :type 'face  
+  :type 'face
   :group 'anything-show-completion)
 (defcustom anything-show-completion-activate t
   "*Set nil to turn off anything-show-completion."
-  :type 'boolean  
+  :type 'boolean
   :group 'anything-show-completion)
 (defcustom anything-show-completion-minimum-window-height 7
   "*Minimum completion window height."
@@ -241,13 +241,13 @@ It is evaluated in `asc-display-overlay'."
 
 ;; (global-set-key "\C-x\C-z" (lambda () (interactive) (message "%s" (asc-point-at-upper-half-of-window-p (point)))))
 (defun asc-display-function (buf)
-  (let* ((cursor-upper-p (asc-point-at-upper-half-of-window-p (point))) 
+  (let* ((cursor-upper-p (asc-point-at-upper-half-of-window-p (point)))
          (half (/ (window-height) 2))
          (win (selected-window))
          (upper-height (max window-min-height
                             (min (+ 1                     ; mode-line
                                     (if header-line-format 1 0) ;header-line
-                                    ;; window screen lines 
+                                    ;; window screen lines
                                     (count-screen-lines (window-start) (point))
                                     ;; adjustment of count-screen-lines and BOL
                                     (if (bolp) 1 0))

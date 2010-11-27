@@ -1,9 +1,9 @@
 (when (require 'anything nil t)
   (setq
    ;; 候補を表示するまでの時間。デフォルトは0.5
-   anything-idle-delay 0.3
+   anything-idle-delay 0.2
    ;; タイプして再描写するまでの時間。デフォルトは0.1
-   anything-input-idle-delay 0.2
+   anything-input-idle-delay 0.1
    ;; 候補の最大表示数。デフォルトは50
    anything-candidate-number-limit 100
    ;; 候補が多いときに体感速度を早くする
@@ -14,13 +14,14 @@
   (when (require 'anything-config nil t)
     (setq anything-sources
           '(anything-c-source-buffers
-            anything-c-source-colors
             anything-c-source-recentf
             anything-c-source-man-pages
             anything-c-source-emacs-commands
             anything-c-source-emacs-functions
             anything-c-source-files-in-current-dir
             ))
+    (define-key global-map (kbd "C-:") 'anything);;anything用キーバインド
+
     ;; root権限でアクションを実行するときのコマンド
     ;; デフォルトは"su"
     (setq anything-su-or-sudo "sudo"))
@@ -97,5 +98,14 @@
   ;; (when (require 'anything-startup nil t)
 ;;     (setq anything-c-filelist-file-name "/tmp/all.filelist")
 ;;     (setq anything-grep-candidates-fast-directory-regexp "^/tmp"))
+
+  (require 'anything-migemo)
+  (define-key global-map [(control ?:)] 'anything-migemo)
+
+  (require 'anything-hatena-bookmark)
+
+  (require 'anything-git-grep)
+
+  (require 'anything-etags)
 
   )

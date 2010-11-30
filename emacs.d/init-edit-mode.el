@@ -348,3 +348,13 @@ and source-file directory for your debugger." t)
 (global-set-key "\C-ceS" 'evernote-do-saved-search)
 (global-set-key "\C-cew" 'evernote-write-note)
 (global-set-key "\C-cep" 'evernote-post-region)
+
+
+
+
+;;; 強制キーバインドマイナーモード
+(define-minor-mode overriding-minor-mode
+  "強制的にC-tを割り当てる"             ;説明文字列
+  t                                     ;デフォルトで有効にする
+  ""                                    ;モードラインに表示しない
+  `((,(kbd "C-t") . other-window-or-split)))

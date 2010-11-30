@@ -123,20 +123,20 @@
 ;; 2009/04/04
 ;;   * Thierry Volpiatto:
 ;;      * Regexp change in `anything-c-etags-get-line'.
-;;      
+;;
 ;; 2009/03/28
 ;;   * Thierry Volpiatto:
 ;;      * code cleanup.
 ;;   * rubikitch:
 ;;      * More beautiful line. (only show the line)
 ;;      * Show TAGS file name in header.
-;;      
+;;
 ;; 2009/03/23
 ;;   * rubikitch:
 ;;      * Use `expand-file-name' instead of `concat' to make full path.
 ;;      * Optionally highlight in persistent-action.
 ;;      * Fix doc.
-;;      
+;;
 ;; 2009/03/19
 ;;   * Kenichirou Oyama:
 ;;      * Fix bug.
@@ -368,7 +368,7 @@ Try to find tag file in upper directory if haven't found in CURRENT-DIR."
                             (syntax-table)))
         (insert-file-contents it))
     (message "Can't find tag file: %s" it)))
-          
+
 
 (defun anything-etags-find-tag (candidate)
   "Find tag that match CANDIDATE from `anything-etags-tag-buffer'.

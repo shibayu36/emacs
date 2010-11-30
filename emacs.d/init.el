@@ -46,7 +46,13 @@
   ;;superを割り当てておくと、linux、windowsでうまく使えない
   ;;(setq mac-command-modifier 'super) ; コマンドキーを Super に
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
+(define-prefix-command 'ctl-:-map)
+(define-key (kbd "C-:") 'ctl-:-map)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;キーバインド;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "init-keybind.el")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -73,27 +79,6 @@
     (setenv "PATH" (concat dir ":" (getenv "PATH")))
     (setq exec-path (append (list dir) exec-path))))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;キーバインドの設定;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key "\C-h" 'delete-backward-char)
-(global-set-key "\e[3~" 'delete-char)
-
-(global-set-key "\C-x\C-i" 'indent-region) ; 選択範囲をインデント
-(global-set-key "\C-m" 'newline-and-indent) ; リターンで改行とインデント
-(global-set-key "\C-j" 'newline) ; 改行
-
-(global-set-key "\C-cc" 'comment-region) ; C-c c を範囲指定コメントに
-(global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
-(global-set-key "\C-x\C-g" 'goto-line) ;C-x C-gで行ジャンプ
-(global-set-key "\C-cm" 'my-mac-toggle-max-window);全画面表示の設定
-(define-key global-map "\C-xF" 'mac-toggle-max-window)
-(global-set-key (kbd "C-c a")   'align)
-(global-set-key (kbd "C-c M-a") 'align-regexp)
-(global-set-key (kbd "C-x ?") 'help-command)
-
-(define-key global-map (kbd "C-c C-a") 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;
@@ -400,3 +385,4 @@
 
 ;; outputz
 ;; (load "init-outputz")
+

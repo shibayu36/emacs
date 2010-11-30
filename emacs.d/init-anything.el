@@ -5,7 +5,7 @@
    ;; タイプして再描写するまでの時間。デフォルトは0.1
    anything-input-idle-delay 0.1
    ;; 候補の最大表示数。デフォルトは50
-   anything-candidate-number-limit 100
+   anything-candidate-number-limit 50
    ;; 候補が多いときに体感速度を早くする
    anything-quick-update t
    ;; 候補選択ショートカットをアルファベットに
@@ -20,7 +20,6 @@
             anything-c-source-emacs-functions
             anything-c-source-files-in-current-dir
             ))
-    (define-key global-map (kbd "C-:") 'anything);;anything用キーバインド
 
     ;; root権限でアクションを実行するときのコマンド
     ;; デフォルトは"su"
@@ -68,7 +67,6 @@
   ;;; anything-project: プロジェクトからファイルを絞り込み
   ;; (install-elisp "http://github.com/imakado/anything-project/raw/master/anything-project.el")
   (when (require 'anything-project nil t)
-    (global-set-key (kbd "C-c C-f") 'anything-project)
     (setq ap:project-files-filters
           (list
            (lambda (files)
@@ -87,25 +85,26 @@
      ;; 現在選択中の候補の位置を他のwindowに表示する
      anything-c-moccur-enable-auto-look-flag t
      ;; 起動時にポイントの位置の単語を初期パターンにする
-     anything-c-moccur-enable-initial-pattern t)
-
-    (global-set-key (kbd "C-M-o")
-                    'anything-c-moccur-occur-by-moccur))
+     anything-c-moccur-enable-initial-pattern t))
 
   ;; kill ringを表示
-  (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 
   ;; (when (require 'anything-startup nil t)
 ;;     (setq anything-c-filelist-file-name "/tmp/all.filelist")
 ;;     (setq anything-grep-candidates-fast-directory-regexp "^/tmp"))
 
   (require 'anything-migemo)
-  (define-key global-map [(control ?:)] 'anything-migemo)
 
   (require 'anything-hatena-bookmark)
 
   (require 'anything-git-grep)
+  (setq anything-git-grep-all-sources
+        (list anything-c-source-git-grep
+              anything-c-source-git-submodule-grep))
+  (defun anything-git-grep-all ()
+    "git grep project and submodule."
+    (interactive)
+    (anything anything-git-grep-all-sources (thing-at-point 'symbol) nil nil nil "*anything git grep all*"))
 
   (require 'anything-etags)
-
   )

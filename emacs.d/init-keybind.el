@@ -31,3 +31,8 @@
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-etags-select-from-here)
 
+(global-set-key (kbd "C-t") 'other-window-or-split)
+
+
+;;cperl-mode
+(define-key cperl-mode-map (kbd "C-c d") 'perl5-yaml-dump)

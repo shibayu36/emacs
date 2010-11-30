@@ -78,4 +78,12 @@
     (split-window-horizontally))
   (other-window 1))
 
-(global-set-key (kbd "C-t") 'other-window-or-split)
+
+;; macro
+(defun kmacro-save (symbol)
+  (interactive "SName for last kbd macro: ")
+  (name-last-kbd-macro symbol)
+  (with-current-buffer (find-file-noselect kmacro-save-file)
+    (goto-char (point-max))
+    (insert-kbd-macro symbol)
+    (basic-save-buffer)))

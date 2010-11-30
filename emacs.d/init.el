@@ -310,10 +310,6 @@
 ;;pymacsの設定
 (load "init-pymacs")
 
-;;; 定義した基本的な関数群
-(if (file-exists-p "~/.emacs.d/my-funcs.el")
-    (load "my-funcs.el"))
-
 ;;flymakeの設定
 (load "init-flymake.el")
 
@@ -383,6 +379,16 @@
 (server-start)
 (require 'sudo-ext)
 
-;; outputz
-;; (load "init-outputz")
+;; eldoc
+(load "init-eldoc")
 
+
+
+;;; 定義した基本的な関数群
+(if (file-exists-p "~/.emacs.d/my-funcs.el")
+    (load "my-funcs.el"))
+
+;;; 定義マクロ設定
+(defvar kmacro-save-file "~/.emacs.d/my-macro.el")
+(if (file-exists-p "~/.emacs.d/my-macro.el")
+    (load "my-macro.el"))

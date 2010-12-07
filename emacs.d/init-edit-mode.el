@@ -100,6 +100,8 @@
                (setq tab-width nil)
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key "\C-cs" 'perl-syntax-check)
+               (local-set-key "\C-cd" 'perl5-yaml-dump)
+               (local-set-key "\C-ct" 'run-perl-method-test)
                (set-perl5lib)
                )))
 (add-hook 'cperl-mode-hook

@@ -46,14 +46,6 @@
   ;;superを割り当てておくと、linux、windowsでうまく使えない
   ;;(setq mac-command-modifier 'super) ; コマンドキーを Super に
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
-(define-prefix-command 'ctl-:-map)
-(define-key (kbd "C-:") 'ctl-:-map)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;キーバインド;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "init-keybind.el")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; exec-pathの設定 ;;;;;;;;;;;
@@ -392,3 +384,10 @@
 (defvar kmacro-save-file "~/.emacs.d/my-macro.el")
 (if (file-exists-p "~/.emacs.d/my-macro.el")
     (load "my-macro.el"))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;キーバインド;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "init-keybind.el")

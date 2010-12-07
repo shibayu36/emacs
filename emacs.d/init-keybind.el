@@ -33,6 +33,3 @@
 
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
-
-;;cperl-mode
-(define-key cperl-mode-map (kbd "C-c d") 'perl5-yaml-dump)

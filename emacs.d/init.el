@@ -385,6 +385,11 @@
 (if (file-exists-p "~/.emacs.d/my-macro.el")
     (load "my-macro.el"))
 
+;; auto-async-byte-compile
+(require 'auto-async-byte-compile)
+(setq auto-async-byte-compile-init-file "~/.emacs.d/my-macro.el")
+(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

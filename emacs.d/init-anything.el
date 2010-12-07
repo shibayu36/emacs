@@ -107,4 +107,14 @@
     (anything anything-git-grep-all-sources (thing-at-point 'symbol) nil nil nil "*anything git grep all*"))
 
   (require 'anything-etags)
+
+  (when (eq system-type 'darwin)
+    (require 'anything-mac-itunes)
+    (global-set-key (kbd "C-c m") 'anything-mac-itunes)
+    (global-set-key (kbd "C-c b") 'anything-mac-itunes-back-track)
+    (global-set-key (kbd "C-c n") 'anything-mac-itunes-next-track)
+    (global-set-key (kbd "C-c p") 'anything-mac-itunes-playpause-track)
+    (global-set-key (kbd "C-c c") 'anything-mac-itunes-show-current-track-info)
+    )
+
   )

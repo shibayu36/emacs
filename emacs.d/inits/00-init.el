@@ -153,6 +153,21 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+;;;GCを減らして軽くする
+(setq gc-cons-threshold (* 10 gc-cons-threshold))
+
+;;ログの記録行数を増やす
+(setq message-log-max 10000)
+
+;; キーストロークをエコーエリアに早く表示する
+(setq echo-keystrokes 0.1)
+
+;;モードラインに時刻を表示する
+(display-time)
+
+;; 行番号・桁番号を表示
+(line-number-mode 1)
+(column-number-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）
@@ -212,9 +227,24 @@
 ;;recentf設定
 (recentf-mode 1)
 (setq recentf-max-saved-items 1000)
+(require 'recentf-ext)
 
 ;;自動再読み込み
 (global-auto-revert-mode 1)
 
 ;;; 定義マクロファイル設定
 (defvar kmacro-save-file "~/.emacs.d/inits/70-mymacros.el")
+
+;; 現在位置のファイル・URLを開く
+(ffap-bindings)
+
+;; ブックマーク設定
+;;ブックマークを変更したら即保存
+(setq bookmark-save-flag 1)
+(progn
+  (setq bookmark-sort-flag nil)
+  (defun bookmark-arrange-latest-top ()
+    (let ((latest (bookmark-get-bookmark bookmark)))
+      (setq bookmark-alist (cons latest (delq latest bookmark-alist))))
+    (bookmark-save))
+  (add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top))

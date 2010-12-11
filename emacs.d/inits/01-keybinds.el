@@ -10,7 +10,6 @@
 
 (global-set-key "\C-cc" 'comment-region) ; C-c c を範囲指定コメントに
 (global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
-(global-set-key "\C-x\C-g" 'goto-line) ;C-x C-gで行ジャンプ
 (define-key global-map "\C-xF" 'mac-toggle-max-window)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)

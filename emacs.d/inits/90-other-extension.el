@@ -63,3 +63,7 @@
 ;; sudo-ext
 (server-start)
 (require 'sudo-ext)
+
+;; sequential-command
+(require 'sequential-command-config)
+(sequential-command-setup-keys)

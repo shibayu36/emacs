@@ -7,9 +7,8 @@
 
 ;;auto-complete-modeの読み込み
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete//ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete/ac-dict")
 (ac-config-default)
-
 
 ;;auto-install設定
 (require 'auto-install)
@@ -57,8 +56,11 @@
 (require 'set-perl5lib-glob-from-git-root)
 
 ;; redo
-(require 'redo)
+(require 'redo+)
 (global-set-key "\M-/" 'redo)
+(setq undo-no-redo t)
+(setq undo-limit 600000)
+(setq undo-strong-limit 900000)
 
 ;; sudo-ext
 (server-start)
@@ -85,3 +87,8 @@
 (global-set-key (kbd "M-SPC") 'bm-toggle)
 (global-set-key (kbd "M-[") 'bm-previous)
 (global-set-key (kbd "M-]") 'bm-next)
+
+;; igrep.el
+(require 'igrep)
+(igrep-define lgrep (igrep-use-zgrep nil)(igrep-regex-option "-n -0u8"))
+(igrep-find-define lgrep (igrep-use-zgrep nil)(igrep-regex-option "-n -0u8"))

@@ -30,3 +30,5 @@
 
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
+(global-set-key (kbd "M-N") 'next-error)
+(global-set-key (kbd "M-P") 'previous-error)

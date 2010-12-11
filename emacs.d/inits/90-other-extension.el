@@ -92,3 +92,11 @@
 (require 'igrep)
 (igrep-define lgrep (igrep-use-zgrep nil)(igrep-regex-option "-n -0u8"))
 (igrep-find-define lgrep (igrep-use-zgrep nil)(igrep-regex-option "-n -0u8"))
+
+;; col-highlight
+(require 'col-highlight)
+(toggle-highlight-column-when-idle 1)
+(col-highlight-set-interval 6)
+
+;; gist
+(require 'gist)

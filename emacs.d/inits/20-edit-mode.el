@@ -361,6 +361,15 @@ and source-file directory for your debugger." t)
 (add-hook 'lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'ielm-mode-hook 'enable-paredit-mode)
 
+;; lispxmp
+(require 'lispxmp)
+
+;; edit-list
+(require 'edit-list)
+
+;; elispユニットテスト用
+(require 'el-expectations)
+
 
 
 

@@ -107,3 +107,4 @@
 (require 'usage-memo)
 (setq umemo-base-directory "~/.emacs.d/umemo")
 (umemo-initialize)
+

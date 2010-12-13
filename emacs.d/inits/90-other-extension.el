@@ -96,7 +96,14 @@
 ;; col-highlight
 (require 'col-highlight)
 (toggle-highlight-column-when-idle 1)
-(col-highlight-set-interval 6)
+(col-highlight-set-interval 5)
+(custom-set-faces
+ '(col-highlight ((t (:background "dark slate gray")))))
 
 ;; gist
 (require 'gist)
+
+;; Helpバッファにメモできるように
+(require 'usage-memo)
+(setq umemo-base-directory "~/.emacs.d/umemo")
+(umemo-initialize)

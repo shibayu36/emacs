@@ -42,10 +42,12 @@
   (defvar anything-c-source-gtags-select-with-home-perl-lib
     (anything-c-source-gtags-select-with-root "GTAGS ~/perl5" "~/perl5"))
 
+  ;; imenu, gtags, perlのgtagsから読み込み
   (defun anything-gtags-select-all ()
     (interactive)
     (anything-other-buffer
-     '(anything-c-source-gtags-select
+     '(anything-c-source-imenu
+       anything-c-source-gtags-select
        anything-c-source-gtags-select-with-home-perl-lib)
      "*anything gtags*"))
 

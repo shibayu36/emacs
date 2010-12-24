@@ -96,7 +96,7 @@
 ;; col-highlight
 (require 'col-highlight)
 (toggle-highlight-column-when-idle 1)
-(col-highlight-set-interval 5)
+(col-highlight-set-interval 3)
 (custom-set-faces
  '(col-highlight ((t (:background "dark slate gray")))))
 

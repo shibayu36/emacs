@@ -18,7 +18,8 @@
 (define-key global-map (kbd "C-c C-a") 'delete-trailing-whitespace)
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
-(define-key global-map (kbd "C-;") 'anything);;anything用キーバインド
+(define-key global-map (kbd "C-;") 'anything-for-files);;anything-for-files
+(define-key global-map (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-h") 'anything-for-document)
 (global-set-key (kbd "C-c C-f") 'anything-project)
 (global-set-key (kbd "C-M-o")

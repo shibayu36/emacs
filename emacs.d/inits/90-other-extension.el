@@ -37,9 +37,6 @@
 (require 'color-moccur)
 (setq moccur-split-word t)
 
-;; grepから直接置換できるように
-(require 'grep-edit)
-
 ;; undohistの設定
 (when (require 'undohist nil t)
   (undohist-initialize))
@@ -87,11 +84,6 @@
 (global-set-key (kbd "M-SPC") 'bm-toggle)
 (global-set-key (kbd "M-[") 'bm-previous)
 (global-set-key (kbd "M-]") 'bm-next)
-
-;; igrep.el
-(require 'igrep)
-(igrep-define lgrep (igrep-use-zgrep nil)(igrep-regex-option "-n -0u8"))
-(igrep-find-define lgrep (igrep-use-zgrep nil)(igrep-regex-option "-n -0u8"))
 
 ;; col-highlight
 (require 'col-highlight)

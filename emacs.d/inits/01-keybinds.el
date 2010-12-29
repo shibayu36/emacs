@@ -33,3 +33,5 @@
 
 (global-set-key (kbd "M-N") 'next-error)
 (global-set-key (kbd "M-P") 'previous-error)
+
+(global-set-key (kbd "C-x v") 'magit-status)

@@ -7,3 +7,7 @@ pymacsが入っているため、pymacsをダウンロードして、インス�
 2.pysmell
 pysmellが入っているため、pysmellを入れてインストールする必要がある。
 http://d.hatena.ne.jp/moch-lite/20090419/p1
+
+3.binファイル
+必要な実行ファイルはbinに入っているので以下のコマンドを実行
+ln -s ~/development/emacs/emacs.d/bin/* ~/bin/

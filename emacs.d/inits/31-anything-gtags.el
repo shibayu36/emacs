@@ -50,4 +50,13 @@
        anything-c-source-gtags-select
        anything-c-source-gtags-select-with-home-perl-lib)
      "*anything gtags*"))
+
+  (defun anything-gtags-from-here ()
+    (interactive)
+    (anything
+     :sources '(anything-c-source-imenu
+                anything-c-source-gtags-select
+                anything-c-source-gtags-select-with-home-perl-lib)
+     :input (thing-at-point 'symbol)))
+
   )

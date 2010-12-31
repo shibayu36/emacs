@@ -5,6 +5,3 @@
 (setq mode-compile-always-save-buffer-p t)
 (setq mode-compile-never-edit-command-p t)
 (setq mode-compile-reading-time 0)
-
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'mode-compile-before-compile-hook 'ansi-color-for-comint-mode-on)

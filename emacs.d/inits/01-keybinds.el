@@ -3,6 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'key-chord)
 (require 'space-chord)
+(require 'smartchr)
 
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\e[3~" 'delete-char)
@@ -43,3 +44,5 @@
 (define-key global-map (kbd "C-c C-f") 'anything-git-project)
 
 (global-set-key "\C-c\C-c" 'mode-compile)
+
+(global-set-key (kbd "=") (smartchr '(" = " " == " "=")))

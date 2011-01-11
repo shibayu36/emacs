@@ -125,7 +125,7 @@
                '(height . 47)
                '(top . 0)
                '(left . 0)
-               '(alpha . (90 60))) ;;ここ
+               '(alpha . (100 60))) ;;ここ
               default-frame-alist))
 
 ;;画面最大化
@@ -234,9 +234,6 @@
 
 ;;; 定義マクロファイル設定
 (defvar kmacro-save-file "~/.emacs.d/inits/70-mymacros.el")
-
-;; 現在位置のファイル・URLを開く
-(ffap-bindings)
 
 ;; ブックマーク設定
 ;;ブックマークを変更したら即保存

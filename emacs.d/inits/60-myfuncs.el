@@ -94,8 +94,8 @@
   (let ((command compile-command))
     (save-excursion
       (when (or
-             (re-search-backward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t)
-             (re-search-forward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t))
+             (re-search-backward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t)
+             (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
         (setq command
               (format "TEST_METHOD=%s perl -w %s"
                       (match-string 1) (expand-file-name buffer-file-name)))))

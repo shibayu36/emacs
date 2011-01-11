@@ -103,6 +103,7 @@
                (local-set-key "\C-cd" 'perl5-yaml-dump)
                (local-set-key "\C-ct" 'run-perl-method-test)
                (local-set-key (kbd "F") (smartchr '("F" "$")))
+               (local-set-key (kbd "H") (smartchr '("H" " => ")))
                (local-set-key (kbd "J") (smartchr '("J" "->")))
                (local-set-key (kbd "M") (smartchr '("M" "my ")))
                (set-perl5lib)

@@ -44,3 +44,5 @@
 (define-key global-map (kbd "C-c C-f") 'anything-git-project)
 
 (global-set-key "\C-c\C-c" 'mode-compile)
+
+(global-set-key (kbd "C-M-g") 'igrep-find)

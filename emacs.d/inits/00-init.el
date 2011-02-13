@@ -25,6 +25,7 @@
               "/opt/local/bin" ;; これが/usr/binよりも下に書いてあればよい
               "/usr/local/bin"
               (expand-file-name "~/bin")
+              (expand-file-name "~/perl5/perlbrew/perls/perl-5.8.9/bin")
               ))
   ;; PATH と exec-path に同じ物を追加します
   (when ;; (and

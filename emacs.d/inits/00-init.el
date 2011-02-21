@@ -225,11 +225,6 @@
 ;;;クライアントを終了するとき終了するかどうかを聞かない
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
-;;recentf設定
-(recentf-mode 1)
-(setq recentf-max-saved-items 1000)
-(require 'recentf-ext)
-
 ;;自動再読み込み
 (global-auto-revert-mode 1)
 

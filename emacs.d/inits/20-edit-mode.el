@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;mmmモード;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 'mmm-mode)
-;; (setq mmm-global-mode 'maybe)
-;; (set-face-background 'mmm-default-submode-face nil)
+(require 'mmm-mode)
+(setq mmm-global-mode 'maybe)
+(set-face-background 'mmm-default-submode-face "navy")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -100,7 +100,7 @@
                (setq tab-width nil)
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key "\C-cs" 'perl-syntax-check)
-               (local-set-key "\C-cd" 'perl5-yaml-dump)
+               (local-set-key "\C-cd" 'perl5-data-dump)
                (local-set-key "\C-ct" 'run-perl-method-test)
                (local-set-key (kbd "F") (smartchr '("F" "$")))
                (local-set-key (kbd "H") (smartchr '("H" " => ")))
@@ -160,7 +160,6 @@
           (if pop-or-set-flag
               (switch-to-buffer buffer)
             (display-buffer buffer)))))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;podモード;;;;;;;;;;;;;;;;;;;

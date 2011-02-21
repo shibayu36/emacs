@@ -29,6 +29,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/magit/share/emacs/site-lisp/")
         (expand-file-name "~/.emacs.d/elisp/mode/git/")
         (expand-file-name "~/.emacs.d/elisp/mode/evernote/")
+        (expand-file-name "~/.emacs.d/elisp/mode/mmm/")
         (expand-file-name "~/.emacs.d/elisp/org/")
         )
        load-path))

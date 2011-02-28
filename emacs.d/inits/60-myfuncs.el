@@ -97,6 +97,6 @@
              (re-search-backward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t)
              (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
         (setq command
-              (format "TEST_METHOD=%s perl -w %s"
+              (format "TEST_METHOD=%s /Users/shibazaki/perl5/perlbrew/perls/perl-5.8.9/bin/perl -w %s"
                       (match-string 1) (expand-file-name buffer-file-name)))))
     (when command (compile command))))

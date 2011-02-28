@@ -33,6 +33,10 @@
     (setenv "PATH" (concat dir ":" (getenv "PATH")))
     (setq exec-path (append (list dir) exec-path))))
 
+(setenv "DYLD_FALLBACK_LIBRARY_PATH"
+        (concat "/usr/local/mysql/lib:"
+                (getenv "DYLD_FALLBACK_LIBRARY_PATH")))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;
@@ -149,7 +153,7 @@
 (setq truncate-partial-width-windows nil)
 
 ;; 保存時に無駄なスペースを削除
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)

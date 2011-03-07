@@ -12,8 +12,6 @@
 (global-set-key "\C-m" 'newline-and-indent) ; リターンで改行とインデント
 (global-set-key "\C-j" 'newline) ; 改行
 
-(global-set-key "\C-cc" 'comment-region) ; C-c c を範囲指定コメントに
-(global-set-key "\C-cu" 'uncomment-region) ; C-c u を範囲指定コメント解除に
 (define-key global-map "\C-xF" 'mac-toggle-max-window)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
@@ -43,7 +41,7 @@
 
 (define-key global-map (kbd "C-c C-f") 'anything-git-project)
 
-(global-set-key "\C-c\C-c" 'mode-compile)
+(global-set-key "\C-cc" 'mode-compile)
 
 (global-set-key (kbd "C-M-g") 'igrep-find)
 

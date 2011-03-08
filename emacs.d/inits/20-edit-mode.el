@@ -116,6 +116,9 @@
             (set-face-italic-p 'cperl-hash-face nil)
             (set-face-background 'cperl-hash-face "black")
             ))
+(add-hook 'cperl-mode-hook
+          (lambda ()
+            (yas/reload-all)))
 
 ;;flymake, perl-completionは重いので、やめた
 (add-hook 'cperl-mode-hook 'flymake-perl-load)

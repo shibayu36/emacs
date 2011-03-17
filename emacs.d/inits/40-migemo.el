@@ -14,5 +14,6 @@
   (setq migemo-use-frequent-pattern-alist t)
   (setq migemo-pattern-alist-length 1000)
   (setq migemo-coding-system 'utf-8-unix)
+
   ;; migemoを起動する
   (migemo-init))

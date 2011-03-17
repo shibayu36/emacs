@@ -35,8 +35,8 @@
 
 (setenv "DYLD_FALLBACK_LIBRARY_PATH"
         (concat "/usr/local/mysql/lib:"
+                "/usr/local/lib:"
                 (getenv "DYLD_FALLBACK_LIBRARY_PATH")))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;

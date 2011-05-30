@@ -44,6 +44,7 @@
 (global-set-key "\C-cc" 'mode-compile)
 
 (global-set-key (kbd "C-M-g") 'igrep-find)
+(global-set-key (kbd "C-M-f") 'find-dired)
 
 ;;; 辞書引く
 (define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)

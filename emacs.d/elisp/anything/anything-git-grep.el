@@ -1,69 +1,39 @@
 (eval-when-compile (require 'cl))
-(require 'vc-git)
+(require 'my-git)
+(require 'anything-config)
 (provide 'anything-git-grep)
 
-(defvar anything-c-source-git-grep-cache nil "path")
-
-(defun anything-git-grep-init ()
-  (setq anything-c-source-git-grep-cache
-        (vc-git-root (if (buffer-file-name)
-                         (file-name-directory (buffer-file-name))
-                       default-directory))))
-
 (defun anything-git-grep-process ()
-  (if anything-c-source-git-grep-cache
-      (let ((default-directory anything-c-source-git-grep-cache))
+  (anything-aif (anything-attr 'default-directory)
+      (let ((default-directory it))
         (apply 'start-process "git-grep-process" nil
                "git" "--no-pager" "grep" "--full-name" "-n" "--no-color"
                (nbutlast
                 (apply 'append
                        (mapcar
                         (lambda (x) (list "-e" x "--and"))
-                        (split-string anything-pattern "[ \t]" t))))))
+                        (split-string anything-pattern " +" t))))))
     '()))
 
 (defun anything-git-submodule-grep-process ()
-  (if anything-c-source-git-grep-cache
-      (let ((default-directory anything-c-source-git-grep-cache))
+  (anything-aif (anything-attr 'default-directory)
+      (let ((default-directory it))
         (start-process-shell-command
          "git-submodule-grep-process" nil
-         "git" "--no-pager" "submodule" "foreach"
+         "git" "--no-pager" "submodule" "--quiet" "foreach"
          (format "'git grep --full-name -n --no-color %s | sed s!^!$path/!'"
                  (mapconcat (lambda (x)
                               (format "-e %s " (shell-quote-argument x)))
-                            (split-string anything-pattern "[ \t]" t)
-                            "--and "))
-         " | grep -v '^Entering '"))
+                            (split-string anything-pattern " +" t)
+                            "--and "))))
     '()))
-
-(defun anything-git-grep-transformer (cds source)
-  (mapcar (lambda (candidate)
-            (let ((list (split-string candidate ":")))
-              (if (not (>= (length list) 3))
-                  candidate
-                (let ((file-name (first list))
-                      (line-number (second list))
-                      (line (apply 'concat (cddr list))))
-                  (cons (format "%s:%s:\n  %s" file-name line-number line)
-                        candidate)))))
-          cds))
-
-(defun anything-git-grep-goto (candidate)
-  (let ((list (split-string candidate ":")))
-    (when (>= (length list) 3)
-      (let ((top-dir anything-c-source-git-grep-cache)
-            (file-name (first list))
-            (line-number (second list)))
-        (find-file (file-truename (expand-file-name file-name  top-dir)) top-dir)
-        (goto-line (string-to-number line-number))))))
 
 (defvar anything-c-source-git-grep
   '((name . "Git Grep")
-    (multiline)
-    (init . anything-git-grep-init)
+    (init . (lambda () (anything-attrset 'default-directory (my-git-toplevel))))
+    (default-directory . nil)
     (candidates . anything-git-grep-process)
-    (filtered-candidate-transformer anything-git-grep-transformer)
-    (action . (("Git Grep Goto " . anything-git-grep-goto)))
+    (type . file-line)
     (candidate-number-limit . 300)
     (requires-pattern . 3)
     (volatile)
@@ -71,11 +41,11 @@
 
 (defvar anything-c-source-git-submodule-grep
   '((name . "Git Submodule Grep")
-    (multiline)
-    (init . anything-git-grep-init)
+    (init . (lambda () (anything-attrset 'default-directory (my-git-root))))
     (candidates . anything-git-submodule-grep-process)
-    (filtered-candidate-transformer anything-git-grep-transformer)
-    (action . (("Git Submodule Grep Goto " . anything-git-grep-goto)))
+    (default-directory . nil)
+    (type . file-line)
+    (candidate-number-limit . 300)
     (requires-pattern . 3)
     (volatile)
     (delayed)))

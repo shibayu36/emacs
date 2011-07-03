@@ -115,3 +115,6 @@
 ;; ブロック折り畳み
 (require 'hideshow)
 (require 'fold-dwim)
+
+;; htmlize
+(require 'htmlize)

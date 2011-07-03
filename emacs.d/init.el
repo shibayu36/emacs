@@ -31,6 +31,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/evernote/")
         (expand-file-name "~/.emacs.d/elisp/mode/mmm/")
         (expand-file-name "~/.emacs.d/elisp/mode/twittering-mode/")
+        (expand-file-name "~/.emacs.d/elisp/mode/c-sharp/")
         (expand-file-name "~/.emacs.d/elisp/org/")
         )
        load-path))

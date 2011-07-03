@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: package test
+# --
+package $1;
+use strict;
+use warnings;
+
+use base qw(Test::Class);
+
+$0
+
+__PACKAGE__->runtests;
+
+1;

@@ -29,6 +29,11 @@
 
 ;;カラーテーマ
 (require 'color-theme)
+(require 'zenburn)
+;; (eval-after-load "color-theme"
+;;   '(progn
+;;      (color-theme-initialize)
+;;      (color-theme-zenburn)))
 (color-theme-initialize)
 (color-theme-dark-laptop)
 

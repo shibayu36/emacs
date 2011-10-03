@@ -13,6 +13,12 @@
       (append '(
                 ("\\.\\(html\\|htm\\|tt\\|tt2\\|tx\\)\\'" . html-mode)
                 ) auto-mode-alist))
+(add-hook 'html-mode-hook
+          '(lambda ()
+             (require 'hatena-translator)
+             (define-key html-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
+             (define-key html-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)
+             ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;yatex;;;;;;;;;;;;;;;;;;;;;;;

@@ -48,3 +48,6 @@
 
 ;;; 辞書引く
 (define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)
+
+;;; dired other window
+(define-key global-map (kbd "C-x C-j") 'dired-jump-other-window)

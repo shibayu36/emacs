@@ -9,6 +9,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;html-mode設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'zencoding-mode)
 (setq auto-mode-alist
       (append '(
                 ("\\.\\(html\\|htm\\|tt\\|tt2\\|tx\\)\\'" . html-mode)
@@ -16,8 +17,14 @@
 (add-hook 'html-mode-hook
           '(lambda ()
              (require 'hatena-translator)
+             (zencoding-mode)
              (define-key html-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
              (define-key html-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)
+             (define-key zencoding-mode-keymap (kbd "<C-return>") 'zencoding-expand-line)
+             (define-key zencoding-mode-keymap (kbd "C-c C-m") 'zencoding-expand-line)
+             (define-key zencoding-preview-keymap (kbd "C-m") 'zencoding-expand-yas)
+             (define-key zencoding-preview-keymap (kbd "RET") 'zencoding-expand-yas)
+             (define-key zencoding-preview-keymap (kbd "<return>") 'zencoding-expand-yas)
              ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -112,6 +119,9 @@
                (local-set-key (kbd "H") (smartchr '("H" " => ")))
                (local-set-key (kbd "J") (smartchr '("J" "->")))
                (local-set-key (kbd "M") (smartchr '("M" "my ")))
+               (require 'hatena-translator)
+               (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
+               (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
                (set-perl5lib)
                )))
 (add-hook 'cperl-mode-hook

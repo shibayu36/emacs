@@ -95,7 +95,11 @@
 (defalias 'perl-mode 'cperl-mode)
 (setq auto-mode-alist (cons '("\\.t$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cgi$" . cperl-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.psgi$" . cperl-mode) auto-mode-alist))
 (require 'set-perl5lib)
+
+(defvar ac-source-my-perl-completion
+  '((candidates . plcmp-ac-make-cands)))
 
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4
@@ -138,11 +142,11 @@
 
 ;;flymake, perl-completionは重いので、やめた
 (add-hook 'cperl-mode-hook 'flymake-perl-load)
-;; (add-hook 'cperl-mode-hook
-;;           (lambda()
-;;             (require 'perl-completion)
-;;             (perl-completion-mode t)
-;;             (add-to-list 'ac-sources 'ac-source-perl-completion)))
+(add-hook 'cperl-mode-hook
+          (lambda()
+            (require 'perl-completion)
+            (perl-completion-mode t)
+            (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。
@@ -419,3 +423,10 @@ and source-file directory for your debugger." t)
   (yas/minor-mode-on)
   (require 'rfringe))
 (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;; yaml mode ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))

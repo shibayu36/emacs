@@ -6,7 +6,7 @@
 (require 'smartchr)
 
 (global-set-key "\C-h" 'delete-backward-char)
-(global-set-key "\e[3~" 'delete-char)
+;; (global-set-key "\e[3~" 'delete-char)
 
 (global-set-key "\C-x\C-i" 'indent-region) ; 選択範囲をインデント
 (global-set-key "\C-m" 'newline-and-indent) ; リターンで改行とインデント
@@ -41,7 +41,7 @@
 
 (define-key global-map (kbd "C-c C-f") 'anything-git-project)
 
-(global-set-key "\C-cc" 'mode-compile)
+(global-set-key (kbd "<f5>") 'quickrun)
 
 (global-set-key (kbd "C-M-g") 'igrep-find)
 (global-set-key (kbd "C-M-f") 'find-dired)
@@ -49,5 +49,24 @@
 ;;; 辞書引く
 (define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)
 
-;;; dired other window
-(define-key global-map (kbd "C-x C-j") 'dired-jump-other-window)
+;;; direx other window
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
+
+(global-set-key (kbd "C-,") 'er/expand-region)
+(global-set-key (kbd "C-M-,") 'er/contract-region)
+
+;; カーソル位置に目印つけるやつ
+(global-set-key (kbd "M-SPC") 'bm-toggle)
+(global-set-key (kbd "M-[") 'bm-previous)
+(global-set-key (kbd "M-]") 'bm-next)
+
+;; point-undo
+(define-key global-map (kbd "<f7>") 'point-undo)
+(define-key global-map (kbd "S-<f7>") 'point-redo)
+
+;; redo
+(global-set-key "\M-/" 'redo)
+
+;;; jaunte
+;;; カーソルの移動
+(global-set-key (kbd "C-c C-j") 'jaunte)

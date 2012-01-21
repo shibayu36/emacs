@@ -13,3 +13,6 @@
   (set (make-local-variable 'inhibit-read-only) t)
   )
 (add-hook 'grep-setup-hook 'my-grep-edit-setup t)
+
+(require 'grep-a-lot)
+(grep-a-lot-advise igrep)

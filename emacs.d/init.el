@@ -33,6 +33,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/twittering-mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/c-sharp/")
         (expand-file-name "~/.emacs.d/elisp/org/")
+        (expand-file-name "~/.emacs.d/elisp/expand-region/")
         )
        load-path))
 

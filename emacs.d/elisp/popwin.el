@@ -69,7 +69,7 @@
 
 
 
-;;; Common API
+;;; Common
 
 (defmacro popwin:save-selected-window (&rest body)
   "Evaluate BODY saving the selected window."
@@ -93,6 +93,14 @@ minibuffer window is selected."
 (defun popwin:buried-buffer-p (buffer)
   "Return t if BUFFER might be thought of as a buried buffer."
   (eq (car (last (buffer-list))) buffer))
+
+(defun popwin:called-interactively-p ()
+  (with-no-warnings
+    (if (or (>= emacs-major-version 24)
+            (and (= emacs-major-version 23)
+                 (>= emacs-minor-version 2)))
+        (called-interactively-p 'any)
+      (called-interactively-p))))
 
 (defvar popwin:empty-buffer nil
   "Marker buffer of indicating a window of the buffer is being a
@@ -193,11 +201,11 @@ which is a node of `window-tree' and OUTLINE which is a node of
 
 (defun popwin:position-horizontal-p (position)
   "Return t if POSITION is hozirontal."
-  (memq position '(left right)))
+  (and (memq position '(left :left right :right)) t))
 
 (defun popwin:position-vertical-p (position)
   "Return t if POSITION is vertical."
-  (memq position '(top bottom)))
+  (and (memq position '(top :top bottom :bottom)) t))
 
 (defun popwin:create-popup-window-1 (window size position)
   "Create a new window with SIZE at POSITION of WINDOW. The
@@ -303,6 +311,10 @@ the popup window.")
 (defvar popwin:selected-window nil
   "Last selected window when the popup window is shown.")
 
+(defvar popwin:popup-window-dedicated-p nil
+  "Non-nil means the popup window is dedicated to the original
+popup buffer.")
+
 (defvar popwin:popup-window-stuck-p nil
   "Non-nil means the popup window has been stuck.")
 
@@ -334,8 +346,7 @@ the popup window.")
 
 (defun popwin:close-popup-window-timer ()
   (condition-case var
-      (popwin:close-popup-window-if-necessary
-       (popwin:should-close-popup-window-p))
+      (popwin:close-popup-window-if-necessary)
     (error (message "popwin:close-popup-window-timer: error: %s" var))))
 
 (defun popwin:close-popup-window (&optional keep-selected)
@@ -358,43 +369,62 @@ window will not be selected."
           popwin:popup-window nil
           popwin:focus-window nil
           popwin:selected-window nil
+          popwin:popup-window-dedicated-p nil
           popwin:popup-window-stuck-p nil
           popwin:window-outline nil)))
 
-(defun popwin:should-close-popup-window-p ()
-  "Return t if popwin should close the popup window
-immediately. It might be useful if this is customizable
-function."
-  (and popwin:popup-window
-       (or (and (eq last-command 'keyboard-quit)
-                (eq last-command-event ?\C-g))
-           (not (buffer-live-p popwin:popup-buffer))
-           (popwin:buried-buffer-p popwin:popup-buffer))))
+(defun popwin:close-popup-window-if-necessary ()
+  "Close the popup window if necessary. The all situations where
+the popup window will be closed are followings:
 
-(defun popwin:close-popup-window-if-necessary (&optional force)
-  "Close the popup window if another window has been selected. If
-FORCE is non-nil, this function tries to close the popup window
-immediately if possible, and the lastly selected window will be
-selected again."
+* `C-g' has been pressed.
+* The popup buffer has been killed.
+* The popup buffer has been buried.
+* The popup buffer has been changed if the popup window is
+  dedicated to the buffer.
+* Another window has been selected."
   (when popwin:popup-window
     (let* ((window (selected-window))
-           (minibuf-window-p (window-minibuffer-p window))
+           (window-buffer (window-buffer window))
+           (minibuf-window-p
+            (window-minibuffer-p window))
+           (reading-from-minibuf
+            (and minibuf-window-p
+                 (minibuffer-prompt)
+                 t))
+           (quit-requested
+            (and (eq last-command 'keyboard-quit)
+                 (eq last-command-event ?\C-g)))
+           (popup-buffer-alive
+            (buffer-live-p popwin:popup-buffer))
+           (popup-buffer-buried
+            (popwin:buried-buffer-p popwin:popup-buffer))
+           (popup-buffer-changed-desipite-of-dedicated
+            (and popwin:popup-window-dedicated-p
+                 (buffer-live-p window-buffer)
+                 (not (eq popwin:popup-buffer window-buffer))))
+           (popup-window-alive (popwin:popup-window-live-p))
            (other-window-selected
             (and (not (eq window popwin:focus-window))
-                 (not (eq window popwin:popup-window))))
-           (popup-buffer-still-working
-            (and (buffer-live-p popwin:popup-buffer)
-                 (not (popwin:buried-buffer-p popwin:popup-buffer))))
-           (not-stuck-or-closed
-            (or (not popwin:popup-window-stuck-p)
-                (not (popwin:popup-window-live-p)))))
-      (if (or force
-              (and (not minibuf-window-p)
-                   not-stuck-or-closed
-                   other-window-selected))
+                 (not (eq window popwin:popup-window)))))
+      (when (or quit-requested
+                (not popup-buffer-alive)
+                popup-buffer-buried
+                popup-buffer-changed-desipite-of-dedicated
+                (and other-window-selected
+                     (not minibuf-window-p)
+                     (or (not popwin:popup-window-stuck-p)
+                         (not popup-window-alive))))
+        (if reading-from-minibuf
+            (progn
+              (popwin:close-popup-window)
+              (select-window (minibuffer-window)))
           (popwin:close-popup-window
            (and other-window-selected
-                popup-buffer-still-working))))))
+                (and popup-buffer-alive
+                     (not popup-buffer-buried))))
+          (when popup-buffer-changed-desipite-of-dedicated
+            (popwin:switch-to-buffer window-buffer)))))))
 
 (defun* popwin:popup-buffer (buffer
                              &key
@@ -402,6 +432,7 @@ selected again."
                              (height popwin:popup-window-height)
                              (position popwin:popup-window-position)
                              noselect
+                             dedicated
                              stick)
   "Show BUFFER in a popup window and return the popup window. If
 NOSELECT is non-nil, the popup window will not be selected. If
@@ -425,6 +456,7 @@ BUFFER."
   (with-selected-window popwin:popup-window
     (popwin:switch-to-buffer buffer))
   (setq popwin:popup-buffer buffer
+        popwin:popup-window-dedicated-p dedicated
         popwin:popup-window-stuck-p stick)
   (if noselect
       (setq popwin:focus-window popwin:selected-window)
@@ -462,11 +494,14 @@ be closed by `popwin:close-popup-window'."
     ("*Occur*" :noselect t))
   "Configuration of special displaying buffer for
 `popwin:display-buffer' and
-`popwin:special-display-popup-window'. The value is a list
-of (PATTERN . KEYWORDS) where PATTERN is a pattern of specifying
-buffer and KEYWORDS is a list of a pair of key and value. PATTERN
-is in general a buffer name, otherwise a symbol specifying
-major-mode of buffer. Available keyword are following:
+`popwin:special-display-popup-window'. The value is a list of
+CONFIG as a form of (PATTERN . KEYWORDS) where PATTERN is a
+pattern of specifying buffer and KEYWORDS is a list of a pair of
+key and value. PATTERN is in general a buffer name, a symbol
+specifying major-mode of buffer, or a predicate function which
+takes one argument: the buffer. If CONFIG is a string or a
+symbol, PATTERN will be CONFIG and KEYWORDS will be
+empty. Available keywords are following:
 
   regexp: If the value is non-nil, PATTERN will be used as regexp
     to matching buffer.
@@ -483,6 +518,12 @@ major-mode of buffer. Available keyword are following:
 
   noselect: If the value is non-nil, the popup window will not be
     selected when it is shown.
+
+  dedicated: If the value is non-nil, the popup window will be
+    dedicated to the original popup buffer. In this case, when
+    another buffer is selected in the popup window, the popup
+    window will be closed immedicately and the selected buffer
+    will be shown on the previously selected window.
 
   stick: If the value is non-nil, the popup window will be stuck
     when it is shown.
@@ -504,7 +545,16 @@ buffers will be shown at the left of the frame with width 80."
    (when (and (eq (selected-window) popwin:popup-window)
               (not (same-window-p (buffer-name buffer))))
      (popwin:close-popup-window))
-   (display-buffer buffer not-this-window)))
+   (if (and (>= emacs-major-version 24)
+            (boundp 'action)
+            (boundp 'frame))
+       ;; Use variables ACTION and FRAME which are formal parameters
+       ;; of DISPLAY-BUFFER.
+       ;; 
+       ;; TODO use display-buffer-alist instead of
+       ;; display-buffer-function.
+       (display-buffer buffer action frame)
+     (display-buffer buffer not-this-window))))
 
 (defun* popwin:display-buffer-1 (buffer-or-name &key default-config-keywords if-buffer-not-found if-config-not-found)
   "Display BUFFER-OR-NAME, if possible, in a popup
@@ -524,11 +574,13 @@ specifies default values of the selected config."
         with win-height = popwin:popup-window-height
         with win-position = popwin:popup-window-position
         with win-noselect
+        with win-dedicated
         with win-stick
         with found
         until found
-        for (pattern . keywords) in popwin:special-display-config do
-        (destructuring-bind (&key regexp width height position noselect stick)
+        for config in popwin:special-display-config
+        for (pattern . keywords) = (if (atom config) (list config) config) do
+        (destructuring-bind (&key regexp width height position noselect dedicated stick)
             (append keywords default-config-keywords)
           (let ((matched (cond ((and (stringp pattern) regexp)
                                 (string-match pattern name))
@@ -536,6 +588,8 @@ specifies default values of the selected config."
                                 (string= pattern name))
                                ((symbolp pattern)
                                 (eq pattern mode))
+                               ((functionp pattern)
+                                (funcall pattern buffer))
                                (t (error "Invalid pattern: %s" pattern)))))
             (when matched
               (setq found t
@@ -543,6 +597,7 @@ specifies default values of the selected config."
                     win-height (or height win-height)
                     win-position (or position win-position)
                     win-noselect noselect
+                    win-dedicated dedicated
                     win-stick stick))))
         finally return
         (if (or found
@@ -554,6 +609,7 @@ specifies default values of the selected config."
                                    :height win-height
                                    :position win-position
                                    :noselect (or (minibufferp) win-noselect)
+                                   :dedicated win-dedicated
                                    :stick win-stick))
           (funcall if-config-not-found buffer))))
 
@@ -565,9 +621,9 @@ usual. This function can be used as a value of
   (popwin:display-buffer-1
    buffer-or-name
    :if-config-not-found
-   (unless (interactive-p)
-     (lambda (buffer-or-name)
-       (popwin:original-display-buffer buffer-or-name not-this-window)))))
+   (unless (popwin:called-interactively-p)
+     (lambda (buffer)
+       (popwin:original-display-buffer buffer not-this-window)))))
 
 (defun popwin:special-display-popup-window (buffer &rest ignore)
   "The `special-display-function' with a popup window."
@@ -622,21 +678,21 @@ usual. This function can be used as a value of
 
 (defvar popwin:keymap
   (let ((map (make-keymap)))
-    (define-key map "b" 'popwin:popup-buffer)
+    (define-key map "b"    'popwin:popup-buffer)
     (define-key map "\C-b" 'popwin:popup-buffer)
     (define-key map "\M-b" 'popwin:popup-buffer-tail)
-    (define-key map "o" 'popwin:display-buffer)
+    (define-key map "o"    'popwin:display-buffer)
     (define-key map "\C-o" 'popwin:display-buffer)
-    (define-key map "p" 'popwin:display-last-buffer)
+    (define-key map "p"    'popwin:display-last-buffer)
     (define-key map "\C-p" 'popwin:display-last-buffer)
-    (define-key map "f" 'popwin:find-file)
+    (define-key map "f"    'popwin:find-file)
     (define-key map "\C-f" 'popwin:find-file)
     (define-key map "\M-f" 'popwin:find-file-tail)
-    (define-key map "s" 'popwin:select-popup-window)
+    (define-key map "s"    'popwin:select-popup-window)
     (define-key map "\C-s" 'popwin:select-popup-window)
     (define-key map "\M-s" 'popwin:stick-popup-window)
-    (define-key map "0" 'popwin:close-popup-window)
-    (define-key map "m" 'popwin:messages)
+    (define-key map "0"    'popwin:close-popup-window)
+    (define-key map "m"    'popwin:messages)
     (define-key map "\C-m" 'popwin:messages)
     map)
   "Default keymap for popwin commands. Use like:

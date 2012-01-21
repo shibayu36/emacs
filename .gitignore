@@ -7,5 +7,6 @@
 emacs.d/anything-c-adaptive-history
 emacs.d/ac-comphist.dat
 emacs.d/undohist
+emacs.d/.backup/
 /emacs.d/url/cookies
 /emacs.d/tramp

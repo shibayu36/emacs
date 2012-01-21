@@ -52,14 +52,12 @@
 
 ;; jaunte.el
 (require 'jaunte)
-(global-set-key (kbd "C-c C-j") 'jaunte)
 
 ;; set-perl5lib-glob-from-git-root
 (require 'set-perl5lib-glob-from-git-root)
 
 ;; redo
 (require 'redo+)
-(global-set-key "\M-/" 'redo)
 (setq undo-no-redo t)
 (setq undo-limit 600000)
 (setq undo-strong-limit 900000)
@@ -74,8 +72,6 @@
 
 ;; point-undo
 (require 'point-undo)
-(define-key global-map (kbd "<f7>") 'point-undo)
-(define-key global-map (kbd "S-<f7>") 'point-redo)
 
 ;; カーソル位置に目印つけるやつ
 (setq-default bm-buffer-persistence nil)
@@ -86,9 +82,6 @@
 (add-hook 'after-save-hook 'bm-buffer-save)
 (add-hook 'after-revert-hook 'bm-buffer-restore)
 (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-(global-set-key (kbd "M-SPC") 'bm-toggle)
-(global-set-key (kbd "M-[") 'bm-previous)
-(global-set-key (kbd "M-]") 'bm-next)
 
 ;; col-highlight
 (require 'col-highlight)
@@ -122,3 +115,10 @@
 ;;; clipboard-to-kill-ring
 (require 'clipboard-to-kill-ring)
 (clipboard-to-kill-ring t)
+
+;;; zlc
+(require 'zlc)
+
+;;; 矩形選択
+(cua-mode t)
+(setq cua-enable-cua-keys nil) ;; 変なキーバインド禁止

@@ -10,3 +10,4 @@ emacs.d/undohist
 emacs.d/.backup/
 /emacs.d/url/cookies
 /emacs.d/tramp
+emacs.d/shellenv.el

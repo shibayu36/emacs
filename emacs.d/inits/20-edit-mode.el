@@ -98,6 +98,9 @@
 (setq auto-mode-alist (cons '("\\.psgi$" . cperl-mode) auto-mode-alist))
 (require 'set-perl5lib)
 
+(require 'perlbrew-mini)
+(perlbrew-mini-use-latest)
+
 (defvar ac-source-my-perl-completion
   '((candidates . plcmp-ac-make-cands)))
 
@@ -110,24 +113,7 @@
       cperl-label-offset -4
       cperl-tab-always-indent nil
       cperl-font-lock t)
-(add-hook 'cperl-mode-hook
-          '(lambda ()
-             (progn
-               (setq indent-tabs-mode nil)
-               (setq tab-width nil)
-               (local-set-key "\C-c\C-hm" 'perldoc-m)
-               (local-set-key "\C-cs" 'perl-syntax-check)
-               (local-set-key "\C-cd" 'perl5-data-dump)
-               (local-set-key "\C-ct" 'run-perl-method-test)
-               (local-set-key (kbd "F") (smartchr '("F" "$")))
-               (local-set-key (kbd "H") (smartchr '("H" " => ")))
-               (local-set-key (kbd "J") (smartchr '("J" "->")))
-               (local-set-key (kbd "M") (smartchr '("M" "my ")))
-               (require 'hatena-translator)
-               (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
-               (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
-               (set-perl5lib)
-               )))
+(add-hook 'cperl-mode-hook 'flymake-perl-load)
 (add-hook 'cperl-mode-hook
           (lambda ()
             (set-face-bold-p 'cperl-array-face nil)
@@ -141,12 +127,34 @@
             (yas/reload-all)))
 
 ;;flymake, perl-completionは重いので、やめた
-(add-hook 'cperl-mode-hook 'flymake-perl-load)
 (add-hook 'cperl-mode-hook
           (lambda()
+            (setq plcmp-use-keymap nil)
             (require 'perl-completion)
             (perl-completion-mode t)
             (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
+
+(add-hook 'cperl-mode-hook
+          '(lambda ()
+             (progn
+               (setq indent-tabs-mode nil)
+               (setq tab-width nil)
+               (local-set-key "\C-c\C-hm" 'perldoc-m)
+               (local-set-key (kbd "C-c C-s") 'perl-syntax-check)
+               (local-set-key (kbd "C-c C-d") 'perl5-data-dump)
+               (local-set-key "\C-ct" 'run-perl-method-test)
+               (local-set-key (kbd "C-c a") 'align)
+               (local-set-key (kbd "F") (smartchr '("F" "$")))
+               (local-set-key (kbd "H") (smartchr '("H" " => ")))
+               (local-set-key (kbd "J") (smartchr '("J" "->")))
+               (local-set-key (kbd "M") (smartchr '("M" "my ")))
+               (require 'hatena-translator)
+               (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
+               (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
+               (set-perl5lib)
+               )))
+
+
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。
@@ -194,6 +202,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;;; jshint-mode
+;; 今うまくいかない
+;; (require 'flymake-jshint)
+;; (add-hook 'javascript-mode-hook
+;;      (lambda () (flymake-mode t)))
 
 ; fixing indentation
 ; refer to http://mihai.bazon.net/projects/editing-javascript-with-emacs-js2-mode

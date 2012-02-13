@@ -113,8 +113,8 @@
 (require 'htmlize)
 
 ;;; clipboard-to-kill-ring
-(require 'clipboard-to-kill-ring)
-(clipboard-to-kill-ring t)
+;; (require 'clipboard-to-kill-ring)
+;; (clipboard-to-kill-ring t)
 
 ;;; zlc
 (require 'zlc)

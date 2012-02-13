@@ -13,30 +13,47 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://sakito.jp/emacs/emacsshell.html#path
 ;; より下に記述した物が PATH の先頭に追加されます
-(dolist (dir (list
-              "/sbin"
-              "/usr/sbin"
-              "/bin"
-              "/usr/bin"
-              "/usr/local/mysql/bin"
-              "/Developer/Tools"
-              "/usr/local/sbin"
-              "/opt/local/sbin"
-              "/opt/local/bin" ;; これが/usr/binよりも下に書いてあればよい
-              "/usr/local/bin"
-              (expand-file-name "~/bin")
-              (expand-file-name "~/perl5/perlbrew/perls/perl-5.8.9/bin")
-              ))
+
+;; (dolist (dir (list
+;;               "/sbin"
+;;               "/usr/sbin"
+;;               "/bin"
+;;               "/usr/bin"
+;;               "/usr/local/mysql/bin"
+;;               "/Developer/Tools"
+;;               "/usr/local/sbin"
+;;               "/opt/local/sbin"
+;;               "/opt/local/bin" ;; これが/usr/binよりも下に書いてあればよい
+;;               "/usr/local/bin"
+;;               (expand-file-name "~/bin")
+;;               (expand-file-name "~/perl5/perlbrew/bin")
+;;               (expand-file-name "~/perl5/perlbrew/perls/current/bin")
+;;               ))
+;;   ;; PATH と exec-path に同じ物を追加します
+;;   (when ;; (and
+;;          (file-exists-p dir) ;; (not (member dir exec-path)))
+;;     (setenv "PATH" (concat dir ":" (getenv "PATH")))
+;;     (setq exec-path (append (list dir) exec-path))))
+
+(dolist (dir (reverse
+                (split-string
+                 (substring
+                  (shell-command-to-string "echo $PATH") 0 -1) ":")))
   ;; PATH と exec-path に同じ物を追加します
   (when ;; (and
          (file-exists-p dir) ;; (not (member dir exec-path)))
     (setenv "PATH" (concat dir ":" (getenv "PATH")))
     (setq exec-path (append (list dir) exec-path))))
 
+(setq exec-path '())
+
 (setenv "DYLD_FALLBACK_LIBRARY_PATH"
         (concat "/usr/local/mysql/lib:"
                 "/usr/local/lib:"
                 (getenv "DYLD_FALLBACK_LIBRARY_PATH")))
+(setenv "NODE_PATH"
+        (concat "~/node_modules/:"
+                (getenv "NODE_PATH")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;
@@ -85,7 +102,11 @@
 
 
 ;;; スクロールを一行ずつにする
-(setq scroll-step 1)
+;; (setq scroll-step 1)
+(setq scroll-conservatively 35
+      scroll-margin 0
+      scroll-step 1)
+
 ;;; スクロールバーを右側に表示する
 ;;(set-scroll-bar-mode 'right)
 ;;; 行の先頭でC-kを一回押すだけで行全体を消去する

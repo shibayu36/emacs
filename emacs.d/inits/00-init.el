@@ -14,38 +14,9 @@
 ;; http://sakito.jp/emacs/emacsshell.html#path
 ;; より下に記述した物が PATH の先頭に追加されます
 
-;; (dolist (dir (list
-;;               "/sbin"
-;;               "/usr/sbin"
-;;               "/bin"
-;;               "/usr/bin"
-;;               "/usr/local/mysql/bin"
-;;               "/Developer/Tools"
-;;               "/usr/local/sbin"
-;;               "/opt/local/sbin"
-;;               "/opt/local/bin" ;; これが/usr/binよりも下に書いてあればよい
-;;               "/usr/local/bin"
-;;               (expand-file-name "~/bin")
-;;               (expand-file-name "~/perl5/perlbrew/bin")
-;;               (expand-file-name "~/perl5/perlbrew/perls/current/bin")
-;;               ))
-;;   ;; PATH と exec-path に同じ物を追加します
-;;   (when ;; (and
-;;          (file-exists-p dir) ;; (not (member dir exec-path)))
-;;     (setenv "PATH" (concat dir ":" (getenv "PATH")))
-;;     (setq exec-path (append (list dir) exec-path))))
-
-(dolist (dir (reverse
-                (split-string
-                 (substring
-                  (shell-command-to-string "echo $PATH") 0 -1) ":")))
-  ;; PATH と exec-path に同じ物を追加します
-  (when ;; (and
-         (file-exists-p dir) ;; (not (member dir exec-path)))
-    (setenv "PATH" (concat dir ":" (getenv "PATH")))
-    (setq exec-path (append (list dir) exec-path))))
-
-(setq exec-path '())
+(load-file (expand-file-name "~/.emacs.d/shellenv.el"))
+(dolist (path (reverse (split-string (getenv "PATH") ":")))
+  (add-to-list 'exec-path path))
 
 (setenv "DYLD_FALLBACK_LIBRARY_PATH"
         (concat "/usr/local/mysql/lib:"

@@ -99,7 +99,7 @@
 (require 'set-perl5lib)
 
 (require 'perlbrew-mini)
-(perlbrew-mini-use-latest)
+(perlbrew-mini-use "perl-5.8.9")
 
 (defvar ac-source-my-perl-completion
   '((candidates . plcmp-ac-make-cands)))
@@ -129,9 +129,8 @@
 ;;flymake, perl-completionは重いので、やめた
 (add-hook 'cperl-mode-hook
           (lambda()
-            (setq plcmp-use-keymap nil)
             (require 'perl-completion)
-            (perl-completion-mode t)
+            (setq plcmp-use-keymap nil)
             (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
 
 (add-hook 'cperl-mode-hook

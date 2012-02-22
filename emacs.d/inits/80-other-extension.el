@@ -120,5 +120,4 @@
 (require 'zlc)
 
 ;;; 矩形選択
-(cua-mode t)
-(setq cua-enable-cua-keys nil) ;; 変なキーバインド禁止
+(cua-selection-mode t)

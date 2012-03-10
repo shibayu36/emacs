@@ -1,3 +1,6 @@
+;; default mode is text mode
+(setq default-major-mode 'text-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;mmmモード;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -101,9 +104,6 @@
 (require 'perlbrew-mini)
 (perlbrew-mini-use "perl-5.8.9")
 
-(defvar ac-source-my-perl-completion
-  '((candidates . plcmp-ac-make-cands)))
-
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4
       cperl-close-paren-offset -4
@@ -127,10 +127,13 @@
             (yas/reload-all)))
 
 ;;flymake, perl-completionは重いので、やめた
+(defvar ac-source-my-perl-completion
+  '((candidates . plcmp-ac-make-cands)))
 (add-hook 'cperl-mode-hook
           (lambda()
-            (require 'perl-completion)
             (setq plcmp-use-keymap nil)
+            (require 'perl-completion)
+            (perl-completion-mode t)
             (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
 
 (add-hook 'cperl-mode-hook

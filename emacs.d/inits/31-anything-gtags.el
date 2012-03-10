@@ -54,8 +54,7 @@
   (defun anything-gtags-from-here ()
     (interactive)
     (anything
-     :sources '(anything-c-source-imenu
-                anything-c-source-gtags-select)
+     :sources '(anything-c-source-gtags-select)
      :input (thing-at-point 'symbol)))
 
   )

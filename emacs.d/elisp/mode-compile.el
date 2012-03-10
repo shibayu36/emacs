@@ -1,3 +1,4 @@
+
 ;;; mode-compile.el ---  Smart command for compiling files
 ;;                       according to major-mode.
 ;;

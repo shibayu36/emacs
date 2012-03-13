@@ -1,5 +1,4 @@
-これは magit.info、magit.texi より makeinfo バージョン 4.8
-によって作成されました。
+This is magit.info, produced by makeinfo version 4.8 from magit.texi.
 
 INFO-DIR-SECTION Emacs
 START-INFO-DIR-ENTRY
@@ -675,25 +674,25 @@ dcommit'.
 
 
 Tag Table:
-Node: Top586
-Node: Introduction1097
-Node: Acknowledgments2568
-Node: Sections3192
-Node: Status5742
-Node: Untracked files8471
-Node: Staging and Committing9418
-Node: History12612
-Node: Reflogs15016
-Node: Diffing15404
-Node: Tagging16002
-Node: Resetting16446
-Node: Stashing17970
-Node: Branching18551
-Node: Wazzup19355
-Node: Merging20137
-Node: Rebasing21473
-Node: Rewriting22288
-Node: Pushing and Pulling25142
-Node: Interfacing with Subversion26552
+Node: Top549
+Node: Introduction1060
+Node: Acknowledgments2531
+Node: Sections3155
+Node: Status5705
+Node: Untracked files8434
+Node: Staging and Committing9381
+Node: History12575
+Node: Reflogs14979
+Node: Diffing15367
+Node: Tagging15965
+Node: Resetting16409
+Node: Stashing17933
+Node: Branching18514
+Node: Wazzup19318
+Node: Merging20100
+Node: Rebasing21436
+Node: Rewriting22251
+Node: Pushing and Pulling25105
+Node: Interfacing with Subversion26515
 
 End Tag Table

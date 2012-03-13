@@ -73,3 +73,11 @@
 
 ;;; mode compile
 (global-set-key "\C-cc" 'mode-compile)
+
+;;; key-combo setting
+(require 'key-combo)
+(key-combo-mode 0)
+(key-combo-define-global (kbd "=") '(" = " " == "))
+(key-combo-define-global (kbd "=>") " => ")
+(key-combo-define-global (kbd ">") '(">"))
+(key-combo-define-global (kbd ">=") " >= ")

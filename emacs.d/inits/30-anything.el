@@ -21,6 +21,9 @@
             anything-c-source-files-in-current-dir
             ))
 
+    ;; filelist
+    (setq anything-c-filelist-file-name "/tmp/all.filelist")
+
     ;; root権限でアクションを実行するときのコマンド
     ;; デフォルトは"su"
     (setq anything-su-or-sudo "sudo"))
@@ -88,10 +91,6 @@
      anything-c-moccur-enable-initial-pattern t))
 
   ;; kill ringを表示
-
-  ;; (when (require 'anything-startup nil t)
-;;     (setq anything-c-filelist-file-name "/tmp/all.filelist")
-;;     (setq anything-grep-candidates-fast-directory-regexp "^/tmp"))
 
   (require 'anything-migemo)
 

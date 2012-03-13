@@ -17,12 +17,12 @@
 
 ;; 行番号表示
 ;; なんか重いのでやめる
-(require 'linum)
-(global-linum-mode nil)
-(set-face-attribute 'linum nil
-                    :foreground "#800"
-                    :height 0.7)
-(setq linum-format "%2d")
+;; (require 'linum)
+;; (global-linum-mode nil)
+;; (set-face-attribute 'linum nil
+;;                     :foreground "#800"
+;;                     :height 0.7)
+;; (setq linum-format "%2d")
 
 ;;フォントロックモード
 (global-font-lock-mode t)

@@ -23,9 +23,9 @@
 (setq woman-use-own-frame nil)
 
 ;;tramp
-(require 'tramp)
-(setq tramp-default-method "ssh")
-(setq recentf-auto-cleanup 'never)
+;; (require 'tramp)
+;; (setq tramp-default-method "ssh")
+;; (setq recentf-auto-cleanup 'never)
 
 ;;カラーテーマ
 (require 'color-theme)

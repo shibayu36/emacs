@@ -102,7 +102,7 @@
 (require 'set-perl5lib)
 
 (require 'perlbrew-mini)
-(perlbrew-mini-use "perl-5.8.9")
+(perlbrew-mini-use "perl-5.14.2")
 
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4
@@ -446,3 +446,9 @@ and source-file directory for your debugger." t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;; nginx mode ;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'nginx-mode)
+;; (add-to-list 'auto-mode-alist '("\\.nginx\\.conf$" . nginx-mode))

@@ -37,10 +37,6 @@
 
 (global-set-key (kbd "C-x v") 'magit-status)
 
-(key-chord-define-global "RR" 'remember)
-
-(define-key global-map (kbd "C-c C-f") 'anything-git-project)
-
 (global-set-key (kbd "<f5>") 'quickrun)
 
 (global-set-key (kbd "C-M-g") 'igrep-find)

@@ -12,7 +12,7 @@
 (global-set-key "\C-m" 'newline-and-indent) ; リターンで改行とインデント
 (global-set-key "\C-j" 'newline) ; 改行
 
-(define-key global-map "\C-xF" 'mac-toggle-max-window)
+(define-key global-map "\C-xF" 'ns-toggle-fullscreen)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
 (global-set-key (kbd "C-x ?") 'help-command)

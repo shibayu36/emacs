@@ -130,12 +130,10 @@
 (font-lock-fontify-buffer)
 
 ;;等幅文字設定
-;;carbonでの設定
-(when (= emacs-major-version 22)
- (require 'carbon-font)
- (fixed-width-set-fontset "hiramaru" 12))
-;; cocoaでの設定
-(when (= emacs-major-version 23)
-    (set-default-font
-     "-*-Osaka-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
-
+(create-fontset-from-ascii-font "Menlo-14:weight=normal:slant=normal" nil "menlokakugo")
+(set-fontset-font "fontset-menlokakugo"
+                  'unicode
+                  (font-spec :family "Hiragino Kaku Gothic ProN" :size 16)
+                  nil
+                  'append)
+(add-to-list 'default-frame-alist '(font . "fontset-menlokakugo"))

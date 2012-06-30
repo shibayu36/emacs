@@ -63,7 +63,6 @@
 (setq undo-strong-limit 900000)
 
 ;; sudo-ext
-(server-start)
 (require 'sudo-ext)
 
 ;; sequential-command

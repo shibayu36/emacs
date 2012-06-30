@@ -8,6 +8,9 @@
   ;;(setq mac-command-modifier 'super) ; コマンドキーを Super に
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
 
+(setq ns-command-modifier (quote meta))
+(setq ns-alternate-modifier (quote super))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; exec-pathの設定 ;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,6 +91,8 @@
 
 ;;;サーバ起動
 (require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;;;クライアントを終了するとき終了するかどうかを聞かない
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)

@@ -101,6 +101,8 @@
 (setq auto-mode-alist (cons '("\\.psgi$" . cperl-mode) auto-mode-alist))
 (require 'set-perl5lib)
 
+(setq cperl-hairy nil)
+
 (require 'perlbrew-mini)
 (perlbrew-mini-use "perl-5.14.2")
 
@@ -316,6 +318,8 @@
   "Mode for editing ruby source files" t)
 (setq auto-mode-alist
       (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq auto-mode-alist
+      (append '(("Capfile$" . ruby-mode)) auto-mode-alist))
 (setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
                                      interpreter-mode-alist))
 (autoload 'run-ruby "inf-ruby"

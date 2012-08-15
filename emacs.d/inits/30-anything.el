@@ -21,9 +21,6 @@
             anything-c-source-files-in-current-dir
             ))
 
-    ;; filelist
-    (setq anything-c-filelist-file-name "/tmp/all.filelist")
-
     ;; root権限でアクションを実行するときのコマンド
     ;; デフォルトは"su"
     (setq anything-su-or-sudo "sudo"))

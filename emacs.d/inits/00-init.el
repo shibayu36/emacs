@@ -114,12 +114,6 @@
     (bookmark-save))
   (add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top))
 
-
-;; key-chord
-(require 'key-chord)
-(setq key-chord-two-keys-delay 0.04)
-(key-chord-mode 1)
-
 ;;; debug用
 (setq debug-on-error t)
 

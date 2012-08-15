@@ -1,5 +1,4 @@
 (setq view-read-only t)
-(key-chord-define-global "kj" 'view-mode)
 
 (require 'view)
 ;; less感覚の操作

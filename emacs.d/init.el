@@ -35,6 +35,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
         (expand-file-name "~/.emacs.d/elisp/org/")
         (expand-file-name "~/.emacs.d/elisp/expand-region/")
+        (expand-file-name "~/.emacs.d/elisp/slime/")
         )
        load-path))
 

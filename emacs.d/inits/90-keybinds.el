@@ -37,7 +37,7 @@
 
 (global-set-key (kbd "C-x v") 'magit-status)
 
-(global-set-key (kbd "<f5>") 'quickrun)
+(global-set-key (kbd "<f5>") 'slime-js-reload)
 
 (global-set-key (kbd "C-M-g") 'igrep-find)
 (global-set-key (kbd "C-M-f") 'find-dired)
@@ -77,3 +77,8 @@
 (key-combo-define-global (kbd "=>") " => ")
 (key-combo-define-global (kbd ">") '(">"))
 (key-combo-define-global (kbd ">=") " >= ")
+
+;;;
+(global-set-key "\C-x@" '(lambda ()
+                           (interactive)
+                           (split-window-horizontally-n 3)))

@@ -21,10 +21,10 @@
 (dolist (path (reverse (split-string (getenv "PATH") ":")))
   (add-to-list 'exec-path path))
 
-(setenv "DYLD_FALLBACK_LIBRARY_PATH"
-        (concat "/usr/local/mysql/lib:"
-                "/usr/local/lib:"
-                (getenv "DYLD_FALLBACK_LIBRARY_PATH")))
+;; (setenv "DYLD_FALLBACK_LIBRARY_PATH"
+;;         (concat "/usr/local/mysql/lib:"
+;;                 "/usr/local/lib:"
+;;                 (getenv "DYLD_FALLBACK_LIBRARY_PATH")))
 (setenv "NODE_PATH"
         (concat "~/node_modules/:"
                 (getenv "NODE_PATH")))

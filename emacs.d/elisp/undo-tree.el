@@ -1,11 +1,17 @@
-
 ;;; undo-tree.el --- Treat undo history as a tree
 
+;; 2010/2/15 追記.
+;; undo-tree-visualizer-quit のバグを修正しました.
+;; 参考) http://d.hatena.ne.jp/kitokitoki/20100211/p1
+
+;; オリジナルからの変更点
+;;  1. q で *undo-tree* があったウィンドウも削除し，呼び出しもとのウィンドウ・バッファにポイントを移動
+;;  2. 上下分割から左右分割に変更
 
 ;; Copyright (C) 2009-2010 Toby Cubitt
 
 ;; Author: Toby Cubitt <toby-undo-tree@dr-qubit.org>
-;; Version: 0.1.6
+;; Version: 0.1.7
 ;; Keywords: undo, redo, history, tree
 ;; URL: http://www.dr-qubit.org/emacs.php
 ;; Git Repository: http://www.dr-qubit.org/git/undo-tree.git
@@ -608,7 +614,11 @@ in visualizer."
   "Non-nil when visualizer is displaying time-stamps.")
 (make-variable-buffer-local 'undo-tree-visualizer-timestamps)
 
+(defvar undo-tree-parent-buffer nil
+  "Previous buffer before executing undo-tree-visualize")
 
+(defvar undo-tree-parent-window nil
+  "Previous window before executing undo-tree-visualize")
 
 
 ;;; =================================================================
@@ -1396,15 +1406,21 @@ Argument is a character, naming the register."
   ;; prepare *undo-tree* buffer, then draw tree in it
   (let ((undo-tree buffer-undo-tree)
         (buff (current-buffer))
-	(display-buffer-mark-dedicated 'soft))
-    (switch-to-buffer-other-window " *undo-tree*")
-    (undo-tree-visualizer-mode)
-    (setq undo-tree-visualizer-buffer buff)
-    (setq buffer-undo-tree undo-tree)
-    (setq cursor-type nil)
-    (setq buffer-read-only nil)
-    (undo-tree-draw-tree undo-tree)
-    (setq buffer-read-only t)))
+        (new-buff (get-buffer-create " *undo-tree*"))
+        (display-buffer-mark-dedicated 'soft))
+        (setq undo-tree-parent-buffer (buffer-name))
+        (setq undo-tree-parent-window (selected-window))
+        (split-window (selected-window) nil t)
+      (with-current-buffer new-buff
+        (erase-buffer)
+        (undo-tree-visualizer-mode)
+        (setq undo-tree-visualizer-buffer buff)
+        (setq buffer-undo-tree undo-tree)
+        (setq cursor-type nil)
+        (setq buffer-read-only nil)
+        (undo-tree-draw-tree undo-tree)
+        (setq buffer-read-only t))
+      (pop-to-buffer new-buff)))
 
 
 (defun undo-tree-kill-visualizer (&rest dummy)
@@ -1414,7 +1430,6 @@ Argument is a character, naming the register."
     (unwind-protect
 	(with-current-buffer " *undo-tree*"
 	  (undo-tree-visualizer-quit)))))
-
 
 
 (defun undo-tree-draw-tree (undo-tree)
@@ -1780,7 +1795,10 @@ using `undo-tree-redo' or `undo-tree-visualizer-redo'."
   ;; remove kill visualizer hook from parent buffer
   (with-current-buffer undo-tree-visualizer-buffer
     (remove-hook 'before-change-functions 'undo-tree-kill-visualizer t))
-  (kill-buffer))
+    (kill-buffer nil)
+    (delete-window)
+    (select-window undo-tree-parent-window)
+    (switch-to-buffer undo-tree-parent-buffer))
 
 
 (defun undo-tree-visualizer-set (pos)

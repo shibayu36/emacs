@@ -1,4 +1,3 @@
-(eval-when-compile (require 'cl))
 (require 'my-git)
 (require 'anything-config)
 (provide 'anything-git-grep)
@@ -7,7 +6,7 @@
   (anything-aif (anything-attr 'default-directory)
       (let ((default-directory it))
         (apply 'start-process "git-grep-process" nil
-               "git" "--no-pager" "grep" "--full-name" "-n" "--no-color"
+               "git" "--no-pager" "grep" "--full-name" "-n" "--no-color" "-i"
                (nbutlast
                 (apply 'append
                        (mapcar

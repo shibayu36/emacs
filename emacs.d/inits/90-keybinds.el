@@ -27,7 +27,7 @@
                 'anything-c-moccur-occur-by-moccur)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
-(global-set-key (kbd "C-c C-g") 'anything-git-grep)
+(global-set-key (kbd "C-c C-g") 'git-grep)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-gtags-from-here)
 

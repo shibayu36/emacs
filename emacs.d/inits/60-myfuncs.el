@@ -91,16 +91,19 @@
 ;; テスト実行用
 (defun run-perl-method-test ()
   (interactive)
-  (let ((command compile-command))
+  (let (
+        (command compile-command)
+        (test-method nil))
     (save-excursion
       (when (or
-             (re-search-backward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t)
-             (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
-        (setq command
-              (format "TEST_METHOD=%s %s -w %s"
-                      (match-string 1) (perlbrew-mini-get-current-perl-path) (expand-file-name buffer-file-name)))))
-    (when command (compile command))))
-
+             (re-search-backward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t)
+             (re-search-forward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t))
+        (setq test-method (match-string 1))))
+    (if test-method
+        (compile
+         (format "cd %s; TEST_METHOD=%s %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer))))
+        (compile
+         (format "cd %s; %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer)))))))
 
 ;;; htmlize
 (defun htmlize-and-browse ()
@@ -157,3 +160,9 @@
       (split-window-horizontally
        (- (window-width) (/ (window-width) num_wins)))
       (split-window-horizontally-n (- num_wins 1)))))
+
+;;; git grep
+(defun git-grep ()
+  (interactive)
+  (let ((grep-find-command "PAGER='' git grep -n -i --no-color"))
+    (call-interactively 'grep-find)))

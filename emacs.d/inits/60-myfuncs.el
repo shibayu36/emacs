@@ -1,4 +1,3 @@
-
 ;;再帰的にバイトコンパイルを行う
 (defun my-byte-compile-directory ()
   (interactive)
@@ -25,40 +24,11 @@
                (byte-compile-directory-r (cdr file-list))))))
   (byte-compile-directories (replace-regexp-in-string "/$" "" default-directory)))
 
-
-
-;;perlインデント整形ツール
-(defun perltidy-region ()
-  "Run perltidy on the current region."
-  (interactive)
-  (save-excursion
-    (shell-command-on-region (point) (mark) "perltidy -q" nil t)))
-(defun perltidy-defun ()
-  "Run perltidy on the current defun."
-  (interactive)
-  (save-excursion (mark-defun)
-                  (perltidy-region)))
-
 (defun my-mac-toggle-max-window ()
   (interactive)
   (if (frame-parameter nil 'fullscreen)
       (set-frame-parameter nil 'fullscreen nil)
     (set-frame-parameter nil 'fullscreen 'fullboth)))
-
-
-;;perlのsyntaxチェック
-(defun perl-syntax-check()
-  (interactive)
-  (shell-command
-   (concat "perl -wc " (file-name-nondirectory (buffer-file-name)))))
-
-
-;; gitルートからPERL5LIBにPATH通す
-(defun setup-perl5lib ()
-   (interactive)
-  (set-perl5lib-glob-from-git-root "lib")
-  (set-perl5lib-glob-from-git-root "t/lib")
-  (set-perl5lib-glob-from-git-root "modules/*/lib"))
 
 
 ;;; delete-trailing-whitespaceのbefore-hook設定をトグルする
@@ -87,23 +57,6 @@
     (goto-char (point-max))
     (insert-kbd-macro symbol)
     (basic-save-buffer)))
-
-;; テスト実行用
-(defun run-perl-method-test ()
-  (interactive)
-  (let (
-        (command compile-command)
-        (test-method nil))
-    (save-excursion
-      (when (or
-             (re-search-backward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t)
-             (re-search-forward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t))
-        (setq test-method (match-string 1))))
-    (if test-method
-        (compile
-         (format "cd %s; TEST_METHOD=%s %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer))))
-        (compile
-         (format "cd %s; %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer)))))))
 
 ;;; htmlize
 (defun htmlize-and-browse ()
@@ -137,11 +90,6 @@
     (kill-buffer htmlize-and-browse-buffer-file-name)
     (shell-command (concat "open -a safari " htmlize-and-browse-buffer-file-path))
   ))
-
-;;; perlのuse sort
-(defun sort-perl-use (beg end)
-  (interactive (list (region-beginning) (region-end)))
-  (sort-regexp-fields nil "^.+$" "[^;]+" beg end))
 
 ;;; 画面分割
 (defun split-window-vertically-n (num_wins)

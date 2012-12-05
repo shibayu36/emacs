@@ -114,3 +114,14 @@
   (interactive)
   (let ((grep-find-command "PAGER='' git grep -n -i --no-color"))
     (call-interactively 'grep-find)))
+
+;;; スクロールのみする
+(defun scroll-up-in-place (n)
+  (interactive "p")
+  ;; (previous-line n)
+  (scroll-down n))
+
+(defun scroll-down-in-place (n)
+  (interactive "p")
+  ;; (next-line n)
+  (scroll-up n))

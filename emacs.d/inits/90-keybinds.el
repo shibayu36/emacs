@@ -2,6 +2,9 @@
 ;;;;;;;;;;キーバインドの設定;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'key-chord)
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.05)
+
 (require 'space-chord)
 (require 'smartchr)
 
@@ -83,3 +86,15 @@
 (global-set-key "\C-x@" '(lambda ()
                            (interactive)
                            (split-window-horizontally-n 3)))
+
+;;; 複数行移動
+(global-set-key "\M-n" (kbd "C-u 5 C-n"))
+(global-set-key "\M-p" (kbd "C-u 5 C-p"))
+
+;;; view mode
+;;; なんかanythingと競合する
+;; (key-chord-define-global "jk" 'view-mode)
+
+;;; 少しずつスクロール
+(define-key global-map (kbd "C-S-n") 'scroll-down-in-place)
+(define-key global-map (kbd "C-S-p") 'scroll-up-in-place)

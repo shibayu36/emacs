@@ -53,6 +53,7 @@
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key (kbd "C-c C-s") 'perl-syntax-check)
                (local-set-key (kbd "C-c C-d") 'perl5-data-dump)
+               (local-set-key (kbd "C-c C-t") 'run-perl-test)
                (local-set-key "\C-ct" 'run-perl-method-test)
                (local-set-key (kbd "C-c a") 'align)
                (local-set-key (kbd "F") (smartchr '("F" "$")))
@@ -119,6 +120,17 @@
          (format "cd %s; TEST_METHOD=%s %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer))))
         (compile
          (format "cd %s; %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer)))))))
+
+(defun run-perl-test ()
+  "test実行します"
+  (interactive)
+  (compile
+   (format "cd %s; %s -MProject::Libs %s"
+           (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
+           (perlbrew-mini-get-current-perl-path)
+           (buffer-file-name))))
+
+;;; perlスクリプト実行用
 
 ;;; perlのuse sort
 (defun sort-perl-use (beg end)

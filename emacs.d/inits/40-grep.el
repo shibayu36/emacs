@@ -6,6 +6,10 @@
 
 ;; grepから直接置換できるように
 (require 'grep-edit)
+(defadvice grep-edit-change-file (around inhibit-read-only activate)
+  ""
+  (let ((inhibit-read-only t))
+    ad-do-it))
 (defun my-grep-edit-setup ()
   (define-key grep-mode-map '[up] nil)
   (define-key grep-mode-map "\C-c\C-c" 'grep-edit-finish-edit)

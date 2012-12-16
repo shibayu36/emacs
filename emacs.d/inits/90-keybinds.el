@@ -32,7 +32,7 @@
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c C-g") 'git-grep)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
-(define-key global-map [(control @)] 'anything-gtags-from-here)
+(define-key global-map [(control @)] 'anything-exuberant-ctags-select-from-here)
 
 (global-set-key (kbd "C-t") 'other-window-or-split)
 

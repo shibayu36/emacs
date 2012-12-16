@@ -112,7 +112,7 @@
 ;;; git grep
 (defun git-grep ()
   (interactive)
-  (let ((grep-find-command "PAGER='' git grep -n -i --no-color"))
+  (let ((grep-find-command "PAGER='' git grep -n -i --no-color "))
     (call-interactively 'grep-find)))
 
 ;;; スクロールのみする
@@ -125,3 +125,18 @@
   (interactive "p")
   ;; (next-line n)
   (scroll-up n))
+
+;;; finderでdirectoryを開く
+(defun open-current-dir-with-finder ()
+  (interactive)
+  (shell-command (concat "open .")))
+
+;;; browserでファイルを開く
+(defun browse-current-file ()
+  (interactive)
+  (let ((data-url
+         (concat "file://" (buffer-file-name)))
+        (default-browser
+          (replace-regexp-in-string "[\n\r]+$" ""
+            (shell-command-to-string (expand-file-name "~/bin/default-browser")))))
+    (shell-command (concat "open -b " default-browser " " data-url))))

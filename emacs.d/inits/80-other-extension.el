@@ -22,11 +22,6 @@
 ;;womanの設定
 (setq woman-use-own-frame nil)
 
-;;tramp
-;; (require 'tramp)
-;; (setq tramp-default-method "ssh")
-;; (setq recentf-auto-cleanup 'never)
-
 ;;カラーテーマ
 (require 'color-theme)
 (require 'zenburn)
@@ -71,16 +66,6 @@
 
 ;; point-undo
 (require 'point-undo)
-
-;; カーソル位置に目印つけるやつ
-(setq-default bm-buffer-persistence nil)
-(setq bm-restore-repository-on-load t)
-(require 'bm)
-(add-hook 'find-file-hooks 'bm-buffer-restore)
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
-(add-hook 'after-save-hook 'bm-buffer-save)
-(add-hook 'after-revert-hook 'bm-buffer-restore)
-(add-hook 'vc-before-checkin-hook 'bm-buffer-save)
 
 ;; col-highlight
 (require 'col-highlight)

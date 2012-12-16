@@ -56,5 +56,4 @@
     (anything
      :sources '(anything-c-source-gtags-select)
      :input (thing-at-point 'symbol)))
-
   )

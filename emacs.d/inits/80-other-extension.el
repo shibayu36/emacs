@@ -4,12 +4,6 @@
 ;; 次に、Elisp ファイルをインストールする場所を指定します。
 (setq install-elisp-repository-directory "~/.emacs.d/elisp/")
 
-
-;;auto-complete-modeの読み込み
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/auto-complete/ac-dict")
-(ac-config-default)
-
 ;;auto-install設定
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/elisp/")

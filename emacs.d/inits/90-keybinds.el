@@ -104,3 +104,5 @@
 ;;; org-mode用
 (define-key global-map (kbd "C-c l") 'org-store-link)
 
+;;; yasnippet
+(global-set-key (kbd "C-c y") 'yas-insert-snippet)

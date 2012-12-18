@@ -10,8 +10,8 @@
 
 (setq cperl-hairy nil)
 
-(require 'perlbrew-mini)
-(perlbrew-mini-use "perl-5.14.2")
+(require 'perlbrew)
+(perlbrew-switch "perl-5.14.2")
 
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4
@@ -36,14 +36,17 @@
             (yas/reload-all)))
 
 ;;flymake, perl-completionは重いので、やめた
-;; (defvar ac-source-my-perl-completion
-;;   '((candidates . plcmp-ac-make-cands)))
-;; (add-hook 'cperl-mode-hook
-;;           (lambda()
-;;             (setq plcmp-use-keymap nil)
-;;             (require 'perl-completion)
-;;             (perl-completion-mode t)
-;;             (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
+(defvar ac-source-my-perl-completion
+  '((candidates . plcmp-ac-make-cands)))
+(add-hook 'cperl-mode-hook
+          (lambda()
+            (setq plcmp-use-keymap nil)
+            (require 'perl-completion)
+            (perl-completion-mode t)
+            (add-to-list 'ac-sources 'ac-source-my-perl-completion)
+            (local-set-key (kbd "M-RET") 'plcmp-cmd-smart-complete)
+            (local-set-key (kbd "C-c d") 'plcmp-cmd-show-doc-at-point)
+            ))
 
 (add-hook 'cperl-mode-hook
           '(lambda ()
@@ -117,9 +120,9 @@
         (setq test-method (match-string 1))))
     (if test-method
         (compile
-         (format "cd %s; TEST_METHOD=%s %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer))))
+         (format "cd %s; TEST_METHOD=%s %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (perlbrew-get-current-perl-path) (buffer-file-name (current-buffer))))
         (compile
-         (format "cd %s; %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (perlbrew-mini-get-current-perl-path) (buffer-file-name (current-buffer)))))))
+         (format "cd %s; %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (perlbrew-get-current-perl-path) (buffer-file-name (current-buffer)))))))
 
 (defun run-perl-test ()
   "test実行します"
@@ -127,7 +130,7 @@
   (compile
    (format "cd %s; %s -MProject::Libs %s"
            (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
-           (perlbrew-mini-get-current-perl-path)
+           (perlbrew-get-current-perl-path)
            (buffer-file-name))))
 
 ;;; perlスクリプト実行用

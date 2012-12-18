@@ -82,7 +82,7 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (list (perlbrew-mini-get-current-perl-path)
+    (list (perlbrew-get-current-perl-path)
           (list "-MProject::Libs" "-wc" local-file)))
 )
 

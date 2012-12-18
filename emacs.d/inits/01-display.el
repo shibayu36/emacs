@@ -20,7 +20,7 @@
 ;; (require 'linum)
 ;; (global-linum-mode nil)
 ;; (set-face-attribute 'linum nil
-;;                     :foreground "#800"
+;;                     :foreground "#550"
 ;;                     :height 0.7)
 ;; (setq linum-format "%2d")
 

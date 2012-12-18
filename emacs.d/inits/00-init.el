@@ -117,3 +117,5 @@
 ;;; debug用
 (setq debug-on-error t)
 
+;;; symlinkは必ず追いかける
+(setq vc-follow-symlinks t)

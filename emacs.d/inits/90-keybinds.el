@@ -90,11 +90,17 @@
 ;;; 複数行移動
 (global-set-key "\M-n" (kbd "C-u 5 C-n"))
 (global-set-key "\M-p" (kbd "C-u 5 C-p"))
-
 ;;; view mode
 ;;; なんかanythingと競合する
 ;; (key-chord-define-global "jk" 'view-mode)
 
 ;;; 少しずつスクロール
-(define-key global-map (kbd "C-S-n") 'scroll-down-in-place)
-(define-key global-map (kbd "C-S-p") 'scroll-up-in-place)
+(define-key global-map (kbd "C-M-n") 'scroll-down-in-place)
+(define-key global-map (kbd "C-M-p") 'scroll-up-in-place)
+
+;;; cua-mode
+(define-key global-map (kbd "<C-return>") 'CUA-cmd-begin-rectangle)
+
+;;; org-mode用
+(define-key global-map (kbd "C-c l") 'org-store-link)
+

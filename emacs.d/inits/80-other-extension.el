@@ -104,4 +104,6 @@
 (require 'zlc)
 
 ;;; 矩形選択
-(cua-selection-mode t)
+(require 'cua-mode)
+(require 'cua)
+(CUA-mode 'emacs)

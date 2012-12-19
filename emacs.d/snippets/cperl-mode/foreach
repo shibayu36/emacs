@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name : for my $scalar (@array) { ... }
+# key  : forlist
+# binding: C-c C-c C-f
+# --
+for my \$${1:var} (@${2:array}) {
+    ${0:# body...}
+}

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: [% FOR ... IN ... %] ... [% END # ... %]
+# key: xslate-for
+# binding: direct-keybinding
+# --
+
+[%- FOR ${1:val} IN ${2:array} -%]
+$0
+[%- END # FOR $1 IN $2 -%]

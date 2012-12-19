@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: INLINE [%- IF ... -%] ... [%- END -%]
+# key: xslate-if-inline
+# binding: direct-keybinding
+# --
+[%- IF ${1:condition} -%]$0[%- END -%]

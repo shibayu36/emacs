@@ -1,0 +1,9 @@
+#name : if (...) { ... } else { ... }
+#key : ife
+#binding : C-c C-c TAB
+# --
+if ($1) {
+    $0
+}
+else {
+}

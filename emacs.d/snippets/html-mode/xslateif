@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: [% IF ... %] ... [% END # ... %]
-# key: xslateif
-# binding: direct-keybinding
-# --
-[% IF ${1:condition} %]
-$0
-[% END # IF $1 %]

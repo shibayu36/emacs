@@ -31,9 +31,6 @@
             (set-face-italic-p 'cperl-hash-face nil)
             (set-face-background 'cperl-hash-face "black")
             ))
-(add-hook 'cperl-mode-hook
-          (lambda ()
-            (yas/reload-all)))
 
 ;;flymake, perl-completionは重いので、やめた
 (defvar ac-source-my-perl-completion
@@ -68,8 +65,6 @@
                (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
                (set-perl5lib)
                )))
-
-
 
 ;; モジュールソースバッファの場合はその場で、
 ;; その他のバッファの場合は別ウィンドウに開く。

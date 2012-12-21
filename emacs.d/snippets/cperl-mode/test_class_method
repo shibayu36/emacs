@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: method_test
-# name: method_test
+# key: Test::Class method
+# name: test_class_method
 # binding: C-c C-c C-t
 # --
 sub ${1:method_name} : ${2:Tests} {

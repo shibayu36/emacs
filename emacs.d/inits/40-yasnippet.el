@@ -5,7 +5,10 @@
       '("~/.emacs.d/snippets"))
 (yas-global-mode 1)
 
-(custom-set-variables '(yas-trigger-key "TAB"))
+(define-key yas-minor-mode-map [(tab)] nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+
+;; (setq yas-trigger-key "C-M-y")
 
 ;; anything interface
 (eval-after-load "anything-config"

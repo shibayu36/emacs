@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: subtest
+# name: subtest
+# binding: C-c C-c t
+# --
+subtest '$1' => sub {
+    `yas/selected-text`$0
+};

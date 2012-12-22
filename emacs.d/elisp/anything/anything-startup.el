@@ -7,13 +7,13 @@
 ;;; anything.el is just a framework and predefined configuration is in
 ;;; anything-config.el. You need install both to use anything
 ;;; practically.
-;;;
+;;; 
 ;;; Note: anything-config.el loads anything.el.
 (require 'anything-config)
 
 ;;; anything-match-plugin.el extends pattern matching. Some Anything
 ;;; Applications requires it. It is a must-have plugin now.
-;;;
+;;; 
 (require 'anything-match-plugin)
 
 ;;; If you use Japanese, you should install Migemo and anything-migemo.el.

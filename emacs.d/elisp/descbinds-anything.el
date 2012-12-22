@@ -47,29 +47,29 @@
 
 ;;; History:
 ;; 2010-02-05   Taiki SUGAWARA  <sugawara_t@ariel-networks.com>
-;;
+;; 
 ;;   * descbinds-anything.el: Version 1.05
 ;;   bug fix.
-;;
+;; 
 ;; 2010-02-02 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;;
+;; 
 ;;   * descbinds-anything.el: Version 1.04
 ;;   add sorting feature.
 ;;   separete sorce creation function.
 ;;   add persistent action.
-;;
+;; 
 ;; 2009-03-29 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;;
+;; 
 ;;   * descbinds-anything.el: Version 1.03
 ;;   fix typo.
-;;
+;; 
 ;; 2008-11-16 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;;
+;; 
 ;;   * descbinds-anything.el: Version 1.02
 ;;   bound `indent-tabs-mode` to t for nil environment.
-;;
+;; 
 ;; 2008-11-16 UTC  Taiki SUGAWARA  <buzz.taiki@gmail.com>
-;;
+;; 
 ;;   * descbinds-anything.el: fix infinitive-loop when binding-line
 ;;   has not tab.
 

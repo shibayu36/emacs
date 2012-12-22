@@ -1,7 +1,7 @@
 ;;; anything-complete.el --- completion with anything
 ;; $Id: anything-complete.el,v 1.86 2010-03-31 23:14:13 rubikitch Exp $
 
-;; Copyright (C) 2008, 2009, 2010 rubikitch
+;; Copyright (C) 2008, 2009, 2010, 2011 rubikitch
 
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Keywords: matching, convenience, anything
@@ -53,7 +53,7 @@
 ;;    *Whether to sort completion candidates.
 ;;    default = nil
 ;;  `anything-execute-extended-command-use-kyr'
-;;    *Use `anything-kyr' (context-aware commands) in `anything-execute-extended-command'.
+;;    *Use `anything-kyr' (context-aware commands) in `anything-execute-extended-command'. 
 ;;    default = t
 
 ;; * `anything-lisp-complete-symbol', `anything-lisp-complete-symbol-partial-match':
@@ -75,7 +75,7 @@
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
 ;; Then install dependencies.
-;;
+;; 
 ;; Install anything-match-plugin.el (must).
 ;; M-x install-elisp http://www.emacswiki.org/cgi-bin/wiki/download/anything-match-plugin.el
 ;;
@@ -118,17 +118,6 @@
 (require 'thingatpt)
 (require 'anything-obsolete)
 
-;; version check
-(let ((version "1.263"))
-  (when (and (string= "1." (substring version 0 2))
-             (string-match "1\.\\([0-9]+\\)" anything-version)
-             (< (string-to-number (match-string 1 anything-version))
-                (string-to-number (substring version 2))))
-    (error "Please update anything.el!!
-
-http://www.emacswiki.org/cgi-bin/wiki/download/anything.el
-
-or  M-x install-elisp-from-emacswiki anything.el")))
 
 ;; (@* "overlay")
 (when (require 'anything-show-completion nil t)
@@ -234,17 +223,17 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
         (if (loop for src in (anything-get-sources)
                   thereis (string-match "^dabbrev" (assoc-default 'name src)))
             anything-dabbrev-last-target
-          (anything-aif (symbol-at-point) (symbol-name it) "")))
+          (or (tap-symbol) "")))
   (anything-candidate-buffer (get-buffer bufname)))
 
 (defcustom anything-complete-sort-candidates nil
   "*Whether to sort completion candidates."
-  :type 'boolean
+  :type 'boolean  
   :group 'anything-complete)
 
 (defcustom anything-execute-extended-command-use-kyr t
   "*Use `anything-kyr' (context-aware commands) in `anything-execute-extended-command'. "
-  :type 'boolean
+  :type 'boolean  
   :group 'anything-complete)
 (defun alcs-sort-maybe (candidates source)
   (if anything-complete-sort-candidates
@@ -268,7 +257,11 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
             (with-current-buffer anything-current-buffer
               (save-excursion
                 (backward-char (string-width anything-complete-target))
-                (alcs-current-physical-column)))))
+                (max 0
+                     (- (alcs-current-physical-column)
+                        (if (buffer-local-value 'anything-enable-shortcuts (get-buffer anything-buffer))
+                            4           ;length of shortcut overlay
+                          0)))))))
   (mapcar (lambda (cand) (cons (concat (make-string alcs-physical-column-at-startup ? ) cand) cand))
           candidates))
 
@@ -282,7 +275,8 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
 (defun alcs-describe-function (name)
   (describe-function (anything-c-symbolify name)))
 (defun alcs-describe-variable (name)
-  (describe-variable (anything-c-symbolify name)))
+  (with-current-buffer anything-current-buffer
+    (describe-variable (anything-c-symbolify name))))
 (defun alcs-describe-face (name)
   (describe-face (anything-c-symbolify name)))
 (defun alcs-customize-face (name)
@@ -372,7 +366,9 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
     anything-c-source-complete-emacs-faces))
 
 (defvar anything-apropos-sources
-  '(anything-c-source-apropos-emacs-commands
+  '(anything-c-source-emacs-function-at-point
+    anything-c-source-emacs-variable-at-point
+    anything-c-source-apropos-emacs-commands
     anything-c-source-apropos-emacs-functions
     anything-c-source-apropos-emacs-variables
     anything-c-source-apropos-emacs-faces))
@@ -442,8 +438,16 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
   (alcs-make-candidates)
   (anything-update))
 
+(defun tap-symbol ()
+  "Get symbol name before point."
+  (save-excursion
+    (let ((beg (point)))
+      ;; older regexp "\(\\|\\s-\\|^\\|\\_<\\|\r\\|'\\|#'"
+      (when (re-search-backward "\\_<" (point-at-bol) t)
+        (buffer-substring-no-properties beg (match-end 0))))))
+
 (defun alcs-initial-input (partial-match)
-  (anything-aif (symbol-at-point)
+  (anything-aif (tap-symbol)
       (format "%s%s%s"
               (if partial-match "" "^")
               it
@@ -486,7 +490,10 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
       (mapcar 'symbol-name anything-additional-attributes))))
 
 (defvar acaa-anything-commands-regexp
-  (concat "(" (regexp-opt '("anything" "anything-other-buffer")) " "))
+  (concat "(" (regexp-opt
+               '("anything" "anything-other-buffer"
+                 "define-anything-type-attribute" "anything-c-arrange-type-attribute"))
+          " "))
 
 (defun acaa-completing-attribute-p (point)
   (save-excursion
@@ -568,7 +575,7 @@ used by `anything-lisp-complete-symbol-set-timer' and `anything-apropos'"
       (anything-old-completing-read prompt collection predicate require-match initial hist default inherit-input-method)
     ;; support only collection list.
     (setq hist (or (car-safe hist) hist))
-    (let* (anything-input-idle-delay
+    (let* ((anything-input-idle-delay 0.1)
            (result (or (anything-noresume (acr-sources
                                            prompt
                                            collection
@@ -692,7 +699,7 @@ It accepts one argument, selected candidate.")
   (defalias 'anything-old-read-variable (symbol-function 'read-variable))
   (defalias 'anything-old-read-command (symbol-function 'read-command))
   (put 'anything-read-string-mode 'orig-read-buffer-function read-buffer-function))
-
+  
 ;; (progn (anything-read-string-mode -1) anything-read-string-mode)
 ;; (progn (anything-read-string-mode 1) anything-read-string-mode)
 ;; (progn (anything-read-string-mode 0) anything-read-string-mode)
@@ -717,7 +724,7 @@ So, (anything-read-string-mode 1) and
   (setq anything-read-string-mode
         (cond ((consp arg) (setq anything-read-string-mode-flags arg)) ; not interactive
               (arg (> (prefix-numeric-value arg) 0))  ; C-u M-x
-              (t   (not anything-read-string-mode)))) ; M-x
+              (t   (not anything-read-string-mode)))) ; M-x 
   (when (eq anything-read-string-mode t)
     (setq anything-read-string-mode anything-read-string-mode-flags))
   (if anything-read-string-mode
@@ -832,6 +839,10 @@ So, (anything-read-string-mode 1) and
      (candidates-in-buffer)
      (action . identity)
      (update . alcs-make-candidates)
+     (persistent-action . alcs-describe-function))
+    ((name . "New Command")
+     (dummy)
+     (action . identity)
      (persistent-action . alcs-describe-function))))
 
 ;; (with-current-buffer " *command symbols*" (erase-buffer))
@@ -840,23 +851,24 @@ So, (anything-read-string-mode 1) and
   (interactive)
   (setq alcs-this-command this-command)
   (let* ((cmd (anything
-              (if (and anything-execute-extended-command-use-kyr
-                       (require 'anything-kyr-config nil t))
-                  (cons anything-c-source-kyr
-                        anything-execute-extended-command-sources)
-                anything-execute-extended-command-sources))))
-    (when cmd
-      (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
-      (setq cmd (intern cmd))
-      (if (or (stringp (symbol-function cmd))
-              (vectorp (symbol-function cmd)))
-          (execute-kbd-macro (symbol-function cmd))
-        (setq this-command cmd)
-        (call-interactively cmd)))))
+               (if (and anything-execute-extended-command-use-kyr
+                        (require 'anything-kyr-config nil t))
+                   (cons anything-c-source-kyr
+                         anything-execute-extended-command-sources)
+                 anything-execute-extended-command-sources))))
+    (unless (and cmd (commandp (intern-soft cmd)))
+      (error "No command: %s" cmd))
+    (setq extended-command-history (cons cmd (delete cmd extended-command-history)))
+    (setq cmd (intern cmd))
+    (if (or (stringp (symbol-function cmd))
+            (vectorp (symbol-function cmd)))
+        (execute-kbd-macro (symbol-function cmd))
+      (setq this-command cmd)
+      (call-interactively cmd))))
 
 (add-hook 'after-init-hook 'alcs-make-candidates)
 
-
+      
 ;;;; unit test
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el")
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-mock.el")

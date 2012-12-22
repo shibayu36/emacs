@@ -58,7 +58,7 @@
 ;;  http://petdance.com/ack/
 
 
-
+   
 ;;; History:
 
 ;; $Log: anything-grep.el,v $
@@ -157,7 +157,7 @@
 ;;; Code:
 
 (defvar anything-grep-version "$Id: anything-grep.el,v 1.27 2010-03-21 11:31:04 rubikitch Exp $")
-(require 'anything)
+(require 'anything-config)
 (require 'grep)
 
 (defvar anything-grep-save-buffers-before-grep nil
@@ -176,6 +176,10 @@ Use anything.el v1.147 or newer.")
 
 (defvar anything-grep-fontify-file-name t
   "If non-nil, fontify file name and line number of matches.")
+
+(defvar anything-grep-sh-program
+  (or (executable-find "zsh")
+      (executable-find "sh")))
 
 (defvar anything-grep-alist
   '(("buffers" ("egrep -Hin %s $buffers" "/"))
@@ -282,8 +286,9 @@ GNU grep is expected for COMMAND. The grep result is colorized."
     (set (make-local-variable 'agrep-source-local) (anything-get-current-source))
     (add-to-list 'agrep-waiting-source agrep-source-local)
     (set-process-sentinel
-     (start-process-shell-command "anything-grep" (current-buffer)
-                                  (format "cd %s; %s" pwd command))
+     (start-process "anything-grep" (current-buffer)
+                    anything-grep-sh-program "-c"
+                    (format "cd %s; %s" pwd command))
      'agrep-sentinel)))
 
 (defvar agrep-do-after-minibuffer-exit nil)
@@ -292,6 +297,11 @@ GNU grep is expected for COMMAND. The grep result is colorized."
     (run-at-time 1 nil agrep-do-after-minibuffer-exit)
     (setq agrep-do-after-minibuffer-exit nil)))
 (add-hook 'minibuffer-exit-hook 'agrep-minibuffer-exit-hook)
+
+(defun agrep-highlight-line-after-persistent-action ()
+  (when anything-in-persistent-action
+    (anything-persistent-highlight-point (point-at-bol) (point-at-eol))))
+(add-hook 'anything-grep-goto-hook 'agrep-highlight-line-after-persistent-action)
 
 (defun agrep-show (func)
   (if (active-minibuffer-window)

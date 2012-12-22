@@ -23,7 +23,7 @@
 (define-key global-map (kbd "C-c C-a") 'delete-trailing-whitespace)
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
-(define-key global-map (kbd "C-;") 'anything-filelist+);;anything-filelist+
+(define-key global-map (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
 (define-key global-map (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-h") 'anything-for-document)
 (global-set-key (kbd "C-M-o")

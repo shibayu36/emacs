@@ -490,7 +490,7 @@ Example:
 When huge *grep* buffer, freezing several minutes.
 "
   (interactive)
-  (unless (eq major-mode 'igrep-mode)
+  (unless (eq major-mode 'grep-mode)
     (error "Not a grep buffer"))
   (unless (wgrep-process-exited-p)
     (error "Active process working"))

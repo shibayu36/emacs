@@ -123,4 +123,5 @@
 
   ;; C-hで一文字削除になるように
   (define-key anything-map (kbd "C-h") 'delete-backward-char)
+  (define-key anything-c-moccur-anything-map (kbd "C-h") 'delete-backward-char)
   )

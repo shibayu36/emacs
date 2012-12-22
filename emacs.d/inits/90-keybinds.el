@@ -23,16 +23,20 @@
 (define-key global-map (kbd "C-c C-a") 'delete-trailing-whitespace)
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
+;;; for anything
+
 (define-key global-map (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
 (define-key global-map (kbd "C-:") 'anything);;anything
+(global-set-key (kbd "C-x C-z") 'anything-resume)
 (global-set-key (kbd "C-x C-h") 'anything-for-document)
 (global-set-key (kbd "C-M-o")
                 'anything-c-moccur-occur-by-moccur)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
-(global-set-key (kbd "C-c C-g") 'git-grep)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-exuberant-ctags-select-from-here)
+
+(global-set-key (kbd "C-c C-g") 'git-grep)
 
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
@@ -106,3 +110,7 @@
 
 ;;; yasnippet
 (global-set-key (kbd "C-c y") 'yas-insert-snippet)
+
+;;; 置換
+(global-set-key (kbd "C-c r") 'query-replace)
+(global-set-key (kbd "C-c R") 'query-replace-regexp)

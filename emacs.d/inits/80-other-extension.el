@@ -30,6 +30,9 @@
 (require 'moccur-edit)
 (require 'color-moccur)
 (setq moccur-split-word t)
+;; migemoがrequireできる環境ならmigemoを使う
+(when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
+  (setq moccur-use-migemo t))
 
 ;; undohistの設定
 ;;; なんかぶっ壊れる

@@ -1,4 +1,4 @@
-;;;; auto-async-byte-compile.el --- Automatically byte-compile when saved
+;;; auto-async-byte-compile.el --- Automatically byte-compile when saved
 ;; Time-stamp: <2010-12-05 11:36:45 rubikitch>
 
 ;; Copyright (C) 2010  rubikitch
@@ -112,23 +112,23 @@
 
 (defcustom auto-async-byte-compile-init-file "~/.emacs.d/initfuncs.el"
   "*Load this file when batch-byte-compile is running."
-  :type 'string
+  :type 'string  
   :group 'auto-async-byte-compile)
 
 (defcustom auto-async-byte-compile-display-function 'display-buffer
   "*Display function of auto byte-compile result."
-  :type 'symbol
+  :type 'symbol  
   :group 'auto-async-byte-compile)
 
 (defcustom auto-async-byte-compile-hook nil
   "*Hook after completing auto byte-compile.
 The variable `exitstatus' is exit status of byte-compile process."
-  :type 'hook
+  :type 'hook  
   :group 'auto-async-byte-compile)
 
 (defcustom auto-async-byte-compile-exclude-files-regexp nil
   "*Regexp of files to exclude auto byte-compile."
-  :type 'string
+  :type 'string  
   :group 'auto-async-byte-compile)
 
 (defvar aabc/result-buffer " *auto-async-byte-compile*")

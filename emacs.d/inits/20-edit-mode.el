@@ -99,32 +99,6 @@
 (global-set-key "\C-cew" 'evernote-write-note)
 (global-set-key "\C-cep" 'evernote-post-region)
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;; lisp mode ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'paredit)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'ielm-mode-hook 'enable-paredit-mode)
-
-;; lispxmp
-(require 'lispxmp)
-
-;; edit-list
-(require 'edit-list)
-
-;; elispユニットテスト用
-(require 'el-expectations)
-
-;;; 強制キーバインドマイナーモード
-(define-minor-mode overriding-minor-mode
-  "強制的にC-tを割り当てる"             ;説明文字列
-  t                                     ;デフォルトで有効にする
-  ""                                    ;モードラインに表示しない
-  `((,(kbd "C-t") . other-window-or-split)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; c-shap mode ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

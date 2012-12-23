@@ -119,12 +119,10 @@
 ;;; スクロールのみする
 (defun scroll-up-in-place (n)
   (interactive "p")
-  ;; (previous-line n)
   (scroll-down n))
 
 (defun scroll-down-in-place (n)
   (interactive "p")
-  ;; (next-line n)
   (scroll-up n))
 
 ;;; finderでdirectoryを開く
@@ -138,6 +136,14 @@
   (let ((data-url
          (concat "file://" (buffer-file-name)))
         (default-browser
-          (replace-regexp-in-string "[\n\r]+$" ""
-            (shell-command-to-string (expand-file-name "~/bin/default-browser")))))
+          (replace-regexp-in-string
+           "[\n\r]+$" ""
+           (shell-command-to-string (expand-file-name "~/bin/default-browser")))))
     (shell-command (concat "open -b " default-browser " " data-url))))
+
+;;; debug用
+(defmacro d (expr)
+ `(let ((_var (eval ',expr)))
+    (run-at-time 0 nil 'display-buffer "*Messages*")
+    (message "%S=%S" ',expr _var)
+    _var))

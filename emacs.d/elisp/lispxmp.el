@@ -34,9 +34,9 @@
 ;;   (* i 4)  ; =>
 ;; )
 ;; ====
-;;
+;; 
 ;; produces
-;;
+;; 
 ;; ====
 ;; 1 ; => 1
 ;; (+ 3 4) ; => 7
@@ -229,7 +229,7 @@
 
 Need paredit.el.
 http://mumble.net/~campbell/emacs/paredit.el"
-  :type 'boolean
+  :type 'boolean  
   :group 'lispxmp)
 
 (defvar lispxmp-temp-buffer " *lispxmp tmp*")
@@ -258,7 +258,7 @@ http://mumble.net/~campbell/emacs/paredit.el"
   (setq lispxmp-results nil)
   (with-current-buffer (get-buffer-create lispxmp-temp-buffer)
     (buffer-disable-undo)
-    (erase-buffer)
+    (erase-buffer) 
     (let (emacs-lisp-mode-hook after-change-major-mode-hook) (emacs-lisp-mode))
     (insert-buffer-substring buf)
     (goto-char (point-max))

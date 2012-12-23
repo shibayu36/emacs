@@ -15,7 +15,7 @@
 (global-set-key "\C-m" 'newline-and-indent) ; リターンで改行とインデント
 (global-set-key "\C-j" 'newline) ; 改行
 
-(define-key global-map "\C-xF" 'ns-toggle-fullscreen)
+(global-set-key (kbd "C-x F") 'ns-toggle-fullscreen)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
 (global-set-key (kbd "C-x ?") 'help-command)
@@ -25,8 +25,8 @@
 
 ;;; for anything
 
-(define-key global-map (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
-(define-key global-map (kbd "C-:") 'anything);;anything
+(global-set-key (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
+(global-set-key (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-z") 'anything-resume)
 (global-set-key (kbd "C-x C-h") 'anything-for-document)
 (global-set-key (kbd "C-M-o")
@@ -114,3 +114,7 @@
 ;;; 置換
 (global-set-key (kbd "C-c r") 'query-replace)
 (global-set-key (kbd "C-c R") 'query-replace-regexp)
+
+
+;;; lisp mode用
+(define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)

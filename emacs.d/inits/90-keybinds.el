@@ -118,3 +118,4 @@
 
 ;;; lisp mode用
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
+(define-key emacs-lisp-mode-map (kbd "L") (smartchr '("L" " ; => ")))

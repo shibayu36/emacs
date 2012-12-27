@@ -2,10 +2,6 @@
 ;;;;;;;;;;;;;;キーの設定;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq system-type 'darwin)       ; もし、システムが Mac のとき
-;;  (setq mac-command-key-is-meta nil) ; コマンドキーをメタにしない
-;;  (setq mac-option-modifier 'meta)   ; オプションキーをメタに
-  ;;superを割り当てておくと、linux、windowsでうまく使えない
-  ;;(setq mac-command-modifier 'super) ; コマンドキーを Super に
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
 
 (setq ns-command-modifier (quote meta))
@@ -21,10 +17,6 @@
 (dolist (path (reverse (split-string (getenv "PATH") ":")))
   (add-to-list 'exec-path path))
 
-;; (setenv "DYLD_FALLBACK_LIBRARY_PATH"
-;;         (concat "/usr/local/mysql/lib:"
-;;                 "/usr/local/lib:"
-;;                 (getenv "DYLD_FALLBACK_LIBRARY_PATH")))
 (setenv "NODE_PATH"
         (concat "~/node_modules/:"
                 (getenv "NODE_PATH")))
@@ -79,9 +71,6 @@
 
 ;;タブの代わりに半角スペースを使う
 (setq-default tab-width 4 indent-tabs-mode nil)
-
-;; 保存時に無駄なスペースを削除
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;;GCを減らして軽くする
 (setq gc-cons-threshold (* 10 gc-cons-threshold))

@@ -115,7 +115,11 @@
 (global-set-key (kbd "C-c r") 'query-replace)
 (global-set-key (kbd "C-c R") 'query-replace-regexp)
 
-
 ;;; lisp mode用
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
 (define-key emacs-lisp-mode-map (kbd "L") (smartchr '("L" " ; => ")))
+
+;;; for dired
+(define-key dired-mode-map "\C-m" 'dired-my-advertised-find-file)
+(define-key dired-mode-map "^" 'dired-my-up-directory)
+(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)

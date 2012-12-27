@@ -15,15 +15,6 @@
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))
 
-;; 行番号表示
-;; なんか重いのでやめる
-;; (require 'linum)
-;; (global-linum-mode nil)
-;; (set-face-attribute 'linum nil
-;;                     :foreground "#550"
-;;                     :height 0.7)
-;; (setq linum-format "%2d")
-
 ;;フォントロックモード
 (global-font-lock-mode t)
 
@@ -104,7 +95,6 @@
      ()))
   "*Face used by hl-line.")
 (setq hl-line-face 'hlline-face)
-;; (setq hl-line-face 'underline) ; 下線
 (global-hl-line-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

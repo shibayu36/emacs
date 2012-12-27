@@ -2,7 +2,7 @@
 (setq dired-default-file-coding-system 'utf-8-unix)
 
 ;;Xキーでの拡張機能の追加
-(load "dired-x")
+(require 'dired-x)
 (setq dired-guess-shell-gnutar "tar")
 ;; 以下，各ファイル別の設定
 (setq dired-guess-shell-alist-user
@@ -34,10 +34,6 @@
 ;;文字コードの一括変換用設定
 ;;; dired を使って、一気にファイルの coding system (漢字) を変換する
 (require 'dired-aux)
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key (current-local-map) "T"
-              'dired-do-convert-coding-system)))
 
 (defvar dired-default-file-coding-system nil
   "*Default coding system for converting file (s).")
@@ -102,38 +98,6 @@ Creates a buffer if necessary."
               (dired up))
           (dired-goto-file dir))))))
 
-(define-key dired-mode-map "\C-m" 'dired-my-advertised-find-file)
-(define-key dired-mode-map "^" 'dired-my-up-directory)
-
-
-;;今日編集したファイルに色をつける
-(defface face-file-edited-today
-  '((((class color)
-      (background dark))
-     (:foreground "GreenYellow"))
-    (((class color)
-      (background light))
-     (:foreground "magenta"))
-    (t
-     ())) nil)
-(defvar face-file-edited-today
-  'face-file-edited-today)
-(defun my-dired-today-search (arg)
-  "Fontlock search function for dired."
-  (search-forward-regexp
-   (concat "\\(" (format-time-string
-                  "%b %e" (current-time))
-           "\\|"(format-time-string
-                 "%m-%d" (current-time))
-           "\\)"
-           " [0-9]....") arg t))
-(font-lock-add-keywords
- major-mode
- (list
-  '(my-dired-today-search . face-file-edited-today)
-  ))
-
-
 ;;別のディレクトリに行ったときもソート方法を保存する
 (defadvice dired-advertised-find-file
   (around dired-sort activate)
@@ -160,5 +124,3 @@ Creates a buffer if necessary."
 
 ;; wdiredの設定
 (require 'wdired)
-(define-key dired-mode-map "r"
-  'wdired-change-to-wdired-mode)

@@ -52,7 +52,6 @@
                (setq tab-width nil)
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key (kbd "C-c C-s") 'perl-syntax-check)
-               (local-set-key (kbd "C-c C-d") 'perl5-data-dump)
                (local-set-key (kbd "C-c C-t") 'run-perl-test)
                (local-set-key "\C-ct" 'run-perl-method-test)
                (local-set-key (kbd "C-c a") 'align)

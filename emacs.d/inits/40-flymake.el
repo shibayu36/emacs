@@ -13,8 +13,6 @@
 (set-face-background 'flymake-warnline "yellow")
 (set-face-foreground 'flymake-warnline "black")
 
-
-
 ;; エラーをミニバッファに表示
 ;; http://d.hatena.ne.jp/xcezx/20080314/1205475020
 (defun flymake-display-err-minibuf ()

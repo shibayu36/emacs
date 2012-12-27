@@ -66,14 +66,13 @@
   ;;; P90
   ;;; anything-project: プロジェクトからファイルを絞り込み
   ;; (install-elisp "http://github.com/imakado/anything-project/raw/master/anything-project.el")
-  (when (require 'anything-project nil t)
-    (setq ap:project-files-filters
-          (list
-           (lambda (files)
-             (remove-if 'file-directory-p files)
-             (remove-if '(lambda (file) (string-match-p "~$" file)) files)))))
+  ;; (when (require 'anything-project nil t)
+  ;;   (setq ap:project-files-filters
+  ;;         (list
+  ;;          (lambda (files)
+  ;;            (remove-if 'file-directory-p files)
+  ;;            (remove-if '(lambda (file) (string-match-p "~$" file)) files)))))
 
-  ;;; P90
   ;;; anything-c-moccur: MoccurのAnythingインターフェイス
   ;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
   (when (require 'anything-c-moccur nil t)
@@ -93,8 +92,6 @@
 
   ;; (require 'anything-hatena-bookmark)
 
-  (require 'anything-etags)
-
   ;; anything-custom-filelist
   (defun anything-custom-filelist ()
     (interactive)
@@ -111,15 +108,6 @@
         anything-c-source-filelist
         ))
      "*anything file list*"))
-
-  ;; (when (eq system-type 'darwin)
-  ;;   (require 'anything-mac-itunes)
-  ;;   (global-set-key (kbd "C-c m") 'anything-mac-itunes)
-  ;;   (global-set-key (kbd "C-c b") 'anything-mac-itunes-back-track)
-  ;;   (global-set-key (kbd "C-c n") 'anything-mac-itunes-next-track)
-  ;;   (global-set-key (kbd "C-c p") 'anything-mac-itunes-playpause-track)
-  ;;   (global-set-key (kbd "C-c c") 'anything-mac-itunes-show-current-track-info)
-  ;;   )
 
   ;; C-hで一文字削除になるように
   (define-key anything-map (kbd "C-h") 'delete-backward-char)

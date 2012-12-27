@@ -23,7 +23,7 @@
 
 ;;; eldoc
 (require 'eldoc)
-;; (install-elisp-from-emacswiki "eldoc-extension.el")
+
 (require 'eldoc-extension)
 (setq eldoc-idle-delay 0.2)
 (setq eldoc-echo-area-use-multiline-p t)

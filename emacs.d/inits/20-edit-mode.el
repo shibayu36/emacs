@@ -8,7 +8,6 @@
 (setq mmm-global-mode 'maybe)
 (set-face-background 'mmm-default-submode-face "navy")
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;html-mode設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,12 +55,6 @@
 ;;;;;;;;;;;;;cssモード設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'css-mode)
-;; (autoload 'css-mode "css-mode")
-;; (setq auto-mode-alist
-;;       (cons '("\\.css\\'" . css-mode) auto-mode-alist))
-;; (setq cssm-indent-level 4)
-;; (setq cssm-indent-function #'cssm-c-style-indenter)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;lessモード設定;;;;;;;;;;;;;
@@ -99,12 +92,6 @@
 ;;;;;;;;;;; evernote mode ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'evernote-mode)
-(global-set-key "\C-cec" 'evernote-create-note)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note)
-(global-set-key "\C-cep" 'evernote-post-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; c-shap mode ;;;;;;;;;;;;;;;
@@ -134,4 +121,3 @@
 ;;;;;;;;;;;; nginx mode ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'nginx-mode)
-;; (add-to-list 'auto-mode-alist '("\\.nginx\\.conf$" . nginx-mode))

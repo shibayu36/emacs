@@ -123,3 +123,6 @@
 (define-key dired-mode-map "\C-m" 'dired-my-advertised-find-file)
 (define-key dired-mode-map "^" 'dired-my-up-directory)
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+
+;;; isearch-mode
+(define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)

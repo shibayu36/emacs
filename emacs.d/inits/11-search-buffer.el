@@ -1,8 +1,6 @@
-(require 'anything-c-moccur)
 (setq moccur-split-word t)
-(define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
-(define-key isearch-mode-map (kbd "C-M-o") 'isearch-occur)
 
+;;; 選択範囲をisearch
 (defadvice isearch-mode (around isearch-mode-default-string (forward &optional regexp op-fun recursive-edit word-p) activate)
   (if (and transient-mark-mode mark-active (not (eq (mark) (point))))
       (progn

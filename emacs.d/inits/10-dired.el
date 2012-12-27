@@ -120,7 +120,8 @@ Creates a buffer if necessary."
     ))
 
 ;;ディレクトリを最初に表示する
-(setq ls-lisp-dirs-first t)
+(setq insert-directory-program "gls")
+(setq dired-listing-switches "-AFl --group-directories-first")
 
 ;; wdiredの設定
 (require 'wdired)

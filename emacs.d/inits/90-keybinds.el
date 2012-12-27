@@ -8,23 +8,39 @@
 (require 'space-chord)
 (require 'smartchr)
 
-(global-set-key "\C-h" 'delete-backward-char)
-;; (global-set-key "\e[3~" 'delete-char)
+(require 'key-combo)
+(key-combo-mode 0)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;; 通常操作 ;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\C-x\C-i" 'indent-region) ; 選択範囲をインデント
 (global-set-key "\C-m" 'newline-and-indent) ; リターンで改行とインデント
 (global-set-key "\C-j" 'newline) ; 改行
-
-(global-set-key (kbd "C-x F") 'ns-toggle-fullscreen)
 (global-set-key (kbd "C-c a")   'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
-(global-set-key (kbd "C-x ?") 'help-command)
-
 (define-key global-map (kbd "C-c C-a") 'delete-trailing-whitespace)
 (global-set-key (kbd "C-t") 'other-window-or-split)
+;; 複数行移動
+(global-set-key "\M-n" (kbd "C-u 5 C-n"))
+(global-set-key "\M-p" (kbd "C-u 5 C-p"))
 
-;;; for anything
+;; フルスクリーン
+(global-set-key (kbd "C-x F") 'ns-toggle-fullscreen)
+(global-set-key (kbd "C-x ?") 'help-command)
 
+;;; 少しずつスクロール
+(define-key global-map (kbd "C-M-n") 'scroll-down-in-place)
+(define-key global-map (kbd "C-M-p") 'scroll-up-in-place)
+
+;;; 置換
+(global-set-key (kbd "C-c r") 'query-replace)
+(global-set-key (kbd "C-c R") 'query-replace-regexp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;; for anything ;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
 (global-set-key (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-z") 'anything-resume)
@@ -36,9 +52,12 @@
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-exuberant-ctags-select-from-here)
 
-(global-set-key (kbd "C-c C-g") 'git-grep)
 
-(global-set-key (kbd "C-t") 'other-window-or-split)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;; その他 ;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(global-set-key (kbd "C-c C-g") 'git-grep)
 
 (global-set-key (kbd "M-N") 'next-error)
 (global-set-key (kbd "M-P") 'previous-error)
@@ -59,7 +78,7 @@
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 
-;; カーソル位置に目印つけるやつ
+;; bmモード
 (global-set-key (kbd "M-SPC") 'bm-toggle)
 (global-set-key (kbd "M-[") 'bm-previous)
 (global-set-key (kbd "M-]") 'bm-next)
@@ -78,29 +97,11 @@
 ;;; mode compile
 (global-set-key "\C-cc" 'mode-compile)
 
-;;; key-combo setting
-(require 'key-combo)
-(key-combo-mode 0)
-(key-combo-define-global (kbd "=") '(" = " " == "))
-(key-combo-define-global (kbd "=>") " => ")
-(key-combo-define-global (kbd ">") '(">"))
-(key-combo-define-global (kbd ">=") " >= ")
-
-;;;
-(global-set-key "\C-x@" '(lambda ()
-                           (interactive)
-                           (split-window-horizontally-n 3)))
-
 ;;; 複数行移動
-(global-set-key "\M-n" (kbd "C-u 5 C-n"))
-(global-set-key "\M-p" (kbd "C-u 5 C-p"))
+
 ;;; view mode
 ;;; なんかanythingと競合する
 ;; (key-chord-define-global "jk" 'view-mode)
-
-;;; 少しずつスクロール
-(define-key global-map (kbd "C-M-n") 'scroll-down-in-place)
-(define-key global-map (kbd "C-M-p") 'scroll-up-in-place)
 
 ;;; cua-mode
 (define-key global-map (kbd "<C-return>") 'CUA-cmd-begin-rectangle)
@@ -110,10 +111,6 @@
 
 ;;; yasnippet
 (global-set-key (kbd "C-c y") 'yas-insert-snippet)
-
-;;; 置換
-(global-set-key (kbd "C-c r") 'query-replace)
-(global-set-key (kbd "C-c R") 'query-replace-regexp)
 
 ;;; lisp mode用
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)

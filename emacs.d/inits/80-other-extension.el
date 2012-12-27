@@ -1,7 +1,5 @@
 ;;install-elispコマンド設定
-;; まず、install-elisp のコマンドを使える様にします。
 (require 'install-elisp)
-;; 次に、Elisp ファイルをインストールする場所を指定します。
 (setq install-elisp-repository-directory "~/.emacs.d/elisp/")
 
 ;;auto-install設定
@@ -66,11 +64,11 @@
 (require 'point-undo)
 
 ;; col-highlight
-(require 'col-highlight)
-(toggle-highlight-column-when-idle 1)
-(col-highlight-set-interval 3)
-(custom-set-faces
- '(col-highlight ((t (:background "dark slate gray")))))
+;; (require 'col-highlight)
+;; (toggle-highlight-column-when-idle 1)
+;; (col-highlight-set-interval 3)
+;; (custom-set-faces
+;;  '(col-highlight ((t (:background "dark slate gray")))))
 
 ;; gist
 (require 'gist)

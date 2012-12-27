@@ -11,7 +11,7 @@
 (setq cperl-hairy nil)
 
 (require 'perlbrew)
-(perlbrew-switch "perl-5.14.2")
+(perlbrew-use "perl-5.14.2")
 
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4

@@ -1,5 +1,5 @@
 ;; default mode is text mode
-(setq default-major-mode 'text-mode)
+(setq major-mode 'text-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;mmmモード;;;;;;;;;;;;;;;;;;;;
@@ -55,11 +55,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;cssモード設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'css-mode "css-mode" "CSS mode" t)
-(setq auto-mode-alist
-      (cons '("\\.css\\'" . css-mode) auto-mode-alist))
-(setq cssm-indent-function #'cssm-c-style-indenter)
+(require 'css-mode)
+;; (autoload 'css-mode "css-mode")
+;; (setq auto-mode-alist
+;;       (cons '("\\.css\\'" . css-mode) auto-mode-alist))
+;; (setq cssm-indent-level 4)
+;; (setq cssm-indent-function #'cssm-c-style-indenter)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;lessモード設定;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'less-css-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;pythonモード設定;;;;;;;;;;;;;
@@ -113,7 +120,6 @@
   ;; (require 'flymake)
   ;; (flymake-mode 1)
   (require 'yasnippet)
-  (yas/minor-mode-on)
   (require 'rfringe))
 (add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
 

@@ -36,7 +36,7 @@
 
 ;;; 置換
 (global-set-key (kbd "C-c r") 'query-replace)
-(global-set-key (kbd "C-c R") 'query-replace-regexp)
+(global-set-key (kbd "C-c R") 'foreign-regexp/query-replace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; for anything ;;;;;;;;;;;;

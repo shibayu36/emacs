@@ -73,7 +73,7 @@
 (define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)
 
 ;;; direx other window
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)
+(global-set-key (kbd "C-x C-j") 'direx:find-git-project-directory)
 
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
@@ -123,3 +123,6 @@
 
 ;;; isearch-mode
 (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
+
+;;; direx-mode
+(define-key direx:direx-mode-map (kbd "TAB") 'direx:maybe-find-node)

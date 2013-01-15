@@ -22,6 +22,7 @@
              (zencoding-mode)
              (define-key html-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
              (define-key html-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)
+             (define-key html-mode-map (kbd "T") (smartchr '("T" "[%- `!!' -%]" "[% `!!' %]")))
              (define-key zencoding-mode-keymap (kbd "<C-return>") 'zencoding-expand-line)
              (define-key zencoding-mode-keymap (kbd "C-c C-m") 'zencoding-expand-line)
              (define-key zencoding-preview-keymap (kbd "C-m") 'zencoding-expand-yas)

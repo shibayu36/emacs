@@ -5,5 +5,5 @@
 # --
 
 [%- FOR ${1:val} IN ${2:array} -%]
-$0
+`yas/selected-text`$0
 [%- END # FOR $1 IN $2 -%]

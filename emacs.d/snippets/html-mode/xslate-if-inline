@@ -3,4 +3,4 @@
 # key: xslate-if-inline
 # binding: direct-keybinding
 # --
-[%- IF ${1:condition} -%]$0[%- END -%]
+[%- IF ${1:condition} -%]`yas/selected-text`$0[%- END -%]

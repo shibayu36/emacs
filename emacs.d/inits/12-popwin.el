@@ -9,4 +9,5 @@
   (push '(dired-mode :position top :height 0.4) popwin:special-display-config)
   (push '("*Completions*" :height 0.4) popwin:special-display-config)
   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+  (push '("*Help*" :height 0.5 :noselect t :stick t) popwin:special-display-config)
   )

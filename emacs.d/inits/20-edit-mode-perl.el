@@ -53,6 +53,7 @@
                (local-set-key "\C-c\C-hm" 'perldoc-m)
                (local-set-key (kbd "C-c C-s") 'perl-syntax-check)
                (local-set-key (kbd "C-c C-t") 'run-perl-test)
+               (local-set-key (kbd "C-c C-c C-u") 'popup-editor-perl-use)
                (local-set-key "\C-ct" 'run-perl-method-test)
                (local-set-key (kbd "C-c a") 'align)
                (local-set-key (kbd "F") (smartchr '("F" "$")))
@@ -152,13 +153,26 @@
   (shell-command
    (concat "perl -wc " (file-name-nondirectory (buffer-file-name)))))
 
-
 ;; gitルートからPERL5LIBにPATH通す
 (defun setup-perl5lib ()
   (interactive)
   (set-perl5lib-glob-from-git-root "lib")
   (set-perl5lib-glob-from-git-root "t/lib")
   (set-perl5lib-glob-from-git-root "modules/*/lib"))
+
+;; 現在の位置のmodule名のuseを書くためにpopupする
+(defun popup-editor-perl-use ()
+  (interactive)
+  (let* ((module-name nil))
+    (cond ((use-region-p)
+           (setq module-name (buffer-substring (region-beginning) (region-end)))
+           (keyboard-escape-quit))
+          (t
+           (setq module-name (thing-at-point 'symbol))))
+    (kill-new (concat "use " module-name ";"))
+    (popwin:popup-buffer (current-buffer) :height 0.4)
+    (re-search-backward "^use " nil t)
+    (next-line)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;podモード;;;;;;;;;;;;;;;;;;;

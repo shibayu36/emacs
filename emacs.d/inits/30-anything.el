@@ -11,13 +11,31 @@
    ;; 候補選択ショートカットをアルファベットに
    anything-enable-shortcuts 'alphabet)
 
+  ;; anything-c-source-emacs-functionsの高速化
+  (setq anything-c-source-emacs-functions
+        '((name . "Emacs Functions")
+          (init .  (lambda ()
+                     (with-current-buffer (anything-candidate-buffer 'global)
+                       (insert
+                        (mapconcat
+                         'identity
+                         (let (commands)
+                           (mapatoms (lambda (a)
+                                       (if (functionp a)
+                                           (push (symbol-name a) commands))))
+                           (sort commands 'string-lessp))
+                         "\n")))))
+          (candidates-in-buffer)
+          (type . function)
+          (requires-pattern . 2)))
+
   (when (require 'anything-config nil t)
     (setq anything-sources
           '(anything-c-source-buffers
             anything-c-source-recentf
             anything-c-source-man-pages
             anything-c-source-emacs-commands
-;;            anything-c-source-emacs-functions
+            anything-c-source-emacs-functions
             anything-c-source-files-in-current-dir
             ))
 
@@ -73,43 +91,9 @@
   ;;            (remove-if 'file-directory-p files)
   ;;            (remove-if '(lambda (file) (string-match-p "~$" file)) files)))))
 
-  ;;; anything-c-moccur: MoccurのAnythingインターフェイス
-  ;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
-  (when (require 'anything-c-moccur nil t)
-    (setq
-     ;; anything-c-moccur用 `anything-idle-delay'
-     anything-c-moccur-anything-idle-delay 0.1
-     ;; バッファの情報をハイライトする
-     anything-c-moccur-higligt-info-line-flag t
-     ;; 現在選択中の候補の位置を他のwindowに表示する
-     anything-c-moccur-enable-auto-look-flag t
-     ;; 起動時にポイントの位置の単語を初期パターンにする
-     anything-c-moccur-enable-initial-pattern t))
-
-  ;; kill ringを表示
-
   (require 'anything-migemo)
 
   ;; (require 'anything-hatena-bookmark)
 
-  ;; anything-custom-filelist
-  (defun anything-custom-filelist ()
-    (interactive)
-    (anything-other-buffer
-     (append
-      '(anything-c-source-ffap-line
-        anything-c-source-ffap-guesser
-        anything-c-source-buffers+
-        )
-      (anything-c-sources-git-project-for)
-      '(anything-c-source-recentf
-        anything-c-source-bookmarks
-        anything-c-source-file-cache
-        anything-c-source-filelist
-        ))
-     "*anything file list*"))
-
   ;; C-hで一文字削除になるように
-  (define-key anything-map (kbd "C-h") 'delete-backward-char)
-  (define-key anything-c-moccur-anything-map (kbd "C-h") 'delete-backward-char)
-  )
+  (define-key anything-map (kbd "C-h") 'delete-backward-char))

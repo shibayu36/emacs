@@ -72,9 +72,6 @@
 ;;; 辞書引く
 (define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)
 
-;;; direx other window
-(global-set-key (kbd "C-x C-j") 'direx:find-git-project-directory)
-
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 
@@ -125,4 +122,5 @@
 (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
 
 ;;; direx-mode
+(global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)
 (define-key direx:direx-mode-map (kbd "TAB") 'direx:maybe-find-node)

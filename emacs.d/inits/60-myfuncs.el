@@ -122,3 +122,8 @@
     (run-at-time 0 nil 'display-buffer "*Messages*")
     (message "%S=%S" ',expr _var)
     _var))
+
+;; 日付挿入
+(defun insert-current-time ()
+  (interactive)
+  (insert (format-time-string "%a %b %d %H:%M:%S %Y" (current-time))))

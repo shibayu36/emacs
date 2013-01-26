@@ -23,7 +23,7 @@
         (expand-file-name "~/.emacs.d/elisp/mode/mmm/")
         (expand-file-name "~/.emacs.d/elisp/mode/twittering-mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
-        )
+        (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
        load-path))
 
 

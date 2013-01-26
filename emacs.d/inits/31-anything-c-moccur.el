@@ -9,5 +9,6 @@
    ;; 現在選択中の候補の位置を他のwindowに表示する
    anything-c-moccur-enable-auto-look-flag t
    ;; 起動時にポイントの位置の単語を初期パターンにする
-   anything-c-moccur-enable-initial-pattern t)
+   ;; anything-c-moccur-enable-initial-pattern t)
+   )
   (define-key anything-c-moccur-anything-map (kbd "C-h") 'delete-backward-char))

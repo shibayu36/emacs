@@ -101,7 +101,7 @@
 ;; (key-chord-define-global "jk" 'view-mode)
 
 ;;; cua-mode
-(define-key global-map (kbd "<C-return>") 'CUA-cmd-begin-rectangle)
+(define-key global-map (kbd "<C-M-return>") 'CUA-cmd-begin-rectangle)
 
 ;;; org-mode用
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -122,5 +122,5 @@
 (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
 
 ;;; direx-mode
-(global-set-key (kbd "C-x C-j") 'direx-project:jump-to-project-root-other-window)
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-git-project-directory)
 (define-key direx:direx-mode-map (kbd "TAB") 'direx:maybe-find-node)

@@ -80,7 +80,7 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (list (perlbrew-get-current-perl-path)
+    (list "perl"
           (list "-MProject::Libs" "-wc" (format "-I%s" (git-root-directory)) local-file))))
 
 (defun flymake-perl-load ()

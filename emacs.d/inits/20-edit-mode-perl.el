@@ -118,17 +118,16 @@
         (setq test-method (match-string 1))))
     (if test-method
         (compile
-         (format "cd %s; TEST_METHOD=%s %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (perlbrew-get-current-perl-path) (buffer-file-name (current-buffer))))
+         (format "cd %s; TEST_METHOD=%s perl -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (buffer-file-name (current-buffer))))
         (compile
-         (format "cd %s; %s -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (perlbrew-get-current-perl-path) (buffer-file-name (current-buffer)))))))
+         (format "cd %s; perl -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (buffer-file-name (current-buffer)))))))
 
 (defun run-perl-test ()
   "test実行します"
   (interactive)
   (compile
-   (format "cd %s; %s -MProject::Libs %s"
+   (format "cd %s; perl -MProject::Libs %s"
            (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
-           (perlbrew-get-current-perl-path)
            (buffer-file-name))))
 
 ;;; perlスクリプト実行用

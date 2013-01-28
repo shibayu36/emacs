@@ -3,7 +3,7 @@
 ;; Copyright (C) 2011 Kentaro Kuribayashi
 
 ;; Author: Kentaro Kuribayashi <kentarok@gmail.com>
-;; Version: 0.2
+;; Version: 0.3
 ;; Keywords: Emacs, Perl
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -37,7 +37,7 @@
 
 (defgroup perlbrew nil
   "perlbrew"
-  :group 'perlbrew)
+  :group 'shell)
 
 (defcustom perlbrew-dir (concat (getenv "HOME") "/perl5/perlbrew")
   "your perlbrew directory"
@@ -61,19 +61,20 @@
       result)))
 
 (defun perlbrew-use (version)
-  (interactive (list (completing-read "Version: " (perlbrew-list))))
+  (interactive (list (completing-read "Version: " (perlbrew-list) nil t)))
   (setq perlbrew-perls-dir (concat perlbrew-dir "/perls"))
-
+  (unless (called-interactively-p 'interactive)
+    (unless (member version (perlbrew-list))
+      (error "Not installed version: %s" version)))
   (cond ((equal version "system")
          (perlbrew-clean-exec-path)
-         (setq perlbrew-current-perl-path
-               (perlbrew-trim (shell-command-to-string "which perl"))))
+         (setq perlbrew-current-perl-path (executable-find "perl")))
         (t
          (perlbrew-set-current-perl-path version)
          (perlbrew-set-current-exec-path))))
 
 (defun perlbrew-switch (version)
-  (interactive (list (completing-read "Version: " (perlbrew-list))))
+  (interactive (list (completing-read "Version: " (perlbrew-list) nil t)))
   (perlbrew-use version))
 
 (defun perlbrew-command (args)
@@ -81,14 +82,12 @@
   (perlbrew-join (list perlbrew-command-path args)))
 
 (defun perlbrew-list ()
-  (let* ((perls (split-string (perlbrew "list"))))
-    (remove-if
-     (lambda (i)
-       (not (string-match "^\\(perl\\|[0-9]\\|system\\)" i)))
-     (append perls '("system")))))
-
-(defun perlbrew-get-current-perl-path ()
-  perlbrew-current-perl-path)
+  (let* ((perls (split-string (perlbrew "list")))
+         (valid-perls (remove-if-not
+                       (lambda (i)
+                         (string-match "^\\(perl\\|[0-9]\\)" i))
+                       perls)))
+    (append valid-perls '("system"))))
 
 (defun perlbrew-set-current-perl-path (version)
   (setq perlbrew-current-perl-dir (concat perlbrew-perls-dir "/" version))
@@ -112,17 +111,22 @@
            ":"))
   (setq exec-path (perlbrew-remove-all-perl-path exec-path)))
 
-(defun perlbrew-join (list)
-  (mapconcat 'identity list " "))
+(defun perlbrew-join (lst)
+  (mapconcat 'identity lst " "))
 
-(defun perlbrew-trim (string)
-  (replace-regexp-in-string "\n+$" "" string))
+(defun perlbrew-trim (str)
+  (replace-regexp-in-string "\n+$" "" str))
 
 (defun perlbrew-remove-all-perl-path (path-list)
-  (remove-if
-   (lambda (i)
-     (string-match (concat "^" perlbrew-perls-dir) i))
-   path-list))
+  (let ((perlbrew-perl-regexp (format "^%s" perlbrew-perls-dir)))
+    (remove-if (lambda (path)
+                 (string-match perlbrew-perl-regexp path))
+               path-list)))
 
 (provide 'perlbrew)
+
+;; Local Variables:
+;; byte-compile-warnings: (not cl-functions)
+;; End:
+
 ;;; perlbrew.el ends here

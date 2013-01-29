@@ -85,12 +85,6 @@
        (- (window-width) (/ (window-width) num_wins)))
       (split-window-horizontally-n (- num_wins 1)))))
 
-;;; git grep
-(defun git-grep ()
-  (interactive)
-  (let ((grep-find-command "PAGER='' git grep -n -i --no-color "))
-    (call-interactively 'grep-find)))
-
 ;;; スクロールのみする
 (defun scroll-up-in-place (n)
   (interactive "p")

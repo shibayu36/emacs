@@ -92,7 +92,7 @@
 (global-set-key (kbd "C-c C-j") 'jaunte)
 
 ;;; mode compile
-(global-set-key "\C-cc" 'mode-compile)
+(global-set-key "\C-cc" 'quickrun-with-arg)
 
 ;;; 複数行移動
 

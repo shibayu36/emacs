@@ -87,14 +87,8 @@
 ;; redo
 (global-set-key "\M-/" 'redo)
 
-;;; jaunte
-;;; カーソルの移動
-(global-set-key (kbd "C-c C-j") 'jaunte)
-
-;;; mode compile
+;;; quickrun
 (global-set-key "\C-cc" 'quickrun-with-arg)
-
-;;; 複数行移動
 
 ;;; view mode
 ;;; なんかanythingと競合する

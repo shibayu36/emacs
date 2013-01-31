@@ -1,0 +1,3 @@
+[submodule "emacs.d/elisp/expand-region"]
+	path = emacs.d/elisp/expand-region
+	url = git://github.com/magnars/expand-region.el.git

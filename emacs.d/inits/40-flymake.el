@@ -81,7 +81,13 @@
                       temp-file
                       (file-name-directory buffer-file-name))))
     (list "perl"
-          (list "-MProject::Libs" "-wc" (format "-I%s" (git-root-directory)) local-file))))
+          (list "-MProject::Libs" "-wc"
+                (format "-I%s"
+                        (cond ((git-project-p)
+                               (git-root-directory))
+                              (t
+                               ".")))
+                local-file))))
 
 (defun flymake-perl-load ()
   (interactive)

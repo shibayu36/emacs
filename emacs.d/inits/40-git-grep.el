@@ -1,9 +1,9 @@
 (defun git-grep (grep-dir command-args)
   (interactive
-   (let ((root (git-root-directory)))
+   (let ((root (concat (git-root-directory) "/")))
      (list
       (read-file-name
-       "Directory for git grep: " (concat root "/"))
+       "Directory for git grep: " root root t)
       (read-shell-command
             "Run git-grep (like this): "
             (format "PAGER='' git grep -I -n -i -e %s"

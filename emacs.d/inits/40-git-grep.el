@@ -10,10 +10,10 @@
                     "")
             'git-grep-history))))
   (let ((grep-use-null-device nil)
-        (grep-command
+        (command
          (format (concat
                   "cd %s && "
                   "%s")
                  grep-dir
                  command-args)))
-    (grep grep-command)))
+    (grep command)))

@@ -116,5 +116,5 @@
 (define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
 
 ;;; direx-mode
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-git-project-directory)
+(global-set-key (kbd "C-x C-j") 'direx:jump-to-project-directory)
 (define-key direx:direx-mode-map (kbd "TAB") 'direx:maybe-find-node)

@@ -94,6 +94,9 @@
 ;;; なんかanythingと競合する
 ;; (key-chord-define-global "jk" 'view-mode)
 
+;;; auto-complete
+(define-key global-map (kbd "<C-tab>") 'ac-fuzzy-complete)
+
 ;;; cua-mode
 (define-key global-map (kbd "<C-M-return>") 'CUA-cmd-begin-rectangle)
 

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# key: benchmark
+# name: benchmark
+# --
+use Time::HiRes qw(gettimeofday tv_interval);
+warn '*************** benchmark start *************';
+my $benchmark_start = [gettimeofday];
+`yas/selected-text`$0
+warn '============== benchmark end ==============';
+warn 'time : ' . tv_interval($benchmark_start) . ' seconds';

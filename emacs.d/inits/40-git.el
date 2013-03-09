@@ -2,7 +2,10 @@
 (autoload 'mo-git-blame-file "mo-git-blame" nil t)
 (autoload 'mo-git-blame-current "mo-git-blame" nil t)
 
+(set-face-background 'magit-item-highlight "#202020")
 (set-face-foreground 'magit-diff-add "green")
+(set-face-foreground 'magit-diff-del "red")
+(set-face-foreground 'magit-diff-file-header "blue")
 
 (defun git-blame-current-buffer () ;; shell-command を使うより、vc-annotete を利用した方がさらに過去にさかのぼれるので良いのでは？
   (interactive)

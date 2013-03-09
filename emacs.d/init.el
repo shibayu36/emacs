@@ -6,6 +6,7 @@
        (list
         (expand-file-name "~/.emacs.d/")
         (expand-file-name "~/.emacs.d/elisp/")
+        (expand-file-name "~/.emacs.d/elisp/el-get/el-get/")
         (expand-file-name "~/.emacs.d/elisp/anything/")
         (expand-file-name "~/.emacs.d/elisp/abbrev/")
         (expand-file-name "~/.emacs.d/elisp/pymacs/")

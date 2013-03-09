@@ -181,7 +181,34 @@ Display a list of packages.
 
 ;;;***
 
-;;;### (autoloads nil nil ("apel/site-lisp/apel/calist.el" "apel/site-lisp/apel/filename.el"
+;;;### (autoloads (git-reblame git-blame-mode) "git-emacs/git-blame"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el"
+;;;;;;  "9593f9a81d7d19d934a3c2f6a5cd586a")
+;;; Generated autoloads from ../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el
+
+(autoload 'git-blame-mode "git-emacs/git-blame" "\
+Toggle minor mode for displaying Git blame
+
+With prefix ARG, turn the mode on if ARG is positive.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'git-reblame "git-emacs/git-blame" "\
+Recalculate all blame information in the current buffer
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elisp/el-get/git-emacs/git--test.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-emacs-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-emacs.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-global-keys.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-log.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-modeline.el"
+;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-status.el"
+;;;;;;  "apel/site-lisp/apel/calist.el" "apel/site-lisp/apel/filename.el"
 ;;;;;;  "apel/site-lisp/apel/install.el" "apel/site-lisp/emu/apel-ver.el"
 ;;;;;;  "apel/site-lisp/emu/broken.el" "apel/site-lisp/emu/emu.el"
 ;;;;;;  "apel/site-lisp/emu/inv-23.el" "apel/site-lisp/emu/invisible.el"
@@ -198,7 +225,7 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
 ;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (20794
-;;;;;;  41118 513573))
+;;;;;;  46888 966423))
 
 ;;;***
 

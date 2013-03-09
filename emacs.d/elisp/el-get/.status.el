@@ -11,4 +11,6 @@
               ("site-lisp/apel" "site-lisp/emu")))
  (el-get status "installed" recipe
          (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "4.stable" :pkgname "dimitri/el-get" :features el-get :info "." :load "el-get.el"))
- (elscreen status "required" recipe nil))
+ (elscreen status "required" recipe nil)
+ (git-emacs status "installed" recipe
+            (:name git-emacs :description "Yet another git emacs mode for newbies" :type github :pkgname "tsgates/git-emacs" :features git-emacs)))

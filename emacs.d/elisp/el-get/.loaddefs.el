@@ -5,7 +5,7 @@
 
 ;;;### (autoloads (vassoc set-modified-alist modify-alist remove-alist
 ;;;;;;  set-alist del-alist put-alist) "apel/site-lisp/apel/alist"
-;;;;;;  "apel/site-lisp/apel/alist.el" (20794 41117))
+;;;;;;  "apel/site-lisp/apel/alist.el" (20794 47057))
 ;;; Generated autoloads from apel/site-lisp/apel/alist.el
 
 (autoload 'put-alist "apel/site-lisp/apel/alist" "\
@@ -54,7 +54,7 @@ See also `assoc'.
 
 ;;;### (autoloads (module-installed-p exec-installed-p file-installed-p
 ;;;;;;  get-latest-path add-latest-path add-path) "apel/site-lisp/apel/path-util"
-;;;;;;  "apel/site-lisp/apel/path-util.el" (20794 41117))
+;;;;;;  "apel/site-lisp/apel/path-util.el" (20794 47057))
 ;;; Generated autoloads from apel/site-lisp/apel/path-util.el
 
 (autoload 'add-path "apel/site-lisp/apel/path-util" "\
@@ -117,7 +117,7 @@ If PATHS is omitted, `load-path' is used.
 ;;;***
 
 ;;;### (autoloads (richtext-decode richtext-encode) "apel/site-lisp/emu/richtext"
-;;;;;;  "apel/site-lisp/emu/richtext.el" (20794 41117))
+;;;;;;  "apel/site-lisp/emu/richtext.el" (20794 47057))
 ;;; Generated autoloads from apel/site-lisp/emu/richtext.el
 
 (autoload 'richtext-encode "apel/site-lisp/emu/richtext" "\
@@ -181,25 +181,6 @@ Display a list of packages.
 
 ;;;***
 
-;;;### (autoloads (git-reblame git-blame-mode) "git-emacs/git-blame"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el"
-;;;;;;  "9593f9a81d7d19d934a3c2f6a5cd586a")
-;;; Generated autoloads from ../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el
-
-(autoload 'git-blame-mode "git-emacs/git-blame" "\
-Toggle minor mode for displaying Git blame
-
-With prefix ARG, turn the mode on if ARG is positive.
-
-\(fn &optional ARG)" t nil)
-
-(autoload 'git-reblame "git-emacs/git-blame" "\
-Recalculate all blame information in the current buffer
-
-\(fn)" t nil)
-
-;;;***
-
 ;;;### (autoloads nil nil ("../../../../../.emacs.d/elisp/el-get/git-emacs/git--test.el"
 ;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el"
 ;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-emacs-autoloads.el"
@@ -224,8 +205,8 @@ Recalculate all blame information in the current buffer
 ;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (20794
-;;;;;;  46888 966423))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (20799
+;;;;;;  58077 595279))
 
 ;;;***
 

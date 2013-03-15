@@ -1,6 +1,5 @@
 (setq el-get-dir "~/.emacs.d/elisp/el-get/")
 
-
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously

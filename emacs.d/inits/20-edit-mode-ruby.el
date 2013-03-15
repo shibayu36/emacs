@@ -9,17 +9,17 @@
       (append '(("Capfile$" . ruby-mode)) auto-mode-alist))
 (setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
                                      interpreter-mode-alist))
-(autoload 'run-ruby "inf-ruby"
-  "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
+;; (autoload 'run-ruby "inf-ruby"
+;;   "Run an inferior Ruby process")
+;; (autoload 'inf-ruby-keys "inf-ruby"
+;;   "Set local key defs for inf-ruby in ruby-mode")
+
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (setq tab-width 2)
              (setq ruby-indent-level tab-width)
              (setq ruby-deep-indent-paren-style nil)
-             (define-key ruby-mode-map [return] 'ruby-reindent-then-newline-and-indent)
-             ))
+             (define-key ruby-mode-map [return] 'ruby-reindent-then-newline-and-indent)))
 
 (require 'align)
 (add-to-list 'align-rules-list
@@ -44,16 +44,6 @@
                (modes  . '(ruby-mode))))
 
 
-;; ruby-electric
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-
-;; rubydb
-(autoload 'rubydb "rubydb3x"
-  "run rubydb on program file in buffer *gud-file*.
-the directory containing file becomes the initial working directory
-and source-file directory for your debugger." t)
-
 ;; rails
 ;; (defun try-complete-abbrev (old)
 ;;   (if (expand-abbrev) t nil))
@@ -62,11 +52,14 @@ and source-file directory for your debugger." t)
 ;;         try-complete-file-name
 ;;         try-expand-dabbrev))
 ;; (setq rails-use-mongrel t)
-(require 'cl)
 ;; (require 'rails)
 
 ;; ruby-block
-(require 'ruby-block)
-(ruby-block-mode t)
+;; (require 'ruby-block)
+;; (ruby-block-mode t)
 ;; ミニバッファに表示し, かつ, オーバレイする.
-(setq ruby-block-highlight-toggle t)
+;; (setq ruby-block-highlight-toggle t)
+
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(setq ruby-electric-expand-delimiters-list nil)

@@ -181,14 +181,18 @@ Display a list of packages.
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../../.emacs.d/elisp/el-get/git-emacs/git--test.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-blame.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-emacs-autoloads.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-emacs.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-global-keys.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-log.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-modeline.el"
-;;;;;;  "../../../../../.emacs.d/elisp/el-get/git-emacs/git-status.el"
+;;;### (autoloads (ruby-end-mode) "ruby-end/ruby-end" "../../../../../.emacs.d/elisp/el-get/ruby-end/ruby-end.el"
+;;;;;;  "c59e9ef2d527da4e26a331b69fc1f4b1")
+;;; Generated autoloads from ../../../../../.emacs.d/elisp/el-get/ruby-end/ruby-end.el
+
+(autoload 'ruby-end-mode "ruby-end/ruby-end" "\
+Automatic insertion of end blocks for Ruby.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elisp/el-get/ruby-end/ruby-end.el"
 ;;;;;;  "apel/site-lisp/apel/calist.el" "apel/site-lisp/apel/filename.el"
 ;;;;;;  "apel/site-lisp/apel/install.el" "apel/site-lisp/emu/apel-ver.el"
 ;;;;;;  "apel/site-lisp/emu/broken.el" "apel/site-lisp/emu/emu.el"
@@ -205,8 +209,8 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (20799
-;;;;;;  58077 595279))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (20802
+;;;;;;  28374 617122))
 
 ;;;***
 

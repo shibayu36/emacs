@@ -55,10 +55,9 @@
 ;; (require 'rails)
 
 ;; ruby-block
-;; (require 'ruby-block)
-;; (ruby-block-mode t)
-;; ミニバッファに表示し, かつ, オーバレイする.
-;; (setq ruby-block-highlight-toggle t)
+(require 'ruby-block)
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
 
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))

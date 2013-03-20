@@ -37,5 +37,6 @@
                            ("marmalade" . "http://marmalade-repo.org/packages/")
                            ("SC" . "http://joseito.republika.pl/sunrise-commander/"))))))
  (ruby-electric status "removed" recipe nil)
- (ruby-end status "removed" recipe nil)
+ (ruby-end status "installed" recipe
+           (:name ruby-end :description "Emacs minor mode for automatic insertion of end blocks for Ruby" :type http :url "https://github.com/rejeep/ruby-end/raw/master/ruby-end.el" :features ruby-end))
  (ruby-mode status "removed" recipe nil))

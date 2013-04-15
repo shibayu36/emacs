@@ -1,3 +1,5 @@
+(require 'open-github-from-here)
+
 (defun open-github-from-current ()
   (interactive)
   (cond ((and (git-project-p) (use-region-p))

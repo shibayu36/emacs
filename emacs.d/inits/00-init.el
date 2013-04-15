@@ -104,7 +104,7 @@
   (add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top))
 
 ;;; debug用
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 ;;; symlinkは必ず追いかける
 (setq vc-follow-symlinks t)

@@ -6,6 +6,7 @@
 (setq auto-mode-alist (cons '("\\.t$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.cgi$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.psgi$" . cperl-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("cpanfile$" . cperl-mode) auto-mode-alist))
 (require 'set-perl5lib)
 
 (setq cperl-hairy nil)

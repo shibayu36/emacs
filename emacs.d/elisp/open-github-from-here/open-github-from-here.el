@@ -23,6 +23,30 @@
 
 ;;; Code:
 
+(defvar open-github-from-here:command-dir
+  (if load-file-name
+      (file-name-directory load-file-name)
+    default-directory))
+
+(defvar open-github-from-here:command
+  (expand-file-name "open-github-from-file" open-github-from-here:command-dir))
+
+(defun open-github-from-here ()
+  (interactive)
+  (cond ((and (open-github-from-here:git-project-p) (use-region-p))
+         (shell-command
+          (format "%s %s %d %d"
+                  open-github-from-here:command
+                  (file-name-nondirectory (buffer-file-name))
+                  (line-number-at-pos (region-beginning))
+                  (line-number-at-pos (region-end)))))
+        ((open-github-from-here:git-project-p)
+         (shell-command
+          (format "%s %s %d"
+                  open-github-from-here:command
+                  (file-name-nondirectory (buffer-file-name))
+                  (line-number-at-pos))))))
+
 (defun open-github-from-here:chomp (str)
   (replace-regexp-in-string "[\n\r]+$" "" str))
 
@@ -31,20 +55,6 @@
    (open-github-from-here:chomp
     (shell-command-to-string "git rev-parse --is-inside-work-tree"))
    "true"))
-
-(defun open-github-from-here ()
-  (interactive)
-  (cond ((and (open-github-from-here:git-project-p) (use-region-p))
-         (shell-command
-          (format "open-github-from-file %s %d %d"
-                  (file-name-nondirectory (buffer-file-name))
-                  (line-number-at-pos (region-beginning))
-                  (line-number-at-pos (region-end)))))
-        ((open-github-from-here:git-project-p)
-         (shell-command
-          (format "open-github-from-file %s %d"
-                  (file-name-nondirectory (buffer-file-name))
-                  (line-number-at-pos))))))
 
 (provide 'open-github-from-here)
 

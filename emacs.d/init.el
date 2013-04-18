@@ -18,6 +18,7 @@
         (expand-file-name "~/.emacs.d/elisp/expand-region/")
         (expand-file-name "~/.emacs.d/elisp/slime/")
         (expand-file-name "~/.emacs.d/elisp/company/")
+        (expand-file-name "~/.emacs.d/elisp/open-github-from-here/")
         (expand-file-name "~/.emacs.d/elisp/magit/share/emacs/site-lisp/")
 
         (expand-file-name "~/.emacs.d/elisp/mode/")

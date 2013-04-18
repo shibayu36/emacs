@@ -14,6 +14,8 @@
          (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "4.stable" :pkgname "dimitri/el-get" :features el-get :info "." :load "el-get.el"))
  (elscreen status "removed" recipe nil)
  (git-emacs status "removed" recipe nil)
+ (open-github-from-here status "installed" recipe
+                        (:name open-github-from-here :type github :description "open github from here" :url "https://github.com/shibayu36/emacs-open-github-from-here"))
  (package status "installed" recipe
           (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin 24 :type http :url "http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el" :shallow nil :features package :post-init
                  (progn
@@ -37,6 +39,5 @@
                            ("marmalade" . "http://marmalade-repo.org/packages/")
                            ("SC" . "http://joseito.republika.pl/sunrise-commander/"))))))
  (ruby-electric status "removed" recipe nil)
- (ruby-end status "installed" recipe
-           (:name ruby-end :description "Emacs minor mode for automatic insertion of end blocks for Ruby" :type http :url "https://github.com/rejeep/ruby-end/raw/master/ruby-end.el" :features ruby-end))
+ (ruby-end status "removed" recipe nil)
  (ruby-mode status "removed" recipe nil))

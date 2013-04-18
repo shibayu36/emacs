@@ -60,7 +60,6 @@
                (local-set-key (kbd "F") (smartchr '("F" "$")))
                (local-set-key (kbd ",") (smartchr '("," " => ")))
                (local-set-key (kbd "J") (smartchr '("J" "->")))
-               (local-set-key (kbd "M") (smartchr '("M" "my ")))
                (require 'hatena-translator)
                (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
                (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)

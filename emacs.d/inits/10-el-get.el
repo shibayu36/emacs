@@ -7,4 +7,13 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+(setq el-get-sources
+      '(
+        (:name open-github-from-here
+               :type github
+               :description "open github from here"
+               :url "https://github.com/shibayu36/emacs-open-github-from-here")
+        ))
+
 (el-get 'sync)
+

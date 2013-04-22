@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads nil nil ("../../../../../.emacs.d/elisp/el-get/open-github-from-here/open-github-from-here.el")
-;;;;;;  (20847 63745 604667))
+;;;;;;  (20853 7819 997702))
 
 ;;;***
 

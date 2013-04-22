@@ -1,16 +1,22 @@
 ;; anything-custom-filelist
 (defun anything-custom-filelist ()
   (interactive)
-  (anything-other-buffer
-   (append
-    '(anything-c-source-ffap-line
-      anything-c-source-ffap-guesser
-      anything-c-source-buffers+
-      )
-    (anything-c-sources-git-project-for)
-    '(anything-c-source-recentf
-      anything-c-source-bookmarks
-      anything-c-source-file-cache
-      anything-c-source-filelist
-      ))
-   "*anything file list*"))
+  (require 'anything-git-files)
+  (require 'anything-config)
+  (require 'anything-git-files)
+  (let* ((git-source `())
+         (sources))
+    (cond ((anything-git-files:git-p)
+           (setq git-source `(anything-git-files:modified-source
+                               anything-git-files:untracked-source
+                               anything-git-files:all-source
+                               ))))
+    (setq sources `(anything-c-source-ffap-line
+                    anything-c-source-ffap-guesser
+                    anything-c-source-buffers+
+                    ,@git-source
+                    anything-c-source-recentf
+                    anything-c-source-bookmarks
+                    anything-c-source-file-cache
+                    anything-c-source-filelist))
+    (anything-other-buffer sources "*anything for files*")))

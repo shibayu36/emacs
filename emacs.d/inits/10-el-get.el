@@ -12,7 +12,10 @@
         (:name open-github-from-here
                :type github
                :description "open github from here"
-               :url "https://github.com/shibayu36/emacs-open-github-from-here")
+               :url "shibayu36/emacs-open-github-from-here")
+        (:name anything-git-files
+               :type github
+               :pkgname "tarao/anything-git-files-el")
         ))
 
 (el-get 'sync)

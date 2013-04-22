@@ -1,4 +1,6 @@
 ((Enhanced-Ruby-Mode status "removed" recipe nil)
+ (anything-git-files status "installed" recipe
+                     (:name anything-git-files :type github :pkgname "tarao/anything-git-files-el"))
  (apel status "installed" recipe
        (:name apel :website "http://www.kanji.zinbun.kyoto-u.ac.jp/~tomo/elisp/APEL/" :description "APEL (A Portable Emacs Library) is a library to support to write portable Emacs Lisp programs." :type github :pkgname "wanderlust/apel" :build
               (mapcar

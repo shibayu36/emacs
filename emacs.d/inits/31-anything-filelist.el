@@ -1,8 +1,8 @@
 ;; anything-custom-filelist
+(require 'anything-config)
+(require 'anything-git-files)
 (defun anything-custom-filelist ()
   (interactive)
-  (require 'anything-config)
-  (require 'anything-git-files)
   (let* ((git-source `())
          (sources))
     (cond ((anything-git-files:git-p)

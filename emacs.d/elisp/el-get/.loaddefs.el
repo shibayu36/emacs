@@ -6,7 +6,7 @@
 ;;;### (autoloads (anything-git-files anything-git-files:submodule-sources
 ;;;;;;  anything-git-files:git-p) "anything-git-files/anything-git-files"
 ;;;;;;  "../../../../../.emacs.d/elisp/el-get/anything-git-files/anything-git-files.el"
-;;;;;;  "f5d005f178a663116330aa8d62658df8")
+;;;;;;  "634f0badc3ab7d3064158dd9cb23868c")
 ;;; Generated autoloads from ../../../../../.emacs.d/elisp/el-get/anything-git-files/anything-git-files.el
 
 (autoload 'anything-git-files:git-p "anything-git-files/anything-git-files" "\
@@ -34,7 +34,7 @@
 
 ;;;### (autoloads nil nil ("../../../../../.emacs.d/elisp/el-get/anything-git-files/anything-git-files.el"
 ;;;;;;  "../../../../../.emacs.d/elisp/el-get/open-github-from-here/open-github-from-here.el")
-;;;;;;  (20853 10712 511766))
+;;;;;;  (20855 28596 291784))
 
 ;;;***
 

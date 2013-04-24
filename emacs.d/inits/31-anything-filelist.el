@@ -1,7 +1,6 @@
 ;; anything-custom-filelist
 (defun anything-custom-filelist ()
   (interactive)
-  (require 'anything-git-files)
   (require 'anything-config)
   (require 'anything-git-files)
   (let* ((git-source `())

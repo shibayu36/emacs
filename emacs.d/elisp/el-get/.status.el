@@ -17,7 +17,7 @@
  (elscreen status "removed" recipe nil)
  (git-emacs status "removed" recipe nil)
  (open-github-from-here status "installed" recipe
-                        (:name open-github-from-here :type github :description "open github from here" :url "https://github.com/shibayu36/emacs-open-github-from-here"))
+                        (:name open-github-from-here :type github :description "open github from here" :pkgname "shibayu36/emacs-open-github-from-here" :branch "development"))
  (package status "installed" recipe
           (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin 24 :type http :url "http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el" :shallow nil :features package :post-init
                  (progn

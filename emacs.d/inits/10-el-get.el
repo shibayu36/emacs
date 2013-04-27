@@ -17,6 +17,9 @@
         (:name anything-git-files
                :type github
                :pkgname "tarao/anything-git-files-el")
+        (:name git-gutter
+               :type github
+               :pkgname "syohex/emacs-git-gutter")
         ))
 
 (el-get 'sync)

@@ -1,3 +1,5 @@
+(el-get-install "anything-git-files")
+
 ;; anything-custom-filelist
 (require 'anything-config)
 (require 'anything-git-files)

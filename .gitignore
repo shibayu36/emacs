@@ -12,3 +12,5 @@
 /emacs.d/tramp
 /emacs.d/shellenv.el
 /emacs.d/.bm-repository
+/emacs.d/elisp/el-get/.loaddefs.el
+/emacs.d/elisp/el-get/.status.el

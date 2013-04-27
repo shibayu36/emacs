@@ -16,8 +16,7 @@
          (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "4.stable" :pkgname "dimitri/el-get" :features el-get :info "." :load "el-get.el"))
  (elscreen status "removed" recipe nil)
  (git-emacs status "removed" recipe nil)
- (git-gutter status "installed" recipe
-             (:name git-gutter :type github :pkgname "syohex/emacs-git-gutter"))
+ (git-gutter status "removed" recipe nil)
  (helm status "removed" recipe nil)
  (open-github-from-here status "installed" recipe
                         (:name open-github-from-here :type github :description "open github from here" :pkgname "shibayu36/emacs-open-github-from-here" :branch "development"))

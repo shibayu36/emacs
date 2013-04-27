@@ -20,6 +20,9 @@
         (:name git-gutter
                :type github
                :pkgname "syohex/emacs-git-gutter")
+        (:name git-gutter-fringe
+               :type github
+               :pkgname "syohex/emacs-git-gutter-fringe")
         ))
 
 (el-get 'sync)

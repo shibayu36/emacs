@@ -1,2 +1,2 @@
-;; (require 'git-gutter)
-;; (global-git-gutter-mode t)
+(el-get-install "git-gutter")
+(require 'git-gutter)

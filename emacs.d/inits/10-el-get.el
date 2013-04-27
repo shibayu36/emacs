@@ -23,6 +23,13 @@
         (:name git-gutter-fringe
                :type github
                :pkgname "syohex/emacs-git-gutter-fringe")
+        ;; (:name open-github
+        ;;        :type github
+        ;;        :pkgname "syohex/emacs-open-github"
+        ;;        :depends (helm gh))
+        ;; (:name gh
+        ;;        :type github
+        ;;        :pkgname "sigma/gh.el")
         ))
 
 (el-get 'sync)

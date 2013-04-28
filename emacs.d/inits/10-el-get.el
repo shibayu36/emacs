@@ -7,6 +7,7 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+;;; define el-get repository
 (setq el-get-sources
       '(
         (:name open-github-from-here
@@ -17,20 +18,16 @@
         (:name anything-git-files
                :type github
                :pkgname "tarao/anything-git-files-el")
-        (:name git-gutter
-               :type github
-               :pkgname "syohex/emacs-git-gutter")
-        (:name git-gutter-fringe
-               :type github
-               :pkgname "syohex/emacs-git-gutter-fringe")
-        ;; (:name open-github
-        ;;        :type github
-        ;;        :pkgname "syohex/emacs-open-github"
-        ;;        :depends (helm gh))
-        ;; (:name gh
-        ;;        :type github
-        ;;        :pkgname "sigma/gh.el")
         ))
 
-(el-get 'sync)
+;; Packages to install from el-get
+(defvar my-el-get-packages
+  '(
+    open-github-from-here
+    anything-git-files
+    )
+  "A list of packages to install from el-get at launch.")
+
+
+(el-get 'sync my-el-get-packages)
 

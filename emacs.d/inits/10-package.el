@@ -19,10 +19,22 @@
 (defvar my-melpa-packages
   '(
     anything
-    yasnippet
+    auto-complete
+    auto-install
+    color-theme
     git-gutter
     helm
+    helm-c-moccur
     helm-open-github
+    init-loader
+    org
+    point-undo
+    popwin
+    quickrun
+    redo+
+    undo-tree
+    undohist
+    yasnippet
     )
   "A list of packages to install from MELPA at launch.")
 

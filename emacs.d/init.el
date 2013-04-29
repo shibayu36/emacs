@@ -9,7 +9,6 @@
         (expand-file-name "~/.emacs.d/elisp/el-get/el-get/")
         (expand-file-name "~/.emacs.d/elisp/abbrev/")
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
-        (expand-file-name "~/.emacs.d/elisp/yasnippet")
         (expand-file-name "~/.emacs.d/elisp/moccur")
         (expand-file-name "~/.emacs.d/elisp/apel")
         (expand-file-name "~/.emacs.d/elisp/auto-complete/")

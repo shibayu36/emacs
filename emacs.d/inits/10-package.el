@@ -17,7 +17,10 @@
 
 ;; Packages to install from MELPA
 (defvar my-melpa-packages
-  '(git-gutter
+  '(
+    anything
+    yasnippet
+    git-gutter
     helm
     helm-open-github
     )

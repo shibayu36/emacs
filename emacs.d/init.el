@@ -11,7 +11,6 @@
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/moccur")
         (expand-file-name "~/.emacs.d/elisp/apel")
-        (expand-file-name "~/.emacs.d/elisp/org/")
         (expand-file-name "~/.emacs.d/elisp/expand-region/")
         (expand-file-name "~/.emacs.d/elisp/slime/")
         (expand-file-name "~/.emacs.d/elisp/company/")

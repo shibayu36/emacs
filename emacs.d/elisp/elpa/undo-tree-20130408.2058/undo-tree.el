@@ -3,7 +3,8 @@
 ;; Copyright (C) 2009-2012  Free Software Foundation, Inc
 
 ;; Author: Toby Cubitt <toby-undo-tree@dr-qubit.org>
-;; Version: 0.6.3
+;; Version: 20130408.2058
+;; X-Original-Version: 0.6.3
 ;; Keywords: convenience, files, undo, redo, history, tree
 ;; URL: http://www.dr-qubit.org/emacs.php
 ;; Repository: http://www.dr-qubit.org/git/undo-tree.git
@@ -235,7 +236,7 @@
 ;;
 ;;   (defadvice undo-tree-make-history-save-file-name
 ;;     (after undo-tree activate)
-;;     (setq concat ad-return-value ".gz"))
+;;     (setq ad-return-value (concat ad-return-value ".gz")))
 ;;
 ;;
 ;;
@@ -828,6 +829,16 @@
       (file-local-copy file-or-buf))))
 
 
+;; `user-error' isn't defined in Emacs < 24.3
+(unless (fboundp 'user-error)
+  (defalias 'user-error 'error)
+  ;; prevent debugger being called on user errors
+  (add-to-list 'debug-ignored-errors "^No further undo information")
+  (add-to-list 'debug-ignored-errors "^No further redo information")
+  (add-to-list 'debug-ignored-errors "^No further redo information for region"))
+
+
+
 
 
 ;;; =====================================================================
@@ -930,7 +941,7 @@ Otherwise, display absolute times."
   "When non-nil, display time-stamps by default
 in undo-tree visualizer.
 
-\\<undo-tree-visualizer-map>You can always toggle time-stamps on and off \
+\\<undo-tree-visualizer-mode-map>You can always toggle time-stamps on and off \
 using \\[undo-tree-visualizer-toggle-timestamps], regardless of the
 setting of this variable."
   :group 'undo-tree
@@ -940,7 +951,7 @@ setting of this variable."
 (defcustom undo-tree-visualizer-diff nil
   "When non-nil, display diff by default in undo-tree visualizer.
 
-\\<undo-tree-visualizer-map>You can always toggle the diff display \
+\\<undo-tree-visualizer-mode-map>You can always toggle the diff display \
 using \\[undo-tree-visualizer-toggle-diff], regardless of the
 setting of this variable."
   :group 'undo-tree
@@ -1047,10 +1058,6 @@ in visualizer."
 (defconst undo-tree-visualizer-buffer-name " *undo-tree*")
 (defconst undo-tree-diff-buffer-name "*undo-tree Diff*")
 
-;; prevent debugger being called on "No further redo information"
-(add-to-list 'debug-ignored-errors "^No further redo information")
-(add-to-list 'debug-ignored-errors "^No further redo information for region")
-
 ;; install history-auto-save hooks
 (add-hook 'write-file-functions 'undo-tree-save-history-hook)
 (add-hook 'find-file-hook 'undo-tree-load-history-hook)
@@ -1086,10 +1093,10 @@ in visualizer."
     (setq undo-tree-map map)))
 
 
-(defvar undo-tree-visualizer-map nil
+(defvar undo-tree-visualizer-mode-map nil
   "Keymap used in undo-tree visualizer.")
 
-(unless undo-tree-visualizer-map
+(unless undo-tree-visualizer-mode-map
   (let ((map (make-sparse-keymap)))
     ;; vertical motion keys undo/redo
     (define-key map [remap previous-line] 'undo-tree-visualize-undo)
@@ -1124,27 +1131,27 @@ in visualizer."
     (define-key map "t" 'undo-tree-visualizer-toggle-timestamps)
     ;; toggle diff
     (define-key map "d" 'undo-tree-visualizer-toggle-diff)
-    ;; selection mode
+    ;; toggle selection mode
     (define-key map "s" 'undo-tree-visualizer-selection-mode)
-    ;; horizontal scrolling may be needed if the tree wide
+    ;; horizontal scrolling may be needed if the tree is very wide
     (define-key map "," 'undo-tree-visualizer-scroll-left)
     (define-key map "." 'undo-tree-visualizer-scroll-right)
     (define-key map "<" 'undo-tree-visualizer-scroll-left)
     (define-key map ">" 'undo-tree-visualizer-scroll-right)
-    ;; vertical scrolling may be needed if the tree tall
+    ;; vertical scrolling may be needed if the tree is very tall
     (define-key map [next] 'undo-tree-visualizer-scroll-up)
     (define-key map [prior] 'undo-tree-visualizer-scroll-down)
     ;; quit/abort visualizer
     (define-key map "q" 'undo-tree-visualizer-quit)
     (define-key map "\C-q" 'undo-tree-visualizer-abort)
     ;; set keymap
-    (setq undo-tree-visualizer-map map)))
+    (setq undo-tree-visualizer-mode-map map)))
 
 
-(defvar undo-tree-visualizer-selection-map nil
+(defvar undo-tree-visualizer-selection-mode-map nil
   "Keymap used in undo-tree visualizer selection mode.")
 
-(unless undo-tree-visualizer-selection-map
+(unless undo-tree-visualizer-selection-mode-map
   (let ((map (make-sparse-keymap)))
     ;; vertical motion keys move up and down tree
     (define-key map [remap previous-line]
@@ -1180,20 +1187,10 @@ in visualizer."
       (lambda () (interactive) (undo-tree-visualizer-select-left 10)))
     (define-key map ">"
       (lambda () (interactive) (undo-tree-visualizer-select-right 10)))
-    ;; mouse or <enter> sets buffer state to node at point/click
-    (define-key map "\r" 'undo-tree-visualizer-set)
-    (define-key map [mouse-1] 'undo-tree-visualizer-mouse-set)
-    ;; toggle timestamps
-    (define-key map "t" 'undo-tree-visualizer-toggle-timestamps)
     ;; toggle diff
     (define-key map "d" 'undo-tree-visualizer-selection-toggle-diff)
-    ;; quit visualizer selection mode
-    (define-key map "s" 'undo-tree-visualizer-mode)
-    ;; quit visualizer
-    (define-key map "q" 'undo-tree-visualizer-quit)
-    (define-key map "\C-q" 'undo-tree-visualizer-abort)
     ;; set keymap
-    (setq undo-tree-visualizer-selection-map map)))
+    (setq undo-tree-visualizer-selection-mode-map map)))
 
 
 
@@ -2579,7 +2576,7 @@ The following keys are available in `undo-tree-mode':
 
 Within the undo-tree visualizer, the following keys are available:
 
-  \\{undo-tree-visualizer-map}"
+  \\{undo-tree-visualizer-mode-map}"
 
   nil                       ; init value
   undo-tree-mode-lighter    ; lighter
@@ -2653,7 +2650,8 @@ mode, just \\[universal-argument] as an argument limits undo to
 changes within the current region."
   (interactive "*P")
   ;; throw error if undo is disabled in buffer
-  (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
+  (when (eq buffer-undo-list t)
+    (user-error "No undo information in this buffer"))
   (undo-tree-undo-1 arg)
   ;; inform user if at branch point
   (when (> (undo-tree-num-branches) 1) (message "Undo branch point!")))
@@ -2680,14 +2678,14 @@ changes within the current region."
     (dotimes (i (or (and (numberp arg) (prefix-numeric-value arg)) 1))
       ;; check if at top of undo tree
       (unless (undo-tree-node-previous (undo-tree-current buffer-undo-tree))
-	(error "No further undo information"))
+	(user-error "No further undo information"))
 
       ;; if region is active, or a non-numeric prefix argument was supplied,
       ;; try to pull out a new branch of changes affecting the region
       (when (and undo-in-region
 		 (not (undo-tree-pull-undo-in-region-branch
 		       (region-beginning) (region-end))))
-	(error "No further undo information for region"))
+	(user-error "No further undo information for region"))
 
       ;; remove any GC'd elements from node's undo list
       (setq current (undo-tree-current buffer-undo-tree))
@@ -2759,7 +2757,8 @@ mode, just \\[universal-argument] as an argument limits redo to
 changes within the current region."
   (interactive "*P")
   ;; throw error if undo is disabled in buffer
-  (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
+  (when (eq buffer-undo-list t)
+    (user-error "No undo information in this buffer"))
   (undo-tree-redo-1 arg)
   ;; inform user if at branch point
   (when (> (undo-tree-num-branches) 1) (message "Undo branch point!")))
@@ -2786,14 +2785,14 @@ changes within the current region."
     (dotimes (i (or (and (numberp arg) (prefix-numeric-value arg)) 1))
       ;; check if at bottom of undo tree
       (when (null (undo-tree-node-next (undo-tree-current buffer-undo-tree)))
-	(error "No further redo information"))
+	(user-error "No further redo information"))
 
       ;; if region is active, or a non-numeric prefix argument was supplied,
       ;; try to pull out a new branch of changes affecting the region
       (when (and redo-in-region
 		 (not (undo-tree-pull-redo-in-region-branch
 		       (region-beginning) (region-end))))
-	(error "No further redo information for region"))
+	(user-error "No further redo information for region"))
 
       ;; get next node (but DON'T advance current node in tree yet, in case
       ;; redoing fails)
@@ -2877,11 +2876,13 @@ using `undo-tree-redo'."
 					   (1- (undo-tree-num-branches)) b)))
 				 ))))))
   ;; throw error if undo is disabled in buffer
-  (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
+  (when (eq buffer-undo-list t)
+    (user-error "No undo information in this buffer"))
   ;; sanity check branch number
-  (when (<= (undo-tree-num-branches) 1) (error "Not at undo branch point"))
+  (when (<= (undo-tree-num-branches) 1)
+    (user-error "Not at undo branch point"))
   (when (or (< branch 0) (> branch (1- (undo-tree-num-branches))))
-    (error "Invalid branch number"))
+    (user-error "Invalid branch number"))
   ;; transfer entries accumulated in `buffer-undo-list' to `buffer-undo-tree'
   (undo-list-transfer-to-tree)
   ;; switch branch
@@ -2931,7 +2932,8 @@ The saved state can be restored using
 Argument is a character, naming the register."
   (interactive "cUndo-tree state to register: ")
   ;; throw error if undo is disabled in buffer
-  (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
+  (when (eq buffer-undo-list t)
+    (user-error "No undo information in this buffer"))
   ;; transfer entries accumulated in `buffer-undo-list' to `buffer-undo-tree'
   (undo-list-transfer-to-tree)
   ;; save current node to REGISTER
@@ -2956,11 +2958,11 @@ Argument is a character, naming the register."
   (let ((data (registerv-data (get-register register))))
     (cond
      ((eq buffer-undo-list t)
-      (error "No undo information in this buffer"))
+      (user-error "No undo information in this buffer"))
      ((not (undo-tree-register-data-p data))
-      (error "Register doesn't contain undo-tree state"))
+      (user-error "Register doesn't contain undo-tree state"))
      ((not (eq (current-buffer) (undo-tree-register-data-buffer data)))
-      (error "Register contains undo-tree state for a different buffer")))
+      (user-error "Register contains undo-tree state for a different buffer")))
     ;; transfer entries accumulated in `buffer-undo-list' to `buffer-undo-tree'
     (undo-list-transfer-to-tree)
     ;; restore buffer state corresponding to saved node
@@ -2996,7 +2998,8 @@ Otherwise, prompt for one.
 If OVERWRITE is non-nil, any existing file will be overwritten
 without asking for confirmation."
   (interactive)
-  (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
+  (when (eq buffer-undo-list t)
+    (user-error "No undo information in this buffer"))
   (undo-list-transfer-to-tree)
   (when (and buffer-undo-tree (not (eq buffer-undo-tree t)))
     (condition-case nil
@@ -3120,7 +3123,8 @@ signaling an error if file is not found."
   (interactive "*")
   (deactivate-mark)
   ;; throw error if undo is disabled in buffer
-  (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
+  (when (eq buffer-undo-list t)
+    (user-error "No undo information in this buffer"))
   ;; transfer entries accumulated in `buffer-undo-list' to `buffer-undo-tree'
   (undo-list-transfer-to-tree)
   ;; add hook to kill visualizer buffer if original buffer is changed
@@ -3131,6 +3135,7 @@ signaling an error if file is not found."
 	(display-buffer-mark-dedicated 'soft))
     (switch-to-buffer-other-window
      (get-buffer-create undo-tree-visualizer-buffer-name))
+    (undo-tree-visualizer-mode)
     (setq undo-tree-visualizer-parent-buffer buff)
     (setq undo-tree-visualizer-parent-mtime
 	  (and (buffer-file-name buff)
@@ -3147,7 +3152,6 @@ signaling an error if file is not found."
 		  (>= (undo-tree-count undo-tree)
 		      undo-tree-visualizer-lazy-drawing))))
     (when undo-tree-visualizer-diff (undo-tree-visualizer-show-diff))
-    (undo-tree-visualizer-mode)
     (let ((inhibit-read-only t)) (undo-tree-draw-tree undo-tree))))
 
 
@@ -3753,7 +3757,8 @@ signaling an error if file is not found."
 ;;; =====================================================================
 ;;;                        Visualizer commands
 
-(defun undo-tree-visualizer-mode ()
+(define-derived-mode
+  undo-tree-visualizer-mode special-mode "undo-tree-visualizer"
   "Major mode used in undo-tree visualizer.
 
 The undo-tree visualizer can only be invoked from a buffer in
@@ -3764,14 +3769,11 @@ the parent buffer.
 
 Within the undo-tree visualizer, the following keys are available:
 
-  \\{undo-tree-visualizer-map}"
-  (interactive)
-  (setq major-mode 'undo-tree-visualizer-mode)
-  (setq mode-name "undo-tree-visualizer-mode")
-  (use-local-map undo-tree-visualizer-map)
+  \\{undo-tree-visualizer-mode-map}"
+  :syntax-table nil
+  :abbrev-table nil
   (setq truncate-lines t)
   (setq cursor-type nil)
-  (setq buffer-read-only t)
   (setq undo-tree-visualizer-selected-node nil)
   (when undo-tree-visualizer-diff (undo-tree-visualizer-update-diff)))
 
@@ -4047,20 +4049,28 @@ a negative prefix argument specifies `register'."
 ;;; =====================================================================
 ;;;                    Visualizer selection mode
 
-(defun undo-tree-visualizer-selection-mode ()
-  "Major mode used to select nodes in undo-tree visualizer."
-  (interactive)
-  (setq major-mode 'undo-tree-visualizer-selection-mode)
-  (setq mode-name "undo-tree-visualizer-selection-mode")
-  (use-local-map undo-tree-visualizer-selection-map)
-  (setq cursor-type 'box)
-  (setq undo-tree-visualizer-selected-node
-	(undo-tree-current buffer-undo-tree))
-  ;; erase diff (if any), as initially selected node is identical to current
-  (when undo-tree-visualizer-diff
-    (let ((buff (get-buffer undo-tree-diff-buffer-name))
-	  (inhibit-read-only t))
-      (when buff (with-current-buffer buff (erase-buffer))))))
+(define-minor-mode undo-tree-visualizer-selection-mode
+  "Toggle mode to select nodes in undo-tree visualizer."
+  :lighter "Select"
+  :keymap undo-tree-visualizer-selection-mode-map
+  :group undo-tree
+  (cond
+   ;; enable selection mode
+   (undo-tree-visualizer-selection-mode
+    (setq cursor-type 'box)
+    (setq undo-tree-visualizer-selected-node
+	  (undo-tree-current buffer-undo-tree))
+    ;; erase diff (if any), as initially selected node is identical to current
+    (when undo-tree-visualizer-diff
+      (let ((buff (get-buffer undo-tree-diff-buffer-name))
+	    (inhibit-read-only t))
+	(when buff (with-current-buffer buff (erase-buffer))))))
+   (t ;; disable selection mode
+    (setq cursor-type nil)
+    (setq undo-tree-visualizer-selected-node nil)
+    (goto-char (undo-tree-node-marker (undo-tree-current buffer-undo-tree)))
+    (when undo-tree-visualizer-diff (undo-tree-visualizer-update-diff)))
+   ))
 
 
 (defun undo-tree-visualizer-select-previous (&optional arg)

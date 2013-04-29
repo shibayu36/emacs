@@ -1,7 +1,8 @@
 ;;; point-undo.el --- undo/redo position
 
 ;;  Copyright (C) 2006,2008 rubikitch <rubikitch atmark ruby-lang.org>
-;;  Version: $Id: point-undo.el,v 1.6 2009/10/16 20:37:37 rubikitch Exp rubikitch $
+;; Version: 20100504.829
+;;  X-Original-Version: $Id: point-undo.el,v 1.6 2009/10/16 20:37:37 rubikitch Exp rubikitch $
 
 ;;  This program is free software; you can redistribute it and/or modify
 ;;  it under the terms of the GNU General Public License as published by
@@ -61,7 +62,7 @@
 ;;  # If you are a Japanese, please write in Japanese:-)
 
 ;;; History:
-;;
+;; 
 ;; $Log: point-undo.el,v $
 ;; Revision 1.6  2009/10/16 20:37:37  rubikitch
 ;; point-undo-list records position info only when point is moved.
@@ -94,7 +95,7 @@
   "Save positions before command."
   (unless (or (eq this-command 'point-undo)
               (eq this-command 'point-redo))
-
+    
     (let ((cell (cons (point) (window-start))))
       (unless (equal cell (car point-undo-list))
        (setq point-undo-list (cons cell point-undo-list))))

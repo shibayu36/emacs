@@ -1,8 +1,9 @@
-;;; undohist.el --- Record and recover undo history
+;;; undohist.el --- Persistent Undo History for GNU Emacs
+;; Version: 20110401.823
 
-;; Copyright (C) 2009  MATSUYAMA Tomohiro
+;; Copyright (C) 2009, 2010, 2011  Tomohiro Matsuyama
 
-;; Author: MATSUYAMA Tomohiro <t.matsuyama.pub@gmail.com>
+;; Author: MATSUYAMA Tomohiro <tomo@cx4a.org>
 ;; Keywords: convenience
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -94,12 +95,14 @@ To use undohist, you just call this function."
   "Encode `TREE' so that it can be stored as a file."
   (undohist-walk-tree
    (lambda (a)
-     (if (markerp a)
-         (cons (if (marker-insertion-type a) 'marker* 'marker)
-               (marker-position a))
-       a))
+     (cond
+      ((markerp a)
+       (cons (if (marker-insertion-type a) 'marker* 'marker)
+             (marker-position a)))
+      ((stringp a)
+       (substring-no-properties a))
+      (t a)))
    tree))
-
 
 (defun undohist-decode (tree)
   "Decode `TREE' so that it can be recovered as undo history."

@@ -73,9 +73,10 @@
   "Non-nil if running XEmacs.")
 
 ;; Add this since it appears to miss in emacs-2x
-(or (fboundp 'replace-in-string)
-    (defun replace-in-string (target old new)
-      (replace-regexp-in-string old new  target)))
+(if (fboundp 'replace-in-string)
+    (defalias 'color-theme-replace-in-string 'replace-in-string)
+  (defsubst color-theme-replace-in-string (target old new &optional literal)
+    (replace-regexp-in-string old new target nil literal)))
 
 ;; face-attr-construct has a problem in Emacs 20.7 and older when
 ;; dealing with inverse-video faces.  Here is a short test to check
@@ -218,9 +219,11 @@ not be shown with all themes but yours."
   :group 'color-theme)
 
 (defcustom color-theme-libraries (directory-files 
-                                  (concat 
-                                   (file-name-directory (locate-library "color-theme"))
-                                   "/themes") t "^color-theme")
+                                  (file-name-as-directory 
+				   (expand-file-name 
+                                    "themes" 
+                                    (file-name-directory (locate-library "color-theme")))) 
+                                  t "^color-theme")
   "A list of files, which will be loaded in color-theme-initialize depending
 on `color-theme-load-all-themes' value. 
 This allows a user to prune the default color-themes (which can take a while
@@ -1626,8 +1629,8 @@ frame-parameter settings of previous color themes."
        (add-to-list 'color-themes
                     (list ',n
                           (upcase-initials
-                           (replace-in-string
-                            (replace-in-string 
+                           (color-theme-replace-in-string
+                            (color-theme-replace-in-string 
                              (symbol-name ',n) "^color-theme-" "") "-" " "))
                           ,author))
        (defun ,n ()

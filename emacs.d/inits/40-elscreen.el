@@ -1,7 +1,9 @@
-(when (require 'elscreen nil t)
-  (if window-system
-      (define-key elscreen-map (kbd "C-j") 'iconify-or-deiconify-frame)
-    (define-key elscreen-map (kbd "C-j") 'suspend-emacs)))
+(require 'elscreen)
+(elscreen-start)
+
+(if window-system
+    (define-key elscreen-map (kbd "C-j") 'iconify-or-deiconify-frame)
+  (define-key elscreen-map (kbd "C-j") 'suspend-emacs))
 
 ;;; なんかうまくいってないので今度考える
 (defvar elscreen-my-title-maps '()) ; タイトルの変換をする

@@ -167,7 +167,7 @@
 (require 'anything)
 (require 'cl)
 
- 
+
 ;;;; Match-plugin
 
 ;; Internal
@@ -248,7 +248,7 @@ The smaller  this value is, the slower highlight is."
   :group 'anything-match-plugin)
 
 
- 
+
 ;;; Build regexps
 ;;
 ;;
@@ -272,7 +272,7 @@ but \"foo\ bar\"=> (\"foobar\")."
   "Replace spaces in PATTERN with \"\.*\"."
   (mapconcat 'identity (anything-mp-make-regexps pattern) ".*"))
 
- 
+
 ;;; Exact match.
 ;;
 ;;
@@ -298,7 +298,7 @@ but \"foo\ bar\"=> (\"foobar\")."
   (and (search-backward (anything-mp-exact-get-pattern pattern) nil t)
        (forward-line 1)))
 
- 
+
 ;;; Prefix match
 ;;
 ;;
@@ -325,7 +325,7 @@ but \"foo\ bar\"=> (\"foobar\")."
   (and (search-backward (anything-mp-prefix-get-pattern pattern) nil t)
        (forward-line 1)))
 
- 
+
 ;;; Multiple regexp patterns 1 (order is preserved / prefix).
 ;;
 ;;
@@ -349,7 +349,7 @@ but \"foo\ bar\"=> (\"foobar\")."
 (defun anything-mp-1-search-backward (pattern &rest ignore)
   (re-search-backward (anything-mp-1-get-pattern pattern) nil t))
 
- 
+
 ;;; Multiple regexp patterns 2 (order is preserved / partial).
 ;;
 ;;
@@ -373,7 +373,7 @@ but \"foo\ bar\"=> (\"foobar\")."
 (defun anything-mp-2-search-backward (pattern &rest ignore)
   (re-search-backward (anything-mp-2-get-pattern pattern) nil t))
 
- 
+
 ;;; Multiple regexp patterns 3 (permutation).
 ;;
 ;;
@@ -446,7 +446,7 @@ i.e (identity (string-match \"foo\" \"foo bar\")) => t."
   (anything-mp-3-search-base
    pattern 're-search-backward 're-search-backward))
 
-   
+  
 ;;; mp-3p- (multiple regexp pattern 3 with prefix search)
 ;;
 ;;
@@ -473,7 +473,7 @@ e.g \"bar foo\" will match \"barfoo\" but not \"foobar\" contrarily to
   (anything-mp-3-search-base
    pattern 'anything-mp-prefix-search-backward 're-search-backward))
 
- 
+
 ;;; source compiler
 ;;
 ;;
@@ -491,7 +491,7 @@ e.g \"bar foo\" will match \"barfoo\" but not \"foobar\" contrarily to
        ,@source)))
 (add-to-list 'anything-compile-source-functions 'anything-compile-source--match-plugin t)
 
- 
+
 ;;; Highlight matches.
 ;;
 ;;
@@ -532,7 +532,7 @@ e.g \"bar foo\" will match \"barfoo\" but not \"foobar\" contrarily to
         (anything-mp-highlight-region
          (point-min) end requote 'anything-match)))))
 
- 
+
 ;;; Toggle anything-match-plugin
 ;;
 ;;
@@ -571,7 +571,7 @@ i.e anything-match-plugin."
             (enable-match-plugin)
             (message "Anything-match-plugin enabled"))))))
 
- 
+
 ;;;; Grep-candidates plug-in
 
 (defcustom anything-grep-candidates-fast-directory-regexp nil

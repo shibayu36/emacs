@@ -218,6 +218,12 @@ For example, normalizing many Japanese encodings to EUC-JP,
 set this variable to \"ruby -rkconv -pe '$_.replace $_.toeuc'\".
 The command is converting standard input to EUC-JP line by line. ")
 
+(defvar anything-grep-repository-root-function (if (require 'repository-root nil t)
+                                                     'repository-root
+                                                   nil)
+  "*If non-nil, a function that returns the current file's repository root directory.
+The function is called with a single string argument (a file name) and should
+return either nil, or a string, which is the root directory of that file's repository.")
 
 ;; (@* "core")
 (defvar anything-grep-sources nil
@@ -352,13 +358,16 @@ Its contents is fontified grep result."
 
 (defun agrep-goto  (file-line-content)
   "Visit the source for the grep result at point."
-  (string-match ":\\([0-9]+\\):" file-line-content)
-  (save-match-data
-    (funcall anything-grep-find-file-function
-             (expand-file-name (substring file-line-content
-                                          0 (match-beginning 0))
-                               (anything-attr 'pwd))))
-  (goto-line (string-to-number (match-string 1 file-line-content)))
+  (if (not (string-match ":\\([0-9]+\\):" file-line-content))
+      ;; If lineno is unavailable, just open file
+      (funcall anything-grep-find-file-function
+               (expand-file-name file-line-content (anything-attr 'pwd)))
+    (save-match-data
+      (funcall anything-grep-find-file-function
+               (expand-file-name (substring file-line-content
+                                            0 (match-beginning 0))
+                                 (anything-attr 'pwd))))
+    (goto-line (string-to-number (match-string 1 file-line-content))))
   (run-hooks 'anything-grep-goto-hook))
 
 ;; (@* "simple grep interface")
@@ -439,6 +448,46 @@ Difference with `anything-grep-by-name' is prompt order."
   (interactive (agrep-by-name-read-info (quote name) (quote query)))
   (anything-grep-by-name query name))
 
+;;; repository root
+(defun agrep-repository-root (filename)
+  "Attempt to deduce the current file's repository root directory.
+You should customize `anything-grep-repository-root-function' and provide a function that
+does the actual work, based of the type of SCM tool that you're using."
+  (if (null filename)
+      nil
+    (let* ((directory (file-name-directory filename))
+           (repository-root (if (and anything-grep-repository-root-function
+                                     (functionp anything-grep-repository-root-function))
+                                (apply anything-grep-repository-root-function (list filename))
+                              nil)))
+      (or repository-root directory))))
+
+(defun anything-grep-repository-1 (command)
+  "Run `anything-grep' in repository."
+  (interactive
+   (progn
+     (grep-compute-defaults)
+     (let ((default (grep-default-command)))
+       (list (read-from-minibuffer
+              (format "Run grep in %s (like this): "
+                      (agrep-repository-root
+                       (or buffer-file-name default-directory)))
+              (if current-prefix-arg
+                  default grep-command)
+              nil nil 'grep-history
+              (if current-prefix-arg nil default))))))
+  (anything-grep command (agrep-repository-root buffer-file-name)))
+
+(defun anything-grep-repository (&optional query)
+  "Do `anything-grep' from predefined location.
+It asks NAME for location name and QUERY."
+  (interactive (list (agrep-by-name-read-info 'query)))
+  (grep-compute-defaults)
+  (anything-grep-repository-1
+   (format (concat grep-command " %s")
+           (shell-quote-argument query))))
+
+;;; visited file
 ;;;; unit test
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-expectations.el")
 ;; (install-elisp "http://www.emacswiki.org/cgi-bin/wiki/download/el-mock.el")

@@ -14,16 +14,6 @@
 ;;womanの設定
 (setq woman-use-own-frame nil)
 
-;;カラーテーマ
-(require 'color-theme)
-(require 'zenburn)
-;; (eval-after-load "color-theme"
-;;   '(progn
-;;      (color-theme-initialize)
-;;      (color-theme-zenburn)))
-(color-theme-initialize)
-(color-theme-dark-laptop)
-
 ;;moccur拡張
 (require 'moccur-edit)
 (require 'color-moccur)

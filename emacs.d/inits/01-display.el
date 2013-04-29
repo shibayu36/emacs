@@ -127,3 +127,9 @@
                   nil
                   'append)
 (add-to-list 'default-frame-alist '(font . "fontset-menlokakugo"))
+
+;;カラーテーマ
+(require 'color-theme)
+(require 'zenburn)
+(color-theme-initialize)
+(color-theme-dark-laptop)

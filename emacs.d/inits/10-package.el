@@ -22,6 +22,7 @@
     auto-complete
     auto-install
     color-theme
+    elscreen
     git-gutter
     helm
     helm-c-moccur

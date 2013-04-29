@@ -1,35 +1,24 @@
-(defun my-melpa-packages-installed-p ()
-  (loop for p in my-melpa-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-(defun install-my-melpa-packages ()
-  (unless (my-melpa-packages-installed-p)
-    ;; check for new packages (package versions)
-    (message "%s" "Refreshing package database...")
-    (package-refresh-contents)
-    (message "%s" " done.")
-    ;; install the missing packages
-    (dolist (p my-melpa-packages)
-      (unless (package-installed-p p)
-        (package-install p)))))
-
-
-;; Packages to install from MELPA
-(defvar my-melpa-packages
+;; Packages to install from ELPA and MELPA
+(defvar my/packages
   '(
     anything
     auto-complete
     auto-install
     color-theme
+    color-moccur
+    company
     elscreen
+    expand-region
     git-gutter
     helm
     helm-c-moccur
     helm-open-github
     init-loader
+    jaunte
+    key-chord
     magit
     org
+    open-junk-file
     point-undo
     popwin
     quickrun
@@ -41,4 +30,6 @@
   "A list of packages to install from MELPA at launch.")
 
 ;; Install Melpa packages
-(install-my-melpa-packages)
+(dolist (package my/packages)
+  (when (or (not (package-installed-p package)))
+    (package-install package)))

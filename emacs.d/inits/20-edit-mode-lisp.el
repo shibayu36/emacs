@@ -17,9 +17,9 @@
 (require 'el-expectations)
 
 ;;; 自動byte compile
-(require 'auto-async-byte-compile)
-(setq auto-async-byte-compile-exclude-files-regexp "/junk/\\|/myprojects/\\|/inits/")
-(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
+;; (require 'auto-async-byte-compile)
+;; (setq auto-async-byte-compile-exclude-files-regexp "/junk/\\|/myprojects/\\|/inits/\\|setup.el")
+;; (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
 
 ;;; eldoc
 (require 'eldoc)

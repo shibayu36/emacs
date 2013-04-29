@@ -46,7 +46,7 @@
 (global-set-key (kbd "C-x C-z") 'anything-resume)
 (global-set-key (kbd "C-x C-h") 'anything-for-document)
 (global-set-key (kbd "C-M-o")
-                'anything-c-moccur-occur-by-moccur)
+                'helm-c-moccur-occur-by-moccur)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
@@ -116,7 +116,7 @@
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;;; isearch-mode
-(define-key isearch-mode-map (kbd "C-o") 'anything-c-moccur-from-isearch)
+(define-key isearch-mode-map (kbd "C-o") 'helm-c-moccur-from-isearch)
 
 ;;; direx-mode
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-project-directory)

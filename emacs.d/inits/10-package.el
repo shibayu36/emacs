@@ -10,15 +10,18 @@
     elscreen
     expand-region
     git-gutter
+    grep-a-lot
     helm
     helm-c-moccur
     helm-open-github
+    htmlize
     init-loader
     jaunte
     key-chord
     magit
     org
     open-junk-file
+    paredit
     point-undo
     popwin
     quickrun
@@ -26,6 +29,12 @@
     undo-tree
     undohist
     yasnippet
+    zlc
+    wgrep
+    bm
+    dash
+    dash-at-point
+    direx
     )
   "A list of packages to install from MELPA at launch.")
 

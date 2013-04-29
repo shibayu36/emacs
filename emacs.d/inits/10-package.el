@@ -35,6 +35,29 @@
     dash
     dash-at-point
     direx
+
+    lispxmp
+    edit-list
+    eldoc-extension
+    ruby-block
+    ruby-end
+    rsense
+    mmm-mode
+    zencoding-mode
+    php-mode
+    less-css-mode
+    rfringe
+    yaml-mode
+    nginx-mode
+    foreign-regexp
+    popup
+    fold-dwim
+    recentf-ext
+    slime
+    sudo-ext
+    col-highlight
+    gist
+    usage-memo
     )
   "A list of packages to install from MELPA at launch.")
 

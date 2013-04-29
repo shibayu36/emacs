@@ -25,6 +25,7 @@
 ;; Packages to install from MELPA
 (defvar my-melpa-packages
   '(git-gutter
+    helm
     helm-open-github
     )
   "A list of packages to install from MELPA at launch.")

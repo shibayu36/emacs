@@ -27,6 +27,7 @@
     helm-c-moccur
     helm-open-github
     init-loader
+    magit
     org
     point-undo
     popwin

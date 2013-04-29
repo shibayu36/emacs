@@ -8,7 +8,7 @@
 ;; Copyright (C) 2008  Marcin Bachry
 ;; Copyright (C) 2008, 2009  Marius Vollmer
 ;; Copyright (C) 2010  Yann Hodique
-;;
+
 ;; Magit is free software; you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either version 3, or (at your option)
@@ -24,13 +24,21 @@
 
 ;;; Commentary:
 
-;; This plug-in provides git-svn functionality as a separate component of Magit
+;; This plug-in provides git-svn functionality as a separate component
+;; of Magit.
 
 ;;; Code:
 
 (require 'magit)
+
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib)
+  (require 'find-lisp))
+
+(defcustom magit-svn-externals-dir ".git_externals"
+  "Directory from repository root that stores cloned SVN externals."
+  :group 'magit
+  :type 'string)
 
 ;; git svn commands
 
@@ -189,6 +197,27 @@ If USE-CACHE is non nil, use the cached information."
               " @ "
               (cdr (assoc 'revision svn-info))))))
 
+(defun magit-svn-fetch-externals()
+  "Loops through all external repos found by `magit-svn-external-directories'
+   and runs git svn fetch, and git svn rebase on each of them."
+  (interactive)
+  (let ((externals (magit-svn-external-directories)))
+    (if (not externals)
+        (message "No SVN Externals found. Check magit-svn-externals-dir.")
+      (dolist (external externals)
+        (let ((default-directory (file-name-directory external)))
+          (magit-run-git "svn" "fetch")
+          (magit-run-git "svn" "rebase")))
+      (magit-refresh))))
+
+(defun magit-svn-external-directories()
+  "Returns all .git directories within `magit-svn-externals-dir'."
+  (require 'find-lisp)
+  (find-lisp-find-files-internal (expand-file-name magit-svn-externals-dir)
+                                 '(lambda(file dir)
+                                    (string-equal file ".git"))
+                                 'find-lisp-default-directory-predicate))
+
 (easy-menu-define magit-svn-extension-menu
   nil
   "Git SVN extension menu"
@@ -214,6 +243,7 @@ If USE-CACHE is non nil, use the cached information."
   (magit-key-mode-insert-action 'svn "s" "Find rev" 'magit-svn-find-rev)
   (magit-key-mode-insert-action 'svn "B" "Create branch" 'magit-svn-create-branch)
   (magit-key-mode-insert-action 'svn "T" "Create tag" 'magit-svn-create-tag)
+  (magit-key-mode-insert-action 'svn "x" "Fetch Externals" 'magit-svn-fetch-externals)
   (magit-key-mode-insert-switch 'svn "-n" "Dry run" "--dry-run")
 
   ;; generate and bind the menu popup function

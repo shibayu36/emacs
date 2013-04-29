@@ -11,13 +11,10 @@
         (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/moccur")
         (expand-file-name "~/.emacs.d/elisp/apel")
-        (expand-file-name "~/.emacs.d/elisp/slime/")
 
         (expand-file-name "~/.emacs.d/elisp/mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/psgml/")
         (expand-file-name "~/.emacs.d/elisp/mode/yatex/")
-        (expand-file-name "~/.emacs.d/elisp/mode/mmm/")
-        (expand-file-name "~/.emacs.d/elisp/mode/twittering-mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
         (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
        load-path))

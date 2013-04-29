@@ -58,6 +58,10 @@
     col-highlight
     gist
     usage-memo
+
+    auto-async-byte-compile
+    deferred
+    concurrent
     )
   "A list of packages to install from MELPA at launch.")
 

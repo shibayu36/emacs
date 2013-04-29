@@ -15,9 +15,9 @@
 (setq woman-use-own-frame nil)
 
 ;;moccur拡張
-(require 'moccur-edit)
-(require 'color-moccur)
-(setq moccur-split-word t)
+;; (require 'moccur-edit)
+;; (require 'color-moccur)
+;; (setq moccur-split-word t)
 ;; migemoがrequireできる環境ならmigemoを使う
 (when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
   (setq moccur-use-migemo t))
@@ -52,13 +52,6 @@
 
 ;; point-undo
 (require 'point-undo)
-
-;; col-highlight
-;; (require 'col-highlight)
-;; (toggle-highlight-column-when-idle 1)
-;; (col-highlight-set-interval 3)
-;; (custom-set-faces
-;;  '(col-highlight ((t (:background "dark slate gray")))))
 
 ;; gist
 (require 'gist)

@@ -9,7 +9,6 @@
         (expand-file-name "~/.emacs.d/elisp/el-get/el-get/")
 
         (expand-file-name "~/.emacs.d/elisp/mode/")
-        (expand-file-name "~/.emacs.d/elisp/mode/psgml/")
         (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
         (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
        load-path))

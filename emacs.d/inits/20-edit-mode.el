@@ -59,11 +59,9 @@
 ;;;;;;;;;;;pythonモード設定;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;メジャーモードの自動起動設定
-(autoload 'python-mode "python-mode" "Major mode for editing Python programs" t)
-(autoload 'py-shell "python-mode" "Python shell" t)
+(require 'python-mode)
 (setq auto-mode-alist (cons '("\\.py\\'" . python-mode) auto-mode-alist))
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
+
 ;;インデントをスペースに
 (add-hook 'python-mode-hook
           (function (lambda ()
@@ -74,24 +72,6 @@
 ;;;;;;;;;;;magit-mode;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'magit)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;; c-shap mode ;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
-(setq auto-mode-alist
-      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
-
-(defun my-csharp-mode-fn ()
-  "function that runs when csharp-mode is initialized for a buffer."
-  (turn-on-auto-revert-mode)
-  (setq indent-tabs-mode nil)
-  ;; (require 'flymake)
-  ;; (flymake-mode 1)
-  (require 'yasnippet)
-  (require 'rfringe))
-(add-hook  'csharp-mode-hook 'my-csharp-mode-fn t)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; yaml mode ;;;;;;;;;;;;;;;;;

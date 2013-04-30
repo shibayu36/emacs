@@ -55,6 +55,7 @@
     direx-project
     key-combo
     abbrev-complete
+    python-mode
     )
   "A list of packages to install from el-get at launch.")
 

@@ -5,7 +5,7 @@
 
 ;;;### (autoloads (helm-open-github-from-issues helm-open-github-from-file
 ;;;;;;  helm-open-github-from-commit) "helm-open-github" "helm-open-github.el"
-;;;;;;  (20861 56892))
+;;;;;;  (20863 49554))
 ;;; Generated autoloads from helm-open-github.el
 
 (autoload 'helm-open-github-from-commit "helm-open-github" "\
@@ -25,8 +25,8 @@
 
 ;;;***
 
-;;;### (autoloads nil nil ("helm-open-github-pkg.el") (20861 56892
-;;;;;;  936527))
+;;;### (autoloads nil nil ("helm-open-github-pkg.el") (20863 49554
+;;;;;;  376905))
 
 ;;;***
 

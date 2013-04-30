@@ -130,3 +130,8 @@
  global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
                     ("C-p" . 'mc/mark-previous-like-this)
                     ("*"   . 'mc/mark-all-like-this)))
+
+;;; open-github
+(global-set-key (kbd "C-c o f") 'helm-open-github-from-file)
+(global-set-key (kbd "C-c o c") 'helm-open-github-from-commit)
+(global-set-key (kbd "C-c o i") 'helm-open-github-from-issues)

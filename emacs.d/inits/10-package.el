@@ -63,6 +63,7 @@
     deferred
     concurrent
     migemo
+    viewer
     )
   "A list of packages to install from MELPA at launch.")
 

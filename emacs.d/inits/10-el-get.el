@@ -21,11 +21,11 @@
         ))
 
 ;; Packages to install from el-get
-(defvar my-el-get-packages
+(defvar my/el-get-packages
   '(
     open-github-from-here
     anything-git-files
     )
   "A list of packages to install from el-get at launch.")
 
-(el-get 'sync my-el-get-packages)
+(el-get 'sync my/el-get-packages)

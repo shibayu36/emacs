@@ -27,6 +27,12 @@
         (:name perlbrew
                :type github
                :pkgname "kentaro/perlbrew.el")
+        (:name direx-project
+               :type http
+               :url "https://raw.github.com/m2ym/direx-el/master/direx-project.el")
+        (:name key-combo
+               :type github
+               :pkgname "uk-ar/key-combo")
         ))
 
 ;; Packages to install from el-get
@@ -46,6 +52,8 @@
     set-perl5lib
     set-perl5lib-glob-from-git-root
     perlbrew
+    direx-project
+    key-combo
     )
   "A list of packages to install from el-get at launch.")
 

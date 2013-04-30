@@ -62,6 +62,7 @@
     auto-async-byte-compile
     deferred
     concurrent
+    migemo
     )
   "A list of packages to install from MELPA at launch.")
 

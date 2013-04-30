@@ -34,13 +34,19 @@
 ;;;
 ;;; SeeAlso: http://d.hatena.ne.jp/sun-basix/20080117/1200528765
 
+(eval-when-compile
+ (require 'cl))
+
 (defun perllib-check-path (lst lib-path)
   (let ((dir (car lst))
-        (set-lib-path (concat lib-path "/lib")))
+        (set-lib-path (concat lib-path "/lib"))
+        (set-blib-path (concat lib-path "/blib/lib"))
+        (set-blib-arch-path (concat lib-path "/blib/arch")))
     (if (setf stock-lst (cdr lst))
-        (cond ((string= dir "lib") set-lib-path)
+        (cond ((string= dir "lib") (list set-lib-path))
               ((and (string= dir "t")
-                    (file-readable-p set-lib-path)) set-lib-path)
+                    (file-readable-p set-lib-path))
+               (list set-blib-arch-path set-blib-path set-lib-path lib-path))
               (t (perllib-check-path stock-lst (concat lib-path "/" dir)))))))
 
 (defun set-perl5lib ()
@@ -50,15 +56,23 @@
                           (if (string-match "^.:" buffer-file-name)
                               (concat (cygwin-mount-get-cygdrive-prefix)
                                       (mapconcat 'identity (split-string buffer-file-name ":") ""))
-                            (buffer-file-name)
-                            )
+                            (buffer-file-name))
                           "/")))
-         (lib-path (perllib-check-path path-list ""))
-         (current-perl5lib (getenv "PERL5LIB")))
-    (when (or (and lib-path current-perl5lib
-               (not (string-match lib-path current-perl5lib)))
-              (not current-perl5lib))
-      (setenv "PERL5LIB" (concat lib-path ":" current-perl5lib))
-      (message "Added %s into PERL5LIB" lib-path))))
+         (perl5lib-lst (split-string (or (getenv "PERL5LIB") "") ":"))
+         (lib-path (remove-if (lambda (x) (member x perl5lib-lst))
+                              (perllib-check-path path-list ""))))
+    (if lib-path
+        (let ((lst (if perl5lib-lst
+                       (remove-if-not (lambda (x)
+                                        (string-match "/lib$" x)) perl5lib-lst)))
+              (path-str (mapconcat #'identity lib-path ":")))
+          (setenv "PERL5LIB" (mapconcat #'identity (append lib-path lst) ":"))
+          (message "Added %s into PERL5LIB" path-str)))))
+
+(defun clear-and-update-perl5lib ()
+  (interactive)
+  (progn
+    (setenv "PERL5LIB")
+    (set-perl5lib)))
 
 (provide 'set-perl5lib)

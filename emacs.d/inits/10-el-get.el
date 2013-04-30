@@ -18,6 +18,18 @@
         (:name anything-git-files
                :type github
                :pkgname "tarao/anything-git-files-el")
+        (:name set-perl5lib
+               :type http
+               :url "https://gist.github.com/syohex/1333926/raw/cabc5569d82971dc9fedf3198c4ae1dd858381c3/set-perl5lib.el")
+        (:name set-perl5lib-glob-from-git-root
+               :type http
+               :url "https://gist.github.com/hitode909/617915/raw/a1cd2f87282830c34ca98afddda0c1376f00c2cf/set-perl5lib-glob-from-git-root.el")
+        (:name perlbrew
+               :type github
+               :pkgname "kentaro/perlbrew.el")
+        (:name rcodetools
+               :type github
+               :pkgname "tnoda/rcodetools")
         ))
 
 ;; Packages to install from el-get
@@ -34,6 +46,10 @@
     sequential-command
     sequential-command-config
     mode-compile
+    set-perl5lib
+    set-perl5lib-glob-from-git-root
+    perlbrew
+    rcodetools
     )
   "A list of packages to install from el-get at launch.")
 

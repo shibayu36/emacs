@@ -174,16 +174,3 @@
     (popwin:popup-buffer (current-buffer) :height 0.4)
     (re-search-backward "^use " nil t)
     (next-line)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;podモード;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'pod-mode)
-;; (add-to-list 'auto-mode-alist
-;;              '("perldoc" . pod-mode))
-(add-hook 'pod-mode-hook
-          '(lambda ()
-             (progn
-               (font-lock-mode)
-               (auto-fill-mode 1)
-               (flyspell-mode 1))))

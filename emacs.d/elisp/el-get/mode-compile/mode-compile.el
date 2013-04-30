@@ -1,4 +1,3 @@
-
 ;;; mode-compile.el ---  Smart command for compiling files
 ;;                       according to major-mode.
 ;;
@@ -1306,14 +1305,14 @@ See variable compilation-error-regexp-alist for more details.")
   "Ruby compilation options"
   :group 'compilation-script)
 
-(defcustom ruby-command "ruby"
-  "Command to run ruby"
-  :type 'string
+(defcustom ruby-command "ruby" 
+  "Command to run ruby" 
+  :type 'string 
   :group 'compile-ruby)
 
-(defcustom ruby-dbg-flags "-w"
-  "Flags to give ruby for catching warnings"
-  :type 'string
+(defcustom ruby-dbg-flags "-w" 
+  "Flags to give ruby for catching warnings" 
+  :type 'string 
   :group 'compile-ruby)
 
 (defvar ruby-compilation-error-regexp-alist

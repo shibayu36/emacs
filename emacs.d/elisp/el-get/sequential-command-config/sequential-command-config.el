@@ -1,4 +1,4 @@
-;;; sequential-command-config.el --- Examples of sequential-command.el
+;;; sequential-command-config.el --- Examples of sequential-command.el 
 ;; $Id: sequential-command-config.el,v 1.3 2009/03/22 09:09:58 rubikitch Exp $
 
 ;; Copyright (C) 2009  rubikitch

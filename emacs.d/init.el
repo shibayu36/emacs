@@ -8,13 +8,10 @@
         (expand-file-name "~/.emacs.d/elisp/")
         (expand-file-name "~/.emacs.d/elisp/el-get/el-get/")
         (expand-file-name "~/.emacs.d/elisp/abbrev/")
-        (expand-file-name "~/.emacs.d/elisp/pymacs/")
         (expand-file-name "~/.emacs.d/elisp/moccur")
-        (expand-file-name "~/.emacs.d/elisp/apel")
 
         (expand-file-name "~/.emacs.d/elisp/mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/psgml/")
-        (expand-file-name "~/.emacs.d/elisp/mode/yatex/")
         (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
         (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
        load-path))

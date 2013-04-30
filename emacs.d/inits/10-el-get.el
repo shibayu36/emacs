@@ -31,6 +31,9 @@
     key-chord
     space-chord
     smartchr
+    sequential-command
+    sequential-command-config
+    mode-compile
     )
   "A list of packages to install from el-get at launch.")
 

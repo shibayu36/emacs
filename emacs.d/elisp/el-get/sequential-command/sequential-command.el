@@ -27,7 +27,7 @@
 ;; Integrating multiple commands into one command is sometimes
 ;; useful. Pressing C-e at the end of line is useless and adding the
 ;; other behavior in this situation is safe.
-;;
+;; 
 ;; For example, defining `my-end': if point is at the end of line, go
 ;; to the end of buffer, otherwise go to the end of line. Just evaluate it!
 ;;

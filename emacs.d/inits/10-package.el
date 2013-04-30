@@ -65,6 +65,8 @@
     migemo
     viewer
     perlbrew
+    multiple-cursors
+    smartrep
     )
   "A list of packages to install from MELPA at launch.")
 

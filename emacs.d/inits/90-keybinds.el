@@ -11,6 +11,8 @@
 (require 'key-combo)
 (key-combo-mode 0)
 
+(require 'smartrep)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; 通常操作 ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -98,7 +100,7 @@
 (define-key global-map (kbd "<C-tab>") 'ac-fuzzy-complete)
 
 ;;; cua-mode
-(define-key global-map (kbd "<C-M-return>") 'CUA-cmd-begin-rectangle)
+;; (define-key global-map (kbd "<C-M-return>") 'CUA-cmd-begin-rectangle)
 
 ;;; org-mode用
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -121,3 +123,10 @@
 ;;; direx-mode
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-project-directory)
 (define-key direx:direx-mode-map (kbd "TAB") 'direx:maybe-find-node)
+
+;;; multiple-cursors
+(global-set-key (kbd "<C-M-return>") 'mc/edit-lines)
+(smartrep-define-key
+ global-map "C-." '(("C-n" . 'mc/mark-next-like-this)
+                    ("C-p" . 'mc/mark-previous-like-this)
+                    ("*"   . 'mc/mark-all-like-this)))

@@ -27,9 +27,6 @@
         (:name perlbrew
                :type github
                :pkgname "kentaro/perlbrew.el")
-        (:name rcodetools
-               :type github
-               :pkgname "tnoda/rcodetools")
         ))
 
 ;; Packages to install from el-get
@@ -49,7 +46,6 @@
     set-perl5lib
     set-perl5lib-glob-from-git-root
     perlbrew
-    rcodetools
     )
   "A list of packages to install from el-get at launch.")
 

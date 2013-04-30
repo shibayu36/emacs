@@ -54,6 +54,7 @@
     perlbrew
     direx-project
     key-combo
+    abbrev-complete
     )
   "A list of packages to install from el-get at launch.")
 

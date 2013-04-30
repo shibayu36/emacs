@@ -8,7 +8,3 @@
 (setq ac-use-fuzzy t)
 (add-to-list 'ac-modes 'objc-mode)
 (delq 'ac-source-yasnippet ac-sources)
-
-;; (require 'ac-company)
-;; ac-company で company-xcode を有効にする
-;; (ac-company-define-source ac-source-company-xcode company-xcode)

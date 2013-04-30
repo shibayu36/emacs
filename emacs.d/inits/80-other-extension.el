@@ -1,7 +1,3 @@
-;;install-elispコマンド設定
-(require 'install-elisp)
-(setq install-elisp-repository-directory "~/.emacs.d/elisp/")
-
 ;;auto-install設定
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/elisp/")

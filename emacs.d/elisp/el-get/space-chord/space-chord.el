@@ -114,7 +114,7 @@ If COMMAND is nil, the key-chord is removed."
       (let ((key-chord-two-keys-delay space-chord-delay))
         ad-do-it)
     ad-do-it))
-;; (progn (ad-disable-advice 'key-chord-input-method 'around 'space-chord) (ad-update 'key-chord-input-method))
+;; (progn (ad-disable-advice 'key-chord-input-method 'around 'space-chord) (ad-update 'key-chord-input-method)) 
 ;; (define-key (current-global-map) (vector 'key-chord ?  ) nil)
 ;; (define-key (current-global-map) (vector 'key-chord ?f ) nil)
 ;; (space-chord-define-global "f" 'find-file)

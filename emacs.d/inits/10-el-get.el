@@ -28,6 +28,9 @@
     el-expectations
     perl-completion
     anything-exuberant-ctags
+    key-chord
+    space-chord
+    smartchr
     )
   "A list of packages to install from el-get at launch.")
 

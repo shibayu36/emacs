@@ -25,6 +25,9 @@
   '(
     open-github-from-here
     anything-git-files
+    el-expectations
+    perl-completion
+    anything-exuberant-ctags
     )
   "A list of packages to install from el-get at launch.")
 

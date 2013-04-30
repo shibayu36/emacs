@@ -1,5 +1,5 @@
 ;;; el-expectations.el --- minimalist unit testing framework
-;; Time-stamp: <2010-12-12 17:47:08 rubikitch>
+;; Time-stamp: <2012-10-09 17:47:14 rubikitch>
 
 ;; Copyright (C) 2008, 2009, 2010  rubikitch
 
@@ -26,6 +26,9 @@
 
 ;; Emacs Lisp Expectations framework is a minimalist unit testing
 ;; framework in Emacs Lisp.
+;;
+;; This program is OBSOLETE in Emacs24. Use ert-expectations.el instead.
+;; URL: http://www.emacswiki.org/cgi-bin/wiki/download/ert-expectations.el
 
 ;;; Commands:
 ;;
@@ -77,12 +80,16 @@
 
 ;; Batch mode can be used with this shell script (el-expectations).
 ;; Of course, EMACS/OPTIONS/OUTPUT can be customized.
+;;
+;; First, you must install save-load-path.el because it saves `load-path'.
+;; You are free from setting `load-path' manually.
+;; http://www.emacswiki.org/cgi-bin/wiki/download/save-load-path.el
 
 ;; ATTENTION! This script is slightly changed since v1.32.
 
 ;; #!/bin/sh
 ;; EMACS=emacs
-;; OPTIONS="-L . -L $HOME/emacs/lisp"
+;; OPTIONS="-l $HOME/.emacs.d/saved-load-path.el"
 ;; OUTPUT=/tmp/.el-expectations
 ;; $EMACS -q --no-site-file --batch $OPTIONS -l el-expectations -f batch-expectations $OUTPUT "$@"
 ;; ret=$?
@@ -359,11 +366,20 @@ Example:
 With prefix argument, do `batch-expectations-in-emacs'."
   (interactive)
   (setq exps-last-error-position nil)
-  (if current-prefix-arg
-      (batch-expectations-in-emacs)
-    (exps-display
-     (mapcar 'exps-execute-test (or testcase exps-last-testcase))))
-  (exps-cleanup))
+  (let ((res
+         (if current-prefix-arg
+             (batch-expectations-in-emacs)
+           (let ((results (mapcar 'exps-execute-test (or testcase
+exps-last-testcase))))
+             (exps-display results)
+             (exps-errors results)))))
+    (exps-cleanup)
+    res))
+(defun exps-errors (results)
+  "calcs if there where fails or errors"
+  (destructuring-bind (pass fails errors desc)
+      (exps-classify-results results)
+    (+ (length errors) (length fails))))
 
 ;;;; assertions
 (defvar exps-assert-functions
@@ -661,7 +677,7 @@ With prefix argument, do `batch-expectations-in-emacs'."
 Compatibility function for \\[next-error] invocations."
   (interactive "p")
   ;; we need to run exps-find-failure from within the *expectations result* buffer
-  (with-current-buffer (exps-result-buffer)
+  (with-current-buffer (exps-result-buffer) 
     ;; In case the *expectations result* buffer is visible in a nonselected window.
     (let ((win (get-buffer-window (current-buffer) t)))
       (if win (set-window-point win (point))))

@@ -64,6 +64,7 @@
     concurrent
     migemo
     viewer
+    perlbrew
     )
   "A list of packages to install from MELPA at launch.")
 

@@ -24,9 +24,6 @@
         (:name set-perl5lib-glob-from-git-root
                :type http
                :url "https://gist.github.com/hitode909/617915/raw/a1cd2f87282830c34ca98afddda0c1376f00c2cf/set-perl5lib-glob-from-git-root.el")
-        (:name perlbrew
-               :type github
-               :pkgname "kentaro/perlbrew.el")
         (:name direx-project
                :type http
                :url "https://raw.github.com/m2ym/direx-el/master/direx-project.el")
@@ -51,7 +48,6 @@
     mode-compile
     set-perl5lib
     set-perl5lib-glob-from-git-root
-    perlbrew
     direx-project
     key-combo
     abbrev-complete

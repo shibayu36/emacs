@@ -77,10 +77,8 @@
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)
 
-;; bmモード
-(global-set-key (kbd "M-SPC") 'bm-toggle)
-(global-set-key (kbd "M-[") 'bm-previous)
-(global-set-key (kbd "M-]") 'bm-next)
+;;; abbrev
+(global-set-key (kbd "M-SPC") 'expand-abbrev)
 
 ;; point-undo
 (define-key global-map (kbd "<f7>") 'point-undo)

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: epic-args
+# name: Epic args
+# binding: C-c C-c a
+# --
+my $${1:args_name} = $args->{$1} // croak '$1 required';

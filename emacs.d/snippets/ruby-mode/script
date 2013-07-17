@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key  : script
+# name : Ruby script template
+# binding: C-c C-c C-s
+# --
+#!/usr/bin/env ruby
+
+$0

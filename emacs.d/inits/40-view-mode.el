@@ -9,11 +9,9 @@
 (define-key view-mode-map (kbd "f") 'View-scroll-page-forward)
 ;; vi/w3m感覚の操作
 (define-key view-mode-map (kbd "h") 'backward-char)
-(define-key view-mode-map (kbd "j") 'next-line)
-(define-key view-mode-map (kbd "k") 'previous-line)
 (define-key view-mode-map (kbd "l") 'forward-char)
-(define-key view-mode-map (kbd "J") 'View-scroll-line-forward)
-(define-key view-mode-map (kbd "K") 'View-scroll-line-backward)
+(define-key view-mode-map (kbd "j") 'scroll-down-in-place)
+(define-key view-mode-map (kbd "k") 'scroll-up-in-place)
 ;; bm.elの設定
 (require 'bm)
 (define-key view-mode-map (kbd "m") 'bm-toggle)

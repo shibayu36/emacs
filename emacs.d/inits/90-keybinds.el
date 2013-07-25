@@ -33,8 +33,8 @@
 (global-set-key (kbd "C-x ?") 'help-command)
 
 ;;; 少しずつスクロール
-(define-key global-map (kbd "C-M-n") 'scroll-down-in-place)
-(define-key global-map (kbd "C-M-p") 'scroll-up-in-place)
+(define-key global-map (kbd "C-S-n") 'scroll-down-in-place)
+(define-key global-map (kbd "C-S-p") 'scroll-up-in-place)
 
 ;;; 置換
 (global-set-key (kbd "C-c r") 'query-replace)
@@ -136,3 +136,6 @@
 
 ;;; server-edit
 (global-set-key (kbd "C-c C-c C-c") 'server-edit)
+
+;;; view-mode切り替え
+(key-chord-define-global "jk" 'view-mode)

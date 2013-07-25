@@ -8,20 +8,6 @@
 (setq ns-alternate-modifier (quote super))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;; exec-pathの設定 ;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; http://sakito.jp/emacs/emacsshell.html#path
-;; より下に記述した物が PATH の先頭に追加されます
-
-(load-file (expand-file-name "~/.emacs.d/shellenv.el"))
-(dolist (path (reverse (split-string (getenv "PATH") ":")))
-  (add-to-list 'exec-path path))
-
-(setenv "NODE_PATH"
-        (concat "~/node_modules/:"
-                (getenv "NODE_PATH")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

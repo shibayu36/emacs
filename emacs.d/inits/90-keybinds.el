@@ -33,8 +33,8 @@
 (global-set-key (kbd "C-x ?") 'help-command)
 
 ;;; 少しずつスクロール
-(define-key global-map (kbd "C-S-n") 'scroll-down-in-place)
-(define-key global-map (kbd "C-S-p") 'scroll-up-in-place)
+(define-key global-map (kbd "C-s-n") 'scroll-down-in-place)
+(define-key global-map (kbd "C-s-p") 'scroll-up-in-place)
 
 ;;; 置換
 (global-set-key (kbd "C-c r") 'query-replace)

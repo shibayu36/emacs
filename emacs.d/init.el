@@ -31,6 +31,7 @@
 ;;設定ファイルはinits以下に置いていて、init-loaderによって読み込まれる
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/inits")
+(init-loader-load "~/Dropbox/config-file/.emacs.d/inits")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

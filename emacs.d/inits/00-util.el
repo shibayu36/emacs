@@ -14,3 +14,10 @@
           (shell-command-to-string "git rev-parse --show-toplevel")))
         (t
          "")))
+
+(defun git-cdup ()
+  (cond ((git-project-p)
+         (chomp
+          (shell-command-to-string "git rev-parse --show-cdup")))
+        (t
+         "")))

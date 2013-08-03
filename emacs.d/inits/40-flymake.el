@@ -86,7 +86,7 @@
                    (cond ((git-project-p)
                           (git-root-directory))
                          (t
-                          ("."))))
+                          ".")))
            (format "-MProject::Libs lib_dirs => [glob('%smodules/*/lib')]"
                    (git-cdup))
            "-wc"

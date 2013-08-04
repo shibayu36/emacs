@@ -90,10 +90,6 @@
 ;;; quickrun
 (global-set-key "\C-cc" 'quickrun-with-arg)
 
-;;; view mode
-;;; なんかanythingと競合する
-;; (key-chord-define-global "jk" 'view-mode)
-
 ;;; auto-complete
 (define-key global-map (kbd "<C-tab>") 'ac-fuzzy-complete)
 
@@ -139,3 +135,6 @@
 
 ;;; view-mode切り替え
 (key-chord-define-global "jk" 'view-mode)
+
+;;; describe-bindings呼び出し
+(key-chord-define-global "df" 'describe-bindings)

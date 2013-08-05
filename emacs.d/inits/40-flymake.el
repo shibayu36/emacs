@@ -87,8 +87,7 @@
                           (git-root-directory))
                          (t
                           ".")))
-           (format "-MProject::Libs lib_dirs => [glob('%smodules/*/lib')]"
-                   (git-cdup))
+           "-MProject::Libs lib_dirs => ['modules/*/lib']"
            "-wc"
            local-file))))
 

@@ -14,6 +14,7 @@
     helm
     helm-c-moccur
     helm-open-github
+    helm-descbinds
     htmlize
     init-loader
     jaunte
@@ -65,8 +66,11 @@
     migemo
     viewer
     perlbrew
+    plenv
     multiple-cursors
     smartrep
+    guide-key
+    gh
     )
   "A list of packages to install from MELPA at launch.")
 

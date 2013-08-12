@@ -87,7 +87,7 @@
                           (git-root-directory))
                          (t
                           ".")))
-           "-MProject::Libs lib_dirs => ['modules/*/lib']"
+           "-MProject::Libs lib_dirs => ['modules/*/lib', 'local/lib/perl5']"
            "-wc"
            local-file))))
 

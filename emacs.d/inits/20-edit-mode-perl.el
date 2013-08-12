@@ -117,9 +117,20 @@
         (setq test-method (match-string 1))))
     (if test-method
         (compile
-         (format "cd %s; TEST_METHOD=%s perl -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) test-method (buffer-file-name (current-buffer))))
-        (compile
-         (format "cd %s; perl -MProject::Libs %s" (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup")) (buffer-file-name (current-buffer)))))))
+         (format
+          "cd %s; TEST_METHOD=%s perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
+          (replace-regexp-in-string
+           "\n+$" ""
+           (shell-command-to-string "git rev-parse --show-cdup"))
+          test-method
+          (buffer-file-name (current-buffer))))
+
+      (compile
+       (format
+        "cd %s; perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
+        (replace-regexp-in-string
+         "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
+        (buffer-file-name (current-buffer)))))))
 
 (defun run-perl-test ()
   "test実行します"

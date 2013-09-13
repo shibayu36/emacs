@@ -5,8 +5,6 @@
   (setq display-buffer-function 'popwin:display-buffer)
   (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
   (push '("helm" :regexp t :height 0.5) popwin:special-display-config)
-  (push '("*magit-edit-log*" :height 0.5) popwin:special-display-config)
-  (push '("magit" :regexp t :height 0.5) popwin:special-display-config)
   (push '(dired-mode :position top :height 0.4) popwin:special-display-config)
   (push '("*Completions*" :height 0.4) popwin:special-display-config)
   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)

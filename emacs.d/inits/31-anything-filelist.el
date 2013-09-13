@@ -10,8 +10,8 @@
                                anything-git-files:untracked-source
                                anything-git-files:all-source
                                ))))
-    (setq sources `(anything-c-source-ffap-line
-                    anything-c-source-ffap-guesser
+    (setq sources `(;; anything-c-source-ffap-line
+                    ;; anything-c-source-ffap-guesser
                     anything-c-source-buffers+
                     ,@git-source
                     anything-c-source-recentf

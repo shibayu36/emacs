@@ -136,7 +136,7 @@
   "test実行します"
   (interactive)
   (compile
-   (format "cd %s; perl -MProject::Libs %s"
+   (format "cd %s; perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
            (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
            (buffer-file-name))))
 

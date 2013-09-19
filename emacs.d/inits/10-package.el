@@ -71,6 +71,7 @@
     smartrep
     guide-key
     gh
+    edit-server
     )
   "A list of packages to install from MELPA at launch.")
 

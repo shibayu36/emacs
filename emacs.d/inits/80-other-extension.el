@@ -20,8 +20,8 @@
 
 ;; undohistの設定
 ;;; なんかぶっ壊れる
-;; (when (require 'undohist nil t)
-;;   (undohist-initialize))
+(when (require 'undohist nil t)
+  (undohist-initialize))
 
 ;; undo-treeモードの設定
 (when (require 'undo-tree nil t)

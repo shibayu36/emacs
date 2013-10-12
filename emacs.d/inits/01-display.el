@@ -142,3 +142,6 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-dark-laptop)
+
+;;; スクロールバー消す
+(set-scroll-bar-mode 'nil)

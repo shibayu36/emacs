@@ -12,8 +12,6 @@
 /tramp
 /shellenv.el
 /.bm-repository
-/elisp/el-get/.loaddefs.el
-/elisp/el-get/.status.el
-/elisp/el-get/.status.el.old
-/elisp/elpa/archives
+/elisp/el-get/
+/elisp/elpa/
 /.mc-lists.el

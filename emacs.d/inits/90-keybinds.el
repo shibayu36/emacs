@@ -52,7 +52,7 @@
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
-(define-key global-map [(control @)] 'anything-exuberant-ctags-select-from-here)
+(define-key global-map [(control @)] 'anything-for-tags)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

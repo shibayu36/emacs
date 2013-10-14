@@ -47,12 +47,16 @@
 (global-set-key (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-z") 'anything-resume)
 (global-set-key (kbd "C-x C-h") 'anything-for-document)
-(global-set-key (kbd "C-M-o")
-                'helm-c-moccur-occur-by-moccur)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-for-tags)
+
+;;; helm-c-moccur
+(global-set-key (kbd "C-M-o")
+                'helm-c-moccur-occur-by-moccur)
+(define-key helm-c-moccur-helm-map (kbd "C-c C-a") 'all-from-helm-moccur)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

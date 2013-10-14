@@ -72,6 +72,10 @@
     guide-key
     gh
     edit-server
+
+    anzu
+    all
+    all-ext
     )
   "A list of packages to install from MELPA at launch.")
 

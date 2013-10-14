@@ -76,6 +76,7 @@
     anzu
     all
     all-ext
+    evil
     )
   "A list of packages to install from MELPA at launch.")
 

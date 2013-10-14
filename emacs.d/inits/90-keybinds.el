@@ -117,6 +117,7 @@
 
 ;;; isearch-mode
 (define-key isearch-mode-map (kbd "C-o") 'helm-c-moccur-from-isearch)
+(define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
 
 ;;; direx-mode
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-project-directory)

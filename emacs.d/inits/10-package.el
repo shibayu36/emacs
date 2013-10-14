@@ -70,7 +70,11 @@
     multiple-cursors
     smartrep
     guide-key
+
+    pcache
+    logito
     gh
+
     edit-server
 
     anzu

@@ -138,3 +138,6 @@
 
 ;;; describe-bindings呼び出し
 (key-chord-define-global "df" 'describe-bindings)
+
+;;; M-xはhelmを使う
+(global-set-key (kbd "M-x") 'helm-M-x)

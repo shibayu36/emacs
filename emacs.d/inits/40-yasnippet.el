@@ -26,7 +26,7 @@
              (let ((n (position selected names :test 'equal)))
                (nth n choices))
            (signal 'quit "user quit!"))))
-     (custom-set-variables '(yas/prompt-functions '(my-yas/prompt)))))
+     (setq yas/prompt-functions '(my-yas/prompt))))
 
 (defun yas/perl-package-name ()
   (let ((file-path (file-name-sans-extension (buffer-file-name))))

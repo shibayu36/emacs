@@ -39,11 +39,8 @@
     (set-frame-parameter nil 'fullscreen 'fullboth)))
 (setq mac-autohide-menubar-on-maximize nil)
 
-(custom-set-variables
- '(display-time-mode t)
- '(tool-bar-mode nil)
- '(transient-mark-mode t))
-(custom-set-faces)
+;;; tool-bar使わない
+(setq tool-bar-mode nil)
 
 ;;画面端まで来たら折り返す
 (setq truncate-lines nil)

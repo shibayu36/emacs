@@ -1,6 +1,6 @@
 (defun git-grep (grep-dir command-args)
   (interactive
-   (let ((root (concat (git-root-directory) "/")))
+   (let ((root default-directory))
      (list
       (read-file-name
        "Directory for git grep: " root root t)

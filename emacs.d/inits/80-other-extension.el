@@ -79,6 +79,5 @@
 (require 'zlc)
 
 ;;; 矩形選択
-(require 'cua-mode)
-(require 'cua)
-(CUA-mode 'emacs)
+(cua-mode t)
+(setq cua-enable-cua-keys nil)

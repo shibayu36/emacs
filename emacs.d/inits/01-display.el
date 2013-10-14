@@ -40,7 +40,7 @@
 (setq mac-autohide-menubar-on-maximize nil)
 
 ;;; tool-bar使わない
-(setq tool-bar-mode nil)
+(tool-bar-mode 0)
 
 ;;画面端まで来たら折り返す
 (setq truncate-lines nil)

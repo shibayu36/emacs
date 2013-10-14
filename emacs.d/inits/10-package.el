@@ -10,6 +10,7 @@
     elscreen
     expand-region
     git-gutter
+    git-gutter+
     grep-a-lot
     helm
     helm-c-moccur

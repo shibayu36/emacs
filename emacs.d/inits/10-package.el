@@ -9,8 +9,7 @@
     company
     elscreen
     expand-region
-    git-gutter
-    git-gutter+
+    git-gutter-fringe+
     grep-a-lot
     helm
     helm-c-moccur

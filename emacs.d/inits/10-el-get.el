@@ -30,6 +30,9 @@
         (:name key-combo
                :type github
                :pkgname "uk-ar/key-combo")
+        (:name helm-perldoc
+               :type github
+               :pkgname "syohex/emacs-helm-perldoc")
         ))
 
 ;; Packages to install from el-get
@@ -52,6 +55,7 @@
     key-combo
     abbrev-complete
     python-mode
+    helm-perldoc
     )
   "A list of packages to install from el-get at launch.")
 

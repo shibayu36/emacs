@@ -185,3 +185,6 @@
     (popwin:popup-buffer (current-buffer) :height 0.4)
     (re-search-backward "^use " nil t)
     (next-line)))
+
+;;; helm-perldocの設定
+(require 'helm-perldoc)

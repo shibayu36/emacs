@@ -12,7 +12,6 @@
     git-gutter-fringe+
     grep-a-lot
     helm
-    helm-c-moccur
     helm-open-github
     helm-descbinds
     htmlize

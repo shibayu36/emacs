@@ -7,6 +7,8 @@
 (set-face-foreground 'magit-diff-del "red")
 (set-face-foreground 'magit-diff-file-header "blue")
 
+(require 'magit-log-edit)
+
 (defun git-blame-current-buffer () ;; shell-command を使うより、vc-annotete を利用した方がさらに過去にさかのぼれるので良いのでは？
   (interactive)
   (let ((result-buf "*git blame*")

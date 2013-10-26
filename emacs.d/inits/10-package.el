@@ -80,6 +80,8 @@
     all
     all-ext
     evil
+
+    highlight-symbol
     )
   "A list of packages to install from MELPA at launch.")
 

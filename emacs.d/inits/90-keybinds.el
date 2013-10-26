@@ -36,10 +36,6 @@
 (define-key global-map (kbd "C-s-n") 'scroll-down-in-place)
 (define-key global-map (kbd "C-s-p") 'scroll-up-in-place)
 
-;;; 置換
-(global-set-key (kbd "C-c r") 'query-replace)
-(global-set-key (kbd "C-c R") 'foreign-regexp/query-replace)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; for anything ;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,6 +113,12 @@
 ;;; isearch-mode
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 (define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
+
+;; replace
+(global-set-key (kbd "C-c r") 'anzu-query-replace)
+(global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
+;; (global-set-key (kbd "C-c r") 'query-replace)
+;; (global-set-key (kbd "C-c R") 'foreign-regexp/query-replace)
 
 ;;; direx-mode
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-project-directory)

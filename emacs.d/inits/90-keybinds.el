@@ -147,3 +147,7 @@
 
 ;;; M-xはhelmを使う
 (global-set-key (kbd "M-x") 'helm-M-x)
+
+;;; highlight-symbol
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)

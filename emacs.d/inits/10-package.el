@@ -85,6 +85,8 @@
 
     go-mode
     go-autocomplete
+
+    markdown-mode
     )
   "A list of packages to install from MELPA at launch.")
 

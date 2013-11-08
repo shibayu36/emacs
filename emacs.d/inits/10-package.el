@@ -9,7 +9,7 @@
     company
     elscreen
     expand-region
-    git-gutter-fringe+
+    git-gutter-fringe
     grep-a-lot
     helm
     helm-open-github

@@ -82,6 +82,9 @@
     evil
 
     highlight-symbol
+
+    go-mode
+    go-autocomplete
     )
   "A list of packages to install from MELPA at launch.")
 

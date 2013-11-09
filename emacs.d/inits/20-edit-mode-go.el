@@ -24,3 +24,6 @@
 (defun my/helm-go ()
   (interactive)
   (helm :sources '(my/helm-go-source) :buffer "*helm go*"))
+
+;;; flycheck
+(add-hook 'go-mode-hook 'flycheck-mode)

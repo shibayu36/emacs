@@ -88,6 +88,8 @@
     go-eldoc
 
     markdown-mode
+
+    flycheck
     )
   "A list of packages to install from MELPA at launch.")
 

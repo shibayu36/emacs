@@ -85,6 +85,7 @@
 
     go-mode
     go-autocomplete
+    go-eldoc
 
     markdown-mode
     )

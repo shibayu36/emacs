@@ -153,3 +153,6 @@
 ;;; highlight-symbol
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
+;;; go-mode-map
+(define-key go-mode-map (kbd "C-c C-d") 'my/helm-go)

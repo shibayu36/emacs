@@ -90,6 +90,8 @@
     markdown-mode
 
     flycheck
+
+    flymake-jslint
     )
   "A list of packages to install from MELPA at launch.")
 

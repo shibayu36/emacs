@@ -92,6 +92,7 @@
     flycheck
 
     flymake-jslint
+    free-keys
     )
   "A list of packages to install from MELPA at launch.")
 

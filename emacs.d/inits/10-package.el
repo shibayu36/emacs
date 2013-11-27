@@ -93,6 +93,8 @@
 
     flymake-jslint
     free-keys
+
+    helm-hatena-bookmark
     )
   "A list of packages to install from MELPA at launch.")
 

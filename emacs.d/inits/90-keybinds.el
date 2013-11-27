@@ -52,7 +52,8 @@
 (global-set-key (kbd "C-M-o") 'helm-occur)
 (define-key helm-map (kbd "C-c C-a") 'all-from-helm-occur)
 
-
+;;; helm-hatena-bookamrk
+(global-set-key (kbd "C-x C-b") 'helm-hatena-bookmark)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;; その他 ;;;;;;;;;;;;;;

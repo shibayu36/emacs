@@ -5,7 +5,7 @@
 (key-chord-mode 1)
 (setq key-chord-two-keys-delay 0.05)
 
-(require 'space-chord)
+;; (require 'space-chord)
 (require 'smartchr)
 
 (require 'key-combo)
@@ -143,10 +143,10 @@
 (global-set-key (kbd "C-c C-c C-c") 'server-edit)
 
 ;;; view-mode切り替え
-(key-chord-define-global "jk" 'view-mode)
+;; (key-chord-define-global "jk" 'view-mode)
 
 ;;; describe-bindings呼び出し
-(key-chord-define-global "df" 'describe-bindings)
+;; (key-chord-define-global "df" 'describe-bindings)
 
 ;;; M-xはhelmを使う
 (global-set-key (kbd "M-x") 'helm-M-x)

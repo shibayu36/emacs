@@ -95,6 +95,8 @@
     free-keys
 
     helm-hatena-bookmark
+
+    ac-ispell
     )
   "A list of packages to install from MELPA at launch.")
 

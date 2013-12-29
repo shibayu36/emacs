@@ -13,7 +13,8 @@
              (setq tab-width 2)
              (setq ruby-indent-level tab-width)
              (setq ruby-deep-indent-paren-style nil)
-             (define-key ruby-mode-map [return] 'ruby-reindent-then-newline-and-indent)))
+             (setq ruby-deep-indent-paren nil)
+             (setq ruby-insert-encoding-magic-comment nil)))
 
 ;; ruby-block
 (require 'ruby-block)

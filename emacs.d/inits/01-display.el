@@ -34,15 +34,6 @@
 ;;画面最大化
 (setq ns-use-native-fullscreen nil) ;; nativeのフルスクリーン使わない
 
-;; (defun mac-toggle-max-window ()
-;;   (interactive)
-;;   (if (frame-parameter nil 'fullscreen)
-;;       (set-frame-parameter nil 'fullscreen nil)
-;;     (set-frame-parameter nil 'fullscreen 'fullboth)))
-;; (setq mac-autohide-menubar-on-maximize nil)
-
-
-
 ;;; tool-bar使わない
 (tool-bar-mode 0)
 

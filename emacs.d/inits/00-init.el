@@ -78,17 +78,6 @@
 ;;; 定義マクロファイル設定
 (defvar kmacro-save-file "~/.emacs.d/inits/70-mymacros.el")
 
-;; ブックマーク設定
-;;ブックマークを変更したら即保存
-(setq bookmark-save-flag 1)
-(progn
-  (setq bookmark-sort-flag nil)
-  (defun bookmark-arrange-latest-top ()
-    (let ((latest (bookmark-get-bookmark bookmark)))
-      (setq bookmark-alist (cons latest (delq latest bookmark-alist))))
-    (bookmark-save))
-  (add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top))
-
 ;;; debug用
 (setq debug-on-error nil)
 

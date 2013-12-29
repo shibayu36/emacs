@@ -4,4 +4,5 @@
       (ac-ispell-setup)))
 
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
-(add-hook 'text-mode-hook 'ac-ispell-ac-setup)
+;; (add-hook 'text-mode-hook 'ac-ispell-ac-setup)
+

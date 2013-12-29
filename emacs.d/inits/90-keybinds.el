@@ -72,7 +72,7 @@
 (global-set-key (kbd "C-M-f") 'find-dired)
 
 ;;; 辞書引く
-(define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)
+;;; (define-key global-map (kbd "C-M-d") 'ns-popup-dictionary)
 
 (global-set-key (kbd "C-,") 'er/expand-region)
 (global-set-key (kbd "C-M-,") 'er/contract-region)

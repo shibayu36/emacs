@@ -68,7 +68,7 @@
 
 (global-set-key (kbd "<f5>") 'slime-js-reload)
 
-(global-set-key (kbd "C-M-g") 'grep-find)
+(global-set-key (kbd "C-M-g") 'ack)
 (global-set-key (kbd "C-M-f") 'find-dired)
 
 ;;; 辞書引く

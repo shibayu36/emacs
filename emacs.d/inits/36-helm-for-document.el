@@ -1,16 +1,28 @@
 (require 'helm-elisp)
+(require 'helm-man)
+
+(setq helm-for-document-sources
+      (list
+       helm-source-man-pages))
+
+(setq helm-for-document-sources
+      (nconc
+       (mapcar (lambda (func)
+                 (funcall func))
+               '(helm-def-source--emacs-commands
+                 helm-def-source--emacs-functions
+                 helm-def-source--emacs-variables
+                 helm-def-source--emacs-faces
+                 helm-def-source--helm-attributes))
+       helm-for-document-sources))
 
 (defun helm-for-document ()
-  "Preconfigured helm for documents"
+  "Preconfigured `helm' for helm-for-document."
   (interactive)
-  (let ((default (thing-at-point 'symbol)))
-    (helm :sources
-          (mapcar (lambda (func)
-                    (funcall func default))
-                  '(helm-def-source--emacs-commands
-                    helm-def-source--emacs-functions
-                    helm-def-source--emacs-variables
-                    helm-def-source--emacs-faces
-                    helm-def-source--helm-attributes))
-          :buffer "*helm for document*"
-          :input default)))
+  (helm
+   :sources helm-for-document-sources
+   :input (thing-at-point 'symbol)
+   :resume nil
+   :preselect nil
+   :buffer "*helm for document*"
+   :candidate-number-limit 20))

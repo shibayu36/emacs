@@ -42,7 +42,6 @@
 (global-set-key (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
 (global-set-key (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-z") 'anything-resume)
-(global-set-key (kbd "C-x C-h") 'anything-for-document)
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
@@ -51,6 +50,9 @@
 ;;; helm-occur
 (global-set-key (kbd "C-M-o") 'helm-occur)
 (define-key helm-map (kbd "C-c C-a") 'all-from-helm-occur)
+
+;;; helm-for-document
+(global-set-key (kbd "C-x C-h") 'helm-for-document)
 
 ;;; helm-hatena-bookamrk
 (global-set-key (kbd "C-x C-b") 'helm-hatena-bookmark)

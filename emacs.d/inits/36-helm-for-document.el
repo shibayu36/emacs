@@ -14,7 +14,7 @@
                  helm-def-source--emacs-variables
                  helm-def-source--emacs-faces
                  helm-def-source--helm-attributes))
-       helm-for-document-sources))
+       '(helm-source-man-pages)))
 
 (defun helm-for-document ()
   "Preconfigured `helm' for helm-for-document."

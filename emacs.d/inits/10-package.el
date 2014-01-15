@@ -97,6 +97,8 @@
     helm-hatena-bookmark
 
     ac-ispell
+
+    rbenv
     )
   "A list of packages to install from MELPA at launch.")
 

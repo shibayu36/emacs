@@ -37,3 +37,6 @@
              (add-to-list 'ac-sources 'ac-source-rsense-constant)
              ;; C-x .で補完出来るようキーを設定
              (define-key ruby-mode-map (kbd "C-x .") 'ac-complete-rsense)))
+
+(require 'rbenv)
+(global-rbenv-mode)

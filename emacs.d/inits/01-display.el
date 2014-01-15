@@ -18,9 +18,6 @@
 ;;フォントロックモード
 (global-font-lock-mode t)
 
-;;色の設定
-(set-face-foreground 'font-lock-comment-face "red")
-
 ;;windowの設定
 (setq default-frame-alist
       (append (list

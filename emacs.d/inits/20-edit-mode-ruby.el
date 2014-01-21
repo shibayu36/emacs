@@ -40,3 +40,6 @@
 
 (require 'rbenv)
 (global-rbenv-mode)
+
+;; flycheck
+(add-hook 'ruby-mode-hook 'flycheck-mode)

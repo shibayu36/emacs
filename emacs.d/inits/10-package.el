@@ -53,7 +53,7 @@
     popup
     fold-dwim
     recentf-ext
-    slime
+;;    slime
     sudo-ext
     col-highlight
     gist

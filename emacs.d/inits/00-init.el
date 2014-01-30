@@ -83,3 +83,6 @@
 
 ;;; symlinkは必ず追いかける
 (setq vc-follow-symlinks t)
+
+(setq max-specpdl-size 6000)
+(setq max-lisp-eval-depth 1000)

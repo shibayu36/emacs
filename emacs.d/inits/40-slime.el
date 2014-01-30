@@ -1,1 +1,1 @@
-(require 'slime)
+;; (require 'slime)

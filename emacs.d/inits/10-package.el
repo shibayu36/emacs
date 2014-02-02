@@ -4,7 +4,6 @@
     anything
     auto-complete
     auto-install
-    color-theme
     color-moccur
     company
     elscreen

@@ -99,6 +99,8 @@
     ac-ispell
 
     rbenv
+
+    smart-mode-line
     )
   "A list of packages to install from MELPA at launch.")
 

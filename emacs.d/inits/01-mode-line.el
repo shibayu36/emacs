@@ -1,22 +1,13 @@
-(setq-default mode-line-format
-      '(""
-        mode-line-mule-info
-        mode-line-modified
-        mode-line-frame-identification
-        mode-line-buffer-identification
-        " "
-        (line-number-mode
-         (column-number-mode "(%l,%c)" " L%l")
-         (column-number-mode " C%c"))
-        " %[("
-        mode-name
-        mode-line-process
-        minor-mode-alist
-        "%n"
-        ")%]-"
-        (which-func-mode ("" which-func-format "-"))
-;; global-mode-string
-        "-%-"))
+(require 'smart-mode-line)
+(setq sml/theme 'dark)
+(sml/setup)
+
+(set-face-attribute 'mode-line nil
+    :foreground "gray80" :background "gray10"
+    :inverse-video nil)
+(set-face-attribute 'mode-line-inactive nil
+    :foreground "gray80" :background "gray10"
+    :inverse-video nil)
 
 ;;; modeの名前を自分で再定義
 (defvar mode-line-cleaner-alist

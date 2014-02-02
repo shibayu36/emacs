@@ -11,6 +11,9 @@
         (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
        load-path))
 
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "~/.emacs.d/elisp/themes/"))
+
 ;;; ELPA 設定
 (require 'package)
 
@@ -45,10 +48,10 @@
 ;;; binds
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
-;;; カラーテーマ
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-dark-laptop)
+;;カラーテーマ
+(load-theme 'dark-laptop t t)
+(enable-theme 'dark-laptop)
+(set-face-attribute 'isearch nil :foreground "white" :background "blue") ;; isearchのforegroundがおかしいのを修正
 
 ;; 対応する括弧を光らせる。
 (show-paren-mode t)

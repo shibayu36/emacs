@@ -44,31 +44,9 @@
 ;; キーストロークをエコーエリアに早く表示する
 (setq echo-keystrokes 0.1)
 
-;;モードラインに時刻を表示する
-(display-time)
-
 ;; 行番号・桁番号を表示
 (line-number-mode 1)
 (column-number-mode 1)
-
-;; モードラインの割合表示を総行数表示
-(defvar my-lines-page-mode t)
-(defvar my-mode-line-format)
-
-(when my-lines-page-mode
-  (setq my-mode-line-format "%d")
-  (if size-indication-mode
-      (setq my-mode-line-format (concat my-mode-line-format " of %%I")))
-  (cond ((and (eq line-number-mode t) (eq column-number-mode t))
-         (setq my-mode-line-format (concat my-mode-line-format " (%%l,%%c)")))
-        ((eq line-number-mode t)
-         (setq my-mode-line-format (concat my-mode-line-format " L%%l")))
-        ((eq column-number-mode t)
-         (setq my-mode-line-format (concat my-mode-line-format " C%%c"))))
-
-  (setq mode-line-position
-        '(:eval (format my-mode-line-format
-                        (count-lines (point-max) (point-min))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）

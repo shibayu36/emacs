@@ -72,6 +72,10 @@
                '(alpha . (100 60)))
               default-frame-alist))
 
+;;; backup作らない
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
 ;;; other-window周り
 (defun other-window-or-split ()
   (interactive)

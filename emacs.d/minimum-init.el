@@ -59,6 +59,17 @@
 ;;; tool-bar使わない
 (tool-bar-mode 0)
 
+;;windowの設定
+(setq default-frame-alist
+      (append (list
+               '(width . 175)
+               '(height . 47)
+               '(top . 0)
+               '(left . 0)
+               '(alpha . (100 60)))
+              default-frame-alist))
+
+
 ;; 使い捨てファイルを開けるように
 (require 'open-junk-file)
 (setq open-junk-file-format "~/junk/%Y-%m-%d-%H%M%S.")

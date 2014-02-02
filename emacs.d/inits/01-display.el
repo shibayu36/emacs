@@ -106,9 +106,8 @@
         ("-cdac$" . 1.3)))
 
 ;;カラーテーマ
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-dark-laptop)
+(load-theme 'dark-laptop t t)
+(enable-theme 'dark-laptop)
 
 ;;; スクロールバー消す
 (set-scroll-bar-mode 'nil)

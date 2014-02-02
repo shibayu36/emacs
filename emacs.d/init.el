@@ -10,8 +10,12 @@
 
         (expand-file-name "~/.emacs.d/elisp/mode/")
         (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
-        (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
+        (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/")
+        )
        load-path))
+
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "~/.emacs.d/elisp/themes/"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -69,6 +69,16 @@
                '(alpha . (100 60)))
               default-frame-alist))
 
+;;; other-window周り
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (if (>= (window-body-width) 270)
+        (split-window-horizontally-n 3)
+      (split-window-horizontally)))
+  (other-window 1))
+(global-set-key (kbd "C-t") 'other-window-or-split)
+
 
 ;; 使い捨てファイルを開けるように
 (require 'open-junk-file)

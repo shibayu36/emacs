@@ -1,3 +1,6 @@
 [submodule "emacs.d/elisp/expand-region"]
 	path = emacs.d/elisp/expand-region
 	url = git://github.com/magnars/expand-region.el.git
+[submodule "emacs.d/elisp/themes"]
+	path = emacs.d/elisp/themes
+	url = https://github.com/emacs-jp/replace-colorthemes.git

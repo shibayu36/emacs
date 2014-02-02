@@ -1,3 +1,24 @@
+(setq-default mode-line-format
+      '(""
+        mode-line-mule-info
+        mode-line-modified
+        mode-line-frame-identification
+        mode-line-buffer-identification
+        " "
+        (line-number-mode
+         (column-number-mode "(%l,%c)" " L%l")
+         (column-number-mode " C%c"))
+        " %[("
+        mode-name
+        mode-line-process
+        minor-mode-alist
+        "%n"
+        ")%]-"
+        (which-func-mode ("" which-func-format "-"))
+;; global-mode-string
+        "-%-"))
+
+;;; modeの名前を自分で再定義
 (defvar mode-line-cleaner-alist
   '( ;; For minor-mode, first char is 'space'
     (flymake-mode . " Fm")
@@ -11,6 +32,7 @@
     (guide-key-mode . "")
 
     ;; Major modes
+    (fundamental-mode . "Fund")
     (dired-mode . "Dir")
     (lisp-interaction-mode . "Li")
     (cperl-mode . "Pl")

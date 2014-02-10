@@ -3,5 +3,4 @@
 # name: Data::Dumper
 # binding: C-c C-d
 # --
-use Data::Dumper::Concise;
-warn Dumper(`yas/selected-text`$0);
+use Data::Dumper;warn Dumper(`yas/selected-text`$0);

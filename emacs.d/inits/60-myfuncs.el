@@ -121,3 +121,8 @@
 (defun insert-current-time ()
   (interactive)
   (insert (format-time-string "%a %b %d %H:%M:%S %Y" (current-time))))
+
+;;; Open the directory of current buffer on iTerm
+(defun open-default-directory-on-iterm ()
+  (interactive)
+  (execute-on-iterm (format "cd %s" default-directory)))

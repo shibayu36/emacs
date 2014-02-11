@@ -1,13 +1,9 @@
-(require 'smart-mode-line)
-(setq sml/theme 'dark)
-(sml/setup)
+;;; I must require these two elisps before loading powerline...
+(require 'elscreen)
+(require 'smartrep)
 
-(set-face-attribute 'mode-line nil
-    :foreground "gray80" :background "gray10"
-    :inverse-video nil)
-(set-face-attribute 'mode-line-inactive nil
-    :foreground "gray80" :background "gray10"
-    :inverse-video nil)
+(require 'powerline)
+(powerline-default-theme)
 
 ;;; modeの名前を自分で再定義
 (defvar mode-line-cleaner-alist

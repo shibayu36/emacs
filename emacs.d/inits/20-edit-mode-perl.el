@@ -144,14 +144,6 @@
                         (:default-directory . ,topdir)
                         (:exec . ("%c -l -Ilocal/lib/perl5 -It/lib -bv --color %s"))))))
 
-;; (defun run-perl-test ()
-;;   "test実行します"
-;;   (interactive)
-;;   (compile
-;;    (format "cd %s; perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
-;;            (replace-regexp-in-string "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
-;;            (buffer-file-name))))
-
 ;;; perlスクリプト実行用
 
 ;;; perlのuse sort

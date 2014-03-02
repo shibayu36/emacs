@@ -30,9 +30,6 @@
         (:name key-combo
                :type github
                :pkgname "uk-ar/key-combo")
-        (:name helm-perldoc
-               :type github
-               :pkgname "syohex/emacs-helm-perldoc")
         (:name auto-highlight-symbol
                :type github
                :pkgname "emacsmirror/auto-highlight-symbol")
@@ -58,7 +55,6 @@
     key-combo
     abbrev-complete
     python-mode
-    helm-perldoc
     auto-highlight-symbol
     )
   "A list of packages to install from el-get at launch.")

@@ -100,6 +100,8 @@
     rbenv
 
     smart-mode-line
+
+    helm-perldoc
     )
   "A list of packages to install from MELPA at launch.")
 

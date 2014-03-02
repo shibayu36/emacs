@@ -192,3 +192,8 @@
 
 ;;; helm-perldocの設定
 (require 'helm-perldoc)
+(add-hook 'cperl-mode-hook
+          '(lambda ()
+             (progn
+               (helm-perldoc:setup)
+               (local-set-key (kbd "C-c d") 'helm-perldoc))))

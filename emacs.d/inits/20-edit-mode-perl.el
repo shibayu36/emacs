@@ -30,8 +30,7 @@
             (set-face-background 'cperl-array-face "black")
             (set-face-bold-p 'cperl-hash-face nil)
             (set-face-italic-p 'cperl-hash-face nil)
-            (set-face-background 'cperl-hash-face "black")
-            ))
+            (set-face-background 'cperl-hash-face "black")))
 
 ;;flymake, perl-completionは重いので、やめた
 (defvar ac-source-my-perl-completion
@@ -42,27 +41,13 @@
             (require 'perl-completion)
             (perl-completion-mode t)
             (setq plcmp-default-lighter nil)
-            (add-to-list 'ac-sources 'ac-source-my-perl-completion)
-            (local-set-key (kbd "M-RET") 'plcmp-cmd-smart-complete)
-            (local-set-key (kbd "C-c d") 'plcmp-cmd-show-doc-at-point)))
+            (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
 
 (add-hook 'cperl-mode-hook
           '(lambda ()
              (progn
                (setq indent-tabs-mode nil)
                (setq tab-width nil)
-               (local-set-key "\C-c\C-hm" 'perldoc-m)
-               (local-set-key (kbd "C-c C-s") 'perl-syntax-check)
-               (local-set-key (kbd "C-c C-t") 'run-perl-test)
-               (local-set-key (kbd "C-c C-c C-u") 'popup-editor-perl-use)
-               (local-set-key "\C-ct" 'run-perl-method-test)
-               (local-set-key (kbd "C-c a") 'align)
-               (local-set-key (kbd "F") (smartchr '("F" "$")))
-               (local-set-key (kbd ",") (smartchr '("," " => ")))
-               (local-set-key (kbd "J") (smartchr '("J" "->")))
-               (require 'hatena-translator)
-               (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
-               (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
                (set-perl5lib))))
 
 ;; モジュールソースバッファの場合はその場で、
@@ -195,5 +180,25 @@
 (add-hook 'cperl-mode-hook
           '(lambda ()
              (progn
-               (helm-perldoc:setup)
+               (helm-perldoc:setup))))
+
+(require 'hatena-translator)
+
+;;; perl用keybind
+(add-hook 'cperl-mode-hook
+          '(lambda ()
+             (progn
+               (local-set-key (kbd "M-RET") 'plcmp-cmd-smart-complete)
+               (local-set-key (kbd "C-c d") 'plcmp-cmd-show-doc-at-point)
+               (local-set-key "\C-c\C-hm" 'perldoc-m)
+               (local-set-key (kbd "C-c C-s") 'perl-syntax-check)
+               (local-set-key (kbd "C-c C-t") 'run-perl-test)
+               (local-set-key (kbd "C-c C-c C-u") 'popup-editor-perl-use)
+               (local-set-key "\C-ct" 'run-perl-method-test)
+               (local-set-key (kbd "C-c a") 'align)
+               (local-set-key (kbd "F") (smartchr '("F" "$")))
+               (local-set-key (kbd ",") (smartchr '("," " => ")))
+               (local-set-key (kbd "J") (smartchr '("J" "->")))
+               (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
+               (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
                (local-set-key (kbd "C-c d") 'helm-perldoc))))

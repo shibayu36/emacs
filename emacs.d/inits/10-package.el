@@ -105,6 +105,8 @@
 
     gitconfig-mode
     gitignore-mode
+
+    smartparens
     )
   "A list of packages to install from MELPA at launch.")
 

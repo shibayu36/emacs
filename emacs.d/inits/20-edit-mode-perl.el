@@ -97,8 +97,8 @@
         (test-method nil))
     (save-excursion
       (when (or
-             (re-search-backward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t)
-             (re-search-forward "\\bsub\s+\\([_[:alpha:]]+\\)\s*:\s*Test" nil t))
+             (re-search-backward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t)
+             (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
         (setq test-method (match-string 1))))
     (if test-method
         (compile

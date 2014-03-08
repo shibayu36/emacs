@@ -5,18 +5,18 @@
 (require 'powerline)
 
 (set-face-attribute 'mode-line nil
-                    :foreground "#fff"
-                    :background "#FF0066"
+                    :foreground "#333"
+                    :background "#FF8700"
                     :box nil)
 
 (set-face-attribute 'powerline-active1 nil
-                    :foreground "#fff"
-                    :background "#FF6699"
+                    :foreground "#000"
+                    :background "#FFA540"
                     :inherit 'mode-line)
 
 (set-face-attribute 'powerline-active2 nil
                     :foreground "#000"
-                    :background "#ffaeb9"
+                    :background "#FFBD73"
                     :inherit 'mode-line)
 
 (powerline-default-theme)

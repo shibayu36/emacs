@@ -83,3 +83,7 @@
 
 ;;; symlinkは必ず追いかける
 (setq vc-follow-symlinks t)
+
+;;; 最後に改行無い時は挿入
+(setq require-final-newline t)
+(setq mode-require-final-newline t)

@@ -26,3 +26,6 @@
 
 (defadvice git-commit-commit (after move-to-magit-buffer activate)
   (delete-window))
+
+(require 'gitconfig-mode)
+(require 'gitignore-mode)

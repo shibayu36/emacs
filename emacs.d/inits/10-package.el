@@ -102,6 +102,9 @@
     smart-mode-line
 
     helm-perldoc
+
+    gitconfig-mode
+    gitignore-mode
     )
   "A list of packages to install from MELPA at launch.")
 

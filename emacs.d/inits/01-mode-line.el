@@ -42,7 +42,8 @@
     (python-mode . "Py")
     (ruby-mode   . "Rb")
     (emacs-lisp-mode . "El")
-    (markdown-mode . "Md")))
+    (markdown-mode . "Md")
+    (javascript-mode . "JS")))
 
 (defun clean-mode-line ()
   (interactive)

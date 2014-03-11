@@ -21,9 +21,6 @@
 (ruby-block-mode t)
 (setq ruby-block-highlight-toggle t)
 
-;; ruby-electric
-(require 'ruby-end)
-
 (require 'rcodetools)
 (define-key ruby-mode-map (kbd "C-c C-d") 'xmp)
 

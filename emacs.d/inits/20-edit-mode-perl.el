@@ -50,45 +50,6 @@
                (setq tab-width nil)
                (set-perl5lib))))
 
-;; モジュールソースバッファの場合はその場で、
-;; その他のバッファの場合は別ウィンドウに開く。
-(defun perldoc-m ()
-  (interactive)
-  (let ((module)
-        (module-list)
-        (pop-up-windows t)
-        (cperl-mode-hook nil))
-
-    ;; regionがあったらそれのmoduleを、それ以外だったらsymbolを使う
-    ;; それでもなかったら入力
-    (cond ((use-region-p)
-           (setq module (buffer-substring (region-beginning) (region-end))))
-          (t
-           (setq module (thing-at-point 'symbol))
-           (unless module
-             (setq module-list
-                   (split-string (shell-command-to-string "pm-packages.pl") "\n"))
-             (setq module (completing-read "Module Name: " module-list)))))
-
-    (let ((result (substring (shell-command-to-string (concat "perldoc -m " module)) 0 -1))
-          (buffer (get-buffer-create (concat "*Perl " module "*")))
-          (pop-or-set-flag (string-match "*Perl " (buffer-name))))
-
-      ;; error handling
-      (when (string-match "No module found for" result)
-          (message "%s" result))
-
-      (with-current-buffer buffer
-        (toggle-read-only -1)
-        (erase-buffer)
-        (insert result)
-        (goto-char (point-min))
-        (cperl-mode)
-        (toggle-read-only 1))
-      (if pop-or-set-flag
-          (switch-to-buffer buffer)
-        (display-buffer buffer)))))
-
 ;; テスト実行用
 (defun run-perl-method-test ()
   (interactive)
@@ -128,31 +89,6 @@
     (quickrun :source `((:command . "prove")
                         (:default-directory . ,topdir)
                         (:exec . ("%c -l -Ilocal/lib/perl5 -It/lib -bv --color %s"))))))
-
-;;; perlスクリプト実行用
-
-;;; perlのuse sort
-(defun sort-perl-use (beg end)
-  (interactive (list (region-beginning) (region-end)))
-  (sort-regexp-fields nil "^.+$" "[^;]+" beg end))
-
-;;perlインデント整形ツール
-(defun perltidy-region ()
-  "Run perltidy on the current region."
-  (interactive)
-  (save-excursion
-    (shell-command-on-region (point) (mark) "perltidy -q" nil t)))
-(defun perltidy-defun ()
-  "Run perltidy on the current defun."
-  (interactive)
-  (save-excursion (mark-defun)
-                  (perltidy-region)))
-
-;;perlのsyntaxチェック
-(defun perl-syntax-check()
-  (interactive)
-  (shell-command
-   (concat "perl -wc " (file-name-nondirectory (buffer-file-name)))))
 
 ;; gitルートからPERL5LIBにPATH通す
 (defun setup-perl5lib ()

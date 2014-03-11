@@ -107,6 +107,8 @@
     gitignore-mode
 
     smartparens
+
+    projectile
     )
   "A list of packages to install from MELPA at launch.")
 

@@ -40,3 +40,4 @@
 
 ;; flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
+(add-hook 'ruby-mode-hook 'smartparens-mode)

@@ -113,23 +113,7 @@
 
 ;;; helm-perldocの設定
 (require 'helm-perldoc)
-
-(defun my-helm-perldoc-setup ()
-  ;; add helm-perldoc:perl5lib automatically
-  (let ((perl5libs (split-string (or helm-perldoc:perl5lib "") path-separator t))
-        (local-lib (projectile-expand-root "local/lib/perl5")))
-    (when (and (projectile-verify-file "cpanfile")
-               (not (member local-lib perl5libs)))
-      (setq helm-perldoc:perl5lib
-            (if perl5libs
-                (mapconcat 'identity (cons local-lib perl5libs) path-separator)
-              local-lib))
-      (message "helm-perldoc:perl5lib is updated. (%s)" helm-perldoc:perl5lib)
-      (setq helm-perldoc:modules nil)))
-  (message "hogehoge")
-  (helm-perldoc:setup))
-
-(add-hook 'cperl-mode-hook 'my-helm-perldoc-setup)
+(add-hook 'cperl-mode-hook 'helm-perldoc:carton-setup)
 
 (require 'hatena-translator)
 

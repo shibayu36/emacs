@@ -54,7 +54,7 @@
                                      (powerline-raw
                                       (shorten-directory default-directory 15)
                                       nil 'l)
-                                     (powerline-buffer-id nil 'l)
+                                     (powerline-buffer-id nil 'r)
                                      (when (and (boundp 'which-func-mode) which-func-mode)
                                        (powerline-raw which-func-format nil 'l))
                                      (powerline-raw " ")

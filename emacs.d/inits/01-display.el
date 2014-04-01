@@ -7,10 +7,6 @@
 ;; 行間
 (setq-default line-spacing 0)
 
-;;; 同じバッファ名の時 <2> とかではなく、ディレクトリ名で区別
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
 ;; メニューバーにファイルパスを表示
 (setq frame-title-format
       (format "%%f - Emacs@%s" (system-name)))

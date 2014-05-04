@@ -111,6 +111,8 @@
     projectile
 
     helm-c-moccur
+
+    crontab-mode
     )
   "A list of packages to install from MELPA at launch.")
 

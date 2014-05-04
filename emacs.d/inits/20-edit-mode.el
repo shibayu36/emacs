@@ -84,3 +84,8 @@
 ;;;;;;;;;;;;;; sh mode ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
+
+;;; crontab mode
+(setq crontab-mode-map nil)
+(require 'crontab-mode)
+(add-to-list 'auto-mode-alist '("crontab$" . crontab-mode))

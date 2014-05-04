@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: carp-reply
+# name: Carp::Reply
+# binding: C-c C-r
+# --
+use Carp::Reply qw(repl);Carp::Reply::repl();

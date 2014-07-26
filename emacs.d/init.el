@@ -17,6 +17,9 @@
 (add-to-list 'custom-theme-load-path
              (file-name-as-directory "~/.emacs.d/elisp/themes/"))
 
+;;; Cask
+(require 'cask)
+(cask-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;; ELPA 設定 ;;;;;;;;;

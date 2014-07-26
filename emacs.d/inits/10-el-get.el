@@ -10,23 +10,12 @@
 ;;; define el-get repository
 (setq el-get-sources
       '(
-        (:name open-github-from-here
-               :type github
-               :description "open github from here"
-               :pkgname "shibayu36/emacs-open-github-from-here"
-               :branch "development")
-        (:name anything-git-files
-               :type github
-               :pkgname "tarao/anything-git-files-el")
         (:name set-perl5lib
                :type http
                :url "https://gist.github.com/syohex/1333926/raw/cabc5569d82971dc9fedf3198c4ae1dd858381c3/set-perl5lib.el")
         (:name set-perl5lib-glob-from-git-root
                :type http
                :url "https://gist.github.com/hitode909/617915/raw/a1cd2f87282830c34ca98afddda0c1376f00c2cf/set-perl5lib-glob-from-git-root.el")
-        (:name direx-project
-               :type http
-               :url "https://raw.github.com/m2ym/direx-el/master/direx-project.el")
         (:name key-combo
                :type github
                :pkgname "uk-ar/key-combo")
@@ -38,8 +27,6 @@
 ;; Packages to install from el-get
 (defvar my/el-get-packages
   '(
-    open-github-from-here
-    anything-git-files
     el-expectations
     perl-completion
     anything-exuberant-ctags
@@ -51,7 +38,6 @@
     mode-compile
     set-perl5lib
     set-perl5lib-glob-from-git-root
-    direx-project
     key-combo
     abbrev-complete
     python-mode

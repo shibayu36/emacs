@@ -98,3 +98,7 @@
 (depends-on "key-chord")
 
 (depends-on "anything-git-files")
+
+(depends-on "direx-project"
+            :git "https://github.com/m2ym/direx-el.git"
+            :files ("direx-project.el"))

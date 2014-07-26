@@ -1,4 +1,4 @@
-(require 'go-mode-load)
+(require 'go-mode)
 
 (eval-after-load "go-mode"
   '(progn

@@ -1,12 +1,6 @@
 ;; flymake (Emacs22から標準添付されている)
 (require 'flymake)
 
-;; set-perl5lib
-;; 開いたスクリプトのパスに応じて、@INCにlibを追加してくれる
-;; 以下からダウンロードする必要あり
-;; http://svn.coderepos.org/share/lang/elisp/set-perl5lib/set-perl5lib.el
-(require 'set-perl5lib)
-
 ;; エラー、ウォーニング時のフェイス
 (set-face-background 'flymake-errline "red4")
 (set-face-foreground 'flymake-errline "black")
@@ -98,5 +92,4 @@
   (ad-activate 'flymake-post-syntax-check)
   (setq flymake-allowed-file-name-masks (append flymake-allowed-file-name-masks flymake-allowed-perl-file-name-masks))
   (setq flymake-err-line-patterns flymake-perl-err-line-patterns)
-  (set-perl5lib)
   (flymake-mode t))

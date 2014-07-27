@@ -7,7 +7,6 @@
 (setq auto-mode-alist (cons '("\\.cgi$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.psgi$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("cpanfile$" . cperl-mode) auto-mode-alist))
-(require 'set-perl5lib)
 
 (setq cperl-hairy nil)
 
@@ -47,8 +46,7 @@
           '(lambda ()
              (progn
                (setq indent-tabs-mode nil)
-               (setq tab-width nil)
-               (set-perl5lib))))
+               (setq tab-width nil))))
 
 ;; テスト実行用
 (defun run-perl-method-test ()
@@ -89,13 +87,6 @@
     (quickrun :source `((:command . "prove")
                         (:default-directory . ,topdir)
                         (:exec . ("%c -l -Ilocal/lib/perl5 -It/lib -bv --color %s"))))))
-
-;; gitルートからPERL5LIBにPATH通す
-(defun setup-perl5lib ()
-  (interactive)
-  (set-perl5lib-glob-from-git-root "lib")
-  (set-perl5lib-glob-from-git-root "t/lib")
-  (set-perl5lib-glob-from-git-root "modules/*/lib"))
 
 ;; 現在の位置のmodule名のuseを書くためにpopupする
 (defun popup-editor-perl-use ()

@@ -2,6 +2,7 @@
 ;;;;;;;;;;;; lisp mode ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'lisp-mode)
+(add-to-list 'auto-mode-alist '("Cask$" . emacs-lisp-mode))
 
 (require 'paredit)
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)

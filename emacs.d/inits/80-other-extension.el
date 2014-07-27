@@ -30,9 +30,6 @@
 ;; jaunte.el
 (require 'jaunte)
 
-;; set-perl5lib-glob-from-git-root
-(require 'set-perl5lib-glob-from-git-root)
-
 ;; redo
 (require 'redo+)
 (setq undo-no-redo t)

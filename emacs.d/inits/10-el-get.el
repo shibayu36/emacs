@@ -15,14 +15,7 @@
                :url "https://gist.github.com/syohex/1333926/raw/cabc5569d82971dc9fedf3198c4ae1dd858381c3/set-perl5lib.el")
         (:name set-perl5lib-glob-from-git-root
                :type http
-               :url "https://gist.github.com/hitode909/617915/raw/a1cd2f87282830c34ca98afddda0c1376f00c2cf/set-perl5lib-glob-from-git-root.el")
-        (:name key-combo
-               :type github
-               :pkgname "uk-ar/key-combo")
-        (:name auto-highlight-symbol
-               :type github
-               :pkgname "emacsmirror/auto-highlight-symbol")
-        ))
+               :url "https://gist.github.com/hitode909/617915/raw/a1cd2f87282830c34ca98afddda0c1376f00c2cf/set-perl5lib-glob-from-git-root.el")))
 
 ;; Packages to install from el-get
 (defvar my/el-get-packages

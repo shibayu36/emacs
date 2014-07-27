@@ -30,10 +30,7 @@
     smartchr
     set-perl5lib
     set-perl5lib-glob-from-git-root
-    key-combo
-    abbrev-complete
     python-mode
-    auto-highlight-symbol
     )
   "A list of packages to install from el-get at launch.")
 

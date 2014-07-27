@@ -1,4 +1,5 @@
 (source gnu)
+(source marmalade)
 (source melpa)
 
 (depends-on "anything")
@@ -114,3 +115,4 @@
 (depends-on "key-combo")
 (depends-on "abbrev-complete" :git "https://github.com/emacsmirror/abbrev-complete.git")
 (depends-on "auto-highlight-symbol" :git "https://github.com/emacsmirror/auto-highlight-symbol.git")
+(depends-on "python-mode")

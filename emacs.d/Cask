@@ -102,3 +102,11 @@
 (depends-on "direx-project"
             :git "https://github.com/m2ym/direx-el.git"
             :files ("direx-project.el"))
+
+(depends-on "perl-completion")
+(depends-on "anything-exuberant-ctags")
+(depends-on "sequential-command")
+
+(depends-on "el-expectations" :git "https://github.com/emacsmirror/el-expectations.git")
+(depends-on "space-chord" :git "https://github.com/emacsmirror/space-chord.git")
+(depends-on "mode-compile" :git "https://github.com/emacsmirror/mode-compile.git")

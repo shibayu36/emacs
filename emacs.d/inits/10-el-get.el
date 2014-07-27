@@ -27,15 +27,7 @@
 ;; Packages to install from el-get
 (defvar my/el-get-packages
   '(
-    el-expectations
-    perl-completion
-    anything-exuberant-ctags
-    key-chord
-    space-chord
     smartchr
-    sequential-command
-    sequential-command-config
-    mode-compile
     set-perl5lib
     set-perl5lib-glob-from-git-root
     key-combo

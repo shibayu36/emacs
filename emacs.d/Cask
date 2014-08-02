@@ -116,3 +116,5 @@
 (depends-on "abbrev-complete" :git "https://github.com/emacsmirror/abbrev-complete.git")
 (depends-on "auto-highlight-symbol" :git "https://github.com/emacsmirror/auto-highlight-symbol.git")
 (depends-on "python-mode")
+
+(depends-on "smartchr" :git "https://github.com/imakado/emacs-smartchr.git")

@@ -118,3 +118,6 @@
 (depends-on "python-mode")
 
 (depends-on "smartchr" :git "https://github.com/imakado/emacs-smartchr.git")
+
+(depends-on "el-spec")
+(depends-on "el-spy")

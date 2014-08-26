@@ -126,3 +126,7 @@
 (defun open-default-directory-on-iterm ()
   (interactive)
   (execute-on-iterm (format "cd %s" default-directory)))
+
+(defun copy-buffer-absolute-path ()
+  (interactive)
+  (kill-new (buffer-file-name (current-buffer))))

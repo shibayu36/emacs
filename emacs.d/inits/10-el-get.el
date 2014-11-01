@@ -32,8 +32,7 @@
                :pkgname "uk-ar/key-combo")
         (:name auto-highlight-symbol
                :type github
-               :pkgname "emacsmirror/auto-highlight-symbol")
-        ))
+               :pkgname "emacsmirror/auto-highlight-symbol")))
 
 ;; Packages to install from el-get
 (defvar my/el-get-packages

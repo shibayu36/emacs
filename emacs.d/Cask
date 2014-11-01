@@ -121,3 +121,5 @@
 
 (depends-on "el-spec")
 (depends-on "el-spy")
+
+(depends-on "scala-mode2")

@@ -110,7 +110,3 @@
 (depends-on "el-expectations" :git "https://github.com/emacsmirror/el-expectations.git")
 (depends-on "space-chord" :git "https://github.com/emacsmirror/space-chord.git")
 (depends-on "mode-compile" :git "https://github.com/emacsmirror/mode-compile.git")
-
-(depends-on "key-combo")
-(depends-on "abbrev-complete" :git "https://github.com/emacsmirror/abbrev-complete.git")
-(depends-on "auto-highlight-symbol" :git "https://github.com/emacsmirror/auto-highlight-symbol.git")

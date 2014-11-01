@@ -11,7 +11,10 @@
 (defvar my/el-get-packages
   '(
     smartchr
+    key-combo
+    abbrev-complete
     python-mode
+    auto-highlight-symbol
     )
   "A list of packages to install from el-get at launch.")
 

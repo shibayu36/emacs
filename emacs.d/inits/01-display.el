@@ -105,5 +105,17 @@
         (".*nfmotoyacedar-medium.*" . 1.2)
         ("-cdac$" . 1.3)))
 
+(defun font-big ()
+  (interactive)
+  (set-face-attribute 'default nil
+                      :family "Menlo"
+                      :height 200))
+
+(defun font-small ()
+  (interactive)
+  (set-face-attribute 'default nil
+                      :family "Menlo"
+                      :height 120))
+
 ;;; スクロールバー消す
 (set-scroll-bar-mode 'nil)

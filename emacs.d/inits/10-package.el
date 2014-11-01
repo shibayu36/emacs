@@ -113,6 +113,8 @@
     helm-c-moccur
 
     crontab-mode
+
+    scala-mode2
     )
   "A list of packages to install from MELPA at launch.")
 

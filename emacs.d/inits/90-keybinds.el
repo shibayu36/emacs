@@ -161,3 +161,7 @@
 (define-key go-mode-map (kbd "C-@") 'godef-jump-other-window)
 
 (global-set-key (kbd "C-x C-d") 'open-default-directory-on-iterm)
+
+;;; goto-last-change
+(define-key global-map (kbd "<f8>") 'goto-last-change)
+(define-key global-map (kbd "S-<f8>") 'goto-last-change-reverse)

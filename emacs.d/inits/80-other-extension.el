@@ -81,3 +81,6 @@
 
 ;;; goto-last-change
 (require 'goto-chg)
+
+;;; codic
+(require 'codic)

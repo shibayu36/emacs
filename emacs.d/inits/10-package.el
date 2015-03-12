@@ -115,6 +115,8 @@
     crontab-mode
 
     scala-mode2
+
+    codic
     )
   "A list of packages to install from MELPA at launch.")
 

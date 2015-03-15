@@ -117,6 +117,8 @@
     scala-mode2
 
     codic
+
+    ensime
     )
   "A list of packages to install from MELPA at launch.")
 

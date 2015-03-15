@@ -89,6 +89,3 @@
 (setq crontab-mode-map nil)
 (require 'crontab-mode)
 (add-to-list 'auto-mode-alist '("crontab$" . crontab-mode))
-
-;;; scala mode
-(require 'scala-mode2)

@@ -5,6 +5,9 @@
 (set-face-foreground 'magit-diff-del "red")
 (set-face-foreground 'magit-diff-file-header "blue")
 
+(setq magit-auto-revert-mode nil)
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 ;; commit時のメッセージの改行をやめる
 (setq git-commit-fill-column 10000)
 

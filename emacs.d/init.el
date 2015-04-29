@@ -11,9 +11,7 @@
 (add-to-list 'load-path (locate-user-emacs-file "elisp/mode/jshint-mode/"))
 (add-to-list 'load-path (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
 
-(add-to-list 'custom-theme-load-path
-             (file-name-as-directory "~/.emacs.d/elisp/themes/"))
-
+(add-to-list 'custom-theme-load-path (locate-user-emacs-file "elisp/themes/"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;; ELPA 設定 ;;;;;;;;;

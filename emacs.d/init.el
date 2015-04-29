@@ -5,18 +5,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;ロードパス追加設定;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq load-path
-      (append
-       (list
-        (expand-file-name "~/.emacs.d/")
-        (expand-file-name "~/.emacs.d/elisp/")
-        (expand-file-name "~/.emacs.d/elisp/el-get/el-get/")
-
-        (expand-file-name "~/.emacs.d/elisp/mode/")
-        (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
-        (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/")
-        )
-       load-path))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/"))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/el-get/el-get/"))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/mode/"))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/mode/jshint-mode/"))
+(add-to-list 'load-path (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
 
 (add-to-list 'custom-theme-load-path
              (file-name-as-directory "~/.emacs.d/elisp/themes/"))

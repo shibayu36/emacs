@@ -35,15 +35,13 @@
 ;;yes-noの選択肢をy-nにする
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;; Autosaveファイルの場所指定
-;;(setq auto-save-list-file-prefix (expand-file-name "~/.emacs.d/.autosave/"))
 ;;オートセーブファイルを作らない
 (setq auto-save-default nil)
 
 ;; Backup fileの場所指定
 (setq make-backup-files t)
 (setq backup-directory-alist
-      (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/.backup"))
+      (cons (cons "\\.*$" (expand-file-name (locate-user-emacs-file ".backup")))
             backup-directory-alist))
 
 ;;; スクロールを一行ずつにする
@@ -76,7 +74,7 @@
 (global-auto-revert-mode 1)
 
 ;;; 定義マクロファイル設定
-(defvar kmacro-save-file "~/.emacs.d/inits/70-mymacros.el")
+(defvar kmacro-save-file (locate-user-emacs-file "inits/70-mymacros.el"))
 
 ;;; debug用
 (setq debug-on-error nil)

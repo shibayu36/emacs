@@ -10,14 +10,14 @@
 ;;; ELPA 設定
 (require 'package)
 
-(setq package-user-dir "~/.emacs.d/elisp/elpa/")
+(setq package-user-dir (locate-user-emacs-file "elisp/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 
 ;;; el-get
 (require 'el-get)
-(setq el-get-dir "~/.emacs.d/elisp/el-get/")
+(setq el-get-dir (locate-user-emacs-file "elisp/el-get/"))
 
 ;;; キー設定
 (when (eq system-type 'darwin)       ; もし、システムが Mac のとき

@@ -18,7 +18,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 
-(setq package-user-dir "~/.emacs.d/elisp/elpa/")
+(setq package-user-dir (locate-user-emacs-file "elisp/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
@@ -29,5 +29,5 @@
 
 ;;設定ファイルはinits以下に置いていて、init-loaderによって読み込まれる
 (require 'init-loader)
-(init-loader-load "~/.emacs.d/inits")
+(init-loader-load (locate-user-emacs-file "inits"))
 (init-loader-load "~/Dropbox/config-file/.emacs.d/inits")

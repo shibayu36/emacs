@@ -6,7 +6,7 @@
 ;; マークのセーブ
 (setq-default bm-buffer-persistence t)
 ;; セーブファイル名の設定
-(setq bm-repository-file "~/.emacs.d/.bm-repository")
+(setq bm-repository-file (locate-user-emacs-file ".bm-repository"))
 ;; 起動時に設定のロード
 (setq bm-restore-repository-on-load t)
 (add-hook 'after-init-hook 'bm-repository-load)

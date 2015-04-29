@@ -1,4 +1,4 @@
-(setq el-get-dir "~/.emacs.d/elisp/el-get/")
+(setq el-get-dir (locate-user-emacs-file "elisp/el-get/"))
 
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer

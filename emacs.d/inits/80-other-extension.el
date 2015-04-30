@@ -1,6 +1,6 @@
 ;;auto-install設定
 (require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/elisp/")
+(setq auto-install-directory (locate-user-emacs-file "elisp/"))
 ;; (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
 
@@ -51,7 +51,7 @@
 
 ;; Helpバッファにメモできるように
 (require 'usage-memo)
-(setq umemo-base-directory "~/.emacs.d/umemo")
+(setq umemo-base-directory (locate-user-emacs-file "umemo"))
 (umemo-initialize)
 
 ;; 使い捨てファイルを開けるように

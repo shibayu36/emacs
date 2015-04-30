@@ -1,30 +1,23 @@
 ;;; ロードパス追加設定
-(setq load-path
-      (append
-       (list
-        (expand-file-name "~/.emacs.d/")
-        (expand-file-name "~/.emacs.d/elisp/")
-        (expand-file-name "~/.emacs.d/elisp/el-get/el-get/")
+(add-to-list 'load-path (locate-user-emacs-file "elisp/"))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/el-get/el-get/"))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/mode/"))
+(add-to-list 'load-path (locate-user-emacs-file "elisp/mode/jshint-mode/"))
+(add-to-list 'load-path (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
 
-        (expand-file-name "~/.emacs.d/elisp/mode/")
-        (expand-file-name "~/.emacs.d/elisp/mode/jshint-mode/")
-        (expand-file-name "~/Dropbox/config-file/.emacs.d/elisp/"))
-       load-path))
-
-(add-to-list 'custom-theme-load-path
-             (file-name-as-directory "~/.emacs.d/elisp/themes/"))
+(add-to-list 'custom-theme-load-path (locate-user-emacs-file "elisp/themes/"))
 
 ;;; ELPA 設定
 (require 'package)
 
-(setq package-user-dir "~/.emacs.d/elisp/elpa/")
+(setq package-user-dir (locate-user-emacs-file "elisp/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 
 ;;; el-get
 (require 'el-get)
-(setq el-get-dir "~/.emacs.d/elisp/el-get/")
+(setq el-get-dir (locate-user-emacs-file "elisp/el-get/"))
 
 ;;; キー設定
 (when (eq system-type 'darwin)       ; もし、システムが Mac のとき

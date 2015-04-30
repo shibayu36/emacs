@@ -3,7 +3,7 @@
 (ac-config-default)
 (setq ac-delay 0.1)
 (setq ac-auto-show-menu 0.2)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+(add-to-list 'ac-dictionary-directories (locate-user-emacs-file "dict"))
 (setq ac-use-menu-map t)
 (setq ac-use-fuzzy t)
 (add-to-list 'ac-modes 'objc-mode)

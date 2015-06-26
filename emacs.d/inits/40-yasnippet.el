@@ -2,7 +2,7 @@
 (require 'yasnippet)
 
 (setq yas-snippet-dirs
-      '(
+      (list
         (locate-user-emacs-file "snippets")
         "~/Dropbox/config-file/.emacs.d/snippets"))
 

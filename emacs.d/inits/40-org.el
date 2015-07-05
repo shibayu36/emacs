@@ -1,3 +1,4 @@
+(require 'org)
 (require 'org-install)
 (setq org-startup-truncated nil)
 (setq org-return-follows-link t)

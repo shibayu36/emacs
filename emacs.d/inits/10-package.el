@@ -5,7 +5,6 @@
     auto-complete
     auto-install
     color-moccur
-    company
     elscreen
     expand-region
     git-gutter-fringe

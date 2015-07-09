@@ -5,6 +5,7 @@
 ;;;;;; ensime settings ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ensime)
+(require 'noflet)
 
 ;;; Use auto-complete for ensime
 (setq ensime-completion-style 'auto-complete)
@@ -105,7 +106,7 @@
 ;; Initialization
 (defun shibayu36/configure-scala ()
   (scala/configure-ensime)
-  (scala/maybe-start-ensime)
+  ;; (scala/maybe-start-ensime)
   (unless (ensime-config-find-file (buffer-file-name))
     (flycheck-mode +1)))
 

@@ -3,7 +3,6 @@
   '(
     anything
     auto-complete
-    auto-install
     color-moccur
     elscreen
     expand-region
@@ -15,7 +14,6 @@
     htmlize
     init-loader
     jaunte
-    key-chord
     magit
     org
     open-junk-file
@@ -29,7 +27,6 @@
     yasnippet
     zlc
     wgrep
-    bm
     dash
     dash-at-point
     direx
@@ -49,9 +46,7 @@
     nginx-mode
     foreign-regexp
     popup
-    fold-dwim
     recentf-ext
-;;    slime
     sudo-ext
     col-highlight
     gist
@@ -92,10 +87,6 @@
     flymake-jslint
     free-keys
 
-    helm-hatena-bookmark
-
-    ac-ispell
-
     rbenv
 
     smart-mode-line
@@ -106,8 +97,6 @@
     gitignore-mode
 
     smartparens
-
-    projectile
 
     helm-c-moccur
 

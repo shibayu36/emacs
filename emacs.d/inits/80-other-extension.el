@@ -1,9 +1,3 @@
-;;auto-install設定
-(require 'auto-install)
-(setq auto-install-directory (locate-user-emacs-file "elisp/"))
-;; (auto-install-update-emacswiki-package-name t)
-(auto-install-compatibility-setup)
-
 ;; info.elの読み込み
 (require 'info)
 
@@ -18,17 +12,9 @@
 (when (require 'migemo nil t) ;第三引数がnon-nilだとloadできなかった場合にエラーではなくnilを返す
   (setq moccur-use-migemo t))
 
-;; undohistの設定
-;;; なんかぶっ壊れる
-;; (when (require 'undohist nil t)
-;;   (undohist-initialize))
-
 ;; undo-treeモードの設定
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
-
-;; jaunte.el
-(require 'jaunte)
 
 ;; redo
 (require 'redo+)
@@ -49,11 +35,6 @@
 ;; gist
 (require 'gist)
 
-;; Helpバッファにメモできるように
-(require 'usage-memo)
-(setq umemo-base-directory (locate-user-emacs-file "umemo"))
-(umemo-initialize)
-
 ;; 使い捨てファイルを開けるように
 (require 'open-junk-file)
 (setq open-junk-file-format "~/junk/%Y-%m-%d-%H%M%S.")
@@ -61,16 +42,8 @@
 ;; diffの設定
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; ブロック折り畳み
-(require 'hideshow)
-(require 'fold-dwim)
-
 ;; htmlize
 (require 'htmlize)
-
-;;; clipboard-to-kill-ring
-;; (require 'clipboard-to-kill-ring)
-;; (clipboard-to-kill-ring t)
 
 ;;; zlc
 (require 'zlc)

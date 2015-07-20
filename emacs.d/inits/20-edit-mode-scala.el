@@ -5,42 +5,9 @@
 ;;;;;; ensime settings ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ensime)
-(require 'noflet)
 
 ;;; Use auto-complete for ensime
 (setq ensime-completion-style 'auto-complete)
-
-(defun scala/configure-ensime ()
-  "Ensure the file exists before starting `ensime-mode'."
-  (if (file-exists-p (buffer-file-name))
-      (ensime-mode +1)
-    (add-hook 'after-save-hook #'(lambda () (ensime-mode +1)) nil t)))
-
-(defun scala/maybe-start-ensime ()
-  (when (buffer-file-name)
-    (let ((ensime-buffer (scala/ensime-buffer-for-file (buffer-file-name)))
-          (file (ensime-config-find-file (buffer-file-name))))
-      ;; ignore if there is no .ensime for the project
-      (when (null ensime-buffer)
-        (noflet ((ensime-config-find (&rest _) file))
-                (save-window-excursion
-                  (ensime)))))))
-
-(defun scala/ensime-project-name-from-config (file)
-  (let ((config (ensime-config-load file)))
-    (plist-get config :name)))
-
-(defun scala/ensime-buffer-for-file (file)
-  "Find the Ensime server buffer corresponding to FILE."
-  (let* ((config-file (ensime-config-find-file file))
-         (name (and config-file
-                    (scala/ensime-project-name-from-config config-file)))
-         (default-directory (file-name-directory file)))
-    (when name
-      (--first (-when-let (bufname (buffer-name it))
-                 (and (s-contains? "inferior-ensime-server" bufname)
-                      (s-contains? name bufname)))
-               (buffer-list)))))
 
 (defun scala/enable-eldoc ()
   "Show error message or type name at point by Eldoc."
@@ -81,37 +48,6 @@
         ((eq ensime-completion-style 'auto-complete)
          (scala/completing-dot-ac))))
 
-(defun ensime-cleanup ()
-  "Shutdown and destroy connection buffer."
-  (interactive)
-  (ensime-shutdown)
-  (let* ((buf (buffer-file-name))
-         (ensime-buffer (scala/ensime-buffer-for-file buf)))
-    (when ensime-buffer (kill-buffer ensime-buffer))))
-
-(defun ensime-restart ()
-  "Restart the ensime server."
-  (interactive)
-  (ensime-cleanup)
-  (scala/maybe-start-ensime))
-
-(defun ensime-gen-and-restart ()
-  "Regenerate `.ensime' file and restart the ensime server."
-  (interactive)
-  (progn
-    (message "Regenerating .ensime ...")
-    (when (= 0 (scala/call-sbt-command "gen-ensime"))
-      (ensime-restart))))
-
 ;; Initialization
-(defun shibayu36/configure-scala ()
-  (scala/configure-ensime)
-  ;; (scala/maybe-start-ensime)
-  (unless (ensime-config-find-file (buffer-file-name))
-    (flycheck-mode +1)))
-
-(defadvice ensime (after ensime-disable-flycheck activate)
-  (flycheck-mode -1))
-
 (add-hook 'ensime-mode-hook #'scala/enable-eldoc)
-(add-hook 'scala-mode-hook #'shibayu36/configure-scala)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)

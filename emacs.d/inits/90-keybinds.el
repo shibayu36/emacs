@@ -21,7 +21,7 @@
 (global-set-key "\M-p" (kbd "C-u 5 C-p"))
 
 ;; フルスクリーン
-(global-set-key (kbd "C-x F") 'toggle-frame-fullscreen)
+(global-set-key (kbd "C-x F") 'toggle-frame-maximized)
 (global-set-key (kbd "C-x ?") 'help-command)
 
 ;;; 少しずつスクロール

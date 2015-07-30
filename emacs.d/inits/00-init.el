@@ -4,8 +4,8 @@
 (when (eq system-type 'darwin)       ; もし、システムが Mac のとき
   (setq mac-pass-control-to-system t)) ; コントロールキーを Mac ではなく Emacs に渡す
 
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
+(setq mac-command-modifier (quote meta))
+(setq mac-option-modifier (quote super))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;emacs本体の設定;;;;;;;;;;;;;;;

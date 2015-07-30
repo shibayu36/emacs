@@ -109,6 +109,10 @@
     ensime
 
     noflet
+
+    typescript-mode
+    company
+    tide
     )
   "A list of packages to install from MELPA at launch.")
 

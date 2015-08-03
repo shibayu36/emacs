@@ -60,33 +60,29 @@
              (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
         (setq test-method (match-string 1))))
     (if test-method
-        (compile
+        (execute-on-iterm
          (format
-          "cd %s; TEST_METHOD=%s perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
+          "cd %s; TEST_METHOD=%s PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -bv %s"
           (replace-regexp-in-string
            "\n+$" ""
-           (shell-command-to-string "git rev-parse --show-cdup"))
+           (shell-command-to-string "git rev-parse --show-toplevel"))
           test-method
           (buffer-file-name (current-buffer))))
-
-      (compile
+      (execute-on-iterm
        (format
-        "cd %s; perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
+        "cd %s; PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -bv %s"
         (replace-regexp-in-string
-         "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
+         "\n+$" "" (shell-command-to-string "git rev-parse --show-toplevel"))
         (buffer-file-name (current-buffer)))))))
 
 (defun run-perl-test ()
   (interactive)
-  (let* ((cmd "git rev-parse --show-toplevel")
-         (topdir (with-temp-buffer
-                   (call-process-shell-command cmd nil t nil)
-                   (goto-char (point-min))
-                   (if (re-search-forward "^\\(.+\\)$" nil t)
-                       (match-string 1)))))
-    (quickrun :source `((:command . "prove")
-                        (:default-directory . ,topdir)
-                        (:exec . ("%c -l -Ilocal/lib/perl5 -It/lib -bv --color %s"))))))
+  (execute-on-iterm
+   (format
+    "cd %s; PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -bv %s"
+    (replace-regexp-in-string
+     "\n+$" "" (shell-command-to-string "git rev-parse --show-toplevel"))
+        (buffer-file-name (current-buffer)))))
 
 ;; 現在の位置のmodule名のuseを書くためにpopupする
 (defun popup-editor-perl-use ()

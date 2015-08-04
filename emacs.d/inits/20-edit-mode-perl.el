@@ -71,7 +71,7 @@
 
       (compile
        (format
-        "cd %s; LANG=ja_JP.UTF-8 PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -v %s"
+        "cd %s; PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -v %s"
         (replace-regexp-in-string
          "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
         (buffer-file-name (current-buffer)))))))

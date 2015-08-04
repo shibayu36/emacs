@@ -62,7 +62,7 @@
     (if test-method
         (compile
          (format
-          "cd %s; TEST_METHOD=%s perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
+          "cd %s; PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB TEST_METHOD=%s prove -v %s"
           (replace-regexp-in-string
            "\n+$" ""
            (shell-command-to-string "git rev-parse --show-cdup"))
@@ -71,7 +71,7 @@
 
       (compile
        (format
-        "cd %s; perl -M'Project::Libs lib_dirs => [qw(modules/*/lib local/lib/perl5)]' %s"
+        "cd %s; LANG=ja_JP.UTF-8 PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -v %s"
         (replace-regexp-in-string
          "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
         (buffer-file-name (current-buffer)))))))
@@ -86,7 +86,7 @@
                        (match-string 1)))))
     (quickrun :source `((:command . "prove")
                         (:default-directory . ,topdir)
-                        (:exec . ("%c -l -Ilocal/lib/perl5 -It/lib -bv --color %s"))))))
+                        (:exec . ("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -bv --color %s"))))))
 
 ;; 現在の位置のmodule名のuseを書くためにpopupする
 (defun popup-editor-perl-use ()

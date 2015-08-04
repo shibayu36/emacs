@@ -20,7 +20,6 @@
 
 (setenv "LC_ALL" "en_US.UTF-8")
 (setenv "LANG" "ja_JP.UTF-8")
-(setenv "TERM" "xterm-color")
 
 ;; scratchの初期メッセージ消去
 (setq initial-scratch-message "")

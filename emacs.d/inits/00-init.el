@@ -18,9 +18,6 @@
 (set-buffer-file-coding-system 'utf-8-unix)
 (setq buffer-file-coding-system 'utf-8-unix)
 
-(setenv "LC_ALL" "en_US.UTF-8")
-(setenv "LANG" "ja_JP.UTF-8")
-
 ;; scratchの初期メッセージ消去
 (setq initial-scratch-message "")
 

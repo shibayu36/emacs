@@ -78,12 +78,7 @@
 
 (defun run-perl-test ()
   (interactive)
-  (let* ((cmd "git rev-parse --show-toplevel")
-         (topdir (with-temp-buffer
-                   (call-process-shell-command cmd nil t nil)
-                   (goto-char (point-min))
-                   (if (re-search-forward "^\\(.+\\)$" nil t)
-                       (match-string 1)))))
+  (let* ((topdir (git-root-directory)))
     (quickrun :source `((:command . "prove")
                         (:default-directory . ,topdir)
                         (:exec . ("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -bv --color %s"))))))

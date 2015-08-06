@@ -83,6 +83,13 @@
                         (:default-directory . ,topdir)
                         (:exec . ("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -bv --color %s"))))))
 
+(defun check-perl-used-modules ()
+  (interactive)
+  (let* ((topdir (git-root-directory)))
+    (quickrun :source `((:command . "perl")
+                        (:default-directory . ,topdir)
+                        (:exec . ("PERL5LIB=lib:local/lib/perl5:$PERL5LIB %c -MTest::UsedModules -MTest::More -e 'used_modules_ok(\"%s\");done_testing()'"))))))
+
 ;; 現在の位置のmodule名のuseを書くためにpopupする
 (defun popup-editor-perl-use ()
   (interactive)

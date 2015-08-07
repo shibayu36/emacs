@@ -51,8 +51,7 @@
 ;; テスト実行用
 (defun run-perl-method-test ()
   (interactive)
-  (let (
-        (command compile-command)
+  (let ((topdir (git-root-directory))
         (test-method nil))
     (save-excursion
       (when (or
@@ -60,21 +59,17 @@
              (re-search-forward "\\bsub\s+\\([_[:alnum:]]+\\)\s*:\s*Test" nil t))
         (setq test-method (match-string 1))))
     (if test-method
-        (compile
-         (format
-          "cd %s; PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB TEST_METHOD=%s prove -v %s"
-          (replace-regexp-in-string
-           "\n+$" ""
-           (shell-command-to-string "git rev-parse --show-cdup"))
-          test-method
-          (buffer-file-name (current-buffer))))
+        (quickrun
+         :source
+         `((:command . "prove")
+           (:default-directory . ,topdir)
+           (:exec . (,(concat "PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB TEST_METHOD=" test-method " %c -v %s")))))
 
-      (compile
-       (format
-        "cd %s; PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB prove -v %s"
-        (replace-regexp-in-string
-         "\n+$" "" (shell-command-to-string "git rev-parse --show-cdup"))
-        (buffer-file-name (current-buffer)))))))
+      (quickrun
+       :source
+       `((:command . "prove")
+         (:default-directory . ,topdir)
+         (:exec . (("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -v %s"))))))))
 
 (defun run-perl-test ()
   (interactive)

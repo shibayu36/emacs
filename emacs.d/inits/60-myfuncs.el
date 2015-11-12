@@ -110,6 +110,11 @@
            (shell-command-to-string (expand-file-name "~/bin/default-browser")))))
     (shell-command (concat "open -b " default-browser " " data-url))))
 
+;;; 現在のファイルをIntelliJで開く
+(defun open-by-intellij ()
+  (interactive)
+  (shell-command (concat "open -a /Applications/IntelliJ\\ IDEA\\ 14\\ CE.app " (buffer-file-name))))
+
 ;;; debug用
 (defmacro d (expr)
  `(let ((_var (eval ',expr)))

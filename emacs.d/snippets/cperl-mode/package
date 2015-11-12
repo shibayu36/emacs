@@ -6,6 +6,7 @@
 package ${1:`(yas/perl-package-name)`};
 use strict;
 use warnings;
+use utf8;
 
 $0
 

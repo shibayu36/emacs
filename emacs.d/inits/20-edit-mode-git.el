@@ -11,9 +11,6 @@
 ;; commit時のメッセージの改行をやめる
 (setq git-commit-fill-column 10000)
 
-;;; git commit mode
-(setq git-commit-mode-hook nil) ;; auto-fillもflyspellも使わない
-
 ;;; magit-statusしてもwindow構成かわらないようにする設定
 (defadvice magit-status (around magit-fullscreen activate)
   (window-configuration-to-register :magit-fullscreen)

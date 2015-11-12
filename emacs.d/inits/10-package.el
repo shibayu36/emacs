@@ -35,7 +35,6 @@
     edit-list
     eldoc-extension
     ruby-block
-    ruby-end
     rsense
     mmm-mode
     zencoding-mode

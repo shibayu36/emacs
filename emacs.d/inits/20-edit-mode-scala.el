@@ -51,3 +51,8 @@
 ;; Initialization
 (add-hook 'ensime-mode-hook #'scala/enable-eldoc)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(add-hook 'scala-mode-hook 'flycheck-mode)
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (progn
+               (local-set-key (kbd "C-x C-j") 'open-by-intellij))))

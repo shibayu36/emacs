@@ -18,7 +18,10 @@
                :url "https://raw.github.com/m2ym/direx-el/master/direx-project.el")
         (:name auto-highlight-symbol
                :type github
-               :pkgname "emacsmirror/auto-highlight-symbol")))
+               :pkgname "emacsmirror/auto-highlight-symbol")
+        (:name auto-programming
+               :type github
+               :pkgname "hitode909/emacs-auto-programming")))
 
 ;; Packages to install from el-get
 (defvar my/el-get-packages
@@ -35,6 +38,7 @@
     abbrev-complete
     python-mode
     auto-highlight-symbol
+    auto-programming
     )
   "A list of packages to install from el-get at launch.")
 

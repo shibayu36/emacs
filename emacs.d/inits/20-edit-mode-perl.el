@@ -19,6 +19,7 @@
       cperl-comment-column 40
       cperl-highlight-variables-indiscriminately t
       cperl-indent-parens-as-block t
+      ;; cperl-indent-subs-specially nil
       cperl-label-offset -4
       cperl-tab-always-indent nil
       cperl-font-lock t)

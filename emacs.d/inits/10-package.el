@@ -112,6 +112,7 @@
     typescript-mode
     company
     tide
+    cperl-mode
     )
   "A list of packages to install from MELPA at launch.")
 

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: test-it
+# name: test-it
+# binding: C-c C-c t
+# --
+it("$1", ($2) => {
+    `yas/selected-text`$0
+});

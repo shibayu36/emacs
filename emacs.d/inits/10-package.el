@@ -113,6 +113,8 @@
     company
     tide
     cperl-mode
+
+    web-mode
     )
   "A list of packages to install from MELPA at launch.")
 

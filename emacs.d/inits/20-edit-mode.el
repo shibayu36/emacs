@@ -11,25 +11,25 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;html-mode設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'zencoding-mode)
-(setq auto-mode-alist
-      (append '(
-                ("\\.\\(html\\|htm\\|tt\\|tt2\\|tx\\)\\'" . html-mode)
-                ) auto-mode-alist))
-(add-hook 'html-mode-hook
-          '(lambda ()
-             (require 'hatena-translator)
-             (zencoding-mode)
-             (define-key html-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
-             (define-key html-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)
-             (define-key html-mode-map (kbd "T") (smartchr '("T" "[%- `!!' %]" "[% `!!' %]")))
-             (define-key html-mode-map (kbd "C-c C-n") 'sgml-skip-tag-forward)
-             (define-key html-mode-map (kbd "C-c C-p") 'sgml-skip-tag-backward)
-             (define-key zencoding-mode-keymap (kbd "<C-return>") 'zencoding-expand-line)
-             (define-key zencoding-mode-keymap (kbd "C-c C-m") 'zencoding-expand-line)
-             (define-key zencoding-preview-keymap (kbd "C-m") 'zencoding-expand-yas)
-             (define-key zencoding-preview-keymap (kbd "RET") 'zencoding-expand-yas)
-             (define-key zencoding-preview-keymap (kbd "<return>") 'zencoding-expand-yas)))
+;; (require 'zencoding-mode)
+;; (setq auto-mode-alist
+;;       (append '(
+;;                 ("\\.\\(html\\|htm\\|tt\\|tt2\\|tx\\)\\'" . html-mode)
+;;                 ) auto-mode-alist))
+;; (add-hook 'html-mode-hook
+;;           '(lambda ()
+;;              (require 'hatena-translator)
+;;              (zencoding-mode)
+;;              (define-key html-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
+;;              (define-key html-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)
+;;              (define-key html-mode-map (kbd "T") (smartchr '("T" "[%- `!!' %]" "[% `!!' %]")))
+;;              (define-key html-mode-map (kbd "C-c C-n") 'sgml-skip-tag-forward)
+;;              (define-key html-mode-map (kbd "C-c C-p") 'sgml-skip-tag-backward)
+;;              (define-key zencoding-mode-keymap (kbd "<C-return>") 'zencoding-expand-line)
+;;              (define-key zencoding-mode-keymap (kbd "C-c C-m") 'zencoding-expand-line)
+;;              (define-key zencoding-preview-keymap (kbd "C-m") 'zencoding-expand-yas)
+;;              (define-key zencoding-preview-keymap (kbd "RET") 'zencoding-expand-yas)
+;;              (define-key zencoding-preview-keymap (kbd "<return>") 'zencoding-expand-yas)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;phpモード設定;;;;;;;;;;;;;;

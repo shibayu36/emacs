@@ -14,6 +14,7 @@
           '(lambda ()
              (require 'hatena-translator)
              (setq web-mode-markup-indent-offset 2)
+             (setq web-mode-enable-auto-indentation nil)
              (define-key web-mode-map (kbd "C-c /") 'web-mode-element-close-and-indent)
              (define-key web-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
              (define-key web-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)

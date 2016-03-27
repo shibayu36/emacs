@@ -118,7 +118,7 @@
                       :height 120))
 
 ;;; スクロールバー消す
-(set-scroll-bar-mode 'nil)
+(set-scroll-bar-mode nil)
 
 ;; display-buffer時に変に分割されるのを防ぐ
 (setq pop-up-windows nil)

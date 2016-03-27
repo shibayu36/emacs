@@ -19,3 +19,7 @@
              (define-key web-mode-map [(meta t)] 'hatena-translator:popup-msgid-at-point)
              (define-key web-mode-map [(meta T)] 'hatena-translator:open-msgid-at-point)
              (define-key web-mode-map (kbd "T") (smartchr '("T" "[%- `!!' %]" "[% `!!' %]")))))
+
+(add-hook 'web-mode-hook
+          '(lambda ()
+             (setq web-mode-enable-auto-indentation nil)))

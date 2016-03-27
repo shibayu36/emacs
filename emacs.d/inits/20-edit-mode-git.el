@@ -1,9 +1,15 @@
 (require 'magit)
 
-(set-face-background 'magit-item-highlight "#202020")
-(set-face-foreground 'magit-diff-add "green")
-(set-face-foreground 'magit-diff-del "red")
-(set-face-foreground 'magit-diff-file-header "blue")
+;; diff色変更
+(set-face-foreground 'magit-diff-added "#00FF00")
+(set-face-background 'magit-diff-added "#000000")
+(set-face-foreground 'magit-diff-added-highlight "#00FF00")
+(set-face-background 'magit-diff-added-highlight "gray20")
+(set-face-foreground 'magit-diff-removed "#FF0000")
+(set-face-background 'magit-diff-removed "#000000")
+(set-face-foreground 'magit-diff-removed-highlight "#FF0000")
+(set-face-background 'magit-diff-removed-highlight "gray20")
+(set-face-background 'magit-diff-lines-boundary "blue")
 
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")

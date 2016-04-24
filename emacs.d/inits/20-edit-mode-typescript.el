@@ -16,8 +16,8 @@
          (test-grep-args nil))
     (save-excursion
       (when (or
-             (re-search-backward "\\bdescribe(\s*'\\(.*?\\)'" nil t)
-             (re-search-forward "\\bdescribe(\s*'\\(.*?\\)'" nil t))
+             (re-search-backward "\\bdescribe(\s*[\"']\\(.*?\\)[\"']" nil t)
+             (re-search-forward "\\bdescribe(\s*[\"']\\(.*?\\)[\"']" nil t))
         (setq test-grep-args (match-string 1))))
     (if test-grep-args
         (quickrun

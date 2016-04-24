@@ -154,3 +154,6 @@
 
 ;;; scala-mode-map
 (define-key scala-mode-map (kbd ".") 'scala/completing-dot)
+
+;;; auto-programming
+(global-set-key (kbd "M-l") 'auto-programming)

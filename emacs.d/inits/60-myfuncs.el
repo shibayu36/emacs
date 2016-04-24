@@ -25,6 +25,10 @@
       (split-window-horizontally)))
   (other-window 1))
 
+(defun split-window-horizontally-3 ()
+  (interactive)
+  (split-window-horizontally-n 3))
+
 ;; macro
 (defun kmacro-save (symbol)
   (interactive "SName for last kbd macro: ")

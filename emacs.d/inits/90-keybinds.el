@@ -39,8 +39,8 @@
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-for-tags)
 
-;;; helm-c-moccur
-(global-set-key (kbd "C-M-o") 'helm-c-moccur-occur-by-moccur)
+;;; helm-occur
+(global-set-key (kbd "C-M-o") 'helm-occur)
 
 ;;; helm-for-document
 (global-set-key (kbd "C-x C-h") 'helm-for-document)
@@ -105,7 +105,7 @@
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;;; isearch-mode
-(define-key isearch-mode-map (kbd "C-o") 'helm-c-moccur-from-isearch)
+(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 (define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
 
 ;; replace

@@ -14,6 +14,8 @@
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
+;; commit時のstyleチェックをやめる
+(setq git-commit-finish-query-functions nil)
 ;; commit時のメッセージの改行をやめる
 (setq git-commit-fill-column 10000)
 

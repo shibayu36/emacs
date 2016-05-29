@@ -157,3 +157,6 @@
 
 ;;; auto-programming
 (global-set-key (kbd "M-l") 'auto-programming)
+
+;; google-translate
+(global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen)

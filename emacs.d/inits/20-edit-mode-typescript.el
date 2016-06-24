@@ -26,6 +26,13 @@
            (:default-directory . ,topdir)
            (:exec . (,(concat "%c run --no-refresh -- --grep " test-grep-args))))))))
 
+;;; typescriptでのalignルール
+(add-to-list
+ 'align-rules-list
+ '(typescript-equal-delimiter
+   (regexp . "\\(\\s-*\\)=")
+   (repeat . t)
+   (modes  . '(typescript-mode))))
 
 (add-hook 'typescript-mode-hook
           (lambda ()

@@ -39,5 +39,8 @@
 (global-rbenv-mode)
 
 ;; flycheck
-(add-hook 'ruby-mode-hook 'flycheck-mode)
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (flycheck-mode t)
+            (setq flycheck-rubocop-lint-only t)))
 (add-hook 'ruby-mode-hook 'smartparens-mode)

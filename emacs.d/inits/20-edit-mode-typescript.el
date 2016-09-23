@@ -16,23 +16,36 @@
          (test-grep-args nil))
     (save-excursion
       (when (or
+             ;; 直近もしくは直後でdescribe('テスト名')となっている場所を探し、テスト名を抜き出す
              (re-search-backward "\\bdescribe(\s*[\"']\\(.*?\\)[\"']" nil t)
              (re-search-forward "\\bdescribe(\s*[\"']\\(.*?\\)[\"']" nil t))
         (setq test-grep-args (match-string 1))))
     (if test-grep-args
+        ;; テスト名があったらquickrunを用いて
+        ;; $(npm bin)/karma run -- --grep 'テスト名'
+        ;; のようなコマンドを実行する
         (quickrun
          :source
          `((:command . "$(npm bin)/karma")
            (:default-directory . ,topdir)
-           (:exec . (,(concat "%c run --no-refresh -- --grep " test-grep-args))))))))
+           (:exec . (,(concat "%c run -- --grep " test-grep-args))))))))
 
 ;;; typescriptでのalignルール
-(add-to-list
- 'align-rules-list
- '(typescript-equal-delimiter
-   (regexp . "\\(\\s-*\\)=")
-   (repeat . t)
-   (modes  . '(typescript-mode))))
+(add-hook
+ 'align-load-hook
+ (lambda ()
+   (add-to-list
+    'align-rules-list
+    '(typescript-equal-delimiter
+      (regexp . "\\(\\s-*\\)=")
+      (repeat . t)
+      (modes  . '(typescript-mode))))
+   (add-to-list
+    'align-rules-list
+    '(typescript-equal-delimiter
+      (regexp . ":\\(\\s-*\\)")
+      (repeat . t)
+      (modes  . '(typescript-mode))))))
 
 (add-hook 'typescript-mode-hook
           (lambda ()

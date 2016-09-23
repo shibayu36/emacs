@@ -139,3 +139,32 @@
 (defun copy-buffer-absolute-path ()
   (interactive)
   (kill-new (buffer-file-name (current-buffer))))
+
+(defun replace-strings-in-region-by-list ($list)
+  "Replace strings in a region according to $list"
+  (if mark-active
+      (let* (($beg (region-beginning))
+             ($end (region-end))
+             ($word (buffer-substring-no-properties $beg $end)))
+        (mapc (lambda ($r)
+                (setq $word (replace-regexp-in-string (car $r) (cdr $r) $word)))
+              $list)
+        (delete-region $beg $end)
+        (insert $word))
+    (error "Need to make region")))
+
+;;; 全角数字を半角数字に
+(defun convert-to-single-byte-number-region ()
+  "Convert multi-byte number in region into single-byte number"
+  (interactive)
+  (replace-strings-in-region-by-list
+   '(("１" . "1")
+     ("２" . "2")
+     ("３" . "3")
+     ("４" . "4")
+     ("５" . "5")
+     ("６" . "6")
+     ("７" . "7")
+     ("８" . "8")
+     ("９" . "9")
+     ("０" . "0"))))

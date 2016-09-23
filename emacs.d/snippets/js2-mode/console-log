@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: console-log
+# name: console-log
+# binding: C-c C-d
+# --
+console.log('$1', $1);

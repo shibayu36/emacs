@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # key: data-printer
 # name: Data::Printer
+# binding: C-c C-d
 # --
-use DDP colored => 0;
-p(`yas/selected-text`$0);
+use Data::Printer { show_unicode => 1, use_prototypes => 0, colored => 0, class => { show_methods => 0 } }; p(`yas/selected-text`$0);

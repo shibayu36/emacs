@@ -19,6 +19,11 @@
 ;; commit時のメッセージの改行をやめる
 (setq git-commit-fill-column 10000)
 
+;; worddiffするように
+(setq magit-diff-refine-hunk 'all)
+;; 空白の差を無視しない
+(setq smerge-refine-ignore-whitespace nil)
+
 ;;; magit-statusしてもwindow構成かわらないようにする設定
 (defadvice magit-status (around magit-fullscreen activate)
   (window-configuration-to-register :magit-fullscreen)

@@ -55,3 +55,24 @@
             (eldoc-mode t)
             (company-mode-on)
             (local-set-key (kbd "C-c t") 'run-js-mocha-describe-test)))
+
+;;; typescriptでのコンパイルルール
+(require 'compile)
+(setq compilation-error-regexp-alist
+      (append
+       '(;; d:/h...ript/sample.ts (13,175):
+         ("^\\(.*\\)(\\([0-9]+\\),[0-9]+):" 1 2))
+       compilation-error-regexp-alist))
+(add-hook
+ 'typescript-mode-hook
+ (lambda ()
+   (set (make-local-variable 'compile-command)
+        (format "$(npm bin)/tsc -p %s"
+                (git-root-directory)))))
+
+;;; tslintのエラールール
+(setq compilation-error-regexp-alist
+      (append
+       '(;; src/ts/app.ts[5, 12]: Missing semicolon
+         ("^\\(.*\\)\\[\\([0-9]+\\), [0-9]+]:" 1 2))
+       compilation-error-regexp-alist))

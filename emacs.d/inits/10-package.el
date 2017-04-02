@@ -115,6 +115,15 @@
     cperl-mode
 
     web-mode
+
+    graphviz-dot-mode
+
+    meghanada
+
+    python-mode
+    jedi
+    virtualenvwrapper
+    auto-virtualenvwrapper
     )
   "A list of packages to install from MELPA at launch.")
 

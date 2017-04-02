@@ -117,7 +117,7 @@
 ;;; 現在のファイルをIntelliJで開く
 (defun open-by-intellij ()
   (interactive)
-  (shell-command (concat "open -a /Applications/IntelliJ\\ IDEA\\ 14\\ CE.app " (buffer-file-name))))
+  (shell-command (concat "open -a /Applications/IntelliJ\\ IDEA\\ CE.app " (buffer-file-name))))
 
 ;;; debug用
 (defmacro d (expr)

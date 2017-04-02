@@ -34,10 +34,11 @@
 (global-set-key (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
 (global-set-key (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-z") 'anything-resume)
-(global-set-key (kbd "M-y") 'anything-show-kill-ring)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (define-key global-map [(control @)] 'anything-for-tags)
+
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 ;;; helm-occur
 (global-set-key (kbd "C-M-o") 'helm-occur)
@@ -85,9 +86,6 @@
 
 ;;; auto-complete
 (define-key global-map (kbd "<C-tab>") 'ac-fuzzy-complete)
-
-;;; cua-mode
-;; (define-key global-map (kbd "<C-M-return>") 'CUA-cmd-begin-rectangle)
 
 ;;; org-mode用
 (define-key global-map (kbd "C-c l") 'org-store-link)

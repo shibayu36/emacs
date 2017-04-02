@@ -11,9 +11,10 @@
                  (funcall func))
                '(helm-def-source--emacs-commands
                  helm-def-source--emacs-functions
+                 helm-def-source--eieio-classes
+                 helm-def-source--eieio-generic
                  helm-def-source--emacs-variables
-                 helm-def-source--emacs-faces
-                 helm-def-source--helm-attributes))
+                 helm-def-source--emacs-faces))
        '(helm-source-man-pages)))
 
 (defun helm-for-document ()

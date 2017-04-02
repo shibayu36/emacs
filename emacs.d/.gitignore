@@ -17,3 +17,5 @@
 /.mc-lists.el
 /.cask/
 /ensime/
+/.python-environment/
+/meghanada/

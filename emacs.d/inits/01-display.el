@@ -25,8 +25,8 @@
                '(height . 47)
                '(top . 0)
                '(left . 0)
-               '(alpha . (100 60)))
-              default-frame-alist))
+               '(alpha . 100)
+              default-frame-alist)))
 
 ;;画面最大化
 (setq ns-use-native-fullscreen nil) ;; nativeのフルスクリーン使わない

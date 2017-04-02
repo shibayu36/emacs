@@ -36,7 +36,6 @@
     mode-compile
     direx-project
     abbrev-complete
-    python-mode
     auto-highlight-symbol
     auto-programming
     )

@@ -50,24 +50,13 @@
 ;;;;;;;;;;;;;cssモード設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'css-mode)
+(setq css-indent-offset 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;lessモード設定;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'less-css-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;pythonモード設定;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;メジャーモードの自動起動設定
-(require 'python-mode)
-(setq auto-mode-alist (cons '("\\.py\\'" . python-mode) auto-mode-alist))
-
-;;インデントをスペースに
-(add-hook 'python-mode-hook
-          (function (lambda ()
-                      (setq indent-tabs-mode nil))))
-
+(setq less-css-indent-level 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; yaml mode ;;;;;;;;;;;;;;;;;
@@ -90,3 +79,6 @@
 (setq crontab-mode-map nil)
 (require 'crontab-mode)
 (add-to-list 'auto-mode-alist '("crontab$" . crontab-mode))
+
+;;; graphviz dot mode
+(require 'graphviz-dot-mode)

@@ -38,7 +38,8 @@
   "A perl syntax checker."
   :command (
             "perl"
-            "-MProject::Libs lib_dirs => [qw(. t/lib modules/*/lib local/lib/perl5)]"
+            (option-list "-I" flycheck-perl-include-path)
+            "-MProject::Libs lib_dirs => [qw(t/lib modules/*/lib local/lib/perl5)]"
             "-wc"
             source-inplace)
   :error-patterns ((error line-start
@@ -47,10 +48,12 @@
                           (or "." (and ", " (zero-or-more not-newline)))
                           line-end))
   :modes (cperl-mode))
+
 (add-hook 'cperl-mode-hook
           (lambda ()
             (flycheck-mode t)
-            (setq flycheck-checker 'perl-project-libs)))
+            (setq flycheck-checker 'perl-project-libs)
+            (setq flycheck-perl-include-path `(,(git-root-directory)))))
 
 ;; テスト実行用
 (defun run-perl-method-test ()

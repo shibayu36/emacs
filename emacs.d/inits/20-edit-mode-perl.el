@@ -8,6 +8,10 @@
 (setq auto-mode-alist (cons '("\\.psgi$" . cperl-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("cpanfile$" . cperl-mode) auto-mode-alist))
 
+(custom-set-faces
+ '(cperl-array-face ((t (:foreground "yellow" :weight bold))))
+ '(cperl-hash-face ((t (:foreground "Red" :weight bold)))))
+
 (setq cperl-hairy nil)
 
 (require 'plenv)

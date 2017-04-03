@@ -19,35 +19,34 @@
       cperl-comment-column 40
       cperl-highlight-variables-indiscriminately t
       cperl-indent-parens-as-block t
-      ;; cperl-indent-subs-specially nil
       cperl-label-offset -4
       cperl-tab-always-indent nil
       cperl-font-lock t)
-(add-hook 'cperl-mode-hook 'flymake-perl-load)
-(add-hook 'cperl-mode-hook
-          (lambda ()
-            (set-face-bold-p 'cperl-array-face nil)
-            (set-face-background 'cperl-array-face "black")
-            (set-face-bold-p 'cperl-hash-face nil)
-            (set-face-italic-p 'cperl-hash-face nil)
-            (set-face-background 'cperl-hash-face "black")))
-
-;;flymake, perl-completionは重いので、やめた
-;; (defvar ac-source-my-perl-completion
-;;   '((candidates . plcmp-ac-make-cands)))
-;; (add-hook 'cperl-mode-hook
-;;           (lambda()
-;;             (setq plcmp-use-keymap nil)
-;;             (require 'perl-completion)
-;;             (perl-completion-mode t)
-;;             (setq plcmp-default-lighter nil)
-;;             (add-to-list 'ac-sources 'ac-source-my-perl-completion)))
 
 (add-hook 'cperl-mode-hook
           '(lambda ()
              (progn
                (setq indent-tabs-mode nil)
                (setq tab-width nil))))
+
+;;; flycheckによるsyntaxチェック
+(flycheck-define-checker perl-project-libs
+  "A perl syntax checker."
+  :command (
+            "perl"
+            "-MProject::Libs lib_dirs => [qw(. t/lib modules/*/lib local/lib/perl5)]"
+            "-wc"
+            source-inplace)
+  :error-patterns ((error line-start
+                          (minimal-match (message))
+                          " at " (file-name) " line " line
+                          (or "." (and ", " (zero-or-more not-newline)))
+                          line-end))
+  :modes (cperl-mode))
+(add-hook 'cperl-mode-hook
+          (lambda ()
+            (flycheck-mode t)
+            (setq flycheck-checker 'perl-project-libs)))
 
 ;; テスト実行用
 (defun run-perl-method-test ()

@@ -187,4 +187,6 @@
 (add-hook 'scala-mode-hook
           '(lambda ()
              (progn
-               (local-set-key (kbd "C-x C-j") 'open-by-intellij))))
+               (local-set-key (kbd "C-x C-j") 'open-by-intellij)
+               (local-set-key (kbd "C-@") 'ensime-edit-definition)
+               (local-set-key (kbd "M-@" 'ensime-pop-find-definition-stack)))))

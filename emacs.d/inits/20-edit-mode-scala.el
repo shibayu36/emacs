@@ -61,22 +61,22 @@
          (insert ".")
          (company-complete))))
 
-(defun scala/ac-trigger-key-command (orig-fun &rest args)
-  (if ensime-mode
-      (let ((ac-sources '(ac-source-ensime-completions))
-            (ac-use-comphist nil)
-            (ac-auto-show-menu 0.5)
-            (ac-candidates-cache nil)
-            (ac-auto-start nil)
-            (ac-expand-on-auto-complete t)
-            (ac-use-fuzzy nil)
-            (ac-dwim nil)
-            (ac-use-quick-help t)
-            (ac-delete-dups nil)
-            (ac-ignore-case t))
-        (apply orig-fun args))
-    (apply orig-fun args)))
-(advice-add 'ac-trigger-key-command :around #'scala/ac-trigger-key-command)
+;; (defun scala/ac-trigger-key-command (orig-fun &rest args)
+;;   (if ensime-mode
+;;       (let ((ac-sources '(ac-source-ensime-completions))
+;;             (ac-use-comphist nil)
+;;             (ac-auto-show-menu 0.5)
+;;             (ac-candidates-cache nil)
+;;             (ac-auto-start nil)
+;;             (ac-expand-on-auto-complete t)
+;;             (ac-use-fuzzy nil)
+;;             (ac-dwim nil)
+;;             (ac-use-quick-help t)
+;;             (ac-delete-dups nil)
+;;             (ac-ignore-case t))
+;;         (apply orig-fun args))
+;;     (apply orig-fun args)))
+;; (advice-add 'ac-trigger-key-command :around #'scala/ac-trigger-key-command)
 
 (defun scala/completing-dot-ac ()
   (eval-and-compile (require 'auto-complete))
@@ -159,8 +159,8 @@
 
 (add-hook 'ensime-mode-hook #'shibayu36/enable-eldoc)
 (add-hook 'scala-mode-hook #'shibayu36/configure-scala)
-(add-hook 'scala-mode-hook #'eldoc-mode)
-(add-hook 'java-mode-hook 'ensime-mode)
+(add-hook 'scala-mode-hook #'shibayu36/enable-eldoc)
+(add-hook 'java-mode-hook #'ensime-mode)
 
 (with-eval-after-load-feature 'ensime-mode
                               ;; Prevent the default behavior; `ensime-mode' is invoked via

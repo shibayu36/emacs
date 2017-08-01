@@ -180,13 +180,11 @@
 
 (with-eval-after-load-feature 'ensime
                               (set-face-attribute 'ensime-implicit-highlight nil
-                                                  :underline '(:style wave :color "#7F9F7F"))
-                              (let ((map ensime-mode-map))
-                                (define-key map (kbd ".") #'scala/completing-dot)))
+                                                  :underline '(:style wave :color "#7F9F7F")))
 
 (add-hook 'scala-mode-hook
           '(lambda ()
              (progn
                (local-set-key (kbd "C-x C-j") 'open-by-intellij)
                (local-set-key (kbd "C-@") 'ensime-edit-definition)
-               (local-set-key (kbd "M-@" 'ensime-pop-find-definition-stack)))))
+               (local-set-key (kbd "M-@") 'ensime-pop-find-definition-stack))))

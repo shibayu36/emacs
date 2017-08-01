@@ -158,6 +158,7 @@
 (advice-add 'ensime :after #'shibayu36/ensime-disable-flycheck)
 
 (add-hook 'ensime-mode-hook #'shibayu36/enable-eldoc)
+(add-hook 'scala-mode-hook #'shibayu36/configure-scala)
 (add-hook 'scala-mode-hook #'eldoc-mode)
 (add-hook 'java-mode-hook 'ensime-mode)
 

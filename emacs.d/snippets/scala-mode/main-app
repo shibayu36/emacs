@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# key: main-app
+# name: main-app
+# --
+object $1 {
+  def main(args: Array[String]): Unit = {
+    $0
+  }
+}

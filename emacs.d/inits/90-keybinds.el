@@ -32,11 +32,10 @@
 ;;;;;;;;; for anything ;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
-(global-set-key (kbd "C-:") 'anything);;anything
 (global-set-key (kbd "C-x C-z") 'anything-resume)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-c g") 'anything-git-grep-all)
-(define-key global-map [(control @)] 'anything-for-tags)
+(global-set-key (kbd "C-@") 'helm-etags-plus-select)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
@@ -150,11 +149,11 @@
 (define-key global-map (kbd "<f8>") 'goto-last-change)
 (define-key global-map (kbd "S-<f8>") 'goto-last-change-reverse)
 
-;;; scala-mode-map
-(define-key scala-mode-map (kbd ".") 'scala/completing-dot)
-
 ;;; auto-programming
 (global-set-key (kbd "M-l") 'auto-programming)
 
 ;; google-translate
 (global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen)
+
+;; avy
+(global-set-key (kbd "C-:") 'avy-goto-char-timer)

@@ -1,0 +1,1 @@
+(require 'cc-mode)

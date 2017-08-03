@@ -1,3 +1,11 @@
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+                         ("melpa" . "http://melpa.org/packages/")
+                         ("melpa-stable" . "http://stable.melpa.org/packages/"))
+      package-archive-priorities '(("melpa" . 1)))
+
+
 ;; Packages to install from ELPA and MELPA
 (defvar my/packages
   '(
@@ -101,8 +109,6 @@
 
     crontab-mode
 
-    scala-mode2
-
     codic
 
     ensime
@@ -124,6 +130,10 @@
     jedi
     virtualenvwrapper
     auto-virtualenvwrapper
+
+    avy
+
+    anything-exuberant-ctags
     )
   "A list of packages to install from MELPA at launch.")
 

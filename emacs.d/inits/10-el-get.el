@@ -29,7 +29,6 @@
     anything-git-files
     el-expectations
     perl-completion
-    anything-exuberant-ctags
     smartchr
     sequential-command
     sequential-command-config
@@ -38,6 +37,7 @@
     abbrev-complete
     auto-highlight-symbol
     auto-programming
+    with-eval-after-load-feature
     )
   "A list of packages to install from el-get at launch.")
 

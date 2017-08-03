@@ -11,8 +11,9 @@
 (setq ensime-eldoc-hints nil)
 (setq ensime-completion-style nil)
 
-(custom-set-variables
- '(ensime-errline-highlight ((t (:inherit flycheck-error)))))
+(custom-set-faces
+ '(ensime-errline-highlight ((t (:inherit flycheck-error))))
+ '(ensime-warnline-highlight ((t (:inherit flycheck-warning)))))
 
 ;; ;;; Use auto-complete for ensime
 ;; (setq ensime-completion-style 'auto-complete)

@@ -78,7 +78,7 @@
           (list
            (format "-I%s"
                    (cond ((git-project-p)
-                          (git-root-directory))
+                          (vc-root-dir))
                          (t
                           ".")))
            "-MProject::Libs lib_dirs => ['t/lib', 'modules/*/lib', 'local/lib/perl5']"

@@ -34,16 +34,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;phpモード設定;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'php-mode)
+;; (require 'php-mode)
 ;;abbrev対応
-(add-hook 'php-mode-hook
-          '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
+;; (add-hook 'php-mode-hook
+;;           '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
 ;;TAB幅指定
-(add-hook 'php-mode-user-hook
-          '(lambda ()
-             (setq tab-width 2)
-             (setq indent-tabs-mode nil))
-          )
+;; (add-hook 'php-mode-user-hook
+;;           '(lambda ()
+;;              (setq tab-width 2)
+;;              (setq indent-tabs-mode nil))
+;;           )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

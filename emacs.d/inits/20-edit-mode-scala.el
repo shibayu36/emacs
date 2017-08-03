@@ -193,4 +193,6 @@
              (progn
                (local-set-key (kbd "C-x C-j") 'open-by-intellij)
                (local-set-key (kbd "C-@") 'ensime-edit-definition)
-               (local-set-key (kbd "M-@") 'ensime-pop-find-definition-stack))))
+               (local-set-key (kbd "M-@") 'ensime-pop-find-definition-stack)
+               (local-set-key (kbd "M-t") 'ensime-type-at-point-full-name)
+               (local-set-key (kbd ",") (smartchr '("," " => "))))))

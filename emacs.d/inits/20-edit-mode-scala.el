@@ -11,6 +11,9 @@
 (setq ensime-eldoc-hints nil)
 (setq ensime-completion-style nil)
 
+(custom-set-variables
+ '(ensime-errline-highlight ((t (:inherit flycheck-error)))))
+
 ;; ;;; Use auto-complete for ensime
 ;; (setq ensime-completion-style 'auto-complete)
 ;; (defvar shibayu36/ensime-completion-style 'auto-complete)
@@ -127,12 +130,12 @@
 ;;   (eval-and-compile (require 'sbt-mode))
 ;;   (sbt:send-region (point-min) (point-max)))
 
-(defun ensime-restart ()
-  "Restart the ensime server."
-  (interactive)
-  (ensime-shutdown)
-  (sit-for 2)
-  (scala/maybe-start-ensime))
+;; (defun ensime-restart ()
+;;   "Restart the ensime server."
+;;   (interactive)
+;;   (ensime-shutdown)
+;;   (sit-for 2)
+;;   (scala/maybe-start-ensime))
 
 ;; (defun ensime-gen-and-restart ()
 ;;   "Regenerate `.ensime' file and restart the ensime server."

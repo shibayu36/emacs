@@ -20,7 +20,7 @@
 (setq git-commit-fill-column 10000)
 
 ;; worddiffするように
-(setq magit-diff-refine-hunk 'all)
+(setq magit-diff-refine-hunk t)
 ;; 空白の差を無視しない
 (setq smerge-refine-ignore-whitespace nil)
 

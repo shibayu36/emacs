@@ -15,6 +15,13 @@
  '(ensime-errline-highlight ((t (:inherit flycheck-error))))
  '(ensime-warnline-highlight ((t (:inherit flycheck-warning)))))
 
+(define-key scala-mode-map (kbd "C-@") 'ensime-edit-definition-other-window)
+(define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
+(define-key scala-mode-map (kbd "C-@") 'ensime-edit-definition)
+(define-key scala-mode-map (kbd "M-@") 'ensime-pop-find-definition-stack)
+(define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
+(define-key scala-mode-map (kbd ",") (smartchr '("," " => ")))
+
 ;; ;;; Use auto-complete for ensime
 ;; (setq ensime-completion-style 'auto-complete)
 ;; (defvar shibayu36/ensime-completion-style 'auto-complete)
@@ -187,12 +194,3 @@
 ;; (with-eval-after-load-feature 'ensime
 ;;                               (set-face-attribute 'ensime-implicit-highlight nil
 ;;                                                   :underline '(:style wave :color "#7F9F7F")))
-
-(add-hook 'scala-mode-hook
-          '(lambda ()
-             (progn
-               (local-set-key (kbd "C-x C-j") 'open-by-intellij)
-               (local-set-key (kbd "C-@") 'ensime-edit-definition)
-               (local-set-key (kbd "M-@") 'ensime-pop-find-definition-stack)
-               (local-set-key (kbd "M-t") 'ensime-type-at-point-full-name)
-               (local-set-key (kbd ",") (smartchr '("," " => "))))))

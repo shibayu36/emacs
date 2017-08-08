@@ -22,6 +22,13 @@
 (define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
 (define-key scala-mode-map (kbd ",") (smartchr '("," " => ")))
 
+(defun ensime-restart ()
+  "Restart the ensime server."
+  (interactive)
+  (ensime-shutdown)
+  (sit-for 2)
+  (ensime))
+
 ;; ;;; Use auto-complete for ensime
 ;; (setq ensime-completion-style 'auto-complete)
 ;; (defvar shibayu36/ensime-completion-style 'auto-complete)

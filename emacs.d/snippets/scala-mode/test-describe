@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: test-describe
+# name: test-describe
+# binding: C-c C-c C-t
+# --
+describe("$1") {
+  `yas/selected-text`$0
+}

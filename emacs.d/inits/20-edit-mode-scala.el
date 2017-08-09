@@ -13,24 +13,35 @@
 (setq ensime-typecheck-when-idle nil) ;; 定期的にtypecheckするのをやめる
 (setq ensime-sem-high-enabled-p nil) ;; semantic highlightをしない
 
-
-(custom-set-faces
- '(ensime-errline-highlight ((t (:inherit flycheck-error))))
- '(ensime-warnline-highlight ((t (:inherit flycheck-warning)))))
-
-(define-key scala-mode-map (kbd "C-@") 'ensime-edit-definition-other-window)
-(define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
-(define-key scala-mode-map (kbd "C-@") 'ensime-edit-definition)
-(define-key scala-mode-map (kbd "M-@") 'ensime-pop-find-definition-stack)
-(define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
-(define-key scala-mode-map (kbd ",") (smartchr '("," " => ")))
-
 (defun ensime-restart ()
   "Restart the ensime server."
   (interactive)
   (ensime-shutdown)
   (sit-for 2)
   (ensime))
+
+;;; 今のファイルのimportが書かれている部分にpopupすうｒ
+(defun scala/popup-on-last-import ()
+  (interactive)
+  (popwin:popup-buffer (current-buffer) :height 0.4)
+  (re-search-backward "^import " nil t))
+
+(custom-set-faces
+ '(ensime-errline-highlight ((t (:inherit flycheck-error))))
+ '(ensime-warnline-highlight ((t (:inherit flycheck-warning)))))
+
+(define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
+(define-key scala-mode-map (kbd "C-@") 'ensime-edit-definition)
+(define-key scala-mode-map (kbd "M-@") 'ensime-pop-find-definition-stack)
+(define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
+(define-key scala-mode-map (kbd ",") (smartchr '("," " => ")))
+(define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
+
+;; (add-hook
+;;  'scala-mode-hook
+;;  (lambda ()
+;;    (ensime-mode -1)
+;;    (flycheck-mode t)))
 
 ;; ;;; Use auto-complete for ensime
 ;; (setq ensime-completion-style 'auto-complete)

@@ -10,6 +10,9 @@
 (setq ensime-startup-notification nil)
 (setq ensime-eldoc-hints nil)
 (setq ensime-completion-style nil)
+(setq ensime-typecheck-when-idle nil) ;; 定期的にtypecheckするのをやめる
+(setq ensime-sem-high-enabled-p nil) ;; semantic highlightをしない
+
 
 (custom-set-faces
  '(ensime-errline-highlight ((t (:inherit flycheck-error))))

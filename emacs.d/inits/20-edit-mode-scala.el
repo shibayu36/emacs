@@ -46,6 +46,25 @@
 (defun scala/use-ctags-definition-jump ()
   (interactive)
   (define-key scala-mode-map (kbd "C-@") nil))
+
+;;; scalaでのalignルール
+(add-hook
+ 'align-load-hook
+ (lambda ()
+   (add-to-list
+    'align-rules-list
+    '(scala-allow-delimiter
+      (regexp . "\\(\\s-*\\)->")
+      (repeat . t)
+      (modes  . '(scala-mode))))
+   (add-to-list
+    'align-rules-list
+    '(scala-allow2-delimiter
+      (regexp . "\\(\\s-*\\)=>")
+      (repeat . t)
+      (modes  . '(scala-mode))))))
+
+
 ;; (add-hook
 ;;  'scala-mode-hook
 ;;  (lambda ()

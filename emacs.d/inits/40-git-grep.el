@@ -17,3 +17,14 @@
                  grep-dir
                  command-args)))
     (grep command)))
+
+;;; rootからgit grepする
+(defun git-grep-from-root ()
+  (interactive)
+  (let* ((command
+          (read-shell-command
+           "Run git-grep (like this): "
+            (format "git --no-pager grep -I -n -i -e %s"
+                    "")
+            'git-grep-history)))
+    (git-grep (vc-root-dir) command)))

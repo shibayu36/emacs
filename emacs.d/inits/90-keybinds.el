@@ -34,7 +34,6 @@
 (global-set-key (kbd "C-;") 'anything-custom-filelist) ;;自分の定義
 (global-set-key (kbd "C-x C-z") 'anything-resume)
 (define-key global-map [(control ?:)] 'anything-migemo)
-(global-set-key (kbd "C-c g") 'anything-git-grep-all)
 (global-set-key (kbd "C-@") 'helm-etags-plus-select)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
@@ -53,6 +52,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key (kbd "C-c C-g") 'git-grep)
+(global-set-key (kbd "C-c g") 'git-grep-from-root)
 
 (global-set-key (kbd "M-N") 'next-error)
 (global-set-key (kbd "M-P") 'previous-error)

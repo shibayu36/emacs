@@ -37,6 +37,15 @@
 (define-key scala-mode-map (kbd ",") (smartchr '("," " => ")))
 (define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
 
+;;; ensimeのタグジャンプを使うようにする
+(defun scala/use-ensime-definition-jump ()
+  (interactive)
+  (define-key scala-mode-map (kbd "C-@") 'ensime-edit-definition))
+
+;;; ctagsのタグジャンプを使うようにする
+(defun scala/use-ctags-definition-jump ()
+  (interactive)
+  (define-key scala-mode-map (kbd "C-@") nil))
 ;; (add-hook
 ;;  'scala-mode-hook
 ;;  (lambda ()

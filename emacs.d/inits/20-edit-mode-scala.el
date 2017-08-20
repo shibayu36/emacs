@@ -8,8 +8,8 @@
 (require 'ensime)
 (setq ensime-startup-snapshot-notification nil)
 (setq ensime-startup-notification nil)
-(setq ensime-eldoc-hints nil)
-(setq ensime-completion-style nil)
+(setq ensime-eldoc-hints nil) ;; カーソル移動が重くなるのでやめる
+(setq ensime-completion-style nil) ;; 一旦補完はなし
 (setq ensime-typecheck-when-idle nil) ;; 定期的にtypecheckするのをやめる
 (setq ensime-sem-high-enabled-p nil) ;; semantic highlightをしない
 
@@ -20,7 +20,7 @@
   (sit-for 2)
   (ensime))
 
-;;; 今のファイルのimportが書かれている部分にpopupすうｒ
+;;; 今のファイルのimportが書かれている部分にpopupする
 (defun scala/popup-on-last-import ()
   (interactive)
   (popwin:popup-buffer (current-buffer) :height 0.4)

@@ -3,7 +3,9 @@
 (add-to-list 'auto-mode-alist '("\\.tt\\'" . web-mode))
 
 (setq web-mode-engines-alist
-      '(("template-toolkit" . "\\.html?\\'" )))
+      '(
+        ("template-toolkit" . "\\.html?\\'" )
+        ("razor" . "scala\\.html\\'")))
 
 (defun web-mode-element-close-and-indent ()
   (interactive)

@@ -44,7 +44,8 @@
 ;;; ctagsのタグジャンプを使うようにする
 (defun scala/use-ctags-definition-jump ()
   (interactive)
-  (define-key scala-mode-map (kbd "C-@") nil))
+  (define-key scala-mode-map (kbd "C-@") nil)
+  (define-key scala-mode-map (kbd "M-@") nil))
 
 (defun shibayu36/scala-mode-hook ()
   (setq scala-indent:use-javadoc-style t))

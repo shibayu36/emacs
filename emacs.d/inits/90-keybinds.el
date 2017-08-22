@@ -35,6 +35,7 @@
 (global-set-key (kbd "C-x C-z") 'anything-resume)
 (define-key global-map [(control ?:)] 'anything-migemo)
 (global-set-key (kbd "C-@") 'helm-etags-plus-select)
+(global-set-key (kbd "M-@") 'helm-etags-plus-history-go-back)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 

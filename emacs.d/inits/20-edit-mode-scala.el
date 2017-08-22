@@ -46,6 +46,10 @@
   (interactive)
   (define-key scala-mode-map (kbd "C-@") nil))
 
+(defun shibayu36/scala-mode-hook ()
+  (setq scala-indent:use-javadoc-style t))
+(add-hook 'scala-mode-hook 'shibayu36/scala-mode-hook)
+
 ;;; scalaでのalignルール
 (add-hook
  'align-load-hook

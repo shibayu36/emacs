@@ -32,7 +32,8 @@
 
 (define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
 (define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
-(define-key scala-mode-map (kbd ",") (smartchr '("," " => ")))
+(define-key scala-mode-map (kbd ",") (smartchr '("," " => " " -> ")))
+(define-key scala-mode-map (kbd "<") (smartchr '("<" " <- ")))
 (define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
 
 ;;; ensimeのタグジャンプを使うようにする

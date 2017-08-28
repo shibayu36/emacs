@@ -48,6 +48,35 @@
   (define-key scala-mode-map (kbd "C-@") nil)
   (define-key scala-mode-map (kbd "M-@") nil))
 
+(defun sbt/test-only-current-spec ()
+  "Run test with current file."
+  (interactive)
+  (let* ((package-name (scala/find-package-name-current-buffer))
+         (spec-name (scala/find-spec-name-current-buffer))
+         (spec-name-with-package
+          (if (string= package-name "")
+              spec-name
+            (format "%s.%s" package-name spec-name))))
+    (sbt-command (format "testOnly %s" spec-name-with-package))))
+
+(defun scala/find-package-name-current-buffer ()
+  "Find package name in current buffer"
+  (interactive)
+  (let* ((matched-package ""))
+    (save-excursion
+      (when (re-search-backward "^package \\(.+\\)$" nil t)
+        (setq matched-package (match-string 1))))
+    matched-package))
+
+(defun scala/find-spec-name-current-buffer ()
+  "Find spec name of current buffer."
+  (interactive)
+  (let* ((matched-spec-name ""))
+    (save-excursion
+      (when (re-search-backward "^class \\([^ ]+Spec\\) " nil t)
+        (setq matched-spec-name (match-string 1))))
+    matched-spec-name))
+
 (defun shibayu36/scala-mode-hook ()
   (setq scala-indent:use-javadoc-style t))
 (add-hook 'scala-mode-hook 'shibayu36/scala-mode-hook)

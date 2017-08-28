@@ -48,13 +48,25 @@
 (defun sbt/test-only-current-spec ()
   "Run test with current file."
   (interactive)
+  (sbt-command
+   (format "testOnly %s" (scala/find-spec-name-with-package-current-buffer))))
+
+(defun sbt/test-only-current-describe ()
+  "Run current describe test"
+  (interactive)
+  (sbt-command
+   (format "testOnly %s -- -z \"%s\""
+           (scala/find-spec-name-with-package-current-buffer)
+           (scala/find-nearest-spec-describe-current-buffer))))
+
+(defun scala/find-spec-name-with-package-current-buffer ()
+  "Find spec name with package in current buffer."
+  (interactive)
   (let* ((package-name (scala/find-package-name-current-buffer))
-         (spec-name (scala/find-spec-name-current-buffer))
-         (spec-name-with-package
-          (if (string= package-name "")
-              spec-name
-            (format "%s.%s" package-name spec-name))))
-    (sbt-command (format "testOnly %s" spec-name-with-package))))
+         (spec-name (scala/find-spec-name-current-buffer)))
+    (if (string= package-name "")
+        spec-name
+      (format "%s.%s" package-name spec-name))))
 
 (defun scala/find-package-name-current-buffer ()
   "Find package name in current buffer"
@@ -73,6 +85,14 @@
       (when (re-search-backward "^class \\([^ ]+Spec\\) " nil t)
         (setq matched-spec-name (match-string 1))))
     matched-spec-name))
+
+(defun scala/find-nearest-spec-describe-current-buffer ()
+  (interactive)
+  (let* ((matched-describe-name ""))
+    (save-excursion
+      (when (re-search-backward "\\bdescribe(\"\\([^\"]+\\\)\")" nil t)
+        (setq matched-describe-name (match-string 1))))
+    matched-describe-name))
 
 (defun shibayu36/scala-mode-hook ()
   (setq scala-indent:use-javadoc-style t))
@@ -103,3 +123,4 @@
 (define-key scala-mode-map (kbd "<") (smartchr '("<" " <- ")))
 (define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
 (define-key scala-mode-map (kbd "C-c C-t") 'sbt/test-only-current-spec)
+(define-key scala-mode-map (kbd "C-c t") 'sbt/test-only-current-describe)

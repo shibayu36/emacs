@@ -30,12 +30,6 @@
  '(ensime-errline-highlight ((t (:inherit flycheck-error))))
  '(ensime-warnline-highlight ((t (:inherit flycheck-warning)))))
 
-(define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
-(define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
-(define-key scala-mode-map (kbd ",") (smartchr '("," " => " " -> ")))
-(define-key scala-mode-map (kbd "<") (smartchr '("<" " <- ")))
-(define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
-
 ;;; ensimeのタグジャンプを使うようにする
 (defun scala/use-ensime-definition-jump ()
   (interactive)
@@ -97,3 +91,11 @@
       (regexp . "\\(\\s-*\\)=>")
       (repeat . t)
       (modes  . '(scala-mode))))))
+
+;;; Key bindings
+(define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
+(define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
+(define-key scala-mode-map (kbd ",") (smartchr '("," " => " " -> ")))
+(define-key scala-mode-map (kbd "<") (smartchr '("<" " <- ")))
+(define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
+(define-key scala-mode-map (kbd "C-c C-t") 'sbt/test-only-current-spec)

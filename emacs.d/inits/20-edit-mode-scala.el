@@ -2,6 +2,9 @@
 (require 'scala-mode)
 (require 'sbt-mode)
 
+;;; Use popwin for sbt-mode
+(push '("\*sbt\*" :regexp t :height 0.5 :stick t) popwin:special-display-config)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;; ensime settings ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;

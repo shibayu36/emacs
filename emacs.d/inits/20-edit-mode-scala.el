@@ -93,6 +93,7 @@
       (modes  . '(scala-mode))))))
 
 ;;; Key bindings
+(define-key ensime-mode-map (kbd "C-c C-t") nil) ;; Remove ensime prefix bindings
 (define-key scala-mode-map (kbd "C-x C-j") 'open-by-intellij)
 (define-key scala-mode-map (kbd "M-t") 'ensime-type-at-point-full-name)
 (define-key scala-mode-map (kbd ",") (smartchr '("," " => " " -> ")))

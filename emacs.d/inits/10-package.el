@@ -134,6 +134,8 @@
     avy
 
     anything-exuberant-ctags
+
+    helm-c-yasnippet
     )
   "A list of packages to install from MELPA at launch.")
 

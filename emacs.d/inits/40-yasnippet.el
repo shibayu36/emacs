@@ -1,5 +1,6 @@
 ;;初期設定
 (require 'yasnippet)
+(require 'helm-c-yasnippet)
 
 (setq yas-snippet-dirs
       (list

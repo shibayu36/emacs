@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: dump
+# name: dump
+# binding: C-c C-d
+# --
+fmt.Printf("%v\n", $0)

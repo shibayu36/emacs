@@ -10,22 +10,13 @@
 (setq company-minimum-prefix-length 1)
 (setq company-selection-wrap-around t)
 
-(set-face-attribute 'company-tooltip nil
-                    :foreground "black"
-                    :background "lightgray")
-(set-face-attribute 'company-preview-common nil
-                    :foreground "dark gray"
-                    :background "black"
-                    :underline t)
-(set-face-attribute 'company-tooltip-selection nil
-                    :background "steelblue"
-                    :foreground "white")
-(set-face-attribute 'company-tooltip-common nil
-                    :foreground "black"
-                    :underline t)
-(set-face-attribute 'company-tooltip-common-selection nil
-                    :foreground "white"
-                    :background "steelblue"
-                    :underline t)
-(set-face-attribute 'company-tooltip-annotation nil
-                    :foreground "red")
+(copy-face 'popup-menu-face 'company-tooltip)
+(copy-face 'popup-menu-face 'company-tooltip-common)
+(copy-face 'popup-menu-selection-face 'company-tooltip-selection)
+(copy-face 'popup-menu-selection-face 'company-tooltip-common-selection)
+(copy-face 'popup-menu-summary-face 'company-tooltip-annotation)
+(copy-face 'popup-menu-selection-face 'company-tooltip-annotation-selection)
+(copy-face 'popup-scroll-bar-background-face 'company-scrollbar-bg)
+(copy-face 'popup-scroll-bar-foreground-face 'company-scrollbar-fg)
+(copy-face 'ac-completion-face 'company-preview)
+(copy-face 'ac-completion-face 'company-preview-common)

@@ -92,7 +92,7 @@
 (define-key global-map (kbd "C-c l") 'org-store-link)
 
 ;;; yasnippet
-(global-set-key (kbd "C-c y") 'yas-insert-snippet)
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
 
 ;;; lisp mode用
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
@@ -140,10 +140,6 @@
 ;;; highlight-symbol
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
-
-;;; go-mode-map
-(define-key go-mode-map (kbd "C-c C-d") 'my/helm-go)
-(define-key go-mode-map (kbd "C-@") 'godef-jump-other-window)
 
 (global-set-key (kbd "C-x C-d") 'open-default-directory-on-iterm)
 

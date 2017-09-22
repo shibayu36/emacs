@@ -28,6 +28,10 @@
 ;;; flycheck
 (add-hook 'go-mode-hook 'flycheck-mode)
 
+;;; go-mode-map
+(define-key go-mode-map (kbd "C-x C-h") 'my/helm-go)
+(define-key go-mode-map (kbd "C-@") 'godef-jump-other-window)
+
 ;;; auto import
 (setq gofmt-command "goimports")
 ;; (add-hook 'before-save-hook 'gofmt-before-save)

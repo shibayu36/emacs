@@ -35,3 +35,14 @@
 ;;; auto import
 (setq gofmt-command "goimports")
 ;; (add-hook 'before-save-hook 'gofmt-before-save)
+
+(defun shibayu36/go-mode-hook ()
+  ;; golangではハードタブを可視化しない
+  (setq whitespace-style
+      '(face
+        trailing
+        spaces
+        space-mark))
+  ;; タブ幅を2に
+  (setq tab-width 2))
+(add-hook 'go-mode-hook 'shibayu36/go-mode-hook)

@@ -76,8 +76,8 @@
 (global-set-key (kbd "M-SPC") 'expand-abbrev)
 
 ;; point-undo
-(define-key global-map (kbd "<f7>") 'point-undo)
-(define-key global-map (kbd "S-<f7>") 'point-redo)
+(define-key global-map (kbd "C-7") 'point-undo)
+(define-key global-map (kbd "M-7") 'point-redo)
 
 ;; redo
 (global-set-key "\M-/" 'redo)

@@ -34,7 +34,7 @@
 
 ;;; auto import
 (setq gofmt-command "goimports")
-;; (add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 (defun shibayu36/go-mode-hook ()
   ;; golangではハードタブを可視化しない

@@ -136,6 +136,8 @@
     anything-exuberant-ctags
 
     helm-c-yasnippet
+
+    flycheck-gometalinter
     )
   "A list of packages to install from MELPA at launch.")
 

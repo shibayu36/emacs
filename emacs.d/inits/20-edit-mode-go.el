@@ -24,6 +24,10 @@
   (helm :sources '(my/helm-go-source) :buffer "*helm go*"))
 
 ;;; flycheck
+(require 'flycheck-gometalinter)
+(flycheck-gometalinter-setup)
+(setq flycheck-gometalinter-fast t) ;; only run fast linters
+(setq flycheck-gometalinter-test t) ;; use in tests files
 (add-hook 'go-mode-hook 'flycheck-mode)
 
 ;;; go-mode-map

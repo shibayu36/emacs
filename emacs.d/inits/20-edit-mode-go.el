@@ -1,8 +1,6 @@
 (require 'go-mode)
 
-(eval-after-load "go-mode"
-  '(progn
-     (require 'go-autocomplete)))
+(require 'go-autocomplete)
 
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)

@@ -38,6 +38,10 @@
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
+(require 'gotest)
+(setq go-test-verbose t)
+(push '("\*Go Test\*" :regexp t :height 0.5 :stick t) popwin:special-display-config)
+
 (defun shibayu36/go-mode-hook ()
   ;; golangではハードタブを可視化しない
   (setq whitespace-style
@@ -48,3 +52,7 @@
   ;; タブ幅を2に
   (setq tab-width 2))
 (add-hook 'go-mode-hook 'shibayu36/go-mode-hook)
+
+;;; Key bindings
+(define-key go-mode-map (kbd "C-c C-t") 'go-test-current-file)
+(define-key go-mode-map (kbd "C-c t") 'go-test-current-test)

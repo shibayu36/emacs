@@ -138,6 +138,7 @@
     helm-c-yasnippet
 
     flycheck-gometalinter
+    gotest
     )
   "A list of packages to install from MELPA at launch.")
 

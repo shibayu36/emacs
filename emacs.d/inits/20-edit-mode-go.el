@@ -44,6 +44,7 @@
 
 (defun shibayu36/go-mode-hook ()
   ;; golangではハードタブを可視化しない
+  (make-local-variable 'whitespace-style)
   (setq whitespace-style
       '(face
         trailing

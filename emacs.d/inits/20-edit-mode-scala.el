@@ -95,7 +95,10 @@
     matched-describe-name))
 
 (defun shibayu36/scala-mode-hook ()
-  (setq scala-indent:use-javadoc-style t))
+  (setq scala-indent:use-javadoc-style t)
+  (flycheck-mode t)
+  ;; (flycheck-scala-sbt-init)
+  )
 (add-hook 'scala-mode-hook 'shibayu36/scala-mode-hook)
 
 ;;; scalaでのalignルール

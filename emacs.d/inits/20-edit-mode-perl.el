@@ -15,7 +15,7 @@
 (setq cperl-hairy nil)
 
 (require 'plenv)
-(plenv-global "5.14.2")
+;; (plenv-global "5.14.2")
 
 (setq cperl-indent-level 4
       cperl-continued-statement-offset 4

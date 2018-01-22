@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: test-method
+# name: test-method
+# binding: C-c C-c C-t
+# --
+func Test${1:Method}(t *testing.T) {
+	$0
+}

@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# key: main
+# name: main
+# binding: C-c C-c C-m
+# --
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	$0
+}

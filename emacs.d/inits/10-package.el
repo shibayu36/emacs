@@ -139,6 +139,7 @@
 
     flycheck-gometalinter
     gotest
+    go-rename
     )
   "A list of packages to install from MELPA at launch.")
 

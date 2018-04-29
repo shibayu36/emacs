@@ -50,5 +50,4 @@
   (interactive)
   (let* ((rev-at-line (vc-annotate-extract-revision-at-line))
          (rev (car rev-at-line)))
-    (print rev)
     (shell-command (concat "open-pr-from-commit " rev))))

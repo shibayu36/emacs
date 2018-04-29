@@ -42,3 +42,13 @@
 
 (require 'gitconfig-mode)
 (require 'gitignore-mode)
+
+(require 'vc-annotate)
+
+;; vc-annotateで現在の行がmergeされたPRを開く
+(defun vc-annotate-open-pr-at-line ()
+  (interactive)
+  (let* ((rev-at-line (vc-annotate-extract-revision-at-line))
+         (rev (car rev-at-line)))
+    (print rev)
+    (shell-command (concat "open-pr-from-commit " rev))))

@@ -86,7 +86,7 @@
 (global-set-key "\C-cc" 'quickrun-with-arg)
 
 ;;; auto-complete
-(define-key global-map (kbd "<C-tab>") 'ac-fuzzy-complete)
+;; (define-key global-map (kbd "<C-tab>") 'ac-fuzzy-complete)
 
 ;;; org-mode用
 (define-key global-map (kbd "C-c l") 'org-store-link)

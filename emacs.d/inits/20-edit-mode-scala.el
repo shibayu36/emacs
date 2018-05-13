@@ -115,6 +115,11 @@
   )
 (add-hook 'scala-mode-hook 'shibayu36/scala-mode-hook)
 
+(defun shibayu36/ensime-mode-hook ()
+  ;; save時にensimeのtypecheckを行わないように
+  (remove-hook 'ensime-source-buffer-saved-hook 'ensime-typecheck-current-buffer))
+(add-hook 'ensime-mode-hook 'shibayu36/ensime-mode-hook)
+
 ;;; scalaでのalignルール
 (add-hook
  'align-load-hook

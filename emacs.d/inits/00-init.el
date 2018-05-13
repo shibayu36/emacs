@@ -77,7 +77,7 @@
 (defvar kmacro-save-file (locate-user-emacs-file "inits/70-mymacros.el"))
 
 ;;; debug用
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 ;;; symlinkは必ず追いかける
 (setq vc-follow-symlinks t)

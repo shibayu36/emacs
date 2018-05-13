@@ -155,3 +155,6 @@
 
 ;; avy
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
+
+;; vc-annotate
+(define-key vc-annotate-mode-map (kbd "P") 'vc-annotate-open-pr-at-line)

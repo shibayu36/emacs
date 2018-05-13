@@ -21,7 +21,10 @@
                :pkgname "emacsmirror/auto-highlight-symbol")
         (:name auto-programming
                :type github
-               :pkgname "hitode909/emacs-auto-programming")))
+               :pkgname "hitode909/emacs-auto-programming")
+        (:name flycheck-scala-sbt
+               :type github
+               :pkgname "syohex/flycheck-scala-sbt")))
 
 ;; Packages to install from el-get
 (defvar my/el-get-packages
@@ -38,6 +41,7 @@
     auto-highlight-symbol
     auto-programming
     with-eval-after-load-feature
+    flycheck-scala-sbt
     )
   "A list of packages to install from el-get at launch.")
 

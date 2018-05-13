@@ -59,6 +59,20 @@
            (scala/find-spec-name-with-package-current-buffer)
            (scala/find-nearest-spec-describe-current-buffer))))
 
+(defun scala/copy-test-only-current-describe ()
+  "Copy current describe test to kill ring"
+  (interactive)
+  (kill-new
+   (format "testOnly %s -- -z \"%s\""
+           (scala/find-spec-name-with-package-current-buffer)
+           (scala/find-nearest-spec-describe-current-buffer))))
+
+(defun scala/copy-test-only-current-spec ()
+  "Copy current spec to kill ring"
+  (interactive)
+  (kill-new
+   (format "testOnly %s" (scala/find-spec-name-with-package-current-buffer))))
+
 (defun scala/find-spec-name-with-package-current-buffer ()
   "Find spec name with package in current buffer."
   (interactive)
@@ -125,5 +139,5 @@
 (define-key scala-mode-map (kbd ",") (smartchr '("," " => " " -> ")))
 (define-key scala-mode-map (kbd "<") (smartchr '("<" " <- ")))
 (define-key scala-mode-map (kbd "C-c C-c C-u") 'scala/popup-on-last-import)
-(define-key scala-mode-map (kbd "C-c C-t") 'sbt/test-only-current-spec)
-(define-key scala-mode-map (kbd "C-c t") 'sbt/test-only-current-describe)
+(define-key scala-mode-map (kbd "C-c C-t") 'scala/copy-test-only-current-spec)
+(define-key scala-mode-map (kbd "C-c t") 'scala/copy-test-only-current-describe)

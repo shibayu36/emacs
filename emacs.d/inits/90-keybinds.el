@@ -141,7 +141,7 @@
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
-(global-set-key (kbd "C-x C-d") 'open-default-directory-on-iterm)
+(global-set-key (kbd "C-x C-d") 'dash-at-point)
 
 ;;; goto-last-change
 (define-key global-map (kbd "<f8>") 'goto-last-change)

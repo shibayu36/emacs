@@ -1,4 +1,4 @@
-(require 'python-mode)
+(require 'python)
 (setq auto-mode-alist (cons '("\\.py\\'" . python-mode) auto-mode-alist))
 
 (require 'jedi)

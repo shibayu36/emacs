@@ -1,4 +1,5 @@
 (require 'company)
+(require 'popup)
 ;; (global-company-mode +1)
 
 (define-key company-active-map (kbd "M-n") nil)
@@ -13,7 +14,7 @@
 
 (setq company-minimum-prefix-length 1)
 (setq company-selection-wrap-around t)
-(setq company-idle-delay 0.2)
+(setq company-idle-delay 0.3)
 
 (copy-face 'popup-menu-face 'company-tooltip)
 (copy-face 'popup-menu-face 'company-tooltip-common)

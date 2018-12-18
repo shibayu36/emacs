@@ -111,8 +111,6 @@
 
     codic
 
-    ensime
-
     noflet
 
     typescript-mode
@@ -140,6 +138,12 @@
     flycheck-gometalinter
     gotest
     go-rename
+
+    use-package
+
+    lua-mode
+
+    lsp-mode
     )
   "A list of packages to install from MELPA at launch.")
 
@@ -147,3 +151,7 @@
 (dolist (package my/packages)
   (when (or (not (package-installed-p package)))
     (package-install package)))
+
+(use-package ensime
+  :ensure t
+  :pin melpa-stable)

@@ -12,8 +12,6 @@
  '(cperl-array-face ((t (:foreground "yellow" :weight bold))))
  '(cperl-hash-face ((t (:foreground "Red" :weight bold)))))
 
-(setq cperl-hairy nil)
-
 (require 'plenv)
 ;; (plenv-global "5.14.2")
 
@@ -25,7 +23,9 @@
       cperl-indent-parens-as-block t
       cperl-label-offset -4
       cperl-tab-always-indent nil
-      cperl-font-lock t)
+      cperl-font-lock t
+      cperl-hairy nil
+      cperl-electric-parens nil)
 
 (add-hook 'cperl-mode-hook
           '(lambda ()

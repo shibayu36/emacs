@@ -1,5 +1,9 @@
 ;; default mode is text mode
 (setq major-mode 'text-mode)
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (company-mode -1)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;mmmモード;;;;;;;;;;;;;;;;;;;;
@@ -82,3 +86,5 @@
 
 ;;; graphviz dot mode
 (require 'graphviz-dot-mode)
+
+(require 'lua-mode)

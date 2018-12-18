@@ -31,6 +31,12 @@
     (dired-mark arg)
     (dired-previous-line 1)))
 
+(put 'dired-find-alternate-file 'disabled nil)
+;; RET 標準の dired-find-file では dired バッファが複数作られるので
+;; dired-find-alternate-file を代わりに使う
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+(define-key dired-mode-map (kbd "a") 'dired-find-file)
+
 ;;diredで新しいバッファを作成しない
 (defun dired-my-advertised-find-file ()
   (interactive)
@@ -79,6 +85,11 @@ Creates a buffer if necessary."
           (setq dired-actual-switches sw)
           (dired-sort-other dired-actual-switches)))
     ))
+
+;;; for dired
+(define-key dired-mode-map "\C-m" 'dired-my-advertised-find-file)
+(define-key dired-mode-map "^" 'dired-my-up-directory)
+(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 ;;ディレクトリを最初に表示する
 (setq insert-directory-program "gls")

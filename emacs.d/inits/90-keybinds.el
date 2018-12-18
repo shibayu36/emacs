@@ -98,11 +98,6 @@
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
 (define-key emacs-lisp-mode-map (kbd "L") (smartchr '("L" " ; => ")))
 
-;;; for dired
-(define-key dired-mode-map "\C-m" 'dired-my-advertised-find-file)
-(define-key dired-mode-map "^" 'dired-my-up-directory)
-(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
-
 ;;; isearch-mode
 (define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 (define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)

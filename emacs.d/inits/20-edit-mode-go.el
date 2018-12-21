@@ -45,6 +45,11 @@
 (push '("\*Go Test\*" :regexp t :height 0.5 :stick t) popwin:special-display-config)
 
 ;;; lsp-mode
+;; (lsp-register-client
+;;  (make-lsp-client :new-connection (lsp-stdio-connection '("bingo" "--mode" "stdio" "--logfile" "/tmp/lspserver.log" "--trace" "--pprof" ":6060"))
+;;                   :major-modes '(go-mode)
+;;                   :server-id 'bingo))
+
 (add-hook 'go-mode-hook 'lsp)
 
 (defun shibayu36/go-mode-hook ()

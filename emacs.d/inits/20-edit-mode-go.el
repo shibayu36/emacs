@@ -1,14 +1,14 @@
 (require 'go-mode)
 
-;; (require 'go-autocomplete)
+(require 'go-autocomplete)
 
 (require 'go-rename)
 
-;; (require 'go-eldoc)
-;; (add-hook 'go-mode-hook 'go-eldoc-setup)
-;; (set-face-attribute 'eldoc-highlight-function-argument nil
-;;                     :underline t :foreground "green"
-;;                     :weight 'bold)
+(require 'go-eldoc)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+(set-face-attribute 'eldoc-highlight-function-argument nil
+                    :underline t :foreground "green"
+                    :weight 'bold)
 
 ;;; helm-doc
 (defvar my/helm-go-source
@@ -50,7 +50,7 @@
 ;;                   :major-modes '(go-mode)
 ;;                   :server-id 'bingo))
 
-(add-hook 'go-mode-hook 'lsp)
+;; (add-hook 'go-mode-hook 'lsp)
 
 (defun shibayu36/go-mode-hook ()
   ;; golangではハードタブを可視化しない
@@ -62,11 +62,12 @@
         space-mark))
   ;; タブ幅を2に
   (setq tab-width 2)
-  ;; company-mode利用
-  (auto-complete-mode -1)
-  (company-mode +1)
+  ;; company-mode利用。go-lsp導入しようとしたらこの辺必要
+  ;; (auto-complete-mode -1)
+  ;; (company-mode +1)
   ;; company補完はlspを利用する
-  (setq-local company-backends '(company-lsp)))
+  ;; (setq-local company-backends '(company-lsp))
+  )
 (add-hook 'go-mode-hook 'shibayu36/go-mode-hook)
 
 ;;; Key bindings

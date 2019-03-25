@@ -153,3 +153,7 @@
 
 ;; vc-annotate
 (define-key vc-annotate-mode-map (kbd "P") 'vc-annotate-open-pr-at-line)
+
+;;; profiler
+(global-set-key (kbd "C-c p s") 'profiler-start)
+(global-set-key (kbd "C-c p r") 'profiler-report)

@@ -96,8 +96,6 @@
 
     rbenv
 
-    smart-mode-line
-
     helm-perldoc
 
     gitconfig-mode

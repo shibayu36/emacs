@@ -157,3 +157,6 @@
 ;;; profiler
 (global-set-key (kbd "C-c p s") 'profiler-start)
 (global-set-key (kbd "C-c p r") 'profiler-report)
+
+;;; vscode
+(define-key global-map (kbd "C-c C-v") 'open-by-vscode)

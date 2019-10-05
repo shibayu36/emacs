@@ -123,6 +123,15 @@
            (buffer-file-name)))
   (shell-command "open -a /Applications/IntelliJ\\ IDEA\\ CE.app"))
 
+;;; 現在のファイルをvscodeで開く
+(defun open-by-vscode ()
+  (interactive)
+  (shell-command
+   (format "code -r -g %s:%d:%d"
+           (buffer-file-name)
+           (line-number-at-pos)
+           (current-column))))
+
 ;;; debug用
 (defmacro d (expr)
  `(let ((_var (eval ',expr)))

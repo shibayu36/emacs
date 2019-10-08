@@ -24,3 +24,6 @@
       (regexp . ":\\(\\s-*\\)")
       (repeat . t)
       (modes  . '(js2-mode))))))
+
+;;; flow
+(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)

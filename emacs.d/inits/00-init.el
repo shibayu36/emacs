@@ -56,8 +56,8 @@
 ;;タブの代わりに半角スペースを使う
 (setq-default tab-width 4 indent-tabs-mode nil)
 
-;;;GCを減らして軽くする
-(setq gc-cons-threshold (* 10 gc-cons-threshold))
+;;; GCを減らして軽くする
+;;; (setq gc-cons-threshold (* 10 gc-cons-threshold))
 
 ;;ログの記録行数を増やす
 (setq message-log-max 10000)

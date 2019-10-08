@@ -142,6 +142,8 @@
     lua-mode
 
     lsp-mode
+
+    flow-minor-mode
     )
   "A list of packages to install from MELPA at launch.")
 

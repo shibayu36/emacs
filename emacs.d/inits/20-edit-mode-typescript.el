@@ -7,8 +7,8 @@
 
 (require 'tide)
 (with-eval-after-load 'tide
-  (define-key typescript-mode-map (kbd "C-@") 'tide-jump-to-definition)
-  (define-key typescript-mode-map (kbd "M-@") 'tide-jump-back))
+  (define-key tide-mode-map (kbd "C-@") 'tide-jump-to-definition)
+  (define-key tide-mode-map (kbd "M-@") 'tide-jump-back))
 
 (defun run-js-mocha-describe-test ()
   (interactive)
@@ -47,14 +47,38 @@
       (repeat . t)
       (modes  . '(typescript-mode))))))
 
-(add-hook 'typescript-mode-hook
+(defun shibayu36/typescript-mode-hook ()
+  (tide-setup)
+  (flycheck-mode t)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode t)
+  (company-mode-on)
+  (local-set-key (kbd "C-c t") 'run-js-mocha-describe-test))
+
+(add-hook 'typescript-mode-hook 'shibayu36/typescript-mode-hook)
+
+;;; tsxの設定
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(custom-set-faces
+ '(web-mode-doctype-face           ((t (:foreground "#4A8ACA"))))
+ '(web-mode-html-tag-face          ((t (:foreground "#4A8ACA"))))
+ '(web-mode-html-tag-bracket-face  ((t (:foreground "#4A8ACA"))))
+ '(web-mode-html-attr-name-face    ((t (:foreground "#87CEEB"))))
+ '(web-mode-html-attr-equal-face   ((t (:foreground "#FFFFFF"))))
+ '(web-mode-html-attr-value-face   ((t (:foreground "#D78181"))))
+
+ '(web-mode-css-at-rule-face       ((t (:foreground "#DFCF44"))))
+ '(web-mode-css-selector-face      ((t (:foreground "#DFCF44"))))
+ '(web-mode-css-pseudo-class       ((t (:foreground "#DFCF44"))))
+ '(web-mode-css-property-name-face ((t (:foreground "#87CEEB"))))
+ '(web-mode-css-string-face        ((t (:foreground "#D78181")))))
+
+(add-hook 'web-mode-hook
           (lambda ()
-            (tide-setup)
-            (flycheck-mode t)
-            (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            (eldoc-mode t)
-            (company-mode-on)
-            (local-set-key (kbd "C-c t") 'run-js-mocha-describe-test)))
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (shibayu36/typescript-mode-hook)
+              (local-set-key (kbd "C-c t") 'run-js-mocha-describe-test)
+              )))
 
 ;;; typescriptでのコンパイルルール
 ;; (require 'compile)

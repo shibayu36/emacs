@@ -35,6 +35,7 @@
 ;;; go-mode-map
 (define-key go-mode-map (kbd "C-x C-h") 'my/helm-go)
 (define-key go-mode-map (kbd "C-@") 'godef-jump-other-window)
+(define-key go-mode-map (kbd "M-t") 'godef-describe)
 
 ;;; auto import
 (setq gofmt-command "goimports")

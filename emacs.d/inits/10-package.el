@@ -144,6 +144,8 @@
     lsp-mode
 
     flow-minor-mode
+
+    graphql-mode
     )
   "A list of packages to install from MELPA at launch.")
 

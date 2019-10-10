@@ -88,3 +88,6 @@
 (require 'graphviz-dot-mode)
 
 (require 'lua-mode)
+
+(require 'graphql-mode)
+(setq graphql-indent-level 4)

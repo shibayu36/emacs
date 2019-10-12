@@ -1,6 +1,6 @@
 (require 'go-mode)
 
-(require 'go-autocomplete)
+(add-hook 'go-mode-hook #'lsp)
 
 (require 'go-rename)
 
@@ -34,7 +34,8 @@
 
 ;;; go-mode-map
 (define-key go-mode-map (kbd "C-x C-h") 'my/helm-go)
-(define-key go-mode-map (kbd "C-@") 'godef-jump-other-window)
+(define-key go-mode-map (kbd "C-@") 'godef-jump)
+(define-key go-mode-map (kbd "M-@") 'pop-tag-mark)
 (define-key go-mode-map (kbd "M-t") 'godef-describe)
 
 ;;; auto import
@@ -64,10 +65,10 @@
   ;; タブ幅を2に
   (setq tab-width 2)
   ;; company-mode利用。go-lsp導入しようとしたらこの辺必要
-  ;; (auto-complete-mode -1)
-  ;; (company-mode +1)
+  (auto-complete-mode -1)
+  (company-mode +1)
   ;; company補完はlspを利用する
-  ;; (setq-local company-backends '(company-lsp))
+  (setq-local company-backends '(company-lsp))
   )
 (add-hook 'go-mode-hook 'shibayu36/go-mode-hook)
 

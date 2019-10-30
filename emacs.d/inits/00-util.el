@@ -8,13 +8,6 @@
     (shell-command-to-string "git rev-parse --is-inside-work-tree"))
    "true"))
 
-(defun git-root-directory ()
-  (cond ((git-project-p)
-         (chomp
-          (shell-command-to-string "git rev-parse --show-toplevel")))
-        (t
-         "")))
-
 (defun git-cdup ()
   (cond ((git-project-p)
          (chomp

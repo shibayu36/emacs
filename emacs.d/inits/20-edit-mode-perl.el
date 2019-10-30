@@ -49,11 +49,11 @@
                           line-end))
   :modes (cperl-mode))
 
-(add-hook 'cperl-mode-hook
-          (lambda ()
-            (flycheck-mode t)
-            (setq flycheck-checker 'perl-project-libs)
-            (setq flycheck-perl-include-path `(,(git-root-directory)))))
+(defun shibayu36/cperl-mode-flycheck-hook ()
+  (flycheck-mode t)
+  (setq flycheck-checker 'perl-project-libs)
+  (setq flycheck-perl-include-path `(,(magit-toplevel))))
+(add-hook 'cperl-mode-hook 'shibayu36/cperl-mode-flycheck-hook)
 
 ;; テスト実行用
 (defun run-perl-method-test ()

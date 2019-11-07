@@ -58,7 +58,7 @@
 ;; テスト実行用
 (defun run-perl-method-test ()
   (interactive)
-  (let ((topdir (vc-root-dir))
+  (let ((topdir (magit-toplevel))
         (test-method nil))
     (save-excursion
       (when (or
@@ -80,14 +80,14 @@
 
 (defun run-perl-test ()
   (interactive)
-  (let* ((topdir (vc-root-dir)))
+  (let* ((topdir (magit-toplevel)))
     (quickrun :source `((:command . "prove")
                         (:default-directory . ,topdir)
                         (:exec . ("PERL5LIB=lib:local/lib/perl5:t/lib:$PERL5LIB %c -bv --color %s"))))))
 
 (defun check-perl-used-modules ()
   (interactive)
-  (let* ((topdir (vc-root-dir)))
+  (let* ((topdir (magit-toplevel)))
     (quickrun :source `((:command . "perl")
                         (:default-directory . ,topdir)
                         (:exec . ("PERL5LIB=lib:local/lib/perl5:$PERL5LIB %c -MTest::UsedModules -MTest::More -e 'used_modules_ok(\"%s\");done_testing()'"))))))

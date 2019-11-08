@@ -92,6 +92,14 @@
                         (:default-directory . ,topdir)
                         (:exec . ("PERL5LIB=lib:local/lib/perl5:$PERL5LIB %c -MTest::UsedModules -MTest::More -e 'used_modules_ok(\"%s\");done_testing()'"))))))
 
+(defun run-perltidy ()
+  (interactive)
+  (let* ((topdir (magit-toplevel))
+         (file (buffer-file-name (current-buffer))))
+    (quickrun :source `((:command . "carton exec -- perltidy")
+                        (:default-directory . ,topdir)
+                        (:exec . (,(concat "%c -b -bext=/ " file)))))))
+
 ;; 現在の位置のmodule名のuseを書くためにpopupする
 (defun popup-editor-perl-use ()
   (interactive)
@@ -129,4 +137,5 @@
                (local-set-key (kbd "J") (smartchr '("J" "->")))
                (local-set-key [(meta t)] 'hatena-translator:popup-msgid-at-point)
                (local-set-key [(meta T)] 'hatena-translator:open-msgid-at-point)
-               (local-set-key (kbd "C-c d") 'helm-perldoc))))
+               (local-set-key (kbd "C-c d") 'helm-perldoc)
+               (local-set-key (kbd "C-c C-p") 'run-perltidy))))

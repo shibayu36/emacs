@@ -90,4 +90,5 @@
 (require 'lua-mode)
 
 (require 'graphql-mode)
-(setq graphql-indent-level 4)
+(setq graphql-indent-level 2)
+(add-to-list 'auto-mode-alist '("gql$" . graphql-mode))

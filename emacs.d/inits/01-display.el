@@ -45,8 +45,8 @@
 (setq echo-keystrokes 0.1)
 
 ;; 行番号・桁番号を表示
-(line-number-mode 1)
-(column-number-mode 1)
+(line-number-mode 0)
+;; (column-number-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 編集行を目立たせる（現在行をハイライト表示する）

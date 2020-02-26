@@ -22,5 +22,3 @@
      (if asciip "en" "ja")
      (if asciip "ja" "en")
      string)))
-
-(push '("\*Google Translate\*" :height 0.5 :stick t) popwin:special-display-config)

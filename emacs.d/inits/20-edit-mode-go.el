@@ -44,7 +44,6 @@
 
 (require 'gotest)
 (setq go-test-verbose t)
-(push '("\*Go Test\*" :regexp t :height 0.5 :stick t) popwin:special-display-config)
 
 ;;; lsp-mode
 ;; (lsp-register-client

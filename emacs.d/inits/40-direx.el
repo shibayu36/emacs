@@ -1,7 +1,5 @@
 (require 'direx)
 (require 'direx-project)
-(push '(direx:direx-mode :position left :width 0.3 :dedicated t)
-      popwin:special-display-config)
 
 (defun direx:jump-to-git-project-directory ()
   (interactive)

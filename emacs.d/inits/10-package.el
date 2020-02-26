@@ -146,6 +146,8 @@
     flow-minor-mode
 
     graphql-mode
+
+    shackle
     )
   "A list of packages to install from MELPA at launch.")
 

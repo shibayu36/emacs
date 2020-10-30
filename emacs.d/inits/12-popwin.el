@@ -1,4 +1,4 @@
-;; (require 'popwin)
+(require 'popwin)
 ;; (popwin-mode 0)
 
 ;; (setq pop-up-windows nil)

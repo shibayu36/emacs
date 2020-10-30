@@ -27,7 +27,6 @@
     open-junk-file
     paredit
     point-undo
-    popwin
     quickrun
     redo+
     undo-tree
@@ -148,6 +147,11 @@
     graphql-mode
 
     shackle
+
+    exec-path-from-shell
+    company-lsp
+    google-translate
+    bm
     )
   "A list of packages to install from MELPA at launch.")
 

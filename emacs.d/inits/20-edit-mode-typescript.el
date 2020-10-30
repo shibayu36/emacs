@@ -53,6 +53,7 @@
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode t)
   (company-mode-on)
+  (setq  typescript-indent-level 2)
   (local-set-key (kbd "C-c t") 'run-js-mocha-describe-test))
 
 (add-hook 'typescript-mode-hook 'shibayu36/typescript-mode-hook)

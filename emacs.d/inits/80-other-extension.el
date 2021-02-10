@@ -37,7 +37,7 @@
 
 ;; 使い捨てファイルを開けるように
 (require 'open-junk-file)
-(setq open-junk-file-format "~/junk/%Y-%m-%d-%H%M%S.")
+(setq open-junk-file-format "~/Dropbox/development/junk/%Y-%m-%d-%H%M%S.")
 
 ;; diffの設定
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)

@@ -12,10 +12,13 @@
 /tramp
 /shellenv.el
 /.bm-repository
-/elisp/el-get/
-/elisp/elpa/
+/elisp/el-get
+/elisp/elpa
 /.mc-lists.el
 /.cask/
 /ensime/
 /.python-environments/
 /meghanada/
+/recentf
+/migemo-pattern
+/transient

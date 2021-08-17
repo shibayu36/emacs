@@ -9,7 +9,7 @@
 ;; Packages to install from ELPA and MELPA
 (defvar my/packages
   '(
-    anything
+    ;; anything
     auto-complete
     color-moccur
     elscreen
@@ -21,9 +21,9 @@
     helm-descbinds
     htmlize
     init-loader
-    jaunte
+    ;; jaunte
     magit
-    org
+    ;; org
     open-junk-file
     paredit
     point-undo
@@ -128,7 +128,7 @@
 
     avy
 
-    anything-exuberant-ctags
+    ;; anything-exuberant-ctags
 
     helm-c-yasnippet
 

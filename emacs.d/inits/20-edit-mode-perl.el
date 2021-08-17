@@ -118,7 +118,7 @@
 (require 'helm-perldoc)
 (add-hook 'cperl-mode-hook 'helm-perldoc:carton-setup)
 
-(require 'hatena-translator)
+;; (require 'hatena-translator)
 
 ;;; perl用keybind
 (add-hook 'cperl-mode-hook
